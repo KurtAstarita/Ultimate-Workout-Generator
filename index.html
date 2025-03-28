@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workout Generator</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <h2 style="text-align: center;"><span style="color: #ffa400;">DISCLAIMER LOWER ON PAGE ↓</span></h2>
+    <h1 style="text-align: center;"><u>Ultimate Full-Body Workout Generator</u></h1>
+    <p style="text-align: center;"><u>&nbsp;</u></p>
+
+    <h1 style="text-align: center;">STEP-1: Adjust your settings below and click Generate.</h1>
+    <h1 style="caret-color: rgba(0, 0, 0, 0); text-align: center;">↓↓↓</h1>
+
+    <div id="workout-planner">
+        <h3>Full-body Workout Planner/Generator (BETA 1.4)</h3>
+
+        <label>Goal:</label>
+        <select id="goal">
+            <option value="muscle">Muscle Gain</option>
+            <option value="strength">Strength Gain</option>
+            <option value="endurance">Endurance</option>
+            <option value="fatloss">Fat Loss</option>
+        </select>
+        <p style="color: white; font-size: 0.9em;">
+            <i>NOTE: "Goal" only works with "Goal Based Workout".</i>
+        </p>
+        <br>
+
+        <label>Experience Level:</label>
+        <select id="experience">
+            <option value="beginner">Beginner</option>
+            <option value="intermediate">Intermediate</option>
+            <option value="advanced">Advanced</option>
+        </select>
+        <br>
+
+        <label>Training Modality:</label>
+        <select id="modality">
+            <option value="general">Goal Based Workout</option>
+            <option value="calisthenics">Calisthenics</option>
+            <option value="powerlifting_5x5">5x5 Powerlifting</option>
+            <option value="hiit">HIIT</option>
+            <option value="circuit">Circuit Training</option>
+        </select>
+        <br>
+
+        <button id="generate-workout">Generate Workout</button>
+
+        <div id="workout-result"></div>
+        <button id="copy-workout">Copy Workout to Clipboard</button>
+    </div>
+
+    <div id="copy-message" style="background-color: white;
+        border-radius: 5px;
+        border: 1px solid rgb(178, 235, 242);
+        display: none;
+        left: 50%;
+        padding: 10px;
+        position: fixed;
+        top: 20px;
+        transform: translateX(-50%);">
+        Workout copied to clipboard!
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
