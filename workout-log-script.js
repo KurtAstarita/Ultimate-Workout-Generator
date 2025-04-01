@@ -8,65 +8,98 @@ document.addEventListener('DOMContentLoaded', function() {
 
     let entryToRemove = null;
 
-    // Function to sanitize input
-    function sanitizeInput(input) {
-        let sanitized = DOMPurify.sanitize(input);
-        sanitized = sanitized.replace(/[<>]/g, '');
-        return sanitized;
+function validateInput(inputId, type, required = false) {
+    const input = document.getElementById(inputId);
+    const value = input ? input.value : "";
+    let isValid = true;
+
+    if (required && !value) {
+        isValid = false;
+    } else if (type === 'number') {
+        if (isNaN(value) || parseFloat(value) < 0) {
+            isValid = false;
+        }
+    } else if (type === 'date' && isNaN(Date.parse(value))) {
+        isValid = false;
     }
 
-    document.getElementById("add-entry").addEventListener("click", () => {
-        const entry = document.createElement("div");
-        entry.classList.add("workout-entry");
-        entry.innerHTML = `
-            <input type="text" placeholder="Exercise">
-            <input type="number" placeholder="Set" min="1">
-            <input type="number" placeholder="Reps" min="1">
-            <input type="number" placeholder="Weight" min="0">
-            <input type="text" placeholder="Notes">
-        `;
-        workoutEntries.appendChild(entry);
-    });
+    if (!isValid && inputId) {
+        alert(`Invalid input for ${inputId}.`);
+        input.classList.add('invalid-input');
+        input.focus();
+        return false;
+    } else if (inputId) {
+        input.classList.remove('invalid-input');
+    }
+    return isValid;
+}
 
-    document.getElementById("remove-entry").addEventListener("click", () => {
-        if (workoutEntries.children.length > 1) {
-            entryToRemove = workoutEntries.lastChild;
-            confirmationDialog.style.display = "block";
-        }
-    });
+function sanitizeInput(input) {
+    let sanitized = DOMPurify.sanitize(input);
+    return sanitized.replace(/[<>]/g, '');
+}
 
-    confirmYes.addEventListener("click", () => {
-        workoutEntries.removeChild(entryToRemove);
-        confirmationDialog.style.display = "none";
-        entryToRemove = null;
-    });
+document.getElementById("add-entry").addEventListener("click", () => {
+    const entry = document.createElement("div");
+    entry.classList.add("workout-entry");
+    entry.innerHTML = `
+        <input type="text" placeholder="Exercise">
+        <input type="number" placeholder="Set" min="1">
+        <input type="number" placeholder="Reps" min="1">
+        <input type="number" placeholder="Weight" min="0">
+        <input type="text" placeholder="Notes">
+    `;
+    workoutEntries.appendChild(entry);
+});
 
-    confirmNo.addEventListener("click", () => {
-        confirmationDialog.style.display = "none";
-        entryToRemove = null;
-    });
+document.getElementById("remove-entry").addEventListener("click", () => {
+    if (workoutEntries.children.length > 1) {
+        entryToRemove = workoutEntries.lastChild;
+        confirmationDialog.style.display = "block";
+    }
+});
 
-    document.getElementById("save-workout").addEventListener("click", () => {
-        const workout = {
-            name: sanitizeInput(workoutName.value),
-            date: workoutDate.value,
-            entries: Array.from(workoutEntries.children)
-                .slice(1)
-                .map(entry =>
-                    Array.from(entry.querySelectorAll("input")).map(input =>
-                        sanitizeInput(input.value)
-                    )
-                )
-        };
+confirmYes.addEventListener("click", () => {
+    workoutEntries.removeChild(entryToRemove);
+    confirmationDialog.style.display = "none";
+    entryToRemove = null;
+});
 
-        if (!workout.name || !workout.date || workout.entries.length === 0) {
-            alert("Please complete all fields before saving.");
-            return;
-        }
+confirmNo.addEventListener("click", () => {
+    confirmationDialog.style.display = "none";
+    entryToRemove = null;
+});
 
-        localStorage.setItem("workoutLog", JSON.stringify(workout));
-        alert("Workout log saved!");
-    });
+document.getElementById("save-workout").addEventListener("click", () => {
+    if(!validateInput("workout-name", "text", true) ||
+        !validateInput("workout-date", "date", true)
+    ){
+        return;
+    }
+    const workout = {
+        name: sanitizeInput(workoutName.value),
+        date: workoutDate.value,
+        entries: Array.from(workoutEntries.children)
+            .slice(1)
+            .map(entry => {
+                const inputs = Array.from(entry.querySelectorAll("input"));
+                if(!validateInput(inputs[0].id || "", "text", true) ||
+                    !validateInput(inputs[1].id || "", "number", true) ||
+                    !validateInput(inputs[2].id || "", "number", true) ||
+                    !validateInput(inputs[3].id || "", "number", true) ||
+                    !validateInput(inputs[4].id || "", "text", false)){
+                    return null;
+                }
+                return inputs.map(input => sanitizeInput(input.value));
+            }).filter(entry => entry !== null)
+    };
+    if (!workout.name || !workout.date || workout.entries.length === 0) {
+        alert("Please complete all fields before saving.");
+        return;
+    }
+    localStorage.setItem("workoutLog", JSON.stringify(workout));
+    alert("Workout log saved!");
+});
 
     document.getElementById("load-workout").addEventListener("click", () => {
         const savedWorkout = localStorage.getItem("workoutLog");
