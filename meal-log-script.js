@@ -11,30 +11,31 @@
         return DOMPurify.sanitize(input);
     }
 
-    // Function to validate input
-    function validateInput(inputId, type, maxLength) {
-        const input = document.getElementById(inputId);
-        const value = input ? input.value : "";
-        let isValid = true;
+  // Example Improvement (Input Validation)
+function validateInput(inputId, type, maxLength, required = false) {
+    const input = document.getElementById(inputId);
+    const value = input ? input.value : "";
+    let isValid = true;
 
-        if (type === 'number') {
-            if (isNaN(value) || parseFloat(value) < 0) {
-                isValid = false;
-            }
-        } else if (type === 'text' && value.length > maxLength) {
-            isValid = false;
-        } else if (type === 'date' && isNaN(Date.parse(value))) {
+    if (required && !value) {
+        isValid = false;
+    } else if (type === 'number') {
+        if (isNaN(value) || parseFloat(value) < 0) {
             isValid = false;
         }
-
-        if (!isValid && inputId) {
-            alert(`Invalid input for ${inputId}.`);
-            input.focus();
-            return false;
-        }
-        return isValid;
+    } else if (type === 'text' && value.length > maxLength) {
+        isValid = false;
+    } else if (type === 'date' && isNaN(Date.parse(value))) {
+        isValid = false;
     }
 
+    if (!isValid && inputId) {
+        alert(`Invalid input for ${inputId}.`);
+        input.focus();
+        return false;
+    }
+    return isValid;
+}
     document.getElementById("add-meal").addEventListener("click", () => {
         const meal = document.createElement("div");
         meal.classList.add("meal-entry");
