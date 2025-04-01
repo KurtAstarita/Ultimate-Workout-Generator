@@ -844,32 +844,6 @@ workout.forEach(ex => {
 
         /* ......................................... Function: Combines Exercise Array & Generates Workout Table ................................................. */
 
-function populateExerciseTable() {
-    const tableBody = document.getElementById("exercise-table-body");
-    tableBody.innerHTML = ""; // Clear previous entries
-
-    let allExercises = [];
-    let seenExercises = new Set(); // Set to track unique exercises by name
-
-    // Collect all exercises into a single array
-    for (const category in exercises) {
-        for (const level in exercises[category]) {
-            for (const type in exercises[category][level]) {
-                const exerciseList = exercises[category][level][type];
-                if (Array.isArray(exerciseList)) {
-                    exerciseList.forEach(exercise => {
-                        const normalizedName = exercise.name.trim().toLowerCase();
-                        if (!seenExercises.has(normalizedName)) {
-                            allExercises.push(exercise);
-                            seenExercises.add(normalizedName);
-                        }
-                    });
-                } else {
-                    console.warn(`Expected an array, but found: ${typeof exerciseList} for ${category} > ${level} > ${type}`);
-                }
-            }
-        }
-    }
 
 function populateExerciseTable(exercises) {
     const exerciseTableBody = document.getElementById("exerciseTableBody");
