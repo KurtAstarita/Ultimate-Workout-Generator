@@ -72,21 +72,21 @@ button:hover {
     .branding-container {
         margin-top: 20px;
         padding: 10px 0;
-        display: flex; /* Use flexbox for layout control */
-        flex-direction: column; /* Stack text and link vertically */
-        align-items: center; /* Center items horizontally */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .branding-container a {
         font-size: 0.9em;
         padding: 6px 10px;
-        margin-left: 0; /* Remove left margin */
-        margin-top: 10px; /* Add top margin for spacing */
+        margin-left: 0;
+        margin-top: 10px;
     }
 
     .branding-container span {
         font-size: 0.9em;
-        margin-right: 0; /* Remove right margin */
+        margin-right: 0;
     }
 }
 
@@ -111,8 +111,8 @@ footer {
     text-align: center;
     padding: 20px;
     border-top: 1px solid #eee;
-    font-size: 0.9em; /* Slightly smaller font size */
-    color: #666; /* Darker grey color */
+    font-size: 0.9em;
+    color: #666;
 }
 
 footer a {
@@ -130,113 +130,69 @@ footer a {
     font-size: 0.9em;
 }
 
-/* Add styling for the workout chart generator */
+/* Workout Chart Generator Styles */
+#workout-chart-generator {
+    width: 95%; /* Adjust width for better responsiveness */
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    font-family: sans-serif;
+    box-sizing: border-box; /* Include padding and border in width */
+}
 
-        #workout-chart-generator {
-            width: 80%;
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            font-family: sans-serif;
-        }
+#paste-workout label {
+    display: block;
+    margin-top: 10px;
+}
 
-        #paste-workout label {
-            display: block;
-            margin-top: 10px;
-        }
+#paste-workout textarea {
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+    resize: vertical;
+}
 
-        #paste-workout textarea {
-            width: 100%;
-            padding: 5px;
-            box-sizing: border-box;
-            resize: vertical;
-        }
+#download-pdf {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
 
-        #download-pdf {
-            display: block;
-            margin: 20px auto;
-            padding: 10px 20px;
-            background-color: #f0f0f0;
-            border: 1px solid #ccc;
-            cursor: pointer;
-        }
+@media print {
+    #workout-chart-generator {
+        border: none;
+    }
 
-        @media print {
-            #workout-chart-generator {
-                border: none;
-            }
+    #download-pdf {
+        display: none;
+    }
+}
 
-            #download-pdf {
-                display: none;
-            }
-        }
+/* Exercise Database Table Styles */
+#exercise-database-table table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border: 2px solid #ccc;
+}
 
+#exercise-database-table th,
+#exercise-database-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
 
- /* Add styling for the exercise database table */
-        #exercise-database-table table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            border: 2px solid #ccc; /* 2px border for the table */
-        }
+#exercise-database-table th {
+    background-color: #f2f2f2;
+    color: black;
+}
 
-        #exercise-database-table th,
-        #exercise-database-table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-        #exercise-database-table th {
-            background-color: #f2f2f2;
-        }
-        #exercise-database-table table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            border: 2px solid #ccc;
-        }
-
-        #exercise-database-table th,
-        #exercise-database-table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-        #exercise-database-table th {
-            background-color: #f2f2f2;
-        }
-
-        /* Make the "Sets" column wider */
-        #exercise-database-table th:nth-child(4),
-        #exercise-database-table td:nth-child(4) {
-            width: 80px; /* Adjust the width as needed */
-        }
-        
-        /* Add styling for the exercise database table */
-        #exercise-database-table table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            border: 2px solid #ccc;
-        }
-
-        #exercise-database-table th,
-        #exercise-database-table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-        #exercise-database-table th {
-            background-color: #f2f2f2;
-            color: black; /* Set header cell font color to black */
-        }
-
-        /* Make the "Sets" column wider */
-        #exercise-database-table th:nth-child(4),
-        #exercise-database-table td:nth-child(4) {
-            width: 80px; /* Adjust the width as needed */
-        }
+#exercise-database-table th:nth-child(4),
+#exercise-database-table td:nth-child(4) {
+    width: 80px;
+}
