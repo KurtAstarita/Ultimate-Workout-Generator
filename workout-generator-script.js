@@ -1,3 +1,8 @@
+if (document.getElementById('resultDiv')) {
+  // Your code that accesses resultDiv
+} else {
+  console.error("resultDiv not found!");
+}
 // Exercise database (expanded)
   const exercises = {
     muscle: {
