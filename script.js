@@ -871,24 +871,30 @@ function populateExerciseTable() {
         }
     }
 
-    // Sort and populate the table
-    allExercises.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
-    allExercises.forEach(exercise => {
-        const row = document.createElement("tr");
-        row.innerHTML = `
-            <td>
-                <button class="copy-exercise" data-exercise="${exercise.name} - Reps: ${exercise.sets}x${exercise.reps} - Rest: ${exercise.rest} sec\nReps & Wt. Per Set:_____x_____|_____x_____|_____x_____|_____x_____|_____x_____">
-                    ${exercise.name}
-                </button>
-            </td>
-            <td>${exercise.muscles}</td>
-            <td>${exercise.equipment}</td>
-            <td>${exercise.sets}</td>
-            <td>${exercise.reps}</td>
-            <td>${exercise.rest}</td>
-        `;
-        tableBody.appendChild(row);
+function populateExerciseTable(exercises) {
+    const exerciseTableBody = document.getElementById("exerciseTableBody");
+    exerciseTableBody.innerHTML = ""; // Clear previous table content
+
+    exercises.forEach(exerciseArray => {
+      exerciseArray.forEach(exercise => {
+
+        if (exercise && exercise.name) { // Check if exercise and name exist
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${exercise.name}</td>
+                <td>${exercise.muscles}</td>
+                <td>${exercise.equipment}</td>
+                <td>${exercise.sets}</td>
+                <td>${exercise.reps}</td>
+                <td>${exercise.rest}</td>
+            `;
+            exerciseTableBody.appendChild(row);
+        } else {
+          console.error("Invalid exercise object:", exercise);
+        }
+      });
     });
+}
 
     // Add event listeners for copy functionality
     document.querySelectorAll(".copy-exercise").forEach(button => {
