@@ -503,7 +503,8 @@ advanced: [
     [{ name: "Weighted Pike Push ups", muscles: "Shoulders, Triceps", equipment: "Weighted Vest", sets: 3, reps: 6, rest: 120 }],
     [{ name: "Weighted Close Grip Push ups", muscles: "Triceps, Chest", equipment: "Weighted Vest/Plate", sets: 3, reps: 10, rest: 90 }],
     [{ name: "Weighted Back Lever Pulls", muscles: "Back, Core", equipment: "Weighted Vest", sets: 3, reps: 5, rest: 120 }],
-],
+  ],
+},
 powerlifting_5x5: {
     beginner: [
         [{ name: "Barbell Squats", muscles: "Quads, Glutes", equipment: "Barbell", sets: 5, reps: 5, rest: 180 }],
