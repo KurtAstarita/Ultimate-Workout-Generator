@@ -5,13 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Workout Generator Snippet</title>
     <link rel="stylesheet" href="styles.css" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' cdnjs.cloudflare.com; style-src 'self';">  
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' cdnjs.cloudflare.com; style-src 'self';">
 </head>
 <body>
 
     <div id="workout-tool-container">
-
-        Warning: Only paste workout text from trusted sources. The application performs basic validation, but cannot guarantee complete safety.
+        <p class="warning-text">
+            <strong>Warning:</strong> Only paste workout text from trusted sources. The application performs basic validation, but cannot guarantee complete safety.
+        </p>
         <br /><br /><br />
         <h2>STEP-1: Adjust your settings below and click Generate.</h2>
 
@@ -25,7 +26,7 @@
                 <option value="endurance">Endurance</option>
                 <option value="fatloss">Fat Loss</option>
             </select>
-            <p style="color: #221111; font-size: 0.9em;">
+            <p class="note-text">
                 <i>NOTE: Goal only work with Goal Based Workout.</i>
             </p>
             <br />
@@ -55,14 +56,14 @@
         </div>
     </div>
 
-   <br /><br /><h2 style="text-align: center;">STEP-2: Copy and paste your workout below.</h2><h1 style="text-align: center;">↓</h1><br /><br />
+    <br /><br /><h2>STEP-2: Copy and paste your workout below.</h2><br /><br />
     <div id="workout-chart-generator">
         <h3>Workout Chart Generator</h3>
 
         <div id="paste-workout">
             <label>Paste Workout Here:</label>
             <textarea id="paste-text" name="paste-text" oninput="sanitizeInput(this)" rows="10"></textarea>
-            <p style="color: red; font-size: 0.8em;">
+            <p class="warning-text">
                 <strong>Warning:</strong> Only paste workout text from trusted sources. The application performs basic validation, but cannot guarantee complete safety.
             </p>
 
@@ -76,8 +77,7 @@
 
         <button id="download-pdf">Download as PDF</button>
     </div>
-    
-    
+
     <div id="exercise-database-table">
         <h2>Exercise Database</h2>
             <p>Browse the complete list of exercises in our database. Simply copy any exercise using the buttons below! Just be sure to update your “Estimated Workout Time” manually after adding/subtracting exercises.</p>
@@ -97,20 +97,19 @@
             </table>
         </div>
     </div>
-    
-  <div class="branding-container">
-    Learn how you can embed our app!
-    <a href="https://post40gains.blogspot.com/p/ultimate-shopping-log.html" target="_blank">
-    How To Embed
-    </a>
-  </div>
-</div>
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.3/purify.min.js"></script>
-  <script src="script.js"></script>
+
+    <div class="branding-container">
+        Learn how you can embed our app!
+        <a href="https://post40gains.blogspot.com/p/ultimate-shopping-log.html" target="_blank">
+            How To Embed
+        </a>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.3/purify.min.js"></script>
+    <script src="script.js"></script>
 </body>
-  <footer>
+<footer>
     &copy; [2025] Kurt Astarita
-  </footer>
+</footer>
 </html>
