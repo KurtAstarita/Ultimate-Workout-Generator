@@ -451,6 +451,7 @@ advanced: {
         [{ name: "Assault Bike Intervals", muscles: "Legs, Arms", equipment: "Assault Bike", sets: 6, reps: 30, rest: 60 }],
         [{ name: "Ski Erg Intervals", muscles: "Full Body", equipment: "Ski Erg", sets: 5, reps: 40, rest: 60 }],
     ],
+  },
 },
 calisthenics: {
     beginner: [
