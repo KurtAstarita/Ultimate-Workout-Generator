@@ -156,7 +156,8 @@ const exercises = {
         [{ name: "Front Lever Holds", muscles: "Back, Core", equipment: "Gym", sets: 3, reps: "15 sec hold", rest: 120 }],
         [{ name: "One Arm Pull ups Assisted", muscles: "Back, Biceps", equipment: "Gym", sets: 3, reps: "As Many As Possible", rest: 180 }],
         [{ name: "Advanced Plank Variations", muscles: "Core", equipment: "None", sets: 3, reps: "60 sec hold", rest: 120 }],
-    ],
+     ],
+  },
 },
 strength: {
     beginner: {
