@@ -10,12 +10,10 @@
 <body>
 
     <div id="workout-tool-container">
-        <p style="color: red; font-size: 0.8em;">
-            <strong>Warning:</strong> Only paste workout text from trusted sources. The application performs basic validation, but cannot guarantee complete safety.
-        </p>
+
+        Warning: Only paste workout text from trusted sources. The application performs basic validation, but cannot guarantee complete safety.
         <br /><br /><br />
-        <h2 style="text-align: center;">STEP-1: Adjust your settings below and click Generate.</h2>
-        <h1 style="caret-color: rgba(0, 0, 0, 0); text-align: center;">↓</h1><br />
+        <h2>STEP-1: Adjust your settings below and click Generate.</h2>
 
         <div id="workout-planner">
             <h3>Full-body Workout Planner/Generator (BETA)</h3>
@@ -57,6 +55,49 @@
         </div>
     </div>
 
+   <br /><br /><h2 style="text-align: center;">STEP-2: Copy and paste your workout below.</h2><h1 style="text-align: center;">↓</h1><br /><br />
+    <div id="workout-chart-generator">
+        <h3>Workout Chart Generator</h3>
+
+        <div id="paste-workout">
+            <label>Paste Workout Here:</label>
+            <textarea id="paste-text" name="paste-text" oninput="sanitizeInput(this)" rows="10"></textarea>
+            <p style="color: red; font-size: 0.8em;">
+                <strong>Warning:</strong> Only paste workout text from trusted sources. The application performs basic validation, but cannot guarantee complete safety.
+            </p>
+
+            <script>
+                function sanitizeInput(element) {
+                    element.value = element.value.replace(/[<>]/g, ""); // Prevent HTML injection
+                }
+            </script>
+
+        </div>
+
+        <button id="download-pdf">Download as PDF</button>
+    </div>
+    
+    
+    <div id="exercise-database-table">
+        <h2>Exercise Database</h2>
+            <p>Browse the complete list of exercises in our database. Simply copy any exercise using the buttons below! Just be sure to update your “Estimated Workout Time” manually after adding/subtracting exercises.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Muscles</th>
+                        <th>Equipment</th>
+                        <th>Sets</th>
+                        <th>Reps</th>
+                        <th>Rest (seconds)</th>
+                    </tr>
+                </thead>
+                <tbody id="exercise-table-body">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
   <div class="branding-container">
     Learn how you can embed our app!
     <a href="https://post40gains.blogspot.com/p/ultimate-shopping-log.html" target="_blank">
