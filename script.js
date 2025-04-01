@@ -654,7 +654,7 @@ circuit: {
         [{ name: "Box Jump Overs", muscles: "Quads, Glutes, Calves", equipment: "Box/Step", sets: 3, reps: 8, rest: 25 }],
     ],
   },
-};
+
 
 
 
