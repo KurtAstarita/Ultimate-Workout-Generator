@@ -260,6 +260,44 @@ const exercises = {
             [{ name: "Back Extension Machine", muscles: "Lower Back", equipment: "Machine", sets: 3, reps: 15, rest: 90 }],
         ],
     },
+     intermediate: {
+         barbell: [
+            [{ name: "Barbell Squats", muscles: "Quads, Glutes", equipment: "Barbell", sets: 5, reps: 5, rest: 180 }],
+            [{ name: "Barbell Deadlifts", muscles: "Back, Glutes, Hamstrings", equipment: "Barbell", sets: 1, reps: 5, rest: 180 }],
+            [{ name: "Barbell Bench Press", muscles: "Chest, Triceps", equipment: "Barbell", sets: 5, reps: 5, rest: 180 }],
+            [{ name: "Barbell Overhead Press", muscles: "Shoulders", equipment: "Barbell", sets: 3, reps: 5, rest: 120 }],
+            [{ name: "Barbell Rows", muscles: "Back, Biceps", equipment: "Barbell", sets: 3, reps: 5, rest: 120 }],
+            [{ name: "Barbell Power Cleans", muscles: "Full Body", equipment: "Barbell", sets: 3, reps: 3, rest: 120 }],
+            [{ name: "Barbell Front Squats", muscles: "Quads, Glutes", equipment: "Barbell", sets: 3, reps: 5, rest: 120 }],
+            [{ name: "Barbell Good Mornings", muscles: "Hamstrings, Glutes, Lower Back", equipment: "Barbell", sets: 3, reps: 8, rest: 90 }],
+            [{ name: "Barbell Lunges", muscles: "Quads, Glutes", equipment: "Barbell", sets: 3, reps: 8, rest: 90 }],
+            [{ name: "Barbell Shrugs", muscles: "Traps", equipment: "Barbell", sets: 3, reps: 8, rest: 90 }],
+        ],
+        dumbbells: [
+            [{ name: "Dumbbell Bench Press", muscles: "Chest, Triceps", equipment: "Dumbbells", sets: 3, reps: 8, rest: 90 }],
+            [{ name: "Dumbbell Rows", muscles: "Back, Biceps", equipment: "Dumbbells", sets: 3, reps: 8, rest: 90 }],
+            [{ name: "Dumbbell Shoulder Press", muscles: "Shoulders", equipment: "Dumbbells", sets: 3, reps: 8, rest: 90 }],
+            [{ name: "Dumbbell Romanian Deadlifts", muscles: "Hamstrings, Glutes", equipment: "Dumbbells", sets: 3, reps: 10, rest: 90 }],
+            [{ name: "Dumbbell Lunges", muscles: "Quads, Glutes", equipment: "Dumbbells", sets: 3, reps: 10, rest: 90 }],
+            [{ name: "Dumbbell Bicep Curls", muscles: "Biceps", equipment: "Dumbbells", sets: 3, reps: 10, rest: 90 }],
+            [{ name: "Dumbbell Triceps Extensions", muscles: "Triceps", equipment: "Dumbbells", sets: 3, reps: 10, rest: 90 }],
+            [{ name: "Dumbbell Goblet Squats", muscles: "Quads, Glutes", equipment: "Dumbbells", sets: 3, reps: 10, rest: 90 }],
+            [{ name: "Dumbbell Pull overs", muscles: "Chest, Back, Triceps", equipment: "Dumbbells", sets: 3, reps: 12, rest: 90 }],
+            [{ name: "Dumbbell Calf Raises", muscles: "Calves", equipment: "Dumbbells", sets: 3, reps: 12, rest: 90 }],
+        ],
+        bodyweight: [
+            [{ name: "Pull ups", muscles: "Back, Biceps", equipment: "None", sets: 3, reps: "As Many As Possible", rest: 90 }],
+            [{ name: "Dips", muscles: "Chest, Triceps, Shoulders", equipment: "None", sets: 3, reps: "As Many As Possible", rest: 90 }],
+            [{ name: "Push ups", muscles: "Chest, Triceps, Shoulders", equipment: "None", sets: 3, reps: "As Many As Possible", rest: 90 }],
+            [{ name: "Plank", muscles: "Core", equipment: "None", sets: 3, reps: "45 sec", rest: 90 }],
+            [{ name: "Chin ups", muscles: "Back, Biceps", equipment: "None", sets: 3, reps: "As Many As Possible", rest: 90 }],
+            [{ name: "Inverted Rows", muscles: "Back, Biceps", equipment: "Bar or Rings", sets: 3, reps: "As Many As Possible", rest: 90 }],
+            [{ name: "Lunges", muscles: "Quads, Glutes", equipment: "None", sets: 3, reps: 12, rest: 60 }],
+            [{ name: "Glute Bridges", muscles: "Glutes, Hamstrings", equipment: "None", sets: 3, reps: 15, rest: 60 }],
+            [{ name: "Hanging Leg Raises", muscles: "Abs", equipment: "Bar", sets: 3, reps: 10, rest: 90 }],
+            [{ name: "Back Extensions", muscles: "Lower Back", equipment: "None", sets: 3, reps: 15, rest: 60}],
+            ],
+        },
 advanced: {
     gym: [
         [{ name: "Deadlifts", muscles: "Back, Glutes, Hamstrings", equipment: "Gym", sets: 3, reps: 5, rest: 240 }],
@@ -309,6 +347,7 @@ advanced: {
         [{ name: "Advanced Plank Variations", muscles: "Core", equipment: "None", sets: 3, reps: "90 sec hold", rest: 240 }],
         [{ name: "Weighted Push ups", muscles: "Chest, Triceps, Shoulders", equipment: "Weighted Vest/Plate", sets: 3, reps: 5, rest: 240 }],
     ],
+  },
 },
 endurance: {
     beginner: {
