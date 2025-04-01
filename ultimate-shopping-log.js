@@ -1,4 +1,4 @@
-<script>
+
   const shoppingDate = document.getElementById("shopping-date");
   const financialGoal = document.getElementById("financial-goal");
   const shoppingItems = document.getElementById("shopping-items");
