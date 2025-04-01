@@ -27,13 +27,13 @@ select, button {
 }
 
 button {
-    background-color: #007bff;
-    color: white;
+    background-color: black; /* Changed to black */
+    color: white; /* Changed to white */
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: darkgray; /* Changed to dark gray */
 }
 
 #workout-result {
@@ -132,13 +132,12 @@ footer a {
 
 /* Workout Chart Generator Styles */
 #workout-chart-generator {
-    width: 95%; /* Adjust width for better responsiveness */
+    width: 80%;
     max-width: 800px;
     margin: 20px auto;
     padding: 20px;
     border: 1px solid #ccc;
     font-family: sans-serif;
-    box-sizing: border-box; /* Include padding and border in width */
 }
 
 #paste-workout label {
@@ -157,9 +156,14 @@ footer a {
     display: block;
     margin: 20px auto;
     padding: 10px 20px;
-    background-color: #f0f0f0;
+    background-color: black; /* Changed to black */
+    color: white; /* Changed to white */
     border: 1px solid #ccc;
     cursor: pointer;
+}
+
+#download-pdf:hover{
+    background-color: darkgray; /* Changed to dark gray */
 }
 
 @media print {
