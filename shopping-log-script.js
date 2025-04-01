@@ -1,19 +1,21 @@
 
-  const shoppingDate = document.getElementById("shopping-date");
-  const financialGoal = document.getElementById("financial-goal");
-  const shoppingItems = document.getElementById("shopping-items");
-  const confirmationDialog = document.getElementById("confirmation-dialog");
-  const confirmYes = document.getElementById("confirm-yes");
-  const confirmNo = document.getElementById("confirm-no");
+ const shoppingDate = document.getElementById("shopping-date");
+const financialGoal = document.getElementById("financial-goal");
+const shoppingItems = document.getElementById("shopping-items");
+const confirmationDialog = document.getElementById("confirmation-dialog");
+const confirmYes = document.getElementById("confirm-yes");
+const confirmNo = document.getElementById("confirm-no");
 
-  let itemToRemove = null;
+let itemToRemove = null;
 
-function validateInput(inputId, type, maxLength) {
+function validateInput(inputId, type, maxLength, required = false) {
     const input = document.getElementById(inputId);
-    const value = input.value;
+    const value = input ? input.value : "";
     let isValid = true;
 
-    if (type === 'number') {
+    if (required && !value) {
+        isValid = false;
+    } else if (type === 'number') {
         if (isNaN(value) || parseFloat(value) < 0) {
             isValid = false;
         }
@@ -23,70 +25,72 @@ function validateInput(inputId, type, maxLength) {
         isValid = false;
     }
 
-    if (!isValid) {
+    if (!isValid && inputId) {
         alert(`Invalid input for ${inputId}.`);
+        input.classList.add('invalid-input');
         input.focus();
         return false;
+    } else if (inputId) {
+        input.classList.remove('invalid-input');
     }
-    return true;
+    return isValid;
 }
 
-  document.getElementById("add-item").addEventListener("click", () => {
+document.getElementById("add-item").addEventListener("click", () => {
     const item = document.createElement("div");
     item.classList.add("shopping-item");
     item.innerHTML = `
-      <input type="text" placeholder="Item Name">
-      <input type="number" placeholder="Quantity" min="1">
-      <input type="number" placeholder="Price" min="0">
-      <input type="text" placeholder="Category">
-      <input type="text" placeholder="Notes">
+        <input type="text" placeholder="Item Name">
+        <input type="number" placeholder="Quantity" min="1">
+        <input type="number" placeholder="Price" min="0">
+        <input type="text" placeholder="Category">
+        <input type="text" placeholder="Notes">
     `;
     shoppingItems.appendChild(item);
-  });
+});
 
-  document.getElementById("remove-item").addEventListener("click", () => {
+document.getElementById("remove-item").addEventListener("click", () => {
     if (shoppingItems.children.length > 1) {
-      itemToRemove = shoppingItems.lastChild;
-      confirmationDialog.style.display = "block";
+        itemToRemove = shoppingItems.lastChild;
+        confirmationDialog.style.display = "block";
     }
-  });
+});
 
-  confirmYes.addEventListener("click", () => {
+confirmYes.addEventListener("click", () => {
     shoppingItems.removeChild(itemToRemove);
     confirmationDialog.style.display = "none";
     itemToRemove = null;
-  });
+});
 
-  confirmNo.addEventListener("click", () => {
+confirmNo.addEventListener("click", () => {
     confirmationDialog.style.display = "none";
     itemToRemove = null;
-  });
+});
 
 document.getElementById('save-log').addEventListener('click', () => {
-    if (!validateInput('shopping-date', 'date') ||
-        !validateInput('financial-goal', 'number')
+    if (!validateInput('shopping-date', 'date', null, true) ||
+        !validateInput('financial-goal', 'number', null, true)
     ) {
         return;
     }
 
-    // Input Validation for Items
     const items = Array.from(shoppingItems.children)
         .slice(1)
         .map(item => {
             const inputs = Array.from(item.querySelectorAll("input"));
-            if (inputs.some(input => !input.value)) {
-                alert("Please fill in all item details.");
-                return null; // Return null if any input is empty
-            }
-            if (!validateInput(inputs[1].id || "", 'number') || !validateInput(inputs[2].id || "", 'number')) {
+            if (!validateInput(inputs[0].id || "", 'text', 255, true) ||
+                !validateInput(inputs[1].id || "", 'number', null, true) ||
+                !validateInput(inputs[2].id || "", 'number', null, true) ||
+                !validateInput(inputs[3].id || "", 'text', 255, true) ||
+                !validateInput(inputs[4].id || "", 'text', 255, false)) {
                 return null;
             }
 
             return inputs.map(input => sanitizeInput(input.value));
-        }).filter(item => item !== null); // Filter out items with null values
+        }).filter(item => item !== null);
 
     if (items.some(item => item === null)) {
-        return; // Stop saving if any item validation failed
+        return;
     }
 
     const log = {
@@ -104,34 +108,10 @@ document.getElementById('save-log').addEventListener('click', () => {
     alert("Shopping log saved!");
 });
 
-// Add this sanitizeInput function:
 function sanitizeInput(input) {
     return DOMPurify.sanitize(input);
 }
 
-// Add this validateInput function if it's not already defined:
-function validateInput(inputId, type, maxLength) {
-    const input = document.getElementById(inputId);
-    const value = input ? input.value : ""; // Handle cases where element might not exist
-    let isValid = true;
-
-    if (type === 'number') {
-        if (isNaN(value) || parseFloat(value) < 0) {
-            isValid = false;
-        }
-    } else if (type === 'text' && value.length > maxLength) {
-        isValid = false;
-    } else if (type === 'date' && isNaN(Date.parse(value))) {
-        isValid = false;
-    }
-
-    if (!isValid && inputId) {
-        alert(`Invalid input for ${inputId}.`);
-        input.focus();
-        return false;
-    }
-    return isValid;
-}
 
   document.getElementById("load-log").addEventListener("click", () => {
     const savedLog = localStorage.getItem("shoppingLog");
