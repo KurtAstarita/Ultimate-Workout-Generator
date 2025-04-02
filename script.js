@@ -693,8 +693,35 @@ circuit: {
         // Disable the copy button initially
         document.getElementById("copy-workout").disabled = true;
 
-        // Add event listener for workout generation
-        document.getElementById("generate-workout").addEventListener("click", function () {
+
+
+        /* ............................................... Function: Generate Workout ...................................................... */
+
+        // Function to copy workout and display alert
+        function copyWorkoutToClipboard(workoutText) {
+            navigator.clipboard.writeText(workoutText).then(() => {
+                const alertDiv = document.createElement('div');
+                alertDiv.textContent = "Workout copied to clipboard!";
+                alertDiv.style.position = 'fixed';
+                alertDiv.style.top = '20px';
+                alertDiv.style.left = '50%';
+                alertDiv.style.transform = 'translateX(-50%)';
+                alertDiv.style.backgroundColor = '#e0f7fa';
+                alertDiv.style.padding = '10px';
+                alertDiv.style.border = '1px solid #b2ebf2';
+                alertDiv.style.borderRadius = '5px';
+                document.body.appendChild(alertDiv);
+
+                setTimeout(function () {
+                    alertDiv.remove();
+                }, 3000);
+            }).catch(err => {
+                console.error("Failed to copy: ", err);
+                alert("Failed to copy workout to clipboard.");
+            });
+        }
+           // Add event listener for workout generation
+           document.getElementById("generate-workout").addEventListener("click", function () {
             const goal = document.getElementById("goal").value;
             const experience = document.getElementById("experience").value;
             const modality = document.getElementById("modality").value;
@@ -809,35 +836,6 @@ workout.forEach(ex => {
             }).catch(err => {
                 console.error("Failed to copy: ", err);
             });
-        });
-
-        /* ............................................... Function: Generate Workout ...................................................... */
-
-        // Function to copy workout and display alert
-        function copyWorkoutToClipboard(workoutText) {
-            navigator.clipboard.writeText(workoutText).then(() => {
-                const alertDiv = document.createElement('div');
-                alertDiv.textContent = "Workout copied to clipboard!";
-                alertDiv.style.position = 'fixed';
-                alertDiv.style.top = '20px';
-                alertDiv.style.left = '50%';
-                alertDiv.style.transform = 'translateX(-50%)';
-                alertDiv.style.backgroundColor = '#e0f7fa';
-                alertDiv.style.padding = '10px';
-                alertDiv.style.border = '1px solid #b2ebf2';
-                alertDiv.style.borderRadius = '5px';
-                document.body.appendChild(alertDiv);
-
-                setTimeout(function () {
-                    alertDiv.remove();
-                }, 3000);
-            }).catch(err => {
-                console.error("Failed to copy: ", err);
-                alert("Failed to copy workout to clipboard.");
-            });
-        }
-        document.getElementById("generate-workout").addEventListener("click", function () {
-            //... (rest of generate-workout function)
             resultDiv.innerHTML = DOMPurify.sanitize(workoutHTML);
             copyWorkoutToClipboard(workoutTextForCopy);
         });
