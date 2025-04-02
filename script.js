@@ -848,25 +848,24 @@ function populateExerciseTable(exercises) {
     exerciseTableBody.innerHTML = ""; // Clear previous table content
 
     exercises.forEach(exerciseArray => {
-      exerciseArray.forEach(exercise => {
+        exerciseArray.forEach(exercise => {
 
-        if (exercise && exercise.name) { // Check if exercise and name exist
-            const row = document.createElement("tr");
-            row.innerHTML = `
-                <td>${exercise.name}</td>
-                <td>${exercise.muscles}</td>
-                <td>${exercise.equipment}</td>
-                <td>${exercise.sets}</td>
-                <td>${exercise.reps}</td>
-                <td>${exercise.rest}</td>
-            `;
-            exerciseTableBody.appendChild(row);
-        } else {
-          console.error("Invalid exercise object:", exercise);
-        }
-      });
+            if (exercise && exercise.name) { // Check if exercise and name exist
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${exercise.name}</td>
+                    <td>${exercise.muscles}</td>
+                    <td>${exercise.equipment}</td>
+                    <td>${exercise.sets}</td>
+                    <td>${exercise.reps}</td>
+                    <td>${exercise.rest}</td>
+                `;
+                exerciseTableBody.appendChild(row);
+            } else {
+                console.error("Invalid exercise object:", exercise);
+            }
+        });
     });
-}
 
     // Add event listeners for copy functionality
     document.querySelectorAll(".copy-exercise").forEach(button => {
@@ -880,12 +879,13 @@ function populateExerciseTable(exercises) {
             });
         });
     });
-}
 
-        // Call populateExerciseTable() after the DOM is fully loaded
-        document.addEventListener('DOMContentLoaded', function () {
-            populateExerciseTable();
-        });
+    // Call populateExerciseTable() after the DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', function () {
+        //If needed, you can add parameters to this function call.
+        populateExerciseTable();
+    });
+}
 
 
 
