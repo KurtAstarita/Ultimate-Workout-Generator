@@ -650,28 +650,22 @@ document.getElementById('paste-text').addEventListener('input', function() {
 
 
 /* ............................................... Function: Normalize Exercises ...................................................... */
-        function normalizeExercises(exercisesArray) {
-            if (!Array.isArray(exercisesArray)) {
-                // If it's not an array, assume it's already normalized
-                return exercisesArray;
-            }
-            return exercisesArray.map(exercise => {
-                // Check if reps is a number or a string. If string, leave it as is.
-                if (typeof exercise.reps === 'string' && exercise.reps.includes('sec')) {
-                    return exercise;
-                } else {
-                    return {
-                        name: exercise.name,
-                        muscles: exercise.muscles,
-                        equipment: exercise.equipment,
-                        sets: exercise.sets,
-                        reps: exercise.reps,
-                        rest: exercise.rest,
-                    };
-                }
-            });
-        }
-
+    function normalizeExercises(exercisesArray) {
+    if (!Array.isArray(exercisesArray)) {
+        // If it's not an array, assume it's already normalized
+        return exercisesArray;
+    }
+    return exercisesArray.map(exercise => {
+        return {
+            name: exercise.name || "", // Ensure name exists
+            muscles: exercise.muscles || "", // Ensure muscles exists
+            equipment: exercise.equipment || "", // Ensure equipment exists
+            sets: exercise.sets || 0, // Ensure sets exists
+            reps: exercise.reps || 0, // Ensure reps exists
+            rest: exercise.rest || 0, // Ensure rest exists
+        };
+    });
+}
         /* ............................................... Function: Handle Modality Change ...................................................... */
 
         document.getElementById("modality").addEventListener("change", function () {
