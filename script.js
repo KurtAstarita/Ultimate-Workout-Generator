@@ -849,12 +849,11 @@ workout.forEach(ex => {
 
 function populateExerciseTable() {
     const tableBody = document.getElementById("exercise-table-body");
-    tableBody.innerHTML = ""; // Clear previous entries
+    tableBody.innerHTML = "";
 
     let allExercises = [];
-    let seenExercises = new Set(); // Set to track unique exercises by name
+    let seenExercises = new Set();
 
-    // Collect all exercises into a single array
     for (const category in exercises) {
         for (const level in exercises[category]) {
             for (const type in exercises[category][level]) {
@@ -867,14 +866,19 @@ function populateExerciseTable() {
                             seenExercises.add(normalizedName);
                         }
                     });
+                } else if (typeof exerciseList === 'object' && exerciseList !== null) { // Handle objects
+                    const normalizedName = exerciseList.name.trim().toLowerCase();
+                    if (!seenExercises.has(normalizedName)) {
+                        allExercises.push(exerciseList);
+                        seenExercises.add(normalizedName);
+                    }
                 } else {
-                    console.warn(`Expected an array, but found: ${typeof exerciseList} for ${category} > ${level} > ${type}`);
+                    console.warn(`Expected an array or object, but found: ${typeof exerciseList} for ${category} > ${level} > ${type}`);
                 }
             }
         }
     }
 
-    // Sort and populate the table
     allExercises.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
     allExercises.forEach(exercise => {
         const row = document.createElement("tr");
@@ -893,7 +897,6 @@ function populateExerciseTable() {
         tableBody.appendChild(row);
     });
 
-    // Add event listeners for copy functionality
     document.querySelectorAll(".copy-exercise").forEach(button => {
         button.addEventListener("click", function () {
             const textToCopy = this.getAttribute("data-exercise");
@@ -906,12 +909,6 @@ function populateExerciseTable() {
         });
     });
 }
-
-        // Call populateExerciseTable() after the DOM is fully loaded
-        document.addEventListener('DOMContentLoaded', function () {
-            populateExerciseTable();
-        });
-
 
 
 
