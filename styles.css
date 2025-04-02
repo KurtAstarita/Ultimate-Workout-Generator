@@ -134,6 +134,7 @@ footer a {
 #workout-chart-generator {
     width: 80%;
     max-width: 700px;
+    margin: 5px auto;
     padding: 20px;
     border: 1px solid #ccc;
     font-family: sans-serif;
