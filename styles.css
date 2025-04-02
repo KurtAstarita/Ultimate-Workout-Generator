@@ -200,3 +200,46 @@ footer a {
 #exercise-database-table td:nth-child(4) {
     width: 80px;
 }
+
+.arrows {
+    margin-bottom: 30px;
+    text-align: center; /* Center the content */
+    font-family: Arial, sans-serif; /* Set font family */
+    font-weight: bold; /* Set font weight */
+  }
+
+  .arrows h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #333;
+  }
+
+  .arrows h3 {
+    font-size: 1.1em;
+    margin-bottom: 10px;
+    color: #555;
+  }
+
+  .important-tip {
+    color: red;
+  }
+
+  .arrow-down {
+    font-size: 2em;
+    color: #007bff;
+    margin-top: 20px;
+    caret-color: rgba(0, 0, 0, 0);
+  }
+
+  /* Specific styles for each step (if needed) */
+  .step-1 {
+    /* Styles for STEP-1 */
+  }
+
+  .step-2 {
+    /* Styles for STEP-2 */
+  }
+
+  .step-3 {
+    /* Styles for STEP-3 */
+  }
