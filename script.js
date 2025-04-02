@@ -766,7 +766,9 @@ document.getElementById('paste-text').addEventListener('input', function() {
             let workoutTextForCopy = ""; // Initialize text for copy
 
 workout.forEach(ex => {
-    if (ex.name) { // Check if name exists
+    // Check if the exercise object has any properties
+    if (Object.keys(ex).length > 0) {
+        // Check if name is not empty
         workoutHTML += `<br><br><li><b>${ex.name}</b>`;
         workoutTextForCopy += `${ex.name}`;
 
