@@ -766,6 +766,7 @@ document.getElementById('paste-text').addEventListener('input', function() {
             let workoutTextForCopy = ""; // Initialize text for copy
 
 workout.forEach(ex => {
+    if (ex.name) { // Check if name exists
         workoutHTML += `<br><br><li><b>${ex.name}</b>`;
         workoutTextForCopy += `${ex.name}`;
 
@@ -775,11 +776,11 @@ workout.forEach(ex => {
         }
         if (ex.rest) {
             workoutHTML += ` - Rest: ${ex.rest} seconds`;
-            workoutHTML += `--- Muscles: ${ex.muscles}`; // Added <br><br>
+            workoutHTML += `--- Muscles: ${ex.muscles}`;
             workoutHTML += `. Equipment: ${ex.equipment}`;
             workoutTextForCopy += ` - Rest: ${ex.rest} seconds. Muscles: ${ex.muscles}. Equipment: ${ex.equipment}`;
 
-   if (typeof ex.reps === 'number') {
+            if (typeof ex.reps === 'number') {
                 totalWorkoutTime += ex.sets * ex.reps * repTime;
             } else if (typeof ex.reps === 'string' && ex.reps.includes('sec')) {
                 const seconds = parseInt(ex.reps.match(/\d+/)[0]);
@@ -802,10 +803,11 @@ workout.forEach(ex => {
         } else {
             totalWorkoutTime += 120; // Default time
         }
-  const repsAndWtInput = "Reps & Wt. Per Set:_____x_____|_____x_____|_____x_____|_____x_____|_____x_____";
+        const repsAndWtInput = "Reps & Wt. Per Set:_____x_____|_____x_____|_____x_____|_____x_____|_____x_____";
         workoutHTML += `<br>${repsAndWtInput}</li>`;
         workoutTextForCopy += `\n${repsAndWtInput}\n`;
-    });
+    }
+});
 
             const minutes = Math.round(totalWorkoutTime / 60);
             workoutHTML += `<p><i>Estimated Workout Time: ${minutes} minutes</i></p>`;
