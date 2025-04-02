@@ -911,7 +911,11 @@ function populateExerciseTable() {
 }
 
 
-
+// Call populateExerciseTable() after the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', function () {
+    console.log("DOM Loaded"); // Debugging
+    populateExerciseTable();
+});
 
 
 
