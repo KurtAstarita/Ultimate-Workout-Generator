@@ -816,37 +816,6 @@ workout.forEach(ex => {
 
         /* ............................................... Function: Generate Workout ...................................................... */
 
-        // Function to copy workout and display alert
-        function copyWorkoutToClipboard(workoutText) {
-            navigator.clipboard.writeText(workoutText).then(() => {
-                const alertDiv = document.createElement('div');
-                alertDiv.textContent = "Workout copied to clipboard!";
-                alertDiv.style.position = 'fixed';
-                alertDiv.style.top = '20px';
-                alertDiv.style.left = '50%';
-                alertDiv.style.transform = 'translateX(-50%)';
-                alertDiv.style.backgroundColor = '#e0f7fa';
-                alertDiv.style.padding = '10px';
-                alertDiv.style.border = '1px solid #b2ebf2';
-                alertDiv.style.borderRadius = '5px';
-                document.body.appendChild(alertDiv);
-
-                setTimeout(function () {
-                    alertDiv.remove();
-                }, 3000);
-            }).catch(err => {
-                console.error("Failed to copy: ", err);
-                alert("Failed to copy workout to clipboard.");
-            });
-        }
-        document.getElementById("generate-workout").addEventListener("click", function () {
-            //... (rest of generate-workout function)
-            resultDiv.innerHTML = DOMPurify.sanitize(workoutHTML);
-            copyWorkoutToClipboard(workoutTextForCopy);
-        });
-
-        /* ......................................... Function: Combines Exercise Array & Generates Workout Table ................................................. */
-
 function populateExerciseTable() {
     const tableBody = document.getElementById("exercise-table-body");
     tableBody.innerHTML = "";
@@ -882,34 +851,52 @@ function populateExerciseTable() {
     allExercises.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
     allExercises.forEach(exercise => {
         const row = document.createElement("tr");
-        row.innerHTML = `
-            <td>
-                <button class="copy-exercise" data-exercise="${exercise.name} - Reps: ${exercise.sets}x${exercise.reps} - Rest: ${exercise.rest} sec\nReps & Wt. Per Set:_____x_____|_____x_____|_____x_____|_____x_____|_____x_____">
-                    ${exercise.name}
-                </button>
-            </td>
-            <td>${exercise.muscles}</td>
-            <td>${exercise.equipment}</td>
-            <td>${exercise.sets}</td>
-            <td>${exercise.reps}</td>
-            <td>${exercise.rest}</td>
-        `;
+        const button = document.createElement("button");
+        button.className = "copy-exercise";
+        button.dataset.exercise = `${exercise.name} - Reps: ${exercise.sets}x${exercise.reps} - Rest: ${exercise.rest} sec\nReps & Wt. Per Set:_____x_____|_____x_____|_____x_____|_____x_____|_____x_____`;
+        button.textContent = exercise.name;
+
+        const cell1 = document.createElement("td");
+        cell1.appendChild(button);
+
+        const cell2 = document.createElement("td");
+        cell2.textContent = exercise.muscles;
+
+        const cell3 = document.createElement("td");
+        cell3.textContent = exercise.equipment;
+
+        const cell4 = document.createElement("td");
+        cell4.textContent = exercise.sets;
+
+        const cell5 = document.createElement("td");
+        cell5.textContent = exercise.reps;
+
+        const cell6 = document.createElement("td");
+        cell6.textContent = exercise.rest;
+
+        row.appendChild(cell1);
+        row.appendChild(cell2);
+        row.appendChild(cell3);
+        row.appendChild(cell4);
+        row.appendChild(cell5);
+        row.appendChild(cell6);
+
         tableBody.appendChild(row);
     });
 
+    // Attach event listeners after the elements are created
     document.querySelectorAll(".copy-exercise").forEach(button => {
         button.addEventListener("click", function () {
-            const textToCopy = this.getAttribute("data-exercise");
+            const textToCopy = this.dataset.exercise;
             navigator.clipboard.writeText(textToCopy).then(() => {
                 this.textContent = "Copied!";
-                setTimeout(() => this.textContent = this.getAttribute("data-exercise").split(" - ")[0], 2000);
+                setTimeout(() => this.textContent = this.dataset.exercise.split(" - ")[0], 2000);
             }).catch(err => {
                 console.error("Copy failed", err);
             });
         });
     });
 }
-
 
 // Call populateExerciseTable() after the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function () {
