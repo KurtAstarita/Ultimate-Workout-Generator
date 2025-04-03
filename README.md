@@ -5,34 +5,34 @@ This is a web-based workout generator and chart tool designed to help users crea
 ## Features
 
 -   **Workout Generation:**
-    -   Generates full-body workouts based on user-selected goals, experience levels, and training modalities.
-    -   Supports various modalities like goal-based workouts, calisthenics, powerlifting (5x5), HIIT, and circuit training.
-    -   Provides estimated workout times.
-    -   Copy workout to clipboard.
+    - Generates full-body workouts based on user-selected goals, experience levels, and training modalities.
+    - Supports various modalities like goal-based workouts, calisthenics, powerlifting (5x5), HIIT, and circuit training.
+    - Provides estimated workout times.
+    - Copy workout to clipboard.
 -   **Workout Chart Generator:**
-    -   Allows users to paste their own workout routines and download them as PDF charts.
-    -   Text area input sanitization.
+    - Allows users to paste their own workout routines and download them as PDF charts.
+    - Text area input sanitization.
 -   **Exercise Database:**
     - Includes a comprehensive database of exercises with details on muscles worked, equipment required, sets, reps, and rest times.
-    -   Users can copy exercises from the database to customize their workouts.
+    - Users can copy exercises from the database to customize their workouts.
 -   **User-Friendly Interface:**
-    -   Intuitive design with clear instructions and warnings.
-    -   Responsive design for use on various devices.
+    - Intuitive design with clear instructions and warnings.
+    - Responsive design for use on various devices.
 -   **Content Security Policy:**
-    -   Uses a Content Security Policy to enhance security.
+    - Uses a Content Security Policy to enhance security.
 
 ## Usage
 
 1.  **Generate a Workout:**
-    -   Select your fitness goal, experience level, and training modality.
-    -   Click "Generate Workout" to create a personalized workout routine.
-    -   Click "Copy Workout to Clipboard" to copy the generated workout.
+    - Select your fitness goal, experience level, and training modality.
+    - Click "Generate Workout" to create a personalized workout routine.
+    - Click "Copy Workout to Clipboard" to copy the generated workout.
 2.  **Create a Workout Chart:**
     - Paste your workout routine into the provided text area.
     - Click "Download as PDF" to generate a printable workout chart.
 3.  **Customize Your Workout:**
-    -      Browse the exercise database to find additional exercises.
-    -      Copy exercises from the database and paste them into your workout chart.
+    - Browse the exercise database to find additional exercises.
+    - Copy exercises from the database and paste them into your workout chart.
 
 ## Technologies Used
 
