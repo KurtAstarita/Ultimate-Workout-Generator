@@ -42,10 +42,6 @@ This is a web-based workout generator and chart tool designed to help users crea
 -   jsPDF library for PDF generation
 -   DOMPurify library for input sanitization
 
-## Disclaimers
-
-**Read The Disclaimer here:** [Workout Generator Disclaimer](/Ultimate-Full-Body-Workout-Generator-Disclaimer.md)
-
 ## Installation
 
 1.  Clone the repository.
@@ -62,6 +58,10 @@ This project is licensed under the MIT License.
 ## Author
 
 * Kurt Astarita
+
+## Disclaimers
+
+**Read The Disclaimer here:** [Workout Generator Disclaimer](/Ultimate-Full-Body-Workout-Generator-Disclaimer.md)
 
 ## Embed App
 
