@@ -65,7 +65,7 @@ This project is licensed under the MIT License.
 
 ## Embed App
 
-* [How To Embed](https://post40gains.blogspot.com/p/ultimate-shopping-log.html)
+* [How To Embed](https://post40gains.blogspot.com/p/how-to-embed-our-apps.html)
 
 ## Note
 
