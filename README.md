@@ -36,11 +36,11 @@ This is a web-based workout generator and chart tool designed to help users crea
 
 ## Technologies Used
 
--   HTML
--   CSS
--   JavaScript
--   jsPDF library for PDF generation
--   DOMPurify library for input sanitization
+- HTML
+- CSS
+- JavaScript
+- jsPDF library for PDF generation
+- DOMPurify library for input sanitization
 
 ## Installation
 
@@ -69,9 +69,9 @@ This project is licensed under the MIT License.
 
 ## Note
 
--   This application is in BETA.
--   Users are advised to only paste workout text from trusted sources.
--   The application performs basic validation but cannot guarantee complete safety.
--   Remember to manually update your “Estimated Workout Time” after adding/subtracting exercises.
--   Our workout generator can handle up to 9 exercises.
--   The application uses a Content Security Policy to enhance security.
+- This application is in BETA.
+- Users are advised to only paste workout text from trusted sources.
+- The application performs basic validation but cannot guarantee complete safety.
+- Remember to manually update your “Estimated Workout Time” after adding/subtracting exercises.
+- Our workout generator can handle up to 9 exercises.
+- The application uses a Content Security Policy to enhance security.
