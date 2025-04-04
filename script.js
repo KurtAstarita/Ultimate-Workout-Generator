@@ -273,36 +273,7 @@ dumbbells: [
 { name: "Dumbbell Lunges", sets: 3, reps: 8, rest: 180, timePerSet: 75 },
 { name: "Dumbbell Bicep Curls", sets: 3, reps: 8, rest: 180, timePerSet: 35 },
 { name: "Dumbbell Triceps Extensions", sets: 3, reps: 8, rest: 180, timePerSet: 40 },
-{ name: "Dumbbell Goblet Squats", sets: 3
-
-You stopped this response
-
-
-
-
-continue the code from here! dumbbells: [
-
-{ name: "Dumbbell Bench Press", sets: 3, reps: 5, rest: 180, timePerSet: 50 },
-
-{ name: "Dumbbell Rows", sets: 3, reps: 5, rest: 180, timePerSet: 50 },
-
-{ name: "Dumbbell Shoulder Press", sets: 3, reps: 5, rest: 180, timePerSet: 45 },
-
-{ name: "Dumbbell Romanian Deadlifts", sets: 3, reps: 8, rest: 180, timePerSet: 75 },
-
-{ name: "Dumbbell Lunges", sets: 3, reps: 8, rest: 180, timePerSet: 75 },
-
-{ name: "Dumbbell Bicep Curls", sets: 3, reps: 8, rest: 180, timePerSet: 35 },
-
-{ name: "Dumbbell Triceps Extensions", sets: 3, reps: 8, rest: 180, timePerSet: 40 },
-
-{ name: "Dumbbell Goblet Squats", sets: 3
-
-
-
-Coding partner
-This is for informational purposes only. For medical advice or diagnosis, consult a professional.
-, reps: 8, rest: 180, timePerSet: 60 },
+{ name: "Dumbbell Goblet Squats", sets: 3, reps: 8, rest: 180, timePerSet: 60 },
 { name: "Dumbbell Pull overs", sets: 3, reps: 10, rest: 180, timePerSet: 40 },
 { name: "Dumbbell Calf Raises", sets: 3, reps: 10, rest: 180, timePerSet: 25 },
 ],
