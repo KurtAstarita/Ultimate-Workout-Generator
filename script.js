@@ -872,7 +872,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                         }
                     }
 
-                    tableData.push([exerciseName, reps, rest, "", "", "", "", ""]);
+                    tableData.push([exerciseName, reps, rest, "", "", "", "", "", ""]);
 
                     // Calculate time
                     if (restMatch && repsMatch) {
