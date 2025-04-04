@@ -798,6 +798,40 @@ document.getElementById("copy-workout").addEventListener("click", function () {
     });
 });
 
+/* ............................................... Function: Validate Workout ...................................................... */
+
+function validateWorkoutText(workoutText) {
+    const lines = workoutText.split('\n');
+    const errors = [];
+    let isValid = true;
+
+    lines.forEach((line, index) => {
+        if (line.trim() && !line.includes("Estimated Workout Time")) {
+            const exerciseMatch = line.match(/^(.+?) - Reps:/);
+            const repsMatch = line.match(/Reps: (.+?) - Rest:/);
+            const restMatch = line.match(/Rest: (.+?) seconds?\./);
+
+            if (!exerciseMatch) {
+                errors.push(`Line ${index + 1}: Exercise name not found.`);
+                isValid = false;
+            }
+            if (!repsMatch) {
+                errors.push(`Line ${index + 1}: Reps information not found.`);
+                isValid = false;
+            }
+            if (!restMatch) {
+                errors.push(`Line ${index + 1}: Rest information not found.`);
+                isValid = false;
+            }
+        }
+    });
+
+    return {
+        isValid: isValid,
+        errors: errors
+    };
+}
+
 /* ............................................... Function: Download PDF ...................................................... */
 
 document.getElementById('download-pdf').addEventListener('click', function () {
