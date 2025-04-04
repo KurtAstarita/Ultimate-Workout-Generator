@@ -874,7 +874,8 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 
                     let sets = 0;
                     let reps = "";
-                    let rest = "";
+                    let restValue = 0;
+                    let restUnit = "seconds";
 
                     if (repsMatch) {
                         const setsAndReps = repsMatch[1].split('x');
@@ -887,16 +888,20 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                         }
                     }
                     if (restMatch) {
-                        rest = restMatch[1].trim();
+                        restValue = parseInt(restMatch[1]);
+                        restUnit = restMatch[2] || "seconds";
                     }
 
                     tableData.push([exerciseName, repsInfo, restInfo, "", "", "", "", "", "", "", ""]);
 
                     if (restMatch && repsMatch) {
-                        let exerciseTime = 0;
+                        let exerciseTimePerSet = 0;
                         const repTime = 2; // Average time per rep in seconds
-                        const restValue = parseInt(restMatch[1]);
-                        const restUnit = restMatch[2];
+                        let restTimePerSetInSeconds = 0;
+
+                        if (!isNaN(restValue)) {
+                            restTimePerSetInSeconds = restUnit.includes('minute') ? restValue * 60 : restValue;
+                        }
 
                         if (repsInfo.includes('x')) {
                             const parts = repsInfo.split('x');
@@ -905,32 +910,30 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                                 if (numRepsOrTime.includes('seconds')) {
                                     const seconds = parseInt(numRepsOrTime);
                                     if (!isNaN(seconds)) {
-                                        exerciseTime += sets * seconds;
+                                        exerciseTimePerSet = seconds;
                                     }
                                 } else if (numRepsOrTime.includes('minutes')) {
                                     const minutes = parseInt(numRepsOrTime);
                                     if (!isNaN(minutes)) {
-                                        exerciseTime += sets * minutes * 60;
+                                        exerciseTimePerSet = minutes * 60;
                                     }
                                 } else if (!isNaN(parseInt(numRepsOrTime))) {
-                                    exerciseTime += sets * parseInt(numRepsOrTime) * repTime;
+                                    exerciseTimePerSet = parseInt(numRepsOrTime) * repTime;
                                 }
                             }
                         } else if (repsInfo.includes('AMRAP')) {
-                            exerciseTime += sets * 60;
+                            exerciseTimePerSet = 60;
                         } else if (repsInfo.includes('ladder')) {
-                            exerciseTime += sets * 120;
+                            exerciseTimePerSet = 120;
                         }
 
-                        let totalRestTime = 0;
-                        if (!isNaN(restValue)) {
-                            if (restUnit && restUnit.includes('minute')) {
-                                totalRestTime = sets * restValue * 60;
-                            } else {
-                                totalRestTime = sets * restValue;
-                            }
+                        // Calculate total time for the exercise, including rest between sets
+                        totalWorkoutTime += sets * exerciseTimePerSet;
+                        if (sets > 1) {
+                            totalWorkoutTime += (sets - 1) * restTimePerSetInSeconds; // Rest between sets
+                        } else if (sets === 1 && restTimePerSetInSeconds > 0) {
+                            totalWorkoutTime += restTimePerSetInSeconds; // Rest after the single set
                         }
-                        totalWorkoutTime += exerciseTime + totalRestTime;
                     }
                 }
             }
@@ -949,25 +952,9 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             head: [headers],
             body: tableData,
             startY: 10,
-            styles: {
-                fontSize: 8,
-                cellPadding: 2,
-                borderColor: [169, 169, 169],
-                borderWidth: 1,
-            },
-            headStyles: {
-                fontSize: 8,
-                fillColor: [200, 200, 200],
-                borderColor: [169, 169, 169],
-                borderWidth: 1,
-            },
-            columnStyles: {
-                3: { cellWidth: 'auto' },
-                4: { cellWidth: 'auto' },
-                5: { cellWidth: 'auto' },
-                6: { cellWidth: 'auto' },
-                7: { cellWidth: 'auto' },
-            },
+            styles: { ... },
+            headStyles: { ... },
+            columnStyles: { ... },
             tableLineWidth: 1,
             tableBorderColor: [169, 169, 169],
         });
