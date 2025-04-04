@@ -884,6 +884,28 @@ lines.forEach(line => {
 
                 tableData.push([exerciseName, reps, rest, "", "", "", "", "", "", "", ""]);
 
+               lines.forEach(line => {
+        if (line.trim() && !line.includes("Estimated Workout Time")) {
+            const exerciseMatch = line.match(/^(.+?) - Reps:/);
+            const repsMatch = line.match(/Reps: (.+?) - Rest:/);
+            const restMatch = line.match(/Rest: (.+?) seconds?\.?/);
+
+            if (exerciseMatch) {
+                const exerciseName = exerciseMatch[1].replace(/<b>|<\/b>/g, '').trim();
+                const reps = repsMatch ? repsMatch[1].trim() : "";
+                const rest = restMatch ? restMatch[1].trim() : "";
+
+                let sets = 0;
+
+                if (repsMatch) {
+                    const setsAndReps = repsMatch[1].split('x');
+                    if (setsAndReps.length === 2 && !isNaN(parseInt(setsAndReps[0]))) {
+                        sets = parseInt(setsAndReps[0]);
+                    }
+                }
+
+                tableData.push([exerciseName, reps, rest, "", "", "", "", "", "", "", ""]);
+
                 if (restMatch && repsMatch) {
                     let restTime = 0;
 
@@ -912,6 +934,7 @@ lines.forEach(line => {
                             }
                         }
                     } else if (repsMatch[1].includes('seconds')) {
+                        // Explicitly exclude repTime calculation
                         totalWorkoutTime += sets * parseInt(repsMatch[1].split(' ')[0]);
                     }
                 }
