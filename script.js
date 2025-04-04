@@ -950,48 +950,37 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 });
 /* ............................................... Function: To Populate table ...................................................... */
 
-
 function populateExerciseTable() {
     console.log("Populating exercise table..."); // Debugging log
 
+    const table = document.getElementById("exercise-table");
+    if (!table) {
+        console.error("Exercise table element with ID 'exercise-table' not found.");
+        return;
+    }
+
+    let thead = table.querySelector("thead");
+    if (!thead) {
+        thead = document.createElement("thead");
+        table.appendChild(thead);
+    }
+
+    thead.innerHTML = `
+        <tr>
+            <th>Exercise Name</th>
+            <th>Sets</th>
+            <th>Reps</th>
+            <th>Rest (s)</th>
+            <th>Time/Set (s)</th>
+        </tr>
+    `;
+
     const tableBody = document.getElementById("exercise-table-body");
     if (!tableBody) {
-        console.error("Table body element not found.");
+        console.error("Table body element with ID 'exercise-table-body' not found.");
         return;
     }
     tableBody.innerHTML = "";
-
-    // Get the table header row
-    const tableHead = document.querySelector("#exercise-table thead tr");
-    if (tableHead) {
-        tableHead.innerHTML = `
-            <th>Exercise Name</th>
-            <th>Sets</th>
-            <th>Reps</th>
-            <th>Rest (s)</th>
-            <th>Time/Set (s)</th>
-        `;
-    } else {
-        console.warn("Table head row not found. Ensure your table has a thead and tr.");
-        // Fallback if thead isn't structured correctly
-        const headerRow = document.createElement("tr");
-        headerRow.innerHTML = `
-            <th>Exercise Name</th>
-            <th>Sets</th>
-            <th>Reps</th>
-            <th>Rest (s)</th>
-            <th>Time/Set (s)</th>
-        `;
-        const table = document.getElementById("exercise-table");
-        if (table) {
-            const thead = document.createElement("thead");
-            thead.appendChild(headerRow);
-            table.appendChild(thead);
-        } else {
-            console.error("Exercise table element not found.");
-            return;
-        }
-    }
 
     let allExercises = [];
     let seenExercises = new Set();
