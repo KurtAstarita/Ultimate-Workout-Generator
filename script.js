@@ -916,7 +916,11 @@ function populateExerciseTable() {
         const row = document.createElement("tr");
         const button = document.createElement("button");
         button.className = "copy-exercise";
-        button.dataset.exercise = `${exercise.name} - Reps: ${exercise.sets}x${exercise.reps} - Rest: ${exercise.rest} sec`;
+        let copyText = `${exercise.name} - Reps: ${exercise.sets}x${exercise.reps}`;
+        if (exercise.rest) {
+            copyText += ` - Rest: ${exercise.rest} seconds.`;
+        }
+        button.dataset.exercise = copyText;
         button.textContent = exercise.name;
 
         const cell1 = document.createElement("td");
@@ -952,103 +956,3 @@ function populateExerciseTable() {
         });
     });
 }
-
-// Call populateExerciseTable() after the DOM is fully loaded
-document.addEventListener('DOMContentLoaded', function () {
-    console.log("DOM Loaded"); // Debugging
-    populateExerciseTable();
-});
-
-function validateWorkoutText(workoutText) {
-    const errors = [];
-    let isValid = true;
-
-    // Basic validation: Check for empty input
-    if (!workoutText.trim()) {
-        errors.push("Workout text is empty.");
-        isValid = false;
-    }
-
-    // Add more validation rules as needed
-    // Example: Check for specific keywords or patterns
-    if (workoutText.length > 10000) {
-        errors.push("Workout text is too long.");
-        isValid = false;
-    }
-
-    return { isValid, errors };
-}
-
-document.getElementById('download-pdf').addEventListener('click', function () {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-
-    try {
-        let workoutText = document.getElementById('paste-text').value;
-        workoutText = DOMPurify.sanitize(workoutText);
-        const validationResult = validateWorkoutText(workoutText);
-
-        if (!validationResult.isValid) {
-            alert("Workout text validation errors:\n" + validationResult.errors.join('\n'));
-            return;
-        }
-
-        const lines = workoutText.split('\n');
-        let tableData = [];
-        let headers = ["Exercise", "Reps", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5"];
-
-        lines.forEach(line => {
-            if (line.trim() && !line.includes("Estimated Workout Time")) {
-                const exerciseMatch = line.match(/^(.+?) - Reps:/);
-                const repsMatch = line.match(/Reps: (.+?) - Rest:/);
-                const restMatch = line.match(/Rest: (.+?) seconds?\./);
-
-                if (exerciseMatch) {
-                    const exerciseName = exerciseMatch[1].replace(/<b>|<\/b>/g, '').trim();
-                    const reps = repsMatch ? repsMatch[1].trim() : "";
-                    const rest = restMatch ? restMatch[1].trim() : "";
-
-                    tableData.push([exerciseName, reps, rest, "", "", "", "", ""]);
-                } else {
-                    // Handle lines that don't match the expected pattern
-                    if (line.trim() !== "") {
-                        console.warn("Unexpected line format:", line);
-                    }
-                }
-            }
-        });
-
-        doc.autoTable({
-            head: [headers],
-            body: tableData,
-            startY: 10,
-            styles: {
-                fontSize: 8,
-                cellPadding: 2,
-                borderColor: [169, 169, 169],
-                borderWidth: 1,
-            },
-            headStyles: {
-                fontSize: 8,
-                fillColor: [200, 200, 200],
-                borderColor: [169, 169, 169],
-                borderWidth: 1,
-            },
-            columnStyles: {
-                3: { cellWidth: 'auto' },
-                4: { cellWidth: 'auto' },
-                5: { cellWidth: 'auto' },
-                6: { cellWidth: 'auto' },
-                7: { cellWidth: 'auto' },
-            },
-            tableLineWidth: 1,
-            tableBorderColor: [169, 169, 169],
-        });
-
-        doc.save("workout.pdf");
-
-    } catch (mainError) {
-        console.error("Error generating PDF:", mainError);
-        alert("An error occurred while generating the PDF.");
-    }
-});
