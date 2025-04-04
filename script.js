@@ -773,9 +773,20 @@ document.getElementById("generate-workout").addEventListener("click", function (
         if (ex.sets && ex.reps) {
             workoutHTML += ` - Reps: ${ex.sets}x${ex.reps}`;
             workoutTextForCopy += ` - Reps: ${ex.sets}x${ex.reps}`;
+        }
 
-            // Calculate time for exercises with sets and reps
-            if (typeof ex.sets === 'number' && ex.timePerSet !== undefined) {
+        if (ex.rest) {
+            workoutHTML += ` - Rest: ${ex.rest} seconds`;
+            workoutTextForCopy += ` - Rest: ${ex.rest} seconds`;
+            if (typeof ex.sets === 'number') {
+                totalWorkoutTime += (ex.sets - 1) * ex.rest; // Rest between sets
+            }
+        }
+
+        if (ex.timePerSet !== undefined) {
+            workoutHTML += ` - Time per set: ${ex.timePerSet} seconds`;
+            workoutTextForCopy += ` - Time per set: ${ex.timePerSet} seconds`;
+            if (typeof ex.sets === 'number') {
                 let numberOfRounds = ex.sets;
                 // For reps that are time-based, sets might represent rounds
                 if (typeof ex.reps === 'string' && (ex.reps.includes('sec') || ex.reps.includes('minutes'))) {
@@ -789,13 +800,6 @@ document.getElementById("generate-workout").addEventListener("click", function (
             }
         }
 
-        if (ex.rest) {
-            workoutHTML += ` - Rest: ${ex.rest} seconds`;
-            workoutTextForCopy += ` - Rest: ${ex.rest} seconds`;
-            if (typeof ex.sets === 'number') {
-                totalWorkoutTime += (ex.sets - 1) * ex.rest; // Rest between sets
-            }
-        }
         workoutTextForCopy += "\n";
     });
 
