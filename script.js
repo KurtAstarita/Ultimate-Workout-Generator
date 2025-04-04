@@ -885,6 +885,8 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                             totalWorkoutTime += sets * 60; // Default 60 seconds for AMRAP
                         } else if (repsMatch[1].includes('ladder')) {
                             totalWorkoutTime += sets * 120; // Default 120 seconds for ladder
+                        } else if (repsMatch[1].includes('minutes')) {
+                            totalWorkoutTime += sets * parseInt(repsMatch[1].split(' ')[0]) * 60; // Convert minutes to seconds
                         }
 
                         if (restMatch[2].includes('seconds')) {
