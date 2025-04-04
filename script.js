@@ -740,8 +740,8 @@ document.getElementById("generate-workout").addEventListener("click", function (
         workoutTextForCopy += `${ex.name}`;
 
         if (ex.sets && ex.reps) {
-            workoutHTML += ` - Reps: <span class="math-inline">\{ex\.sets\}x</span>{ex.reps}`;
-            workoutTextForCopy += ` - Reps: <span class="math-inline">\{ex\.sets\}x</span>{ex.reps}`;
+            workoutHTML += ` - Reps: ${ex.sets}x${ex.reps}`;
+            workoutTextForCopy += ` - Reps: ${ex.sets}x${ex.reps}`;
         }
         if (ex.rest) {
             workoutHTML += ` - Rest: ${ex.rest} seconds`;
@@ -837,7 +837,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
     let workoutText = document.getElementById('paste-text').value;
     workoutText = DOMPurify.sanitize(workoutText);
 
-    // console.log("Workout Text:", workoutText);
+    console.log("Workout Text:", workoutText);
 
     if (!workoutText.trim()) {
         alert("Please paste workout text before downloading.");
@@ -847,7 +847,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
     try {
         const validationResult = validateWorkoutText(workoutText);
 
-        // console.log("Validation Result:", validationResult);
+        console.log("Validation Result:", validationResult);
 
         if (!validationResult.isValid) {
             alert("Workout text validation errors:\n" + validationResult.errors.join('\n'));
@@ -859,7 +859,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         let headers = ["Exercise", "Reps", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
         let totalWorkoutTime = 0;
 
-        // console.log("Lines:", lines);
+        console.log("Lines:", lines);
 
         lines.forEach(line => {
             if (line.trim() && !line.includes("Estimated Workout Time")) {
@@ -892,56 +892,49 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 
                     tableData.push([exerciseName, repsInfo, restInfo, "", "", "", "", "", "", "", ""]);
 
-                    if (restMatch && repsMatch) {
-                        let exerciseTime = 0;
-                        const repTime = 2; // Average time per rep in seconds
-                        const restValue = parseInt(restMatch[1]);
-                        const restUnit = restMatch[2];
-                        let restTimeInSeconds = 0;
+ if (restMatch && repsMatch) {
+    let exerciseTime = 0;
+    const repTime = 2; // Average time per rep in seconds
+    const restValue = parseInt(restMatch[1]);
+    const restUnit = restMatch[2];
 
-                        if (!isNaN(restValue)) {
-                            restTimeInSeconds = restUnit && restUnit.includes('minute') ? restValue * 60 : restValue;
-                        }
+    if (repsInfo.includes('x') && !repsInfo.includes('seconds') && !repsInfo.includes('minutes')) {
+        const numReps = parseInt(repsInfo.split('x')[1]);
+        if (!isNaN(numReps)) {
+            exerciseTime += sets * numReps * repTime;
+        }
+    } else if (repsInfo.includes('AMRAP')) {
+        exerciseTime += sets * 60;
+    } else if (repsInfo.includes('ladder')) {
+        exerciseTime += sets * 120;
+    } else if (repsInfo.includes('seconds')) {
+        const seconds = parseInt(repsInfo.split(' ')[0]);
+        if (!isNaN(seconds)) {
+            exerciseTime += sets * seconds;
+        }
+    } else if (repsInfo.includes('minutes')) {
+        const minutes = parseInt(repsInfo.split(' ')[0]);
+        if (!isNaN(minutes)) {
+            exerciseTime += sets * minutes * 60;
+        }
+    }
 
-                        if (repsInfo.includes('x') && !repsInfo.includes('seconds') && !repsInfo.includes('minutes')) {
-                            const numReps = parseInt(repsInfo.split('x')[1]);
-                            if (!isNaN(numReps)) {
-                                exerciseTime += sets * numReps * repTime;
-                            }
-                        } else if (repsInfo.includes('AMRAP')) {
-                            exerciseTime += sets * 60;
-                        } else if (repsInfo.includes('ladder')) {
-                            exerciseTime += sets * 120;
-                        } else if (repsInfo.includes('seconds')) {
-                            const seconds = parseInt(repsInfo.split(' ')[0]);
-                            if (!isNaN(seconds)) {
-                                exerciseTime += sets * seconds;
-                            }
-                        } else if (repsInfo.includes('minutes')) {
-                            const minutes = parseInt(repsInfo.split(' ')[0]);
-                            if (!isNaN(minutes)) {
-                                exerciseTime += sets * minutes * 60;
-                            }
-                        }
-
-                        // Add exercise time
-                        totalWorkoutTime += exerciseTime;
-
-                        // Add rest time between sets (if more than one set)
-                        if (sets > 1) {
-                            totalWorkoutTime += (sets - 1) * restTimeInSeconds;
-                        }
-                        // You might choose to add rest after a single set as well
-                        // else if (sets === 1 && restTimeInSeconds > 0) {
-                        //     totalWorkoutTime += restTimeInSeconds;
-                        // }
-                    }
+    let totalRestTime = 0;
+    if (!isNaN(restValue)) {
+        if (restUnit && restUnit.includes('minute')) {
+            totalRestTime = sets * restValue * 60;
+        } else {
+            totalRestTime = sets * restValue;
+        }
+    }
+    totalWorkoutTime += exerciseTime + totalRestTime;
+}
                 }
             }
         });
 
-        // console.log("Table Data:", tableData);
-        // console.log("Total Workout Time (seconds):", totalWorkoutTime);
+        console.log("Table Data:", tableData);
+        console.log("Total Workout Time (seconds):", totalWorkoutTime);
 
         const minutes = Math.round(totalWorkoutTime / 60);
         const timeText = `Estimated Workout Time: ${minutes} minutes`;
@@ -949,7 +942,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
 
-        doc.autoTable({
+  doc.autoTable({
             head: [headers],
             body: tableData,
             startY: 10,
@@ -995,7 +988,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 /* ............................................... Function: To Populate table ...................................................... */
 
 function populateExerciseTable() {
-    // console.log("Populating exercise table..."); // Debugging log
+    console.log("Populating exercise table..."); // Debugging log
 
     const tableBody = document.getElementById("exercise-table-body");
     if (!tableBody) {
@@ -1026,7 +1019,7 @@ function populateExerciseTable() {
                         seenExercises.add(normalizedName);
                     }
                 } else {
-                    // console.warn(`Expected an array or object, but found: ${typeof exerciseList} for ${category} > ${level} > ${type}`);
+                    console.warn(`Expected an array or object, but found: ${typeof exerciseList} for ${category} > ${level} > ${type}`);
                 }
             }
         }
@@ -1080,6 +1073,6 @@ function populateExerciseTable() {
 
 // Call populateExerciseTable() after the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function () {
-    // console.log("DOM Loaded"); // Debugging
+    console.log("DOM Loaded"); // Debugging
     populateExerciseTable();
 });
