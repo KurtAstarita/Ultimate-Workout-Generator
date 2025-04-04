@@ -853,8 +853,8 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         let totalWorkoutTime = 0;
         let repTime = 2; // Average time per rep in seconds
 
-        lines.forEach(line => {
-            if (line.trim() && !line.includes("Estimated Workout Time")) {
+    lines.forEach(line => {
+        if (line.trim() && !line.includes("Estimated Workout Time")) {
                 const exerciseMatch = line.match(/^(.+?) - Reps:/);
                 const repsMatch = line.match(/Reps: (.+?) - Rest:/);
                 const restMatch = line.match(/Rest: (.+?) seconds?\./);
@@ -874,24 +874,32 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 
                     tableData.push([exerciseName, reps, rest, "", "", "", "", "", "", "", ""]);
 
-                    // Calculate time
-                    if (restMatch && repsMatch) {
-                        if (!isNaN(parseInt(repsMatch[1].split('x')[1]))) {
-                            totalWorkoutTime += sets * parseInt(repsMatch[1].split('x')[1]) * repTime;
-                        }
+                // Calculate time
+                if (restMatch && repsMatch) {
+                    let repTime = 2; // Average time per rep in seconds
+                    let restTime = 0;
 
-                        if (!isNaN(parseInt(restMatch[1]))) {
-                            totalWorkoutTime += sets * parseInt(restMatch[1]);
-                        }
+                    if (repsMatch[1].includes('x') && !isNaN(parseInt(repsMatch[1].split('x')[1]))) {
+                        totalWorkoutTime += sets * parseInt(repsMatch[1].split('x')[1]) * repTime;
+                    } else if (repsMatch[1].includes('AMRAP')) {
+                        totalWorkoutTime += sets * 60; // Default 60 seconds for AMRAP
+                    } else if (repsMatch[1].includes('ladder')) {
+                        totalWorkoutTime += sets * 120; // Default 120 seconds for ladder
                     }
 
-                } else {
-                    if (line.trim() !== "") {
-                        console.warn("Unexpected line format:", line);
+                    if (restMatch[2].includes('seconds')) {
+                        restTime = parseInt(restMatch[1]);
+                    } else if (restMatch[2].includes('minutes')) {
+                        restTime = parseInt(restMatch[1]) * 60;
+                    }
+
+                    if (!isNaN(restTime)) {
+                        totalWorkoutTime += sets * restTime;
                     }
                 }
             }
-        });
+        }
+    });
 
         // Calculate time
         const minutes = Math.round(totalWorkoutTime / 60);
