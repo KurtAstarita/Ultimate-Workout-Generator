@@ -890,7 +890,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                         if (restMatch[2].includes('seconds')) {
                             restTime = parseInt(restMatch[1]);
                         } else if (restMatch[2].includes('minutes')) {
-                            restTime = parseInt(restMatch[1]) * 60;
+                            restTime = parseInt(restMatch[1]) * 60; // Convert minutes to seconds
                         }
 
                         if (!isNaN(restTime)) {
@@ -948,7 +948,6 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         alert("An error occurred while generating the PDF.");
     }
 });
-
 /* ............................................... Function: To Populate table ...................................................... */
 
 function populateExerciseTable() {
