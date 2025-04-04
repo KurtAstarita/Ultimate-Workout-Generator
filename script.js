@@ -898,25 +898,28 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                         const restValue = parseInt(restMatch[1]);
                         const restUnit = restMatch[2];
 
-                        if (repsInfo.includes('x') && !repsInfo.includes('seconds') && !repsInfo.includes('minutes')) {
-                            const numReps = parseInt(repsInfo.split('x')[1]);
-                            if (!isNaN(numReps)) {
-                                exerciseTime += sets * numReps * repTime;
+                        if (repsInfo.includes('x')) {
+                            const parts = repsInfo.split('x');
+                            if (parts.length === 2 && !isNaN(parseInt(parts[0]))) {
+                                const numRepsOrTime = parts[1].split(' ')[0];
+                                if (numRepsOrTime.includes('seconds')) {
+                                    const seconds = parseInt(numRepsOrTime);
+                                    if (!isNaN(seconds)) {
+                                        exerciseTime += sets * seconds;
+                                    }
+                                } else if (numRepsOrTime.includes('minutes')) {
+                                    const minutes = parseInt(numRepsOrTime);
+                                    if (!isNaN(minutes)) {
+                                        exerciseTime += sets * minutes * 60;
+                                    }
+                                } else if (!isNaN(parseInt(numRepsOrTime))) {
+                                    exerciseTime += sets * parseInt(numRepsOrTime) * repTime;
+                                }
                             }
                         } else if (repsInfo.includes('AMRAP')) {
                             exerciseTime += sets * 60;
                         } else if (repsInfo.includes('ladder')) {
                             exerciseTime += sets * 120;
-                        } else if (repsInfo.includes('seconds')) {
-                            const seconds = parseInt(repsInfo.split(' ')[0]);
-                            if (!isNaN(seconds)) {
-                                exerciseTime += sets * seconds;
-                            }
-                        } else if (repsInfo.includes('minutes')) {
-                            const minutes = parseInt(repsInfo.split(' ')[0]);
-                            if (!isNaN(minutes)) {
-                                exerciseTime += sets * minutes * 60;
-                            }
                         }
 
                         let totalRestTime = 0;
@@ -942,7 +945,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
 
-  doc.autoTable({
+        doc.autoTable({
             head: [headers],
             body: tableData,
             startY: 10,
