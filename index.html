@@ -1,25 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Workout Generator Snippet</title>
-    <link rel="stylesheet" href="styles.css" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' cdnjs.cloudflare.com; style-src 'self';">
-</head>
-<body>
-
-    <div id="workout-tool-container">
-        <p class="warning-text">
+<p class="warning-text">
             <strong>Warning:</strong> Only paste workout text from trusted sources. The application performs basic validation, but cannot guarantee complete safety.
         </p>
         <br /><br /><br />
-<div class="arrows step-1">
-  <h2>STEP-1: Adjust your settings below and click Generate.</h2>
-  <div class="arrow-down">↓</div>
-  <div><br /></div>
-  <div><br /></div>
-</div>
+        <div class="arrows step-1">
+            <h2>STEP-1: Adjust your settings below and click Generate.</h2>
+            <div class="arrow-down">↓</div>
+            <div><br /></div>
+            <div><br /></div>
+        </div>
 
         <div id="workout-planner">
             <h3>Full-body Workout Planner/Generator (BETA)</h3>
@@ -61,41 +49,36 @@
         </div>
 
 
-        
-<div class="arrows step-2">
-  <h2>STEP-2: Copy and paste your workout below.</h2>
-  <div class="arrow-down">↓</div>
-  <div><br /></div>
-  <div><br /></div>
-</div>
-    
-    <div id="workout-chart-generator">
-        <h3>Workout Chart Generator</h3>
-
-        <div id="paste-workout">
-            <label>Paste Workout Here:</label>
-           <textarea id="paste-text" name="paste-text" rows="10"></textarea>
-            <p class="warning-text">
-                <strong>Warning:</strong> Only paste workout text from trusted sources. The application performs basic validation, but cannot guarantee complete safety.
-            </p>
+        <div class="arrows step-2">
+            <h2>STEP-2: Copy and paste your workout below.</h2>
+            <div class="arrow-down">↓</div>
+            <div><br /></div>
+            <div><br /></div>
         </div>
-        <button id="download-pdf">Download as PDF</button>
-    </div>
+
+        <div id="workout-chart-generator">
+            <h3>Workout Chart Generator</h3>
+
+            <div id="paste-workout">
+                <label>Paste Workout Here:</label>
+               <textarea id="paste-text" name="paste-text" rows="10"></textarea>
+                <p class="warning-text">
+                    <strong>Warning:</strong> Only paste workout text from trusted sources. The application performs basic validation, but cannot guarantee complete safety.
+                </p>
+            </div>
+            <button id="download-pdf">Download as PDF</button>
+        </div>
 
 
+        <div class="arrows step-3">
+            <h2>STEP-3: Feel free to customize your workout using our database below, then click download as PDF. TIP: Our workout generator can handle up to 9 exercises.</h2>
+            <div class="arrow-down">↓</div>
+            <div><br /></div>
+            <div><br /></div>
+        </div>
 
-
-
-    
-<div class="arrows step-3">
-  <h2>STEP-3: Feel free to customize your workout using our database below, then click download as PDF. TIP: Our workout generator can handle up to 9 exercises.</h2>
-  <div class="arrow-down">↓</div>
-  <div><br /></div>
-  <div><br /></div>
-</div>
-    
-    <div id="exercise-database-table">
-        <h2>Exercise Database</h2>
+        <div id="exercise-database-table">
+            <h2>Exercise Database</h2>
             <p>Browse the complete list of exercises in our database. Simply copy any exercise using the buttons below! Just be sure to update your “Estimated Workout Time” manually after adding/subtracting exercises.</p>
             <table>
                 <thead>
@@ -125,6 +108,6 @@
    <script src="sanitize.js"></script>
 </body>
 <footer>
-      <p>&copy; [2025] Kurt Astarita</p>
+        <p>&copy; [2025] Kurt Astarita</p>
 </footer>
 </html>
