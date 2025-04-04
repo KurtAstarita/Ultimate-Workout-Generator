@@ -739,9 +739,9 @@ document.getElementById("generate-workout").addEventListener("click", function (
         workoutHTML += `<br><br><li><b>${ex.name}</b>`;
         workoutTextForCopy += `${ex.name}`;
 
-        if (ex.sets && ex.reps) {
-            workoutHTML += ` - Reps: <span class="math-inline">\{ex\.sets\}x</span>{ex.reps}`;
-            workoutTextForCopy += ` - Reps: <span class="math-inline">\{ex\.sets\}x</span>{ex.reps}`;
+     if (ex.sets && ex.reps) {
+            workoutHTML += ` - Reps: ${ex.sets}x${ex.reps}`;
+            workoutTextForCopy += ` - Reps: ${ex.sets}x${ex.reps}`;
         }
         if (ex.rest) {
             workoutHTML += ` - Rest: ${ex.rest} seconds`;
