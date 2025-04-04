@@ -639,28 +639,7 @@ circuit: {
   },
 };
 
- /* ............................................... Function: Normalize Exercises ...................................................... */
- function normalizeExercises(exercisesArray) {
-     if (!Array.isArray(exercisesArray)) {
-         // If it's not an array, assume it's already normalized
-         return exercisesArray;
-     }
-     return exercisesArray.map(exercise => {
-         // Check if reps is a number or a string. If string, leave it as is.
-         if (typeof exercise.reps === 'string' && exercise.reps.includes('sec')) {
-             return exercise;
-         } else {
-             return {
-                 name: exercise.name,
-                 sets: exercise.sets,
-                 reps: exercise.reps,
-                 rest: exercise.rest,
-             };
-         }
-     });
- }
- 
- /* ............................................... Function: Handle Modality Change ...................................................... */
+/* ............................................... Function: Handle Modality Change ...................................................... */
  
  document.getElementById("modality").addEventListener("change", function () {
      const goalSelect = document.getElementById("goal");
