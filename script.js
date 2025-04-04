@@ -862,55 +862,50 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 
         console.log("Lines:", lines);
 
-        lines.forEach(line => {
-            if (line.trim() && !line.includes("Estimated Workout Time")) {
-                const exerciseMatch = line.match(/^(.+?) - Reps:/);
-                const repsMatch = line.match(/Reps: (.+?) - Rest:/);
-                const restMatch = line.match(/Rest: (.+?) seconds?\.?/);
+       lines.forEach(line => {
+        if (line.trim() && !line.includes("Estimated Workout Time")) {
+            const exerciseMatch = line.match(/^(.+?) - Reps:/);
+            const repsMatch = line.match(/Reps: (.+?) - Rest:/);
+            const restMatch = line.match(/Rest: (.+?) seconds?\.?/);
 
-                console.log("Line:", line);
-                console.log("Exercise Match:", exerciseMatch);
-                console.log("Reps Match:", repsMatch);
-                console.log("Rest Match:", restMatch);
+            if (exerciseMatch) {
+                // ... (exercise name, reps, rest extraction)
 
-                if (exerciseMatch) {
-                    const exerciseName = exerciseMatch[1].replace(/<b>|<\/b>/g, '').trim();
-                    const reps = repsMatch ? repsMatch[1].trim() : "";
-                    const rest = restMatch ? restMatch[1].trim() : "";
+                if (restMatch && repsMatch) {
+                    let restTime = 0;
 
-                    let sets = 0;
-                    if (repsMatch) {
-                        const setsAndReps = repsMatch[1].split('x');
-                        if (setsAndReps.length === 2 && !isNaN(parseInt(setsAndReps[0]))) {
-                            sets = parseInt(setsAndReps[0]);
-                        }
-                    }
-
-                    tableData.push([exerciseName, reps, rest, "", "", "", "", "", "", "", ""]);
-
-                    if (restMatch && repsMatch) {
-                        let restTime = 0;
-
-                        if (repsMatch[1].includes('x') && !isNaN(parseInt(repsMatch[1].split('x')[1]))) {
-                            totalWorkoutTime += sets * parseInt(repsMatch[1].split('x')[1]) * repTime;
-                        } else if (repsMatch[1].includes('AMRAP')) {
-                            totalWorkoutTime += sets * 60;
-                        } else if (repsMatch[1].includes('ladder')) {
-                            totalWorkoutTime += sets * 120;
-                        } else if (repsMatch[1].includes('seconds')) {
-                            totalWorkoutTime += sets * parseInt(repsMatch[1].split(' ')[0]);
-                        }
-
+                    if (repsMatch[1].includes('x') && !isNaN(parseInt(repsMatch[1].split('x')[1]))) {
+                        totalWorkoutTime += sets * parseInt(repsMatch[1].split('x')[1]) * repTime;
                         if (restMatch) {
                             restTime = parseInt(restMatch[1]);
                             if (!isNaN(restTime)) {
                                 totalWorkoutTime += sets * restTime;
                             }
                         }
+                    } else if (repsMatch[1].includes('AMRAP')) {
+                        totalWorkoutTime += sets * 60;
+                        if (restMatch) {
+                            restTime = parseInt(restMatch[1]);
+                            if (!isNaN(restTime)) {
+                                totalWorkoutTime += sets * restTime;
+                            }
+                        }
+                    } else if (repsMatch[1].includes('ladder')) {
+                        totalWorkoutTime += sets * 120;
+                        if (restMatch) {
+                            restTime = parseInt(restMatch[1]);
+                            if (!isNaN(restTime)) {
+                                totalWorkoutTime += sets * restTime;
+                            }
+                        }
+                    } else if (repsMatch[1].includes('seconds')) {
+                        // Exclude repTime and rest time calculations for seconds
+                        totalWorkoutTime += sets * parseInt(repsMatch[1].split(' ')[0]);
                     }
                 }
             }
-        });
+        }
+    });
 
         console.log("Table Data:", tableData);
         console.log("Total Workout Time:", totalWorkoutTime);
