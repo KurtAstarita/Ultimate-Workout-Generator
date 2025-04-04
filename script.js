@@ -919,6 +919,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 5: { cellWidth: 'auto' },
                 6: { cellWidth: 'auto' },
                 7: { cellWidth: 'auto' },
+                8: { cellWidth: 'auto' },
             },
             tableLineWidth: 1,
             tableBorderColor: [169, 169, 169],
