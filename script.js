@@ -837,7 +837,11 @@ document.getElementById('download-pdf').addEventListener('click', function () {
     let workoutText = document.getElementById('paste-text').value;
     workoutText = DOMPurify.sanitize(workoutText);
 
-    // console.log("Workout Text:", workoutText);
+    // Temporary workaround to remove math-inline spans
+    workoutText = workoutText.replace(/<span class="math-inline">/g, '');
+    workoutText = workoutText.replace(/<\/span>/g, '');
+
+    console.log("Workout Text (after span removal):", workoutText);
 
     if (!workoutText.trim()) {
         alert("Please paste workout text before downloading.");
