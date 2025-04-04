@@ -934,11 +934,11 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 
         lines.forEach(line => {
             const parts = line.split(" - ");
-            if (firstLine){
-                headers = parts;
+            if (firstLine) {
+                headers = [...parts, "Reps & Wt. Per Set"]; // Add the new header
                 firstLine = false;
             } else {
-                tableData.push(parts);
+                tableData.push([...parts, "_____x_____|_____x_____|_____x_____|_____x_____|_____x_____"]); // Add placeholder cells
             }
         });
 
