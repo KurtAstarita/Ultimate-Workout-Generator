@@ -879,6 +879,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                         let repTime = 2; // Average time per rep in seconds
                         let restTime = 0;
 
+                        // Calculate workout time
                         if (repsMatch[1].includes('x') && !isNaN(parseInt(repsMatch[1].split('x')[1]))) {
                             totalWorkoutTime += sets * parseInt(repsMatch[1].split('x')[1]) * repTime;
                         } else if (repsMatch[1].includes('AMRAP')) {
@@ -889,6 +890,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                             totalWorkoutTime += sets * parseInt(repsMatch[1].split(' ')[0]) * 60; // Convert minutes to seconds
                         }
 
+                        // Calculate rest time
                         if (restMatch[2].includes('seconds')) {
                             restTime = parseInt(restMatch[1]);
                         } else if (restMatch[2].includes('minutes')) {
