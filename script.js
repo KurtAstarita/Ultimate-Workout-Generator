@@ -639,15 +639,12 @@ circuit: {
   },
 };
 
-/* .................................................. Handle Modality Change .................................................. */
+/* ............................................... Function: Handle Modality Change ...................................................... */
 
 document.getElementById("modality").addEventListener("change", function () {
     const goalSelect = document.getElementById("goal");
-
-    const strengthModalities = ["powerlifting_5x5", "hiit", "circuit", "calisthenics"];
-    
-    if (strengthModalities.includes(this.value)) {
-        goalSelect.value = "strength"; // Default goal for strength modalities
+    if (["powerlifting_5x5", "hiit", "circuit", "calisthenics"].includes(this.value)) {
+        goalSelect.value = "strength";
         goalSelect.disabled = true;
         goalSelect.style.color = "#aaa";
         goalSelect.style.backgroundColor = "#eee";
@@ -661,7 +658,7 @@ document.getElementById("modality").addEventListener("change", function () {
 // Disable the copy button initially
 document.getElementById("copy-workout").disabled = true;
 
-/* .................................................. Generate Workout .................................................. */
+/* ............................................... Function: Generate Workout ...................................................... */
 let workoutTextForCopy = "";
 
 document.getElementById("generate-workout").addEventListener("click", function () {
@@ -669,26 +666,28 @@ document.getElementById("generate-workout").addEventListener("click", function (
     const experience = document.getElementById("experience").value;
     const modality = document.getElementById("modality").value;
     const resultDiv = document.getElementById("workout-result");
-    
     resultDiv.innerHTML = "";
+
     let selectedExercises = [];
 
-    // Select exercises based on modality, experience, or goal
     if (exercises[modality]) {
-        selectedExercises = exercises[modality][experience] 
-            ? normalizeExercises(exercises[modality][experience]) 
-            : normalizeExercises(exercises[modality].all || exercises[modality]);
+        selectedExercises = exercises[modality][experience] ? 
+                            normalizeExercises(exercises[modality][experience]) : 
+                            normalizeExercises(exercises[modality].all || exercises[modality]);
     } else if (exercises[goal] && exercises[goal][experience]) {
-        selectedExercises = Object.values(exercises[goal][experience]).flat();
+        for (const key in exercises[goal][experience]) {
+            if (Array.isArray(exercises[goal][experience][key])) {
+                selectedExercises = selectedExercises.concat(normalizeExercises(exercises[goal][experience][key]));
+            }
+        }
     }
 
-    if (selectedExercises.length === 0) {
+    if (!selectedExercises.length) {
         resultDiv.textContent = "No exercises found for your selected criteria.";
         return;
     }
 
-    // Select 5 random exercises
-    let workout = [];
+    const workout = [];
     let availableExercises = [...selectedExercises];
 
     for (let i = 0; i < 5 && availableExercises.length > 0; i++) {
@@ -697,32 +696,39 @@ document.getElementById("generate-workout").addEventListener("click", function (
     }
 
     let totalWorkoutTime = 0;
-    let repTime = 2; // Average seconds per rep
-
-    let workoutHTML = `<br><center><h3><u>YOUR WORKOUT</u></h3></center><ul>`;
+    let repTime = 2; // Average rep time in seconds
     workoutTextForCopy = "";
 
+    let workoutHTML = `<br><center><h3><u>YOUR WORKOUT</u></h3></center><ul>`;
     workout.forEach(ex => {
-        workoutHTML += `<li><b>${ex.name}</b>`;
+        let exerciseText = `<li><b>${ex.name}</b>`;
         workoutTextForCopy += `${ex.name}`;
 
         if (ex.sets && ex.reps) {
-            workoutHTML += ` - Reps: ${ex.sets}x${ex.reps}`;
+            exerciseText += ` - Reps: ${ex.sets}x${ex.reps}`;
             workoutTextForCopy += ` - Reps: ${ex.sets}x${ex.reps}`;
         }
+
         if (ex.rest) {
-            workoutHTML += ` - Rest: ${ex.rest} seconds`;
+            exerciseText += ` - Rest: ${ex.rest} seconds`;
             workoutTextForCopy += ` - Rest: ${ex.rest} seconds`;
 
-            if (typeof ex.reps === 'number') {
-                totalWorkoutTime += ex.sets * ex.reps * repTime;
-            }
-            totalWorkoutTime += ex.sets * ex.rest;
+            let restPerSet = typeof ex.rest === "number" ? ex.rest : parseInt(ex.rest.match(/\d+/)[0]) || 0;
+            totalWorkoutTime += ex.sets * restPerSet;
         }
+
+        if (typeof ex.reps === 'number') {
+            totalWorkoutTime += ex.sets * ex.reps * repTime;
+        } else if (typeof ex.reps === 'string' && ex.reps.includes('sec')) {
+            let seconds = parseInt(ex.reps.match(/\d+/)[0]) || 0;
+            totalWorkoutTime += ex.sets * seconds;
+        }
+
+        workoutHTML += `${exerciseText}</li>`;
         workoutTextForCopy += "\n";
     });
 
-    let minutes = Math.round(totalWorkoutTime / 60);
+    const minutes = Math.round(totalWorkoutTime / 60);
     workoutHTML += `<p><i>Estimated Workout Time: ${minutes} minutes</i></p>`;
     workoutTextForCopy += `Estimated Workout Time: ${minutes} minutes`;
 
@@ -730,34 +736,80 @@ document.getElementById("generate-workout").addEventListener("click", function (
     document.getElementById("copy-workout").disabled = false;
 });
 
-// Copy workout text to clipboard
-document.getElementById("copy-workout").addEventListener("click", function () {
-    navigator.clipboard.writeText(workoutTextForCopy).then(() => {
-        alert("Workout copied to clipboard!");
-    }).catch(err => console.error("Failed to copy: ", err));
-});
-
-/* .................................................. Download Workout as PDF .................................................. */
+/* ............................................... Function: Generate PDF ...................................................... */
 document.getElementById('download-pdf').addEventListener('click', function () {
-    let workoutText = document.getElementById('paste-text').value.trim();
-    if (!workoutText) {
+    let workoutText = document.getElementById('paste-text').value;
+    workoutText = DOMPurify.sanitize(workoutText);
+
+    if (!workoutText.trim()) {
         alert("Please paste workout text before downloading.");
         return;
     }
 
+    const validationResult = validateWorkoutText(workoutText);
+    if (!validationResult.isValid) {
+        alert("Workout text validation errors:\n" + validationResult.errors.join('\n'));
+        return;
+    }
+
+    const lines = workoutText.split('\n');
+    let tableData = [];
+    let headers = ["Exercise", "Reps", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5"];
+    let totalWorkoutTime = 0;
+
+    lines.forEach(line => {
+        if (!line.trim() || line.includes("Estimated Workout Time")) return;
+
+        const exerciseMatch = line.match(/^(.+?) - Reps:/);
+        const repsMatch = line.match(/Reps: (.+?) - Rest:/);
+        const restMatch = line.match(/Rest: (.+?) (seconds?|minutes?)\.?/);
+
+        if (exerciseMatch) {
+            let sets = 1;
+            let reps = repsMatch ? repsMatch[1].trim() : "";
+            let restValue = restMatch ? parseInt(restMatch[1]) : 0;
+
+            if (reps.includes('x')) {
+                const parts = reps.split('x');
+                if (parts.length === 2 && !isNaN(parseInt(parts[0]))) {
+                    sets = parseInt(parts[0]);
+                    reps = parts[1].trim();
+                }
+            }
+
+            let exerciseTimePerSet = 120;
+            let restTimePerSet = restValue ? (restMatch[2] === "minutes" ? restValue * 60 : restValue) : 0;
+
+            totalWorkoutTime += sets * exerciseTimePerSet;
+            totalWorkoutTime += (sets - 1) * restTimePerSet;
+
+            tableData.push([exerciseMatch[1], reps, restMatch ? restMatch[1] + " " + restMatch[2] : "", "", "", "", "", ""]);
+        }
+    });
+
+    const minutes = Math.round(totalWorkoutTime / 60);
+    const timeText = `Estimated Workout Time: ${minutes} minutes`;
+
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(14);
-    doc.text("Your Workout Plan", 10, 10);
-    
-    doc.setFont("helvetica", "normal");
+    doc.autoTable({
+        head: [headers],
+        body: tableData,
+        startY: 10,
+        styles: { fontSize: 10, cellPadding: 5 },
+        headStyles: { fillColor: [169, 169, 169], textColor: [0, 0, 0] },
+        tableLineWidth: 1,
+        tableBorderColor: [169, 169, 169],
+    });
+
     doc.setFontSize(11);
-    doc.text(workoutText, 10, 20);
-    
+    doc.setTextColor(105, 105, 105);
+    doc.text(timeText, 10, doc.autoTable.previous.finalY + 10);
+
     doc.save("workout.pdf");
 });
+
 
 /* .................................................. Populate Exercise Table .................................................. */
 document.addEventListener('DOMContentLoaded', function () {
