@@ -708,7 +708,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             if (line.trim() && !line.includes("Estimated Workout Time")) {
                 const exerciseMatch = line.match(/^(.+?) - Reps:/);
                 const repsMatch = line.match(/Reps: (.+?) - Rest:/);
-                const restMatch = line.match(/Rest: (.+?) seconds?\.?/); // Made period optional here
+                const restMatch = line.match(/Rest: (.+?) seconds?\./); // Period required
 
                 if (exerciseMatch) {
                     const exerciseName = exerciseMatch[1].replace(/<b>|<\/b>/g, '').trim();
