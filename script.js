@@ -646,17 +646,13 @@ function normalizeExercises(exercisesArray) {
         return exercisesArray;
     }
     return exercisesArray.map(exercise => {
-        // Check if reps is a number or a string. If string, leave it as is.
-        if (typeof exercise.reps === 'string' && exercise.reps.includes('sec')) {
-            return exercise;
-        } else {
-            return {
-                name: exercise.name,
-                sets: exercise.sets,
-                reps: exercise.reps,
-                rest: exercise.rest,
-            };
-        }
+        return {
+            name: exercise.name,
+            sets: exercise.sets,
+            reps: exercise.reps,
+            rest: exercise.rest,
+            timePerSet: exercise.timePerSet // Include the new field
+        };
     });
 }
 
@@ -730,8 +726,6 @@ document.getElementById("generate-workout").addEventListener("click", function (
     }
 
     let totalWorkoutTime = 0;
-    let repTime = 2; // Average time per rep in seconds
-
     let workoutHTML = "<br><center><h3><u>YOUR WORKOUT</u></h3></center><ul>";
     workoutTextForCopy = ""; // Reset workoutTextForCopy here
 
@@ -739,42 +733,32 @@ document.getElementById("generate-workout").addEventListener("click", function (
         workoutHTML += `<br><br><li><b>${ex.name}</b>`;
         workoutTextForCopy += `${ex.name}`;
 
-     if (ex.sets && ex.reps) {
+        if (ex.sets && ex.reps) {
             workoutHTML += ` - Reps: ${ex.sets}x${ex.reps}`;
             workoutTextForCopy += ` - Reps: ${ex.sets}x${ex.reps}`;
+
+            // Calculate time for exercises with sets and reps
+            if (typeof ex.sets === 'number' && ex.timePerSet !== undefined) {
+                let numberOfRounds = ex.sets;
+                // For reps that are time-based, sets might represent rounds
+                if (typeof ex.reps === 'string' && (ex.reps.includes('sec') || ex.reps.includes('minutes'))) {
+                    numberOfRounds = ex.sets;
+                } else if (typeof ex.reps === 'string' && (ex.reps === 'AMRAP' || ex.reps === 'Ladder')) {
+                    numberOfRounds = ex.sets; // Treat AMRAP/Ladder sets as rounds
+                } else if (typeof ex.reps === 'number') {
+                    numberOfRounds = ex.sets;
+                }
+                totalWorkoutTime += numberOfRounds * ex.timePerSet;
+            }
         }
+
         if (ex.rest) {
             workoutHTML += ` - Rest: ${ex.rest} seconds`;
             workoutTextForCopy += ` - Rest: ${ex.rest} seconds`;
-
-            if (typeof ex.reps === 'number') {
-                totalWorkoutTime += ex.sets * ex.reps * repTime;
-            } else if (typeof ex.reps === 'string' && ex.reps.includes('sec')) {
-                const seconds = parseInt(ex.reps.match(/\d+/)[0]);
-                if (!isNaN(seconds)) {
-                    totalWorkoutTime += ex.sets * seconds;
-                }
-            } else if (typeof ex.reps === 'string' && ex.reps === "AMRAP") {
-                totalWorkoutTime += ex.sets * 60; // Default 60 seconds.
-            } else if (typeof ex.reps === 'string' && ex.reps.includes('minutes')) {
-                const minutes = parseInt(ex.reps.split(' ')[0]);
-                if (!isNaN(minutes)) {
-                    totalWorkoutTime += ex.sets * minutes * 60;
-                }
+            if (typeof ex.sets === 'number') {
+                totalWorkoutTime += (ex.sets - 1) * ex.rest; // Rest between sets
             }
-            totalWorkoutTime += ex.sets * ex.rest;
-        } else if (ex.duration && ex.timeUnit === "sec") {
-            if (!isNaN(ex.duration)) {
-                totalWorkoutTime += ex.sets * ex.duration;
-            }
-        } else {
-            totalWorkoutTime += 120; // Default time
         }
-        if(ex.rest){
-            workoutTextForCopy += "."; // Add period here, after rest data.
-        }
-
-        // Add a newline character after each exercise
         workoutTextForCopy += "\n";
     });
 
@@ -837,12 +821,6 @@ document.getElementById('download-pdf').addEventListener('click', function () {
     let workoutText = document.getElementById('paste-text').value;
     workoutText = DOMPurify.sanitize(workoutText);
 
-    // Temporary workaround to remove math-inline spans
-    workoutText = workoutText.replace(/<span class="math-inline">/g, '');
-    workoutText = workoutText.replace(/<\/span>/g, '');
-
-    console.log("Workout Text (after span removal):", workoutText);
-
     if (!workoutText.trim()) {
         alert("Please paste workout text before downloading.");
         return;
@@ -850,8 +828,6 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 
     try {
         const validationResult = validateWorkoutText(workoutText);
-
-        // console.log("Validation Result:", validationResult);
 
         if (!validationResult.isValid) {
             alert("Workout text validation errors:\n" + validationResult.errors.join('\n'));
@@ -862,8 +838,6 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         let tableData = [];
         let headers = ["Exercise", "Reps", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
         let totalWorkoutTime = 0;
-
-        // console.log("Lines:", lines);
 
         lines.forEach(line => {
             if (line.trim() && !line.includes("Estimated Workout Time")) {
@@ -876,78 +850,10 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                     const repsInfo = repsMatch ? repsMatch[1].trim() : "";
                     const restInfo = restMatch ? restMatch[1].trim() : "";
 
-                    let sets = 0;
-                    let reps = "";
-                    let restValue = 0;
-                    let restUnit = "seconds";
-
-                    if (repsMatch) {
-                        const setsAndReps = repsMatch[1].split('x');
-                        if (setsAndReps.length === 2 && !isNaN(parseInt(setsAndReps[0]))) {
-                            sets = parseInt(setsAndReps[0]);
-                            reps = setsAndReps[1].split('-')[0].trim();
-                        } else {
-                            reps = repsMatch[1].split('-')[0].trim();
-                            sets = 1; // Assume 1 set if not specified with 'x'
-                        }
-                    }
-                    if (restMatch) {
-                        restValue = parseInt(restMatch[1]);
-                        restUnit = restMatch[2] || "seconds";
-                    }
-
                     tableData.push([exerciseName, repsInfo, restInfo, "", "", "", "", "", "", "", ""]);
-
-                    if (restMatch && repsMatch) {
-                        let exerciseTimePerSet = 0;
-                        const repTime = 2; // Average time per rep in seconds
-                        let restTimePerSetInSeconds = 0;
-
-                        if (!isNaN(restValue)) {
-                            restTimePerSetInSeconds = restUnit.includes('minute') ? restValue * 60 : restValue;
-                        }
-
-                        if (repsInfo.includes('x')) {
-                            const parts = repsInfo.split('x');
-                            if (parts.length === 2 && !isNaN(parseInt(parts[0]))) {
-                                const numRepsOrTime = parts[1].split(' ')[0];
-                                if (numRepsOrTime.includes('seconds')) {
-                                    const seconds = parseInt(numRepsOrTime);
-                                    if (!isNaN(seconds)) {
-                                        exerciseTimePerSet = seconds;
-                                    }
-                                } else if (numRepsOrTime.includes('minutes')) {
-                                    const minutes = parseInt(numRepsOrTime);
-                                    if (!isNaN(minutes)) {
-                                        exerciseTimePerSet = minutes * 60;
-                                    }
-                                } else if (!isNaN(parseInt(numRepsOrTime))) {
-                                    exerciseTimePerSet = parseInt(numRepsOrTime) * repTime;
-                                }
-                            }
-                        } else if (repsInfo.includes('AMRAP')) {
-                            exerciseTimePerSet = 60;
-                        } else if (repsInfo.includes('ladder')) {
-                            exerciseTimePerSet = 120;
-                        }
-
-                        // Calculate total time for the exercise, including rest between sets
-                        totalWorkoutTime += sets * exerciseTimePerSet;
-                        if (sets > 1) {
-                            totalWorkoutTime += (sets - 1) * restTimePerSetInSeconds; // Rest between sets
-                        } else if (sets === 1 && restTimePerSetInSeconds > 0) {
-                            totalWorkoutTime += restTimePerSetInSeconds; // Rest after the single set
-                        }
-                    }
                 }
             }
         });
-
-        // console.log("Table Data:", tableData);
-        // console.log("Total Workout Time (seconds):", totalWorkoutTime);
-
-        const minutes = Math.round(totalWorkoutTime / 60);
-        const timeText = `Estimated Workout Time: ${minutes} minutes`;
 
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
@@ -983,6 +889,12 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(11);
         doc.setTextColor(105, 105, 105);
+        // Note: We are no longer calculating totalWorkoutTime in this function based on the pasted text.
+        // If you want to include an estimated time in the PDF, you would need to either:
+        // 1. Rely on the "Estimated Workout Time" line being present in the pasted text.
+        // 2. Re-calculate it based on the parsed data (which you are trying to avoid).
+        const timeLine = lines.find(line => line.includes("Estimated Workout Time"));
+        const timeText = timeLine || "";
         doc.text(timeText, 10, tableEndY + 10);
         doc.setTextColor(0, 0, 0);
         doc.setFont('helvetica', 'normal');
@@ -1040,13 +952,12 @@ function populateExerciseTable() {
         const row = document.createElement("tr");
         const button = document.createElement("button");
         button.className = "copy-exercise";
-        let copyText = `${exercise.name} - Reps: <span class="math-inline">\{exercise\.sets\}x</span>{exercise.reps}`;
+        let copyText = `${exercise.name} - Reps: ${exercise.sets}x${exercise.reps}`;
         if (exercise.rest) {
             copyText += ` - Rest: ${exercise.rest} seconds.`;
         }
         button.dataset.exercise = copyText;
         button.textContent = exercise.name;
-
         const cell1 = document.createElement("td");
         cell1.appendChild(button);
 
@@ -1059,10 +970,14 @@ function populateExerciseTable() {
         const cell6 = document.createElement("td");
         cell6.textContent = exercise.rest;
 
+        const cell7 = document.createElement("td");
+        cell7.textContent = exercise.timePerSet || ''; // Display time per set
+
         row.appendChild(cell1);
         row.appendChild(cell4);
         row.appendChild(cell5);
         row.appendChild(cell6);
+        row.appendChild(cell7);
 
         tableBody.appendChild(row);
     });
@@ -1080,9 +995,3 @@ function populateExerciseTable() {
         });
     });
 }
-
-// Call populateExerciseTable() after the DOM is fully loaded
-document.addEventListener('DOMContentLoaded', function () {
-    console.log("DOM Loaded"); // Debugging
-    populateExerciseTable();
-});
