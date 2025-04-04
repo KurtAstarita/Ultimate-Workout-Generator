@@ -942,13 +942,29 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
 
-        doc.autoTable({
+  doc.autoTable({
             head: [headers],
             body: tableData,
             startY: 10,
-            styles: { ... },
-            headStyles: { ... },
-            columnStyles: { ... },
+            styles: {
+                fontSize: 8,
+                cellPadding: 2,
+                borderColor: [169, 169, 169],
+                borderWidth: 1,
+            },
+            headStyles: {
+                fontSize: 8,
+                fillColor: [200, 200, 200],
+                borderColor: [169, 169, 169],
+                borderWidth: 1,
+            },
+            columnStyles: {
+                3: { cellWidth: 'auto' },
+                4: { cellWidth: 'auto' },
+                5: { cellWidth: 'auto' },
+                6: { cellWidth: 'auto' },
+                7: { cellWidth: 'auto' },
+            },
             tableLineWidth: 1,
             tableBorderColor: [169, 169, 169],
         });
