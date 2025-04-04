@@ -864,7 +864,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             if (line.trim() && !line.includes("Estimated Workout Time")) {
                 const exerciseMatch = line.match(/^(.+?) - Reps:/);
                 const repsMatch = line.match(/Reps: (.+?) - Rest:/);
-                const restMatch = line.match(/Rest: (.+?) seconds?\.?/); // Simplified regex
+                const restMatch = line.match(/Rest: (.+?) seconds?\.?/);
 
                 if (exerciseMatch) {
                     const exerciseName = exerciseMatch[1].replace(/<b>|<\/b>/g, '').trim();
@@ -881,19 +881,18 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 
                     tableData.push([exerciseName, reps, rest, "", "", "", "", "", "", "", ""]);
 
-                    // Calculate time
                     if (restMatch && repsMatch) {
-                        let repTime = 2; // Average time per rep in seconds
+                        let repTime = 2;
                         let restTime = 0;
 
                         if (repsMatch[1].includes('x') && !isNaN(parseInt(repsMatch[1].split('x')[1]))) {
                             totalWorkoutTime += sets * parseInt(repsMatch[1].split('x')[1]) * repTime;
                         } else if (repsMatch[1].includes('AMRAP')) {
-                            totalWorkoutTime += sets * 60; // Default 60 seconds for AMRAP
+                            totalWorkoutTime += sets * 60;
                         } else if (repsMatch[1].includes('ladder')) {
-                            totalWorkoutTime += sets * 120; // Default 120 seconds for ladder
+                            totalWorkoutTime += sets * 120;
                         } else if (repsMatch[1].includes('seconds')) {
-                            totalWorkoutTime += sets * parseInt(repsMatch[1].split(' ')[0]); // Exercise duration in seconds
+                            totalWorkoutTime += sets * parseInt(repsMatch[1].split(' ')[0]);
                         }
 
                         if (restMatch) {
@@ -911,10 +910,51 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         const minutes = Math.round(totalWorkoutTime / 60);
         const timeText = `Estimated Workout Time: ${minutes} minutes`;
 
-        // ... (rest of the PDF generation code)
+        // --- Missing Section (PDF generation) ---
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        doc.autoTable({
+            head: [headers],
+            body: tableData,
+            startY: 10,
+            styles: {
+                fontSize: 8,
+                cellPadding: 2,
+                borderColor: [169, 169, 169],
+                borderWidth: 1,
+            },
+            headStyles: {
+                fontSize: 8,
+                fillColor: [200, 200, 200],
+                borderColor: [169, 169, 169],
+                borderWidth: 1,
+            },
+            columnStyles: {
+                3: { cellWidth: 'auto' },
+                4: { cellWidth: 'auto' },
+                5: { cellWidth: 'auto' },
+                6: { cellWidth: 'auto' },
+                7: { cellWidth: 'auto' },
+            },
+            tableLineWidth: 1,
+            tableBorderColor: [169, 169, 169],
+        });
+
+        const tableEndY = doc.autoTable.previous.finalY;
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(11);
+        doc.setTextColor(105, 105, 105);
+        doc.text(timeText, 10, tableEndY + 10);
+        doc.setTextColor(0, 0, 0);
+        doc.setFont('helvetica', 'normal');
+
+        doc.save("workout.pdf");
+        // --- End of Missing Section ---
 
     } catch (mainError) {
         console.error("Error generating PDF:", mainError);
+        console.error("Error stack:", mainError.stack);
         alert("An error occurred while generating the PDF.");
     }
 });
