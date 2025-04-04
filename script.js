@@ -935,10 +935,10 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         lines.forEach(line => {
             const parts = line.split(" - ");
             if (firstLine) {
-                headers = [...parts, "Reps & Wt. Per Set"]; // Add the new header
+                headers = [...parts, "Set 1", "Set 2", "Set 3", "Set 4", "Set 5"]; // Add headers for each set
                 firstLine = false;
             } else {
-                tableData.push([...parts, "_____x_____|_____x_____|_____x_____|_____x_____|_____x_____"]); // Add placeholder cells
+                tableData.push([...parts, "", "", "", "", ""]); // Add empty cells for each set
             }
         });
 
