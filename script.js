@@ -834,13 +834,20 @@ function validateWorkoutText(workoutText) {
 
 /* ............................................... Function: Download PDF ...................................................... */
 document.getElementById('download-pdf').addEventListener('click', function () {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
+    let workoutText = document.getElementById('paste-text').value;
+    workoutText = DOMPurify.sanitize(workoutText);
+
+    console.log("Workout Text:", workoutText); // Debugging: Check the input
+
+    if (!workoutText.trim()) {
+        alert("Please paste workout text before downloading.");
+        return;
+    }
 
     try {
-        let workoutText = document.getElementById('paste-text').value;
-        workoutText = DOMPurify.sanitize(workoutText);
         const validationResult = validateWorkoutText(workoutText);
+
+        console.log("Validation Result:", validationResult); // Debugging: Check validation
 
         if (!validationResult.isValid) {
             alert("Workout text validation errors:\n" + validationResult.errors.join('\n'));
