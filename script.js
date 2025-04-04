@@ -849,7 +849,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 
         const lines = workoutText.split('\n');
         let tableData = [];
-        let headers = ["Exercise", "Reps", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6"];
+        let headers = ["Exercise", "Reps", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
         let totalWorkoutTime = 0;
         let repTime = 2; // Average time per rep in seconds
 
@@ -872,7 +872,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                         }
                     }
 
-                    tableData.push([exerciseName, reps, rest, "", "", "", "", "", ""]);
+                    tableData.push([exerciseName, reps, rest, "", "", "", "", "", "", "", ""]);
 
                     // Calculate time
                     if (restMatch && repsMatch) {
