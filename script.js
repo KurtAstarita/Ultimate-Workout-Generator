@@ -932,7 +932,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         let headers = ["Exercise", "Reps", "Rest", "Muscles", "Equipment", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5"];
 
         lines.forEach(line => {
-            if (!line.includes("Estimated Workout Time") && line.trim() !== "") { // Ensure it's not the time line and not an empty line
+            if (line.trim() && !line.includes("Estimated Workout Time")) {
                 const exerciseMatch = line.match(/^(.+?) - Reps:/);
                 const repsMatch = line.match(/Reps: (.+?) - Rest:/);
                 const restMatch = line.match(/Rest: (.+?) seconds?\./);
@@ -959,8 +959,8 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             styles: {
                 fontSize: 8,
                 cellPadding: 2,
-                borderColor: [169, 169, 169], // Medium gray border color (RGB)
-                borderWidth: 1, // Set border width to 1px for inner cells
+                borderColor: [169, 169, 169],
+                borderWidth: 1,
             },
             headStyles: {
                 fontSize: 8,
@@ -969,13 +969,13 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 borderWidth: 1,
             },
             columnStyles: {
-                5: { cellWidth: 'auto' }, // Set 1
-                6: { cellWidth: 'auto' }, // Set 2
-                7: { cellWidth: 'auto' }, // Set 3
-                8: { cellWidth: 'auto' }, // Set 4
-                9: { cellWidth: 'auto' }, // Set 5
+                5: { cellWidth: 'auto' },
+                6: { cellWidth: 'auto' },
+                7: { cellWidth: 'auto' },
+                8: { cellWidth: 'auto' },
+                9: { cellWidth: 'auto' },
             },
-            tableLineWidth: 1, // Set table border width to 1px
+            tableLineWidth: 1,
             tableBorderColor: [169, 169, 169],
         });
 
