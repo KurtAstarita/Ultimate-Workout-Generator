@@ -329,9 +329,9 @@ endurance: {
             { name: "Dumbbell Burpees", sets: 3, reps: 8, rest: 45 },
         ],
         gym: [
-            { name: "Rowing Machine", sets: 1, reps: "15 minutes", rest: 0 },
-            { name: "Assault Bike", sets: 1, reps: "12 minutes", rest: 0 },
-            { name: "Stair Climber", sets: 1, reps: "15 minutes", rest: 0 },
+            { name: "Rowing Machine", sets: 1, reps: "900 seconds", rest: 0 },
+            { name: "Assault Bike", sets: 1, reps: "720 seconds", rest: 0 },
+            { name: "Stair Climber", sets: 1, reps: "900 seconds", rest: 0 },
             { name: "Battle Ropes", sets: 3, reps: 30, rest: 45 },
             { name: "Sled Push", sets: 3, reps: 20, rest: 60 },
         ],
@@ -379,10 +379,10 @@ fatloss: {
             { name: "Dumbbell Step ups", sets: 3, reps: 10, rest: 30 },
         ],
         gym: [
-            { name: "Treadmill Walk or Jog", sets: 1, reps: "20 minutes", rest: 0 },
-            { name: "Elliptical Trainer", sets: 1, reps: "20 minutes", rest: 0 },
-            { name: "Stationary Bike", sets: 1, reps: "20 minutes", rest: 0 },
-            { name: "Rowing Machine", sets: 1, reps: "15 minutes", rest: 0 },
+            { name: "Treadmill Walk or Jog", sets: 1, reps: "1200 seconds", rest: 0 },
+            { name: "Elliptical Trainer", sets: 1, reps: "1200 seconds", rest: 0 },
+            { name: "Stationary Bike", sets: 1, reps: "1200 seconds", rest: 0 },
+            { name: "Rowing Machine", sets: 1, reps: "900 seconds", rest: 0 },
             { name: "Leg Press Machine", sets: 3, reps: 15, rest: 45 },
         ],
     },
@@ -837,7 +837,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
     let workoutText = document.getElementById('paste-text').value;
     workoutText = DOMPurify.sanitize(workoutText);
 
-    console.log("Workout Text:", workoutText); // Debugging: Check the input
+    console.log("Workout Text:", workoutText);
 
     if (!workoutText.trim()) {
         alert("Please paste workout text before downloading.");
@@ -847,7 +847,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
     try {
         const validationResult = validateWorkoutText(workoutText);
 
-        console.log("Validation Result:", validationResult); // Debugging: Check validation
+        console.log("Validation Result:", validationResult);
 
         if (!validationResult.isValid) {
             alert("Workout text validation errors:\n" + validationResult.errors.join('\n'));
@@ -860,11 +860,18 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         let totalWorkoutTime = 0;
         let repTime = 2; // Average time per rep in seconds
 
+        console.log("Lines:", lines);
+
         lines.forEach(line => {
             if (line.trim() && !line.includes("Estimated Workout Time")) {
                 const exerciseMatch = line.match(/^(.+?) - Reps:/);
                 const repsMatch = line.match(/Reps: (.+?) - Rest:/);
                 const restMatch = line.match(/Rest: (.+?) seconds?\.?/);
+
+                console.log("Line:", line);
+                console.log("Exercise Match:", exerciseMatch);
+                console.log("Reps Match:", repsMatch);
+                console.log("Rest Match:", restMatch);
 
                 if (exerciseMatch) {
                     const exerciseName = exerciseMatch[1].replace(/<b>|<\/b>/g, '').trim();
@@ -882,7 +889,6 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                     tableData.push([exerciseName, reps, rest, "", "", "", "", "", "", "", ""]);
 
                     if (restMatch && repsMatch) {
-                        let repTime = 2;
                         let restTime = 0;
 
                         if (repsMatch[1].includes('x') && !isNaN(parseInt(repsMatch[1].split('x')[1]))) {
@@ -906,11 +912,12 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             }
         });
 
-        // Calculate time
+        console.log("Table Data:", tableData);
+        console.log("Total Workout Time:", totalWorkoutTime);
+
         const minutes = Math.round(totalWorkoutTime / 60);
         const timeText = `Estimated Workout Time: ${minutes} minutes`;
 
-        // --- Missing Section (PDF generation) ---
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
 
@@ -950,7 +957,6 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         doc.setFont('helvetica', 'normal');
 
         doc.save("workout.pdf");
-        // --- End of Missing Section ---
 
     } catch (mainError) {
         console.error("Error generating PDF:", mainError);
