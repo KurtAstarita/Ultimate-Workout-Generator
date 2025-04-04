@@ -2,7 +2,7 @@ const exercises = {
     muscle: {
         beginner: {
             dumbbells: [
-            { name: "Dumbbell Rows", muscles: "Back, Biceps", equipment: "Dumbbells", sets: 3, reps: 10, rest: 60 },
+            { name: "Dumbbell Rows", sets: 3, reps: 10, rest: 60 },
             { name: "Dumbbell Bicep Curls", muscles: "Biceps", equipment: "Dumbbells", sets: 3, reps: 12, rest: 60 },
             { name: "Dumbbell Shoulder Press", muscles: "Shoulders", equipment: "Dumbbells", sets: 3, reps: 10, rest: 60 },
             { name: "Dumbbell Lunges", muscles: "Quads, Glutes", equipment: "Dumbbells", sets: 3, reps: 12, rest: 60 },
