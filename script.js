@@ -879,8 +879,16 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 });
 /* ............................................... Function: To Populate table ...................................................... */
 
+/* ............................................... Function: To Populate table ...................................................... */
+
 function populateExerciseTable() {
+    console.log("Populating exercise table..."); // Debugging log
+
     const tableBody = document.getElementById("exercise-table-body");
+    if (!tableBody) {
+        console.error("Table body element not found.");
+        return;
+    }
     tableBody.innerHTML = "";
 
     let allExercises = [];
@@ -956,3 +964,9 @@ function populateExerciseTable() {
         });
     });
 }
+
+// Call populateExerciseTable() after the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', function () {
+    console.log("DOM Loaded"); // Debugging
+    populateExerciseTable();
+});
