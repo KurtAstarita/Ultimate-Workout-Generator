@@ -1,142 +1,245 @@
-body {
+#workout-tool-container {
      font-family: sans-serif;
-     margin: 0;
-     padding: 0;
-     line-height: 1.6;
-     color: #333; /* Dark gray text for readability */
+     padding: 20px;
+     max-width: 700px;
+     margin: 0 auto;
  }
  
- header {
-     background-color: #f8f8f8; /* Light gray background */
-     text-align: center;
-     padding: 2rem 0;
-     border-bottom: 1px solid #eee; /* Subtle bottom border */
- }
- 
- header h1 {
-     margin-bottom: 0.5rem;
-     font-size: 2rem;
-     color: #222; /* Darker heading color */
- }
- 
- nav {
-     text-align: center;
-     margin-top: 1rem;
- }
- 
- nav a {
-     text-decoration: none;
-     color: #007bff; /* Primary blue color for links */
-     margin: 0 1rem;
-     padding: 0.5rem 1rem;
-     border-radius: 4px;
-     transition: background-color 0.3s ease;
- }
- 
- nav a:hover {
-     background-color: #e0f0ff; /* Light blue on hover */
- }
- 
- main {
-     padding: 2rem;
-     max-width: 800px;
-     margin: 0 auto; /* Center main content */
- }
- 
- .calculator {
-     margin-bottom: 2rem;
-     padding: 1.5rem;
-     border: 1px solid #eee; /* Light border */
-     border-radius: 8px;
-     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Subtle shadow */
- }
- 
- .calculator h2 {
-     margin-bottom: 1rem;
-     color: #222;
- }
- 
- .calculator iframe {
-     width: 100%;
-     height: 600px;
+ #workout-planner {
      border: 1px solid #ddd;
-     border-radius: 4px;
-     margin-bottom: 1rem;
+     padding: 20px;
+     border-radius: 5px;
+ }
+ 
+ label {
+     display: block;
+     margin-bottom: 5px;
+     font-weight: bold;
+ }
+ 
+ select, button {
+     width: 100%;
+     padding: 10px;
+     margin-bottom: 15px;
+     border: 1px solid #ccc;
+     border-radius: 5px;
+     box-sizing: border-box;
+ }
+ 
+ button {
+     background-color: black; /* Changed to black */
+     color: white; /* Changed to white */
+     cursor: pointer;
+ }
+ 
+ button:hover {
+     background-color: darkgray; /* Changed to dark gray */
+ }
+ 
+ #workout-result {
+     margin-top: 20px;
+     padding: 10px;
+     border: 1px solid #eee;
+     white-space: pre-wrap;
+ }
+ 
+ .branding-container {
+     text-align: center;
+     margin-top: 30px;
+     padding: 15px 0;
+     background-color: #f8f8f8;
+     border-top: 1px solid #eee;
+ }
+ 
+ .branding-container a {
+     text-decoration: none;
+     color: #007bff;
+     font-weight: 600;
+     padding: 8px 15px;
+     border: 1px solid #007bff;
+     border-radius: 5px;
+     background-color: white;
+     margin-left: 10px;
+ }
+ 
+ .branding-container span {
+     font-weight: 600;
+     margin-right: 10px;
+ }
+ 
+ /* Responsive adjustments for mobile */
+ @media (max-width: 600px) {
+     .branding-container {
+         margin-top: 20px;
+         padding: 10px 0;
+         display: flex;
+         flex-direction: column;
+         align-items: center;
+     }
+ 
+     .branding-container a {
+         font-size: 0.9em;
+         padding: 6px 10px;
+         margin-left: 0;
+         margin-top: 10px;
+     }
+ 
+     .branding-container span {
+         font-size: 0.9em;
+         margin-right: 0;
+     }
+ }
+ 
+ /* Responsive adjustments for tablet (optional) */
+ @media (min-width: 601px) and (max-width: 1024px) {
+     .branding-container {
+         margin-top: 25px;
+         padding: 12px 0;
+     }
+ 
+     .branding-container a {
+         font-size: 1em;
+         padding: 7px 12px;
+     }
+ 
+     .branding-container span {
+         font-size: 1em;
+     }
  }
  
  footer {
      text-align: center;
-     padding: 2rem 0;
-     background-color: #f8f8f8;
-     border-top: 1px solid #eee; /* Subtle top border */
-     color: #777; /* Light gray footer text */
+     padding: 20px;
+     border-top: 1px solid #eee;
+     font-size: 0.9em;
+     color: #666;
  }
  
  footer a {
-     color: #007bff; /* Link color */
-     text-decoration: none; /* Remove underline */
-     margin-left: 10px; /* Add space between copyright and link */
- }
- 
- footer a:hover {
-     text-decoration: underline; /* Add underline on hover */
- }
- 
- /* Responsive adjustments */
- @media (max-width: 600px) {
-     main {
-         padding: 1rem;
-     }
- 
-     nav a {
-         margin: 0 0.5rem;
-         padding: 0.3rem 0.6rem;
-     }
- }
- 
- /* Dropdown styles */
- .dropdown {
-     position: relative;
-     display: inline-block;
- }
- 
- .dropbtn {
-     background-color: #007bff;
-     color: white;
-     padding: 0.5rem 1rem;
-     font-size: 1rem;
-     border: none;
-     cursor: pointer;
-     border-radius: 4px;
-     margin: 0 1rem;
- }
- 
- .dropdown-content {
-     display: none;
-     position: absolute;
-     background-color: #f9f9f9;
-     min-width: 160px;
-     min-width: 220px;
-     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-     z-index: 1;
-     border-radius: 4px;
- }
- 
- .dropdown-content a {
-     color: black;
-     padding: 12px 16px;
      text-decoration: none;
+     color: #007bff;
+ }
+ 
+ .warning-text {
+     color: red;
+     font-size: 0.8em;
+ }
+ 
+ .note-text {
+     color: #221111;
+     font-size: 0.9em;
+ }
+ 
+ /* Workout Chart Generator Styles */
+ #workout-chart-generator {
+     width: 80%;
+     max-width: 700px;
+     margin: 20px auto;
+     padding: 20px;
+     border: 1px solid #ccc;
+     font-family: sans-serif;
+ }
+ 
+ #paste-workout label {
      display: block;
+     margin-top: 10px;
  }
  
- .dropdown-content a:hover {
-     background-color: #f1f1f1;
+ #paste-workout textarea {
+     width: 100%;
+     padding: 5px;
+     box-sizing: border-box;
+     resize: vertical;
  }
  
- .dropdown:hover .dropdown-content {
+ #download-pdf {
      display: block;
+     margin: 20px auto;
+     padding: 10px 20px;
+     background-color: black; /* Changed to black */
+     color: white; /* Changed to white */
+     border: 1px solid #ccc;
+     cursor: pointer;
  }
  
- .dropdown:hover .dropbtn {
-     background-color: #0056b3;
+ #download-pdf:hover{
+     background-color: darkgray; /* Changed to dark gray */
  }
+ 
+ @media print {
+     #workout-chart-generator {
+         border: none;
+     }
+ 
+     #download-pdf {
+         display: none;
+     }
+ }
+ 
+ /* Exercise Database Table Styles */
+ #exercise-database-table table {
+     width: 100%;
+     border-collapse: collapse;
+     margin-top: 20px;
+     border: 2px solid #ccc;
+ }
+ 
+ #exercise-database-table th,
+ #exercise-database-table td {
+     border: 1px solid #ddd;
+     padding: 8px;
+     text-align: left;
+ }
+ 
+ #exercise-database-table th {
+     background-color: #f2f2f2;
+     color: black;
+ }
+ 
+ #exercise-database-table th:nth-child(4),
+ #exercise-database-table td:nth-child(4) {
+     width: 80px;
+ }
+ 
+ .arrows {
+     margin-bottom: 30px;
+     text-align: center; /* Center the content */
+     font-family: Arial, sans-serif; /* Set font family */
+     font-weight: bold; /* Set font weight */
+   }
+ 
+   .arrows h2 {
+     font-size: 1.5em;
+     margin-bottom: 10px;
+     color: #333;
+   }
+ 
+   .arrows h3 {
+     font-size: 1.1em;
+     margin-bottom: 10px;
+     color: #555;
+   }
+ 
+   .important-tip {
+     color: red;
+   }
+ 
+   .arrow-down {
+     font-size: 2em;
+     color: #007bff;
+     margin-top: 20px;
+     caret-color: rgba(0, 0, 0, 0);
+   }
+ 
+   /* Specific styles for each step (if needed) */
+   .step-1 {
+     /* Styles for STEP-1 */
+   }
+ 
+   .step-2 {
+     /* Styles for STEP-2 */
+   }
+ 
+   .step-3 {
+     /* Styles for STEP-3 */
+   }
