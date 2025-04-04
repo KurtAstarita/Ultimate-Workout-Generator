@@ -833,7 +833,6 @@ function validateWorkoutText(workoutText) {
 }
 
 /* ............................................... Function: Download PDF ...................................................... */
-
 document.getElementById('download-pdf').addEventListener('click', function () {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
@@ -925,9 +924,12 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             tableBorderColor: [169, 169, 169],
         });
 
-        // Add estimated time below the table
-        const tableEndY = doc.autoTable.previous.finalY; // Get the Y position of the end of the table
-        doc.text(timeText, 10, tableEndY + 10); // Add the text below the table
+        // Add estimated time below the table with styling
+        const tableEndY = doc.autoTable.previous.finalY;
+        doc.setFont('helvetica', 'bold'); // Set font to bold
+        doc.setFontSize(12); // Set font size (adjust as needed)
+        doc.text(timeText, 10, tableEndY + 10);
+        doc.setFont('helvetica', 'normal'); // Reset font to normal
 
         doc.save("workout.pdf");
 
