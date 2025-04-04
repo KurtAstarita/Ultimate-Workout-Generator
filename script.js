@@ -858,70 +858,83 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         let tableData = [];
         let headers = ["Exercise", "Reps", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
         let totalWorkoutTime = 0;
-        let repTime = 2; // Average time per rep in seconds
 
         console.log("Lines:", lines);
 
- lines.forEach(line => {
-        if (line.trim() && !line.includes("Estimated Workout Time")) {
-            const exerciseMatch = line.match(/^(.+?) - Reps:/);
-            const repsMatch = line.match(/Reps: (.+?) - Rest:/);
-            const restMatch = line.match(/Rest: (.+?) seconds?\.?/);
+        lines.forEach(line => {
+            if (line.trim() && !line.includes("Estimated Workout Time")) {
+                const exerciseMatch = line.match(/^(.+?) - Reps:/);
+                const repsMatch = line.match(/Reps: (.+?) - Rest:/);
+                const restMatch = line.match(/Rest: (.+?) (seconds?|minutes?)\.?/);
 
-            if (exerciseMatch) {
-                const exerciseName = exerciseMatch[1].replace(/<b>|<\/b>/g, '').trim();
-                const reps = repsMatch ? repsMatch[1].trim() : "";
-                const rest = restMatch ? restMatch[1].trim() : "";
+                if (exerciseMatch) {
+                    const exerciseName = exerciseMatch[1].replace(/<b>|<\/b>/g, '').trim();
+                    const repsInfo = repsMatch ? repsMatch[1].trim() : "";
+                    const restInfo = restMatch ? restMatch[1].trim() : "";
 
-                let sets = 0;
+                    let sets = 0;
+                    let reps = "";
+                    let rest = "";
 
-                if (repsMatch) {
-                    const setsAndReps = repsMatch[1].split('x');
-                    if (setsAndReps.length === 2 && !isNaN(parseInt(setsAndReps[0]))) {
-                        sets = parseInt(setsAndReps[0]);
+                    if (repsMatch) {
+                        const setsAndReps = repsMatch[1].split('x');
+                        if (setsAndReps.length === 2 && !isNaN(parseInt(setsAndReps[0]))) {
+                            sets = parseInt(setsAndReps[0]);
+                            reps = setsAndReps[1].split('-')[0].trim();
+                        } else {
+                            reps = repsMatch[1].split('-')[0].trim();
+                            sets = 1; // Assume 1 set if not specified with 'x'
+                        }
                     }
-                }
+                    if (restMatch) {
+                        rest = restMatch[1].trim();
+                    }
 
-                tableData.push([exerciseName, reps, rest, "", "", "", "", "", "", "", ""]);
+                    tableData.push([exerciseName, repsInfo, restInfo, "", "", "", "", "", "", "", ""]);
 
-                if (restMatch && repsMatch) {
-                    let restTime = 0;
+                    if (restMatch && repsMatch) {
+                        let exerciseTime = 0;
+                        const repTime = 2; // Average time per rep in seconds
+                        const restValue = parseInt(restMatch[1]);
+                        const restUnit = restMatch[2];
 
-                    if (repsMatch[1].includes('x') && !isNaN(parseInt(repsMatch[1].split('x')[1]))) {
-                        totalWorkoutTime += sets * parseInt(repsMatch[1].split('x')[1]) * repTime;
-                        if (restMatch) {
-                            restTime = parseInt(restMatch[1]);
-                            if (!isNaN(restTime)) {
-                                totalWorkoutTime += sets * restTime;
+                        if (repsInfo.includes('x') && !repsInfo.includes('seconds') && !repsInfo.includes('minutes')) {
+                            const numReps = parseInt(repsInfo.split('x')[1]);
+                            if (!isNaN(numReps)) {
+                                exerciseTime += sets * numReps * repTime;
+                            }
+                        } else if (repsInfo.includes('AMRAP')) {
+                            exerciseTime += sets * 60;
+                        } else if (repsInfo.includes('ladder')) {
+                            exerciseTime += sets * 120;
+                        } else if (repsInfo.includes('seconds')) {
+                            const seconds = parseInt(repsInfo.split(' ')[0]);
+                            if (!isNaN(seconds)) {
+                                exerciseTime += sets * seconds;
+                            }
+                        } else if (repsInfo.includes('minutes')) {
+                            const minutes = parseInt(repsInfo.split(' ')[0]);
+                            if (!isNaN(minutes)) {
+                                exerciseTime += sets * minutes * 60;
                             }
                         }
-                    } else if (repsMatch[1].includes('AMRAP')) {
-                        totalWorkoutTime += sets * 60;
-                        if (restMatch) {
-                            restTime = parseInt(restMatch[1]);
-                            if (!isNaN(restTime)) {
-                                totalWorkoutTime += sets * restTime;
+
+                        let totalRestTime = 0;
+                        if (!isNaN(restValue)) {
+                            if (restUnit && restUnit.includes('minute')) {
+                                totalRestTime = sets * restValue * 60;
+                            } else {
+                                totalRestTime = sets * restValue;
                             }
                         }
-                    } else if (repsMatch[1].includes('ladder')) {
-                        totalWorkoutTime += sets * 120;
-                        if (restMatch) {
-                            restTime = parseInt(restMatch[1]);
-                            if (!isNaN(restTime)) {
-                                totalWorkoutTime += sets * restTime;
-                            }
-                        }
-                    } else if (repsMatch[1].includes('seconds')) {
-                        // Explicitly exclude repTime calculation
-                        totalWorkoutTime += sets * parseInt(repsMatch[1].split(' ')[0]);
+                        totalWorkoutTime += exerciseTime + totalRestTime;
                     }
                 }
             }
-        }
-    });
+        });
 
         console.log("Table Data:", tableData);
-        console.log("Total Workout Time:", totalWorkoutTime);
+        console.log("Total Workout Time (seconds):", totalWorkoutTime);
 
         const minutes = Math.round(totalWorkoutTime / 60);
         const timeText = `Estimated Workout Time: ${minutes} minutes`;
@@ -933,25 +946,9 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             head: [headers],
             body: tableData,
             startY: 10,
-            styles: {
-                fontSize: 8,
-                cellPadding: 2,
-                borderColor: [169, 169, 169],
-                borderWidth: 1,
-            },
-            headStyles: {
-                fontSize: 8,
-                fillColor: [200, 200, 200],
-                borderColor: [169, 169, 169],
-                borderWidth: 1,
-            },
-            columnStyles: {
-                3: { cellWidth: 'auto' },
-                4: { cellWidth: 'auto' },
-                5: { cellWidth: 'auto' },
-                6: { cellWidth: 'auto' },
-                7: { cellWidth: 'auto' },
-            },
+            styles: { ... },
+            headStyles: { ... },
+            columnStyles: { ... },
             tableLineWidth: 1,
             tableBorderColor: [169, 169, 169],
         });
