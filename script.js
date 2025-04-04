@@ -924,12 +924,14 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             tableBorderColor: [169, 169, 169],
         });
 
-        // Add estimated time below the table with styling
+      // Add estimated time below the table with styling
         const tableEndY = doc.autoTable.previous.finalY;
-        doc.setFont('helvetica', 'bold'); // Set font to bold
-        doc.setFontSize(12); // Set font size (adjust as needed)
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(14); // Set font size to 14
+        doc.setTextColor(105, 105, 105); // Set color to medium charcoal (dark gray)
         doc.text(timeText, 10, tableEndY + 10);
-        doc.setFont('helvetica', 'normal'); // Reset font to normal
+        doc.setTextColor(0,0,0); // reset color to black
+        doc.setFont('helvetica', 'normal');
 
         doc.save("workout.pdf");
 
