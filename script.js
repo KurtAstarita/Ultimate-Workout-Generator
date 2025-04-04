@@ -925,15 +925,6 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             tableBorderColor: [169, 169, 169],
         });
 
-        doc.save("workout.pdf");
-
-    } catch (mainError) {
-        console.error("Error generating PDF:", mainError);
-        alert("An error occurred while generating the PDF.");
-    }
-});
-
-/* ............................................... Function: Adds Estimated time ...................................................... */
 
  // Add estimated time below the table
         const tableEndY = doc.autoTable.previous.finalY; // Get the Y position of the end of the table
