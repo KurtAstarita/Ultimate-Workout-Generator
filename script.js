@@ -929,23 +929,24 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 
         const lines = workoutText.split('\n');
         let tableData = [];
-        let headers = [];
-        let firstLine = true;
+        let headers = ["Exercise", "Reps", "Rest", "Muscles", "Equipment", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5"];
 
         lines.forEach(line => {
-            if (firstLine) {
-                headers = ["Exercise", "Reps", "Rest", "Muscles", "Equipment", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5"];
-                firstLine = false;
-            } else {
-                const parts = line.split(" - ");
-                if (parts.length >= 5) {
+            if (!line.includes("Estimated Workout Time")) { // Skip the estimated time line
+                const exerciseMatch = line.match(/^(.+?) - Reps:/);
+                const repsMatch = line.match(/Reps: (.+?) - Rest:/);
+                const restMatch = line.match(/Rest: (.+?) seconds?\./);
+                const musclesMatch = line.match(/Muscles: (.+?)\./);
+                const equipmentMatch = line.match(/Equipment: (.+?)\./);
+
+                if (exerciseMatch) {
                     tableData.push([
-                        parts[0].split("<b>")[1].split("</b>")[0],
-                        parts[1].split("Reps: ")[1],
-                        parts[2].split("Rest: ")[1],
-                        parts[3].split("Muscles: ")[1],
-                        parts[4].split("Equipment: ")[1],
-                        "", "", "", "", "" // Empty cells for sets
+                        exerciseMatch[1].replace(/<b>|<\/b>/g, '').trim(),
+                        repsMatch ? repsMatch[1].trim() : "",
+                        restMatch ? restMatch[1].trim() : "",
+                        musclesMatch ? musclesMatch[1].trim() : "",
+                        equipmentMatch ? equipmentMatch[1].trim() : "",
+                        "", "", "", "", ""
                     ]);
                 }
             }
