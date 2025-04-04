@@ -688,7 +688,7 @@ document.getElementById("modality").addEventListener("change", function () {
 // Disable the copy button initially
 document.getElementById("copy-workout").disabled = true;
 
-// Add event listener for workout generation
+/* ............................................... Function: Generate Workout ...................................................... */
 document.getElementById("generate-workout").addEventListener("click", function () {
     const goal = document.getElementById("goal").value;
     const experience = document.getElementById("experience").value;
@@ -778,11 +778,14 @@ document.getElementById("generate-workout").addEventListener("click", function (
         } else {
             totalWorkoutTime += 120; // Default time
         }
+
+        // Add a newline character after each exercise
+        workoutTextForCopy += "\n";
     });
 
     const minutes = Math.round(totalWorkoutTime / 60);
     workoutHTML += `<p><i>Estimated Workout Time: ${minutes} minutes</i></p>`;
-    workoutTextForCopy += `\nEstimated Workout Time: ${minutes} minutes`;
+    workoutTextForCopy += `Estimated Workout Time: ${minutes} minutes`;
 
     resultDiv.innerHTML = DOMPurify.sanitize(workoutHTML);
 
@@ -792,18 +795,7 @@ document.getElementById("generate-workout").addEventListener("click", function (
     // Set the workoutTextForCopy variable to be used in the copy function
     window.workoutTextForCopy = workoutTextForCopy;
 });
-
-// Add event listener for copy to clipboard button
-document.getElementById("copy-workout").addEventListener("click", function () {
-    const workoutContent = window.workoutTextForCopy;
-    navigator.clipboard.writeText(workoutContent).then(() => {
-        alert("Workout copied to clipboard!");
-    }).catch(err => {
-        console.error("Failed to copy: ", err);
-    });
-});
-
-/* ............................................... Function: Generate Workout ...................................................... */
+/* ............................................... Function: To Populate table ...................................................... */
 
 function populateExerciseTable() {
     const tableBody = document.getElementById("exercise-table-body");
