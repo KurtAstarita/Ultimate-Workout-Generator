@@ -940,14 +940,18 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 const equipmentMatch = line.match(/Equipment: (.+?)\./);
 
                 if (exerciseMatch) {
-                    tableData.push([
-                        exerciseMatch[1].replace(/<b>|<\/b>/g, '').trim(),
-                        repsMatch ? repsMatch[1].trim() : "",
-                        restMatch ? restMatch[1].trim() : "",
-                        musclesMatch ? musclesMatch[1].trim() : "",
-                        equipmentMatch ? equipmentMatch[1].trim() : "",
-                        "", "", "", "", ""
-                    ]);
+                    const exerciseName = exerciseMatch[1].replace(/<b>|<\/b>/g, '').trim();
+                    const reps = repsMatch ? repsMatch[1].trim() : "";
+                    const rest = restMatch ? restMatch[1].trim() : "";
+                    const muscles = musclesMatch ? musclesMatch[1].trim() : "";
+                    const equipment = equipmentMatch ? equipmentMatch[1].trim() : "";
+
+                    tableData.push([exerciseName, reps, rest, muscles, equipment, "", "", "", "", ""]);
+                } else {
+                    // Handle lines that don't match the expected pattern
+                    if (line.trim() !== "") {
+                        console.warn("Unexpected line format:", line);
+                    }
                 }
             }
         });
