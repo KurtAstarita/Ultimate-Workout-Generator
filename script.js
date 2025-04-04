@@ -853,11 +853,11 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         let totalWorkoutTime = 0;
         let repTime = 2; // Average time per rep in seconds
 
-    lines.forEach(line => {
-        if (line.trim() && !line.includes("Estimated Workout Time")) {
+        lines.forEach(line => {
+            if (line.trim() && !line.includes("Estimated Workout Time")) {
                 const exerciseMatch = line.match(/^(.+?) - Reps:/);
                 const repsMatch = line.match(/Reps: (.+?) - Rest:/);
-                const restMatch = line.match(/Rest: (.+?) seconds?\./);
+                const restMatch = line.match(/Rest: (.+?) (seconds?|minutes?)\.?/); // Corrected regex
 
                 if (exerciseMatch) {
                     const exerciseName = exerciseMatch[1].replace(/<b>|<\/b>/g, '').trim();
@@ -874,32 +874,32 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 
                     tableData.push([exerciseName, reps, rest, "", "", "", "", "", "", "", ""]);
 
-                // Calculate time
-                if (restMatch && repsMatch) {
-                    let repTime = 2; // Average time per rep in seconds
-                    let restTime = 0;
+                    // Calculate time
+                    if (restMatch && repsMatch) {
+                        let repTime = 2; // Average time per rep in seconds
+                        let restTime = 0;
 
-                    if (repsMatch[1].includes('x') && !isNaN(parseInt(repsMatch[1].split('x')[1]))) {
-                        totalWorkoutTime += sets * parseInt(repsMatch[1].split('x')[1]) * repTime;
-                    } else if (repsMatch[1].includes('AMRAP')) {
-                        totalWorkoutTime += sets * 60; // Default 60 seconds for AMRAP
-                    } else if (repsMatch[1].includes('ladder')) {
-                        totalWorkoutTime += sets * 120; // Default 120 seconds for ladder
-                    }
+                        if (repsMatch[1].includes('x') && !isNaN(parseInt(repsMatch[1].split('x')[1]))) {
+                            totalWorkoutTime += sets * parseInt(repsMatch[1].split('x')[1]) * repTime;
+                        } else if (repsMatch[1].includes('AMRAP')) {
+                            totalWorkoutTime += sets * 60; // Default 60 seconds for AMRAP
+                        } else if (repsMatch[1].includes('ladder')) {
+                            totalWorkoutTime += sets * 120; // Default 120 seconds for ladder
+                        }
 
-                    if (restMatch[2].includes('seconds')) {
-                        restTime = parseInt(restMatch[1]);
-                    } else if (restMatch[2].includes('minutes')) {
-                        restTime = parseInt(restMatch[1]) * 60;
-                    }
+                        if (restMatch[2].includes('seconds')) {
+                            restTime = parseInt(restMatch[1]);
+                        } else if (restMatch[2].includes('minutes')) {
+                            restTime = parseInt(restMatch[1]) * 60;
+                        }
 
-                    if (!isNaN(restTime)) {
-                        totalWorkoutTime += sets * restTime;
+                        if (!isNaN(restTime)) {
+                            totalWorkoutTime += sets * restTime;
+                        }
                     }
                 }
             }
-        }
-    });
+        });
 
         // Calculate time
         const minutes = Math.round(totalWorkoutTime / 60);
@@ -932,13 +932,13 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             tableBorderColor: [169, 169, 169],
         });
 
-      // Add estimated time below the table with styling
+        // Add estimated time below the table with styling
         const tableEndY = doc.autoTable.previous.finalY;
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(11); // Set font size to 11
         doc.setTextColor(105, 105, 105); // Set color to medium charcoal (dark gray)
         doc.text(timeText, 10, tableEndY + 10);
-        doc.setTextColor(0,0,0); // reset color to black
+        doc.setTextColor(0, 0, 0); // reset color to black
         doc.setFont('helvetica', 'normal');
 
         doc.save("workout.pdf");
