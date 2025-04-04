@@ -645,7 +645,6 @@ calisthenics: {
     },
 };
 
-
 /* ............................................... Function: Normalize Exercises ...................................................... */
 function normalizeExercises(exercisesArray) {
     if (!Array.isArray(exercisesArray)) {
@@ -659,8 +658,6 @@ function normalizeExercises(exercisesArray) {
         } else {
             return {
                 name: exercise.name,
-                muscles: exercise.muscles,
-                equipment: exercise.equipment,
                 sets: exercise.sets,
                 reps: exercise.reps,
                 rest: exercise.rest,
@@ -751,9 +748,7 @@ document.getElementById("generate-workout").addEventListener("click", function (
         }
         if (ex.rest) {
             workoutHTML += ` - Rest: ${ex.rest} seconds`;
-            workoutHTML += `--- Muscles: ${ex.muscles}`;
-            workoutHTML += `. Equipment: ${ex.equipment}`;
-            workoutTextForCopy += ` - Rest: ${ex.rest} seconds. Muscles: ${ex.muscles}. Equipment: ${ex.equipment}`;
+            workoutTextForCopy += ` - Rest: ${ex.rest} seconds`;
 
             if (typeof ex.reps === 'number') {
                 totalWorkoutTime += ex.sets * ex.reps * repTime;
@@ -795,6 +790,17 @@ document.getElementById("generate-workout").addEventListener("click", function (
     // Set the workoutTextForCopy variable to be used in the copy function
     window.workoutTextForCopy = workoutTextForCopy;
 });
+
+// Add event listener for copy to clipboard button
+document.getElementById("copy-workout").addEventListener("click", function () {
+    const workoutContent = window.workoutTextForCopy;
+    navigator.clipboard.writeText(workoutContent).then(() => {
+        alert("Workout copied to clipboard!");
+    }).catch(err => {
+        console.error("Failed to copy: ", err);
+    });
+});
+
 /* ............................................... Function: To Populate table ...................................................... */
 
 function populateExerciseTable() {
@@ -840,12 +846,6 @@ function populateExerciseTable() {
         const cell1 = document.createElement("td");
         cell1.appendChild(button);
 
-        const cell2 = document.createElement("td");
-        cell2.textContent = exercise.muscles;
-
-        const cell3 = document.createElement("td");
-        cell3.textContent = exercise.equipment;
-
         const cell4 = document.createElement("td");
         cell4.textContent = exercise.sets;
 
@@ -856,8 +856,6 @@ function populateExerciseTable() {
         cell6.textContent = exercise.rest;
 
         row.appendChild(cell1);
-        row.appendChild(cell2);
-        row.appendChild(cell3);
         row.appendChild(cell4);
         row.appendChild(cell5);
         row.appendChild(cell6);
@@ -921,24 +919,20 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 
         const lines = workoutText.split('\n');
         let tableData = [];
-        let headers = ["Exercise", "Reps", "Rest", "Muscles", "Equipment", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5"];
+        let headers = ["Exercise", "Reps", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5"];
 
         lines.forEach(line => {
             if (line.trim() && !line.includes("Estimated Workout Time")) {
                 const exerciseMatch = line.match(/^(.+?) - Reps:/);
                 const repsMatch = line.match(/Reps: (.+?) - Rest:/);
                 const restMatch = line.match(/Rest: (.+?) seconds?\./);
-                const musclesMatch = line.match(/Muscles: (.+?)\./);
-                const equipmentMatch = line.match(/Equipment: (.+?)\./);
 
                 if (exerciseMatch) {
                     const exerciseName = exerciseMatch[1].replace(/<b>|<\/b>/g, '').trim();
                     const reps = repsMatch ? repsMatch[1].trim() : "";
                     const rest = restMatch ? restMatch[1].trim() : "";
-                    const muscles = musclesMatch ? musclesMatch[1].trim() : "";
-                    const equipment = equipmentMatch ? equipmentMatch[1].trim() : "";
 
-                    tableData.push([exerciseName, reps, rest, muscles, equipment, "", "", "", "", ""]);
+                    tableData.push([exerciseName, reps, rest, "", "", "", "", ""]);
                 } else {
                     // Handle lines that don't match the expected pattern
                     if (line.trim() !== "") {
@@ -965,11 +959,11 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 borderWidth: 1,
             },
             columnStyles: {
+                3: { cellWidth: 'auto' },
+                4: { cellWidth: 'auto' },
                 5: { cellWidth: 'auto' },
                 6: { cellWidth: 'auto' },
                 7: { cellWidth: 'auto' },
-                8: { cellWidth: 'auto' },
-                9: { cellWidth: 'auto' },
             },
             tableLineWidth: 1,
             tableBorderColor: [169, 169, 169],
