@@ -971,14 +971,14 @@ function populateExerciseTable() {
                             seenExercises.add(normalizedName);
                         }
                     });
-                } else if (typeof exerciseList === 'object' && exerciseList !== null) { // Handle objects
+                } else if (typeof exerciseList === 'object' && exerciseList !== null && exerciseList.name) { // Ensure it has a name property
                     const normalizedName = exerciseList.name.trim().toLowerCase();
                     if (!seenExercises.has(normalizedName)) {
                         allExercises.push(exerciseList);
                         seenExercises.add(normalizedName);
                     }
                 } else {
-                    console.warn(`Expected an array or object, but found: ${typeof exerciseList} for ${category} > ${level} > ${type}`);
+                    console.warn(`Expected an array or object with a 'name' property, but found: ${typeof exerciseList} for ${category} > ${level} > ${type}`, exerciseList);
                 }
             }
         }
@@ -987,33 +987,39 @@ function populateExerciseTable() {
     allExercises.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
     allExercises.forEach(exercise => {
         const row = document.createElement("tr");
+
+        const cell1 = document.createElement("td");
         const button = document.createElement("button");
         button.className = "copy-exercise";
-        let copyText = `${exercise.name} - Reps: ${exercise.sets}x${exercise.reps}`;
-        if (exercise.rest) {
-            copyText += ` - Rest: ${exercise.rest} seconds.`;
+        let copyText = `${exercise.name}`;
+        if (exercise.sets && exercise.reps) {
+            copyText += ` - Reps: ${exercise.sets}x${exercise.reps}`;
         }
-        button.dataset.exercise = copyText;
+        if (exercise.rest) {
+            copyText += ` - Rest: ${exercise.rest} seconds`;
+        }
+        if (exercise.timePerSet) {
+            copyText += ` - Time per set: ${exercise.timePerSet} seconds`;
+        }
+        button.dataset.exercise = copyText + ".";
         button.textContent = exercise.name;
-        const cell1 = document.createElement("td");
         cell1.appendChild(button);
+        row.appendChild(cell1);
 
         const cell4 = document.createElement("td");
-        cell4.textContent = exercise.sets;
+        cell4.textContent = exercise.sets || '';
+        row.appendChild(cell4);
 
         const cell5 = document.createElement("td");
-        cell5.textContent = exercise.reps;
+        cell5.textContent = exercise.reps || '';
+        row.appendChild(cell5);
 
         const cell6 = document.createElement("td");
-        cell6.textContent = exercise.rest;
+        cell6.textContent = exercise.rest || '';
+        row.appendChild(cell6);
 
         const cell7 = document.createElement("td");
-        cell7.textContent = exercise.timePerSet || ''; // Display time per set
-
-        row.appendChild(cell1);
-        row.appendChild(cell4);
-        row.appendChild(cell5);
-        row.appendChild(cell6);
+        cell7.textContent = exercise.timePerSet || '';
         row.appendChild(cell7);
 
         tableBody.appendChild(row);
@@ -1032,3 +1038,6 @@ function populateExerciseTable() {
         });
     });
 }
+
+// Call this function when the page loads to populate the table
+window.onload = populateExerciseTable;
