@@ -77,43 +77,6 @@
                 <p class="warning-text">
                     <strong>Warning:</strong> Only paste workout text from trusted sources. The application performs basic validation, but cannot guarantee complete safety.
                 </p>
-                <div class="formatting-guide">
-                    <h3>Workout Text Formatting Checklist</h3>
-                    <h4>✅ What Works Well (Recommended Formatting):</h4>
-                    <ul>
-                        <li>One Exercise Per Line</li>
-                        <li>Exercise Name First</li>
-                        <li>Consistent Separator: <code>- Reps: </code></li>
-                        <li>Reps and Sets Format: <code>[Number of Sets]x[Number of Reps]</code> (e.g., <code>3x10</code>)</li>
-                        <li>Time-Based (Seconds): <code>[Number of Sets]x[Duration] seconds</code> (e.g., <code>1x60 seconds</code>)</li>
-                        <li>Time-Based (Minutes): <code>[Number of Sets]x[Duration] minutes</code> (e.g., <code>2x5 minutes</code>)</li>
-                        <li>AMRAP: <code>[Number of Sets]xAMRAP</code></li>
-                        <li>Ladder: <code>[Number of Sets]xLadder</code></li>
-                        <li>Consistent Rest Separator: <code>- Rest: </code></li>
-                        <li>Rest Duration: <code>[Duration] seconds</code> or <code>[Duration] minutes</code> (e.g., <code>60 seconds</code>)</li>
-                        <li>End of Line: Ends with rest and optional period (<code>.</code>)</li>
-                        <li>"Estimated Workout Time" lines are ignored</li>
-                        <li><code>&lt;b&gt;</code> and <code>&lt;/b&gt;</code> tags around exercise names are ignored for calculation</li>
-                    </ul>
-                    <h4>❌ What Might Break Things:</h4>
-                    <ul>
-                        <li>Inconsistent Spacing</li>
-                        <li>Incorrect Separators (anything other than <code>- Reps: </code> and <code>- Rest: </code>)</li>
-                        <li>Missing <code>x</code> for Sets and Reps</li>
-                        <li>Missing units (<code>seconds</code> or <code>minutes</code>) for time</li>
-                        <li>Misspellings (Reps, Rest, seconds, minutes, AMRAP, Ladder)</li>
-                        <li>Multiple Exercises on One Line</li>
-                        <li>Extra Information on the Exercise Line</li>
-                    </ul>
-                    <p><b>Example of a Well-Formatted Workout:</b></p>
-                    <pre><code>Barbell Bench Press - Reps: 3x8 - Rest: 75 seconds.
-Plank - Reps: 3x30 seconds - Rest: 60 seconds.
-Dumbbell Lateral Raises - Reps: 3x15 - Rest: 60 seconds.
-Barbell Shrugs - Reps: 3x12 - Rest: 75 seconds.
-Incline Push-ups - Reps: 1x1200 seconds - Rest: 60 seconds.
-Dumbbell Thruster - Reps: 4xLadder - Rest: 120 seconds.
-One Arm Pull ups Assisted - Reps: 3xAMRAP - Rest: 180 seconds.</code></pre>
-                </div>
             </div>
             <button id="download-pdf">Download as PDF</button>
         </div>
