@@ -894,9 +894,9 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             }
         });
 
-        // Add estimated time to table
+        // Calculate time
         const minutes = Math.round(totalWorkoutTime / 60);
-        tableData.push(["Estimated Workout Time", `${minutes} minutes`, "", "", "", "", "", ""]);
+        const timeText = `Estimated Workout Time: ${minutes} minutes`;
 
         doc.autoTable({
             head: [headers],
@@ -925,8 +925,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             tableBorderColor: [169, 169, 169],
         });
 
-
- // Add estimated time below the table
+        // Add estimated time below the table
         const tableEndY = doc.autoTable.previous.finalY; // Get the Y position of the end of the table
         doc.text(timeText, 10, tableEndY + 10); // Add the text below the table
 
