@@ -748,7 +748,7 @@ document.getElementById("generate-workout").addEventListener("click", function (
         }
         if (ex.rest) {
             workoutHTML += ` - Rest: ${ex.rest} seconds`;
-            workoutTextForCopy += ` - Rest: ${ex.rest} seconds`;
+            workoutTextForCopy += ` - Rest: ${ex.rest} seconds.`; // Added period here
 
             if (typeof ex.reps === 'number') {
                 totalWorkoutTime += ex.sets * ex.reps * repTime;
@@ -790,17 +790,6 @@ document.getElementById("generate-workout").addEventListener("click", function (
     // Set the workoutTextForCopy variable to be used in the copy function
     window.workoutTextForCopy = workoutTextForCopy;
 });
-
-// Add event listener for copy to clipboard button
-document.getElementById("copy-workout").addEventListener("click", function () {
-    const workoutContent = window.workoutTextForCopy;
-    navigator.clipboard.writeText(workoutContent).then(() => {
-        alert("Workout copied to clipboard!");
-    }).catch(err => {
-        console.error("Failed to copy: ", err);
-    });
-});
-
 /* ............................................... Function: To Populate table ...................................................... */
 
 function populateExerciseTable() {
