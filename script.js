@@ -798,6 +798,8 @@ document.getElementById("copy-workout").addEventListener("click", function () {
     });
 });
 
+/* ............................................... Function: Download PDF ...................................................... */
+
 document.getElementById('download-pdf').addEventListener('click', function () {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
@@ -871,7 +873,6 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         alert("An error occurred while generating the PDF.");
     }
 });
-/* ............................................... Function: To Populate table ...................................................... */
 
 /* ............................................... Function: To Populate table ...................................................... */
 
