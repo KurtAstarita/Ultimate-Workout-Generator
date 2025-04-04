@@ -686,6 +686,9 @@ document.getElementById("modality").addEventListener("change", function () {
 document.getElementById("copy-workout").disabled = true;
 
 /* ............................................... Function: Generate Workout ...................................................... */
+// Declare workoutTextForCopy outside of the function to make it globally accessible
+let workoutTextForCopy = "";
+
 document.getElementById("generate-workout").addEventListener("click", function () {
     const goal = document.getElementById("goal").value;
     const experience = document.getElementById("experience").value;
@@ -736,7 +739,7 @@ document.getElementById("generate-workout").addEventListener("click", function (
     let repTime = 2; // Average time per rep in seconds
 
     let workoutHTML = "<br><center><h3><u>YOUR WORKOUT</u></h3></center><ul>";
-    let workoutTextForCopy = ""; // Initialize text for copy
+    workoutTextForCopy = ""; // Reset workoutTextForCopy here
 
     workout.forEach(ex => {
         workoutHTML += `<br><br><li><b>${ex.name}</b>`;
@@ -789,9 +792,16 @@ document.getElementById("generate-workout").addEventListener("click", function (
 
     // Enable the copy button after the workout is generated
     document.getElementById("copy-workout").disabled = false;
+});
 
-    // Set the workoutTextForCopy variable to be used in the copy function
-    window.workoutTextForCopy = workoutTextForCopy;
+// Add event listener for copy to clipboard button
+document.getElementById("copy-workout").addEventListener("click", function () {
+    const workoutContent = workoutTextForCopy;
+    navigator.clipboard.writeText(workoutContent).then(() => {
+        alert("Workout copied to clipboard!");
+    }).catch(err => {
+        console.error("Failed to copy: ", err);
+    });
 });
 /* ............................................... Function: To Populate table ...................................................... */
 
