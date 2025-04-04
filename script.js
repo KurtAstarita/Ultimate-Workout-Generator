@@ -748,7 +748,7 @@ document.getElementById("generate-workout").addEventListener("click", function (
         }
         if (ex.rest) {
             workoutHTML += ` - Rest: ${ex.rest} seconds`;
-            workoutTextForCopy += ` - Rest: ${ex.rest} seconds.`; // Added period here
+            workoutTextForCopy += ` - Rest: ${ex.rest} seconds`;
 
             if (typeof ex.reps === 'number') {
                 totalWorkoutTime += ex.sets * ex.reps * repTime;
@@ -772,6 +772,9 @@ document.getElementById("generate-workout").addEventListener("click", function (
             }
         } else {
             totalWorkoutTime += 120; // Default time
+        }
+        if(ex.rest){
+            workoutTextForCopy += "."; // Add period here, after rest data.
         }
 
         // Add a newline character after each exercise
