@@ -740,8 +740,8 @@ document.getElementById("generate-workout").addEventListener("click", function (
         workoutTextForCopy += `${ex.name}`;
 
         if (ex.sets && ex.reps) {
-            workoutHTML += ` - Reps: ${ex.sets}x${ex.reps}`;
-            workoutTextForCopy += ` - Reps: ${ex.sets}x${ex.reps}`;
+            workoutHTML += ` - Reps: <span class="math-inline">\{ex\.sets\}x</span>{ex.reps}`;
+            workoutTextForCopy += ` - Reps: <span class="math-inline">\{ex\.sets\}x</span>{ex.reps}`;
         }
         if (ex.rest) {
             workoutHTML += ` - Rest: ${ex.rest} seconds`;
@@ -837,7 +837,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
     let workoutText = document.getElementById('paste-text').value;
     workoutText = DOMPurify.sanitize(workoutText);
 
-    console.log("Workout Text:", workoutText);
+    // console.log("Workout Text:", workoutText);
 
     if (!workoutText.trim()) {
         alert("Please paste workout text before downloading.");
@@ -847,7 +847,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
     try {
         const validationResult = validateWorkoutText(workoutText);
 
-        console.log("Validation Result:", validationResult);
+        // console.log("Validation Result:", validationResult);
 
         if (!validationResult.isValid) {
             alert("Workout text validation errors:\n" + validationResult.errors.join('\n'));
@@ -859,7 +859,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         let headers = ["Exercise", "Reps", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
         let totalWorkoutTime = 0;
 
-        console.log("Lines:", lines);
+        // console.log("Lines:", lines);
 
         lines.forEach(line => {
             if (line.trim() && !line.includes("Estimated Workout Time")) {
@@ -939,8 +939,8 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             }
         });
 
-        console.log("Table Data:", tableData);
-        console.log("Total Workout Time (seconds):", totalWorkoutTime);
+        // console.log("Table Data:", tableData);
+        // console.log("Total Workout Time (seconds):", totalWorkoutTime);
 
         const minutes = Math.round(totalWorkoutTime / 60);
         const timeText = `Estimated Workout Time: ${minutes} minutes`;
@@ -952,9 +952,25 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             head: [headers],
             body: tableData,
             startY: 10,
-            styles: { ... },
-            headStyles: { ... },
-            columnStyles: { ... },
+            styles: {
+                fontSize: 8,
+                cellPadding: 2,
+                borderColor: [169, 169, 169],
+                borderWidth: 1,
+            },
+            headStyles: {
+                fontSize: 8,
+                fillColor: [200, 200, 200],
+                borderColor: [169, 169, 169],
+                borderWidth: 1,
+            },
+            columnStyles: {
+                3: { cellWidth: 'auto' },
+                4: { cellWidth: 'auto' },
+                5: { cellWidth: 'auto' },
+                6: { cellWidth: 'auto' },
+                7: { cellWidth: 'auto' },
+            },
             tableLineWidth: 1,
             tableBorderColor: [169, 169, 169],
         });
@@ -1020,7 +1036,7 @@ function populateExerciseTable() {
         const row = document.createElement("tr");
         const button = document.createElement("button");
         button.className = "copy-exercise";
-        let copyText = `${exercise.name} - Reps: ${exercise.sets}x${exercise.reps}`;
+        let copyText = `${exercise.name} - Reps: <span class="math-inline">\{exercise\.sets\}x</span>{exercise.reps}`;
         if (exercise.rest) {
             copyText += ` - Rest: ${exercise.rest} seconds.`;
         }
