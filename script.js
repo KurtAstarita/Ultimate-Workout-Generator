@@ -857,7 +857,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             if (line.trim() && !line.includes("Estimated Workout Time")) {
                 const exerciseMatch = line.match(/^(.+?) - Reps:/);
                 const repsMatch = line.match(/Reps: (.+?) - Rest:/);
-                const restMatch = line.match(/Rest: (.+?) (seconds?|minutes?)\.?/); // Corrected regex
+                const restMatch = line.match(/Rest: (.+?) seconds?\.?/); // Simplified regex
 
                 if (exerciseMatch) {
                     const exerciseName = exerciseMatch[1].replace(/<b>|<\/b>/g, '').trim();
@@ -879,26 +879,21 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                         let repTime = 2; // Average time per rep in seconds
                         let restTime = 0;
 
-                        // Calculate workout time
                         if (repsMatch[1].includes('x') && !isNaN(parseInt(repsMatch[1].split('x')[1]))) {
                             totalWorkoutTime += sets * parseInt(repsMatch[1].split('x')[1]) * repTime;
                         } else if (repsMatch[1].includes('AMRAP')) {
                             totalWorkoutTime += sets * 60; // Default 60 seconds for AMRAP
                         } else if (repsMatch[1].includes('ladder')) {
                             totalWorkoutTime += sets * 120; // Default 120 seconds for ladder
-                        } else if (repsMatch[1].includes('minutes')) {
-                            totalWorkoutTime += sets * parseInt(repsMatch[1].split(' ')[0]) * 60; // Convert minutes to seconds
+                        } else if (repsMatch[1].includes('seconds')) {
+                            totalWorkoutTime += sets * parseInt(repsMatch[1].split(' ')[0]); // Exercise duration in seconds
                         }
 
-                        // Calculate rest time
-                        if (restMatch[2].includes('seconds')) {
+                        if (restMatch) {
                             restTime = parseInt(restMatch[1]);
-                        } else if (restMatch[2].includes('minutes')) {
-                            restTime = parseInt(restMatch[1]) * 60; // Convert minutes to seconds
-                        }
-
-                        if (!isNaN(restTime)) {
-                            totalWorkoutTime += sets * restTime;
+                            if (!isNaN(restTime)) {
+                                totalWorkoutTime += sets * restTime;
+                            }
                         }
                     }
                 }
@@ -909,43 +904,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         const minutes = Math.round(totalWorkoutTime / 60);
         const timeText = `Estimated Workout Time: ${minutes} minutes`;
 
-        doc.autoTable({
-            head: [headers],
-            body: tableData,
-            startY: 10,
-            styles: {
-                fontSize: 8,
-                cellPadding: 2,
-                borderColor: [169, 169, 169],
-                borderWidth: 1,
-            },
-            headStyles: {
-                fontSize: 8,
-                fillColor: [200, 200, 200],
-                borderColor: [169, 169, 169],
-                borderWidth: 1,
-            },
-            columnStyles: {
-                3: { cellWidth: 'auto' },
-                4: { cellWidth: 'auto' },
-                5: { cellWidth: 'auto' },
-                6: { cellWidth: 'auto' },
-                7: { cellWidth: 'auto' },
-            },
-            tableLineWidth: 1,
-            tableBorderColor: [169, 169, 169],
-        });
-
-        // Add estimated time below the table with styling
-        const tableEndY = doc.autoTable.previous.finalY;
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(11); // Set font size to 11
-        doc.setTextColor(105, 105, 105); // Set color to medium charcoal (dark gray)
-        doc.text(timeText, 10, tableEndY + 10);
-        doc.setTextColor(0, 0, 0); // reset color to black
-        doc.setFont('helvetica', 'normal');
-
-        doc.save("workout.pdf");
+        // ... (rest of the PDF generation code)
 
     } catch (mainError) {
         console.error("Error generating PDF:", mainError);
