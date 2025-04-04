@@ -809,7 +809,7 @@ function validateWorkoutText(workoutText) {
         if (line.trim() && !line.includes("Estimated Workout Time")) {
             const exerciseMatch = line.match(/^(.+?) - Reps:/);
             const repsMatch = line.match(/Reps: (.+?) - Rest:/);
-            const restMatch = line.match(/Rest: (.+?) seconds?\./);
+            const restMatch = line.match(/Rest: (.+?) (seconds?|minutes?)\.?/); // Modified regex
 
             if (!exerciseMatch) {
                 errors.push(`Line ${index + 1}: Exercise name not found.`);
