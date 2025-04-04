@@ -933,12 +933,21 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         let firstLine = true;
 
         lines.forEach(line => {
-            const parts = line.split(" - ");
             if (firstLine) {
-                headers = [...parts, "Set 1", "Set 2", "Set 3", "Set 4", "Set 5"]; // Add headers for each set
+                headers = ["Exercise", "Reps", "Rest", "Muscles", "Equipment", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5"];
                 firstLine = false;
             } else {
-                tableData.push([...parts, "", "", "", "", ""]); // Add empty cells for each set
+                const parts = line.split(" - ");
+                if (parts.length >= 5) {
+                    tableData.push([
+                        parts[0].split("<b>")[1].split("</b>")[0],
+                        parts[1].split("Reps: ")[1],
+                        parts[2].split("Rest: ")[1],
+                        parts[3].split("Muscles: ")[1],
+                        parts[4].split("Equipment: ")[1],
+                        "", "", "", "", "" // Empty cells for sets
+                    ]);
+                }
             }
         });
 
