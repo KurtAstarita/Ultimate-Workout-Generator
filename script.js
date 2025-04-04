@@ -932,7 +932,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         let headers = ["Exercise", "Reps", "Rest", "Muscles", "Equipment", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5"];
 
         lines.forEach(line => {
-            if (!line.includes("Estimated Workout Time")) { // Skip the estimated time line
+            if (!line.includes("Estimated Workout Time")) {
                 const exerciseMatch = line.match(/^(.+?) - Reps:/);
                 const repsMatch = line.match(/Reps: (.+?) - Rest:/);
                 const restMatch = line.match(/Rest: (.+?) seconds?\./);
@@ -959,11 +959,24 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             styles: {
                 fontSize: 8,
                 cellPadding: 2,
+                borderColor: [169, 169, 169], // Medium gray border color (RGB)
+                borderWidth: 0.5,
             },
             headStyles: {
                 fontSize: 8,
                 fillColor: [200, 200, 200],
+                borderColor: [169, 169, 169],
+                borderWidth: 0.5,
             },
+            columnStyles: {
+                5: { cellWidth: 'auto' }, // Set 1
+                6: { cellWidth: 'auto' }, // Set 2
+                7: { cellWidth: 'auto' }, // Set 3
+                8: { cellWidth: 'auto' }, // Set 4
+                9: { cellWidth: 'auto' }, // Set 5
+            },
+            tableLineWidth: 0.5,
+            tableBorderColor: [169, 169, 169],
         });
 
         doc.save("workout.pdf");
