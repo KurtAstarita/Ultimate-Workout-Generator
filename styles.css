@@ -243,3 +243,68 @@ footer a {
   .step-3 {
     /* Styles for STEP-3 */
   }
+
+.info-box-container {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden; /* To contain the collapsed content */
+}
+
+.info-box-toggle {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #f0f0f0;
+    color: #333;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    font-weight: bold;
+    border-bottom: 1px solid #ccc;
+    box-sizing: border-box; /* To include padding in the width */
+}
+
+.info-box-toggle:hover {
+    background-color: #e0e0e0;
+}
+
+.info-box-content {
+    padding: 15px;
+    background-color: #fff;
+    box-sizing: border-box;
+}
+
+.info-box-content.collapsed {
+    display: none;
+}
+
+.info-box-content h3, .info-box-content h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.info-box-content ul {
+    margin-bottom: 15px;
+    padding-left: 20px;
+}
+
+.info-box-content li {
+    margin-bottom: 5px;
+}
+
+.info-box-content code {
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-family: monospace;
+}
+
+.info-box-content pre {
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    padding: 10px;
+    border-radius: 3px;
+    overflow-x: auto; /* For long code lines */
+}
