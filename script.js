@@ -931,6 +931,8 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             styles: { fontSize: 8, cellPadding: 2, borderColor: grayRGB, borderWidth: 1 },
             headStyles: { fontSize: 8, fillColor: [200, 200, 200], borderColor: grayRGB, borderWidth: 1 },
             columnStyles: { 0: { cellWidth: 'auto' }, 1: { cellWidth: 'auto' }, 2: { cellWidth: 'auto' }, 3: { cellWidth: 'auto' } },
+            tableLineWidth: 1, // Explicitly set table line width
+            tableBorderColor: grayRGB, // Explicitly set table border color
             didDrawPage: function(data) {
                 currentY = data.cursor.y + 10;
             }
