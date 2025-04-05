@@ -741,17 +741,36 @@ document.getElementById("generate-workout").addEventListener("click", function (
             }
         }
 
-       } else if (trainingSplit) { // Handle specific splits
+} else if (trainingSplit) { // Handle specific splits
         const splitFormatted = trainingSplit.replace("_", " & ").toLowerCase();
         console.log("Selected trainingSplit:", trainingSplit); // Log the raw selected split
         console.log("Formatted split:", splitFormatted); // Log the formatted split
         console.log("All availableExercises:", availableExercises); // Log all available exercises before filtering
-        const filteredExercises = availableExercises.filter(exercise => exercise.muscleGroup && exercise.muscleGroup.toLowerCase().includes(splitFormatted));
+        const filteredExercises = availableExercises.filter(exercise => {
+            if (!exercise.muscleGroup) {
+                return false; // Skip exercises without a muscleGroup
+            }
+            const muscleGroupLower = exercise.muscleGroup.toLowerCase();
+            if (trainingSplit === "back_biceps") {
+                return muscleGroupLower.includes("back") && muscleGroupLower.includes("biceps");
+            } else if (trainingSplit === "chest_triceps") {
+                return muscleGroupLower.includes("chest") && muscleGroupLower.includes("triceps");
+            } else if (trainingSplit === "legs_back") {
+                return muscleGroupLower.includes("legs") && muscleGroupLower.includes("back");
+            } else if (trainingSplit === "delts_traps") {
+                return muscleGroupLower.includes("delts") && muscleGroupLower.includes("traps");
+            } else if (trainingSplit === "core_cardio") {
+                return muscleGroupLower.includes("core") || muscleGroupLower.includes("cardio");
+            }
+            // If none of the specific splits match, try a simple include (for potential future splits)
+            return muscleGroupLower.includes(splitFormatted.replace("_", " "));
+        });
         console.log("Filtered exercises:", filteredExercises); // Log the exercises after filtering
         while (workout.length < 5 && filteredExercises.length > 0) {
             const randomIndex = Math.floor(Math.random() * filteredExercises.length);
             workout.push(filteredExercises.splice(randomIndex, 1)[0]);
         }
+    }
         
     } else {
         // Default: select 5 random exercises
