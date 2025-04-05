@@ -413,7 +413,7 @@ dumbbells: [
 { name: "Dumbbell Turkish Get ups", sets: 3, reps: 5, rest: 90, timePerSet: 90 },
 ],
 gym: [
-{ name: "Interval Rowing", sets: 5, reps: 500 meters, rest: 120, timePerSet: 120 }, // Estimate time to row 500m
+{ name: "Interval Rowing", sets: 5, reps: 500, rest: 120, timePerSet: 120 }, // Estimate time to row 500m
 { name: "High Intensity Assault Bike Intervals", sets: 6, reps: 30, rest: 60, timePerSet: 30 },
 { name: "Loaded Sled Pushes", sets: 5, reps: 50, rest: 120, timePerSet: 45 }, // Estimate for distance/time
 { name: "Ski Erg Intervals", sets: 4, reps: 40, rest: 90, timePerSet: 45 },
