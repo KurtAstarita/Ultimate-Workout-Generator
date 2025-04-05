@@ -669,6 +669,8 @@ document.getElementById("copy-workout").disabled = true;
 
 /* ............................................... Function: Generate Workout ...................................................... */
 
+/* ............................................... Function: Generate Workout ...................................................... */
+
 document.getElementById("generate-workout").addEventListener("click", function () {
     const goal = document.getElementById("goal").value;
     const experience = document.getElementById("experience").value;
@@ -677,7 +679,7 @@ document.getElementById("generate-workout").addEventListener("click", function (
     const resultDiv = document.getElementById("workout-result");
     resultDiv.innerHTML = "";
 
-   let selectedExercises = [];
+    let selectedExercises = [];
 
     if (exercises[modality]) {
         if (exercises[modality][experience]) {
@@ -708,6 +710,13 @@ document.getElementById("generate-workout").addEventListener("click", function (
 
     const workout = [];
     let availableExercises = [...selectedExercises];
+    let numberOfExercises = 5; // Default for beginner
+
+    if (experience === "intermediate") {
+        numberOfExercises = 6;
+    } else if (experience === "advanced") {
+        numberOfExercises = 8;
+    }
 
     if (trainingSplit === "full_body") {
         const labeledExercises = {};
@@ -725,7 +734,7 @@ document.getElementById("generate-workout").addEventListener("click", function (
 
         const workoutLabels = new Set(); // Keep track of labels already used in the workout
         for (const label in labeledExercises) {
-            if (labeledExercises[label].length > 0 && workoutLabels.size < 5) {
+            if (labeledExercises[label].length > 0 && workoutLabels.size < numberOfExercises) {
                 const randomIndex = Math.floor(Math.random() * labeledExercises[label].length);
                 const selectedExercise = labeledExercises[label][randomIndex];
                 if (!workout.includes(selectedExercise)) { // Avoid duplicates
@@ -736,7 +745,7 @@ document.getElementById("generate-workout").addEventListener("click", function (
         }
 
         // Fallback to add more random if available
-        while (workout.length < 5 && availableExercises.length > 0) {
+        while (workout.length < numberOfExercises && availableExercises.length > 0) {
             const randomIndex = Math.floor(Math.random() * availableExercises.length);
             const randomExercise = availableExercises.splice(randomIndex, 1)[0];
             if (!workout.some(ex => ex.name === randomExercise.name)) {
@@ -744,40 +753,25 @@ document.getElementById("generate-workout").addEventListener("click", function (
             }
         }
 
-} else if (trainingSplit) { // Handle specific splits
+    } else if (trainingSplit) { // Handle specific splits
         const splitFormatted = trainingSplit.replace("_", " & ").toLowerCase();
-        console.log("Selected trainingSplit:", trainingSplit); // Log the raw selected split
-        console.log("Formatted split:", splitFormatted); // Log the formatted split
-        console.log("All availableExercises:", availableExercises); // Log all available exercises before filtering
         const filteredExercises = availableExercises.filter(exercise => {
-            if (!exercise.muscleGroup) {
-                return false; // Skip exercises without a muscleGroup
-            }
+            if (!exercise.muscleGroup) return false;
             const muscleGroupLower = exercise.muscleGroup.toLowerCase();
-            if (trainingSplit === "back_biceps") {
-                return muscleGroupLower.includes("back") && muscleGroupLower.includes("biceps");
-            } else if (trainingSplit === "chest_triceps") {
-                return muscleGroupLower.includes("chest") && muscleGroupLower.includes("triceps");
-            } else if (trainingSplit === "legs_back") {
-                return muscleGroupLower.includes("legs") && muscleGroupLower.includes("back");
-            } else if (trainingSplit === "delts_traps") {
-                return muscleGroupLower.includes("delts") && muscleGroupLower.includes("traps");
-            } else if (trainingSplit === "core_cardio") {
-                return muscleGroupLower.includes("core") || muscleGroupLower.includes("cardio");
-            }
-            // If none of the specific splits match, try a simple include (for potential future splits)
+            if (trainingSplit === "back_biceps") return muscleGroupLower.includes("back") && muscleGroupLower.includes("biceps");
+            else if (trainingSplit === "chest_triceps") return muscleGroupLower.includes("chest") && muscleGroupLower.includes("triceps");
+            else if (trainingSplit === "legs_back") return muscleGroupLower.includes("legs") && muscleGroupLower.includes("back");
+            else if (trainingSplit === "delts_traps") return muscleGroupLower.includes("delts") && muscleGroupLower.includes("traps");
+            else if (trainingSplit === "core_cardio") return muscleGroupLower.includes("core") || muscleGroupLower.includes("cardio");
             return muscleGroupLower.includes(splitFormatted.replace("_", " "));
         });
-        console.log("Filtered exercises:", filteredExercises); // Log the exercises after filtering
-        while (workout.length < 5 && filteredExercises.length > 0) {
+        while (workout.length < numberOfExercises && filteredExercises.length > 0) {
             const randomIndex = Math.floor(Math.random() * filteredExercises.length);
             workout.push(filteredExercises.splice(randomIndex, 1)[0]);
         }
-    }
-        
-   else {
-        // Default: select 5 random exercises
-        for (let i = 0; i < 5 && availableExercises.length > 0; i++) {
+    } else {
+        // Default: select numberOfExercises random exercises
+        for (let i = 0; i < numberOfExercises && availableExercises.length > 0; i++) {
             const randomIndex = Math.floor(Math.random() * availableExercises.length);
             workout.push(availableExercises.splice(randomIndex, 1)[0]);
         }
@@ -831,19 +825,6 @@ document.getElementById("generate-workout").addEventListener("click", function (
 
     // Enable the copy button after the workout is generated
     document.getElementById("copy-workout").disabled = false;
-});
-
-document.getElementById("copy-workout").addEventListener("click", function () {
-    if (typeof workoutTextForCopy !== 'undefined' && workoutTextForCopy.trim() !== "") {
-        navigator.clipboard.writeText(workoutTextForCopy).then(() => {
-            alert("Workout copied to clipboard!"); // Or a more user-friendly notification
-        }).catch(err => {
-            console.error("Failed to copy workout: ", err);
-            alert("Failed to copy workout. Please try again.");
-        });
-    } else {
-        alert("No workout generated yet to copy.");
-    }
 });
 
 /* ............................................... Function: Validate Workout ...................................................... */
