@@ -931,7 +931,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                     const tpsValue = exerciseMatch[5] ? exerciseMatch[5].trim() : "";
                     const tpsUnit = exerciseMatch[6] ? exerciseMatch[6].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "";
                     const tpsInfoFormatted = tpsValue && tpsUnit ? `${tpsValue} ${tpsUnit}` : "";
-                    tableData.push([exerciseName, repsInfo, tpsInfoFormatted, restInfoFormatted, "____x____ |", "____x____ |", "____x____ |", "____x____ |", "____x____", "___x___", "___x___", "___x___"]);
+                    tableData.push([exerciseName, repsInfo, tpsInfoFormatted, restInfoFormatted, "____x____", "____x____", "____x____", "____x____", "____x____", "____x____", "____x____", "____x____"]);
                 }
             } else if (line.includes("Estimated Workout Time")) {
                 estimatedTime = line;
