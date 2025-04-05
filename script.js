@@ -985,7 +985,7 @@ doc.autoTable({
                 font: 'helvetica', // Default font for the whole table
                 cellPadding: 1,
                 borderColor: grayRGB,
-                borderWidth: 1
+                borderWidth: 1,
                 valign: 'bottom' // Vertical align to bottom for all cells
             },
             headStyles: {
