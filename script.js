@@ -1038,16 +1038,14 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             didDrawPage: function(data) {
                 currentY = data.cursor.y + 10;
             },
-            didDrawCell: function(data) {
+          didDrawCell: function(data) {
                 const colIndex = data.column.index;
                 if (colIndex === 6 || colIndex === 9) { // After Set 3 (index 6) and Set 6 (index 9)
-                    doc.setDrawColor(grayRGB);
+                    doc.setDrawColor(grayScale); // Use the grayscale value
                     doc.setLineWidth(0.5);
                     doc.line(data.cell.x + data.cell.width, data.cell.y, data.cell.x + data.cell.width, data.cell.y + data.cell.height);
                 }
             }
-        });
-
         const tableEndY = doc.autoTable.previous.finalY;
         currentY = tableEndY + 10;
 
