@@ -912,7 +912,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         const tableWidth = pageWidth - 20;
         let currentY = 10;
 
-        // Generate Workout Table (as before)
+        // Generate Workout Table (Original Style)
         const headers = ["Exercise", "Reps", "TPS", "Rest"];
         const tableData = exercisesList.map(exerciseName => {
             const line = lines.find(l => l.startsWith(`<b>${exerciseName}</b>`));
@@ -946,33 +946,33 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         doc.text(estimatedTime, 10, currentY);
         currentY += 15;
 
-        // NOTES Section
+        // NOTES Section (Shallow Box at the End)
         doc.setFontSize(12);
         doc.setTextColor(0, 0, 0);
         doc.text("NOTES", 10, currentY);
         currentY += 8;
 
         const notesBorderY = currentY;
-        doc.line(10, currentY, pageWidth - 10, currentY); // Top border
-        currentY += 3;
+        const notesHeight = 30; // Set a relatively shallow fixed height for the notes box
 
-        const notesLineHeight = 7;
-        exercisesList.forEach(exerciseName => {
-            doc.setFontSize(10);
-            doc.text(exerciseName, 15, currentY);
-            currentY += 5;
-            doc.setLineWidth(0.2);
-            const lineStartY = currentY;
-            for (let i = 0; i < 3; i++) { // Add 3 lines for notes per exercise
-                doc.line(15, currentY, pageWidth - 15, currentY);
-                currentY += notesLineHeight;
+        doc.setDrawColor(169, 169, 169);
+        doc.setLineWidth(0.5);
+        doc.rect(10, currentY, tableWidth, notesHeight);
+        currentY += 5;
+
+        doc.setFontSize(10);
+        const notesTextStartY = currentY;
+        const availableNotesSpace = notesHeight - 10;
+        const numberOfLines = Math.floor(availableNotesSpace / 7); // Adjust 7 based on desired line height
+
+        exercisesList.forEach((exerciseName, index) => {
+            const lineY = notesTextStartY + (index * 7); // Position each exercise name on a line
+            if (lineY < currentY + numberOfLines * 7) {
+                doc.text(`${index + 1}. ${exerciseName}:`, 15, lineY);
             }
-            currentY += 5; // Add some space after each exercise's notes
         });
 
-        doc.line(10, notesBorderY, 10, currentY - 8); // Left border
-        doc.line(pageWidth - 10, notesBorderY, pageWidth - 10, currentY - 8); // Right border
-        doc.line(10, currentY - 8, pageWidth - 10, currentY - 8); // Bottom border
+        currentY += notesHeight + 10; // Move currentY past the notes box
 
         doc.save("workout.pdf");
 
@@ -982,7 +982,6 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         alert("An error occurred while generating the PDF.");
     }
 });
-
 /* ............................................... Function: To Populate table ...................................................... */
 function populateExerciseTable() {
     console.log("Populating exercise table..."); // Debugging log
