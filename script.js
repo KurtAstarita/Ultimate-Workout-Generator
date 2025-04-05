@@ -987,14 +987,14 @@ doc.autoTable({
                 1: { cellWidth: 20 }, // Reps
                 2: { cellWidth: 30 }, // TPS
                 3: { cellWidth: 30 }, // Rest
-                4: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "___x___ |"; } },
-                5: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "___x___"; } },
-                6: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "___x___ |"; } },
-                7: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "___x___"; } },
-                8: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "___x___ |"; } },
-                9: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "___x___"; } },
-                10: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "___x___ |"; } },
-                11: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "___x___"; } },
+                4: { cellWidth: '40', halign: 'center', cellFormatter: function(data) { return "___x___ |"; } },
+                5: { cellWidth: '40', halign: 'center', cellFormatter: function(data) { return "___x___"; } },
+                6: { cellWidth: '40', halign: 'center', cellFormatter: function(data) { return "___x___ |"; } },
+                7: { cellWidth: '40', halign: 'center', cellFormatter: function(data) { return "___x___"; } },
+                8: { cellWidth: '40', halign: 'center', cellFormatter: function(data) { return "___x___ |"; } },
+                9: { cellWidth: '40', halign: 'center', cellFormatter: function(data) { return "___x___"; } },
+                10: { cellWidth: '40', halign: 'center', cellFormatter: function(data) { return "___x___ |"; } },
+                11: { cellWidth: '40', halign: 'center', cellFormatter: function(data) { return "___x___"; } },
             },
             tableLineWidth: 1,
             tableBorderColor: grayRGB,
