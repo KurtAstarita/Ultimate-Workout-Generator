@@ -706,48 +706,49 @@ document.getElementById("generate-workout").addEventListener("click", function (
     const workout = [];
     let availableExercises = [...selectedExercises];
 
-    if (trainingSplit === "full_body") {
-        const labeledExercises = {};
-        availableExercises.forEach(exercise => {
-            if (exercise.label) {
-                const labels = exercise.label.split(',').map(label => label.trim());
-                labels.forEach(label => {
-                    if (!labeledExercises[label]) {
-                        labeledExercises[label] = [];
-                    }
-                    labeledExercises[label].push(exercise);
-                });
-            }
-        });
+ if (trainingSplit === "full_body") {
+        const labeledExercises = {};
+        availableExercises.forEach(exercise => {
+            if (exercise.label) {
+                const labels = exercise.label.split(',').map(label => label.trim());
+                labels.forEach(label => {
+                    if (!labeledExercises[label]) {
+                        labeledExercises[label] = [];
+                    }
+                    labeledExercises[label].push(exercise);
+                });
+            }
+        });
 
-        const workoutLabels = new Set(); // Keep track of labels already used in the workout
-        for (const label in labeledExercises) {
-            if (labeledExercises[label].length > 0 && workoutLabels.size < 5) {
-                const randomIndex = Math.floor(Math.random() * labeledExercises[label].length);
-                const selectedExercise = labeledExercises[label][randomIndex];
-                if (!workout.includes(selectedExercise)) { // Avoid duplicates
-                    workout.push(selectedExercise);
-                    workoutLabels.add(label);
-                }
-            }
-        }
+        const workoutLabels = new Set(); // Keep track of labels already used in the workout
+        for (const label in labeledExercises) {
+            if (labeledExercises[label].length > 0 && workoutLabels.size < 5) {
+                const randomIndex = Math.floor(Math.random() * labeledExercises[label].length);
+                const selectedExercise = labeledExercises[label][randomIndex];
+                if (!workout.includes(selectedExercise)) { // Avoid duplicates
+                    workout.push(selectedExercise);
+                    workoutLabels.add(label);
+                }
+            }
+        }
 
-        // Fallback to add more random if available
-        while (workout.length < 5 && availableExercises.length > 0) {
-            const randomIndex = Math.floor(Math.random() * availableExercises.length);
-            const randomExercise = availableExercises.splice(randomIndex, 1)[0];
-            if (!workout.some(ex => ex.name === randomExercise.name)) {
-                workout.push(randomExercise);
-            }
-        }
+        // Fallback to add more random if available
+        while (workout.length < 5 && availableExercises.length > 0) {
+            const randomIndex = Math.floor(Math.random() * availableExercises.length);
+            const randomExercise = availableExercises.splice(randomIndex, 1)[0];
+            if (!workout.some(ex => ex.name === randomExercise.name)) {
+                workout.push(randomExercise);
+            }
+        }
 
-    } else if (trainingSplit) { // Handle specific splits
-        const splitFormatted = trainingSplit.replace("_", " & ").toLowerCase();
-        const filteredExercises = availableExercises.filter(exercise => exercise.muscleGroup && exercise.muscleGroup.toLowerCase().includes(splitFormatted));
-        while (workout.length < 5 && filteredExercises.length > 0) {
-            const randomIndex = Math.floor(Math.random() * filteredExercises.length);
-            workout.push(filteredExercises.splice(randomIndex, 1)[0]);
-        }
+    } else if (trainingSplit) { // Handle specific splits
+        const splitFormatted = trainingSplit.replace("_", " & ").toLowerCase();
+        const filteredExercises = availableExercises.filter(exercise => exercise.muscleGroup && exercise.muscleGroup.toLowerCase().includes(splitFormatted));
+        while (workout.length < 5 && filteredExercises.length > 0) {
+            const randomIndex = Math.floor(Math.random() * filteredExercises.length);
+            workout.push(filteredExercises.splice(randomIndex, 1)[0]);
+        }
+    }
     } else {
         // Default: select 5 random exercises
         for (let i = 0; i < 5 && availableExercises.length > 0; i++) {
