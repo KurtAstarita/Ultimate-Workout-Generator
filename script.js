@@ -994,6 +994,7 @@ doc.autoTable({
                 fillColor: [200, 200, 200],
                 borderColor: grayRGB,
                 borderWidth: 1
+                halign: 'center'
             },
             bodyStyles: {
                 fontSize: 7, // Font size for the table body
