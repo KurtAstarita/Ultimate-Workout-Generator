@@ -1046,6 +1046,9 @@ function populateExerciseTable() {
         const cell1 = document.createElement("td");
         cell1.appendChild(button);
 
+        const cell2 = document.createElement("td"); // New cell for Muscle Group
+        cell2.textContent = exercise.muscleGroup || ''; // Display muscle group
+
         const cell4 = document.createElement("td");
         cell4.textContent = exercise.sets;
 
@@ -1059,6 +1062,7 @@ function populateExerciseTable() {
         cell7.textContent = exercise.timePerSet || ''; // Display time per set
 
         row.appendChild(cell1);
+        row.appendChild(cell2); // Append the Muscle Group cell
         row.appendChild(cell4);
         row.appendChild(cell5);
         row.appendChild(cell6);
