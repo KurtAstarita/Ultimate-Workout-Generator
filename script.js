@@ -772,7 +772,7 @@ document.getElementById("generate-workout").addEventListener("click", function (
         }
     }
         
-    } else {
+   else {
         // Default: select 5 random exercises
         for (let i = 0; i < 5 && availableExercises.length > 0; i++) {
             const randomIndex = Math.floor(Math.random() * availableExercises.length);
