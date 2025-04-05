@@ -920,7 +920,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         let tableData = [];
         let estimatedTime = "";
 
-        // Extract table data and estimated time
+       // Extract table data and estimated time
         lines.forEach(line => {
             if (line.trim() && !line.includes("Estimated Workout Time")) {
                 const exerciseMatch = line.match(/^(.+?) - Reps: (.+?)(?: - Rest: (.+?) (seconds?|minutes?))?(?: - Time per set: (.+?) (seconds?|minutes?))?\s*$/i);
@@ -933,7 +933,20 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                     const tpsValue = exerciseMatch[5] ? exerciseMatch[5].trim() : "";
                     const tpsUnit = exerciseMatch[6] ? exerciseMatch[6].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "";
                     const tpsInfoFormatted = tpsValue && tpsUnit ? `${tpsValue} ${tpsUnit}` : "";
-                    tableData.push([exerciseName, repsInfo, tpsInfoFormatted, restInfoFormatted, "___x___", "___x___", "___x___", "___x___", "___x___", "___x___", "___x___", "___x___"]);
+                    tableData.push([
+                        exerciseName,
+                        repsInfo,
+                        tpsInfoFormatted,
+                        restInfoFormatted,
+                        "___x___",
+                        "___x___",
+                        "___x___",
+                        "___x___",
+                        "___x___",
+                        "___x___",
+                        "___x___",
+                        "___x___"
+                    ]);
                 }
             } else if (line.includes("Estimated Workout Time")) {
                 estimatedTime = line;
@@ -993,7 +1006,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         currentY += 8; // Increment Y *after* both title and date
         
         // Workout Table with gray border
-        const headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8, (ect...)"];
+        const headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
         doc.autoTable({
             head: [headers],
             body: tableData,
@@ -1001,7 +1014,20 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             margin: { horizontal: 10 },
             styles: { fontSize: 8, cellPadding: 2, borderColor: grayRGB, borderWidth: 1 },
             headStyles: { fontSize: 8, fillColor: [200, 200, 200], borderColor: grayRGB, borderWidth: 1 },
-            columnStyles: { 0: { cellWidth: 'auto' }, 1: { cellWidth: 'auto' }, 2: { cellWidth: 'auto' }, 3: { cellWidth: 'auto' } },
+            columnStyles: {
+                0: { cellWidth: 'auto' },
+                1: { cellWidth: 'auto' },
+                2: { cellWidth: 'auto' },
+                3: { cellWidth: 'auto' },
+                4: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "___x___"; } },
+                5: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "___x___"; } },
+                6: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "___x___"; } },
+                7: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "___x___"; } },
+                8: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "___x___"; } },
+                9: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "___x___"; } },
+                10: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "___x___"; } },
+                11: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "___x___"; } },
+            },
             tableLineWidth: 1,
             tableBorderColor: grayRGB,
             didDrawPage: function(data) {
