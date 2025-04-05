@@ -918,7 +918,11 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         const doc = new jsPDF();
         const pageWidth = doc.internal.pageSize.getWidth();
         let currentY = 10;
-        const grayScale = 169 / 255; // Convert to grayscale value
+        const grayScale = 169 / 255;
+        const grayRGB = [169, 169, 169];
+
+        // Set draw color for the workout chart
+        doc.setDrawColor(grayRGB);
 
         // Workout Table
         const headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
@@ -927,8 +931,8 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             body: tableData,
             startY: currentY,
             margin: { horizontal: 10 },
-            styles: { fontSize: 8, cellPadding: 2, borderColor: [169, 169, 169], borderWidth: 1 }, // Keep RGB for autoTable
-            headStyles: { fontSize: 8, fillColor: [200, 200, 200], borderColor: [169, 169, 169], borderWidth: 1 }, // Keep RGB for autoTable
+            styles: { fontSize: 8, cellPadding: 2, borderColor: grayRGB, borderWidth: 1 },
+            headStyles: { fontSize: 8, fillColor: [200, 200, 200], borderColor: grayRGB, borderWidth: 1 },
             columnStyles: { 0: { cellWidth: 'auto' }, 1: { cellWidth: 'auto' }, 2: { cellWidth: 'auto' }, 3: { cellWidth: 'auto' } },
             didDrawPage: function(data) {
                 currentY = data.cursor.y + 10;
@@ -948,7 +952,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         // Notes Section
         doc.setFontSize(12);
         doc.setTextColor(0, 0, 0);
-        doc.text("NOTES</ br>", 10, currentY);
+        doc.text("NOTES", 10, currentY);
         const notesStartY = currentY + 8;
 
         // Calculate remaining height
@@ -956,12 +960,12 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         const notesHeight = pageHeight - notesStartY - 10; // Subtract some margin at the bottom
 
         // Draw border
-        doc.setDrawColor(grayScale); // Use grayscale value
+        doc.setDrawColor(grayScale);
         doc.setLineWidth(0.5);
         doc.rect(10, notesStartY - 8, pageWidth - 20, notesHeight + 8); // Adjust Y and height for border
 
         // Draw lines
-        doc.setDrawColor(grayScale); // Use grayscale value
+        doc.setDrawColor(grayScale);
         doc.setLineWidth(0.2);
         const lineHeight = 7;
         let y = notesStartY;
