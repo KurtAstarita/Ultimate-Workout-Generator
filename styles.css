@@ -35,6 +35,33 @@
  button:hover {
      background-color: darkgray; /* Changed to dark gray */
  }
+
+button:disabled {
+    background-color: #ccc; /* A lighter gray */
+    color: #666; /* Darker gray text */
+    cursor: not-allowed; /* Changes the cursor to indicate it's not clickable */
+    opacity: 0.7; /* Slightly reduce the opacity */
+    border: 1px solid #ccc; /* Keep the border consistent */
+}
+
+button:disabled:hover {
+    /* Prevent hover effect on disabled buttons */
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+#copy-workout:disabled {
+    background-color: #ccc; /* Apply the same disabled style */
+    color: #666;
+    cursor: not-allowed;
+    opacity: 0.7;
+    border: 1px solid #ccc;
+}
+
+#copy-workout:disabled:hover {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
  
  #workout-result {
      margin-top: 20px;
