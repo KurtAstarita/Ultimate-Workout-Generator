@@ -69,7 +69,7 @@ gym: [
 { name: "Cable Rows", sets: 4, reps: 10, rest: 75, timePerSet: 45 },
 { name: "Chest Flyes", sets: 4, reps: 12, rest: 75, timePerSet: 40 },
 { name: "Pull ups", sets: 3, reps: "25", rest: 90, timePerSet: 60 }, // Assuming ~25 seconds for a set
-{ name: "Dips", sets: 3, reps: "As Many As Possible", rest: 90, timePerSet: 45 }, // Assuming ~45 seconds
+{ name: "Dips", sets: 3, reps: "AMRAP", rest: 90, timePerSet: 45 }, // Assuming ~45 seconds
 { name: "Leg Extensions", sets: 4, reps: 12, rest: 75, timePerSet: 30 },
 { name: "Hamstring Curls", sets: 4, reps: 12, rest: 75, timePerSet: 30 },
 { name: "Cable Triceps Pushdowns", sets: 4, reps: 12, rest: 75, timePerSet: 30 },
@@ -284,7 +284,7 @@ bodyweight: [
 { name: "Pistol Squats", sets: 3, reps: 5, rest: 180, timePerSet: 75 },
 { name: "Handstand Push ups Assisted", sets: 3, reps: 5, rest: 180, timePerSet: 60 },
 { name: "Front Lever Holds Progression", sets: 3, reps: "10 sec", rest: 180, timePerSet: 10 },
-{ name: "Back Lever Holds Progression", sets: 3, reps: "10 sec", rest: 180, timePerSet: 10 },
+{ name: "Back Lever Holds Progression", sets: 3, reps: "10 sec ", rest: 180, timePerSet: 10 },
 { name: "Muscle ups Progression", sets: 3, reps: 3, rest: 180, timePerSet: 90 },
 { name: "One Arm Push up Progression", sets: 3, reps: 3, rest: 120, timePerSet: 45 },
 { name: "Dragon Flags Progression", sets: 3, reps: 8, rest: 120, timePerSet: 45 },
@@ -400,9 +400,9 @@ advanced: {
 bodyweight: [
 { name: "Long Distance Running", sets: 1, reps: "3600 sec", rest: 30, timePerSet: 3600 },
 { name: "HIIT Training", sets: 4, reps: 20, rest: 10, timePerSet: 20 }, // Assuming each rep takes ~1 second
-{ name: "Sprints", sets: 8, reps: 100, rest: 60, timePerSet: 20 }, // Assuming 100m sprint takes ~20 seconds
+{ name: "Sprints", sets: 8, reps: 100m, rest: 60, timePerSet: 20 }, // Assuming 100m sprint takes ~20 seconds
 { name: "Plyometric Circuit", sets: 3, reps: 10, rest: 60, timePerSet: 45 }, // Estimate for a set of plyos
-{ name: "Hill Sprints", sets: 6, reps: 50, rest: 90, timePerSet: 15 }, // Assuming 50m hill sprint
+{ name: "Hill Sprints", sets: 6, reps: 50m, rest: 90, timePerSet: 15 }, // Assuming 50m hill sprint
 { name: "Muscle Ups", sets: 5, reps: "AMRAP", rest: 120, timePerSet: 60 }, // Estimate per set
 ],
 dumbbells: [
@@ -413,9 +413,9 @@ dumbbells: [
 { name: "Dumbbell Turkish Get ups", sets: 3, reps: 5, rest: 90, timePerSet: 90 },
 ],
 gym: [
-{ name: "Interval Rowing", sets: 5, reps: 500, rest: 120, timePerSet: 120 }, // Estimate time to row 500m
+{ name: "Interval Rowing", sets: 5, reps: 500m, rest: 120, timePerSet: 120 }, // Estimate time to row 500m
 { name: "High Intensity Assault Bike Intervals", sets: 6, reps: 30, rest: 60, timePerSet: 30 },
-{ name: "Loaded Sled Pushes", sets: 5, reps: 50, rest: 120, timePerSet: 45 }, // Estimate for distance/time
+{ name: "Loaded Sled Pushes", sets: 5, reps: 50m, rest: 120, timePerSet: 45 }, // Estimate for distance/time
 { name: "Ski Erg Intervals", sets: 4, reps: 40, rest: 90, timePerSet: 45 },
 { name: "VersaClimber Intervals", sets: 4, reps: 30, rest: 90, timePerSet: 45 },
 ],
@@ -475,7 +475,7 @@ bodyweight: [
 { name: "High Intensity Burpee Variations", sets: 4, reps: 20, rest: 30, timePerSet: 45 },
 { name: "Advanced Plyometric Circuit", sets: 4, reps: 15, rest: 45, timePerSet: 60 },
 { name: "Complex Bodyweight Movements", sets: 4, reps: 10, rest: 60, timePerSet: 60 },
-{ name: "Sprint Intervals", sets: 6, reps: 100, rest: 60, timePerSet: 20 }, // Assuming 100m sprint takes ~20 seconds
+{ name: "Sprint Intervals", sets: 6, reps: 100m, rest: 60, timePerSet: 20 }, // Assuming 100m sprint takes ~20 seconds
 { name: "Hill Sprints with Burpees", sets: 5, reps: 50, rest: 90, timePerSet: 45 }, // Estimate
 ],
 dumbbells: [
