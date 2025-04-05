@@ -893,14 +893,12 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 
         const lines = workoutText.split('\n');
         let tableData = [];
-        // Insert "TPS" before "Rest" in the headers
-        let headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
-        let totalWorkoutTime = 0;
+        let estimatedTime = "";
 
-lines.forEach(line => {
+        // Extract table data and estimated time
+        lines.forEach(line => {
             if (line.trim() && !line.includes("Estimated Workout Time")) {
                 const exerciseMatch = line.match(/^(.+?) - Reps: (.+?)(?: - Rest: (.+?) (seconds?|minutes?))?(?: - Time per set: (.+?) (seconds?|minutes?))?\s*$/i);
-
                 if (exerciseMatch) {
                     const exerciseName = exerciseMatch[1].replace(/<b>|<\/b>/g, '').trim();
                     const repsInfo = exerciseMatch[2].trim();
@@ -910,58 +908,67 @@ lines.forEach(line => {
                     const tpsValue = exerciseMatch[5] ? exerciseMatch[5].trim() : "";
                     const tpsUnit = exerciseMatch[6] ? exerciseMatch[6].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "";
                     const tpsInfoFormatted = tpsValue && tpsUnit ? `${tpsValue} ${tpsUnit}` : "";
-
                     tableData.push([exerciseName, repsInfo, tpsInfoFormatted, restInfoFormatted, "", "", "", "", "", "", "", ""]);
                 }
+            } else if (line.includes("Estimated Workout Time")) {
+                estimatedTime = line;
             }
         });
 
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
+        const pageWidth = doc.internal.pageSize.getWidth();
+        let currentY = 10;
+        const grayColor = [169, 169, 169];
 
+        // Workout Table
+        const headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
         doc.autoTable({
             head: [headers],
             body: tableData,
-            startY: 10,
-            styles: {
-                fontSize: 8,
-                cellPadding: 2,
-                borderColor: [169, 169, 169],
-                borderWidth: 1,
-            },
-            headStyles: {
-                fontSize: 8,
-                fillColor: [200, 200, 200],
-                borderColor: [169, 169, 169],
-                borderWidth: 1,
-            },
-            columnStyles: {
-                0: { cellWidth: 'auto' }, // Exercise
-                1: { cellWidth: 'auto' }, // Reps
-                2: { cellWidth: 'auto' }, // TPS
-                3: { cellWidth: 'auto' }, // Rest
-                4: { cellWidth: 'auto' }, // Set 1
-                5: { cellWidth: 'auto' }, // Set 2
-                6: { cellWidth: 'auto' }, // Set 3
-                7: { cellWidth: 'auto' }, // Set 4
-                8: { cellWidth: 'auto' }, // Set 5
-                9: { cellWidth: 'auto' }, // Set 6
-                10: { cellWidth: 'auto' }, // Set 7
-                11: { cellWidth: 'auto' }, // Set 8
-            },
-            tableLineWidth: 1,
-            tableBorderColor: [169, 169, 169],
+            startY: currentY,
+            margin: { horizontal: 10 },
+            styles: { fontSize: 8, cellPadding: 2, borderColor: grayColor, borderWidth: 1 },
+            headStyles: { fontSize: 8, fillColor: [200, 200, 200], borderColor: grayColor, borderWidth: 1 },
+            columnStyles: { 0: { cellWidth: 'auto' }, 1: { cellWidth: 'auto' }, 2: { cellWidth: 'auto' }, 3: { cellWidth: 'auto' } },
+            didDrawPage: function(data) {
+                currentY = data.cursor.y + 10;
+            }
         });
 
         const tableEndY = doc.autoTable.previous.finalY;
+        currentY = tableEndY + 10;
+
+        // Estimated Workout Time
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(11);
         doc.setTextColor(105, 105, 105);
-        const timeLine = lines.find(line => line.includes("Estimated Workout Time"));
-        const timeText = timeLine ? timeLine.replace("seconds", "sec") : ""; // Change seconds to sec here if needed in the text
-        doc.text(timeText, 10, tableEndY + 10);
+        doc.text(estimatedTime, 10, currentY);
+        currentY += 15;
+
+        // Notes Section
+        doc.setFontSize(12);
         doc.setTextColor(0, 0, 0);
-        doc.setFont('helvetica', 'normal');
+        doc.text("NOTES", 10, currentY);
+        const notesStartY = currentY + 8;
+
+        // Calculate remaining height
+        const pageHeight = doc.internal.pageSize.getHeight();
+        const notesHeight = pageHeight - notesStartY - 10; // Subtract some margin at the bottom
+
+        // Draw border
+        doc.setDrawColor(grayColor);
+        doc.setLineWidth(0.5);
+        doc.rect(10, notesStartY - 8, pageWidth - 20, notesHeight + 8); // Adjust Y and height for border
+
+        // Draw lines
+        doc.setLineWidth(0.2);
+        const lineHeight = 7;
+        let y = notesStartY;
+        while (y < notesStartY + notesHeight) {
+            doc.line(15, y, pageWidth - 15, y);
+            y += lineHeight;
+        }
 
         doc.save("workout.pdf");
 
