@@ -316,7 +316,7 @@ intermediate: {
 bodyweight: [
 { name: "Burpees", sets: 3, reps: 30, rest: 30, timePerSet: 60 },
 { name: "Mountain Climbers", sets: 3, reps: 30, rest: 30, timePerSet: 30 },
-{ name: "Running", sets: 1, reps: "20 minutes", rest: 30, timePerSet: 1200 },
+{ name: "Running", sets: 1, reps: "20 min", rest: 30, timePerSet: 1200 },
 { name: "Jump Squats", sets: 3, reps: 15, rest: 45, timePerSet: 30 },
 { name: "High Plank Jacks", sets: 3, reps: 20, rest: 30, timePerSet: 20 },
 { name: "Skater Jumps", sets: 3, reps: 15, rest: 30, timePerSet: 30 },
