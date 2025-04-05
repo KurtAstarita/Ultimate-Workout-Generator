@@ -669,6 +669,8 @@ document.getElementById("copy-workout").disabled = true;
 
 /* ............................................... Function: Generate Workout ...................................................... */
 
+/* ............................................... Function: Generate Workout ...................................................... */
+
 document.getElementById("generate-workout").addEventListener("click", function () {
     const goal = document.getElementById("goal").value;
     const experience = document.getElementById("experience").value;
@@ -778,6 +780,31 @@ document.getElementById("generate-workout").addEventListener("click", function (
     let totalWorkoutTime = 0;
     let workoutHTML = "<br><center><h3><u>YOUR WORKOUT</u></h3></center><ul>";
     workoutTextForCopy = ""; // Reset workoutTextForCopy here
+
+    // --- Dynamic Title Generation ---
+    let workoutTitle = "My"; // Start with the prefix
+
+    if (experience) {
+        workoutTitle += ` ${experience.charAt(0).toUpperCase() + experience.slice(1)}`; // Affix: Experience
+    }
+
+    if (goal && goal !== "general") {
+        workoutTitle += ` ${goal.charAt(0).toUpperCase() + goal.slice(1)} Focus`; // Affix: Goal
+    }
+
+    if (modality && modality !== "general") {
+        workoutTitle += ` (${modality.charAt(0).toUpperCase() + modality.slice(1)})`; // Affix: Modality
+    }
+
+    if (trainingSplit && trainingSplit !== "none") {
+        const splitFormatted = trainingSplit.replace("_", " & ").split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+        workoutTitle += ` - ${splitFormatted}`; // Affix: Training Split
+    }
+
+    workoutTitle += " Workout"; // Suffix
+
+    workoutHTML = `<br><center><h3><u>${workoutTitle}</u></h3></center><ul>`;
+    // --- End Dynamic Title Generation ---
 
     workout.forEach(ex => {
         workoutHTML += `<br><br><li><b>${ex.name}</b>`;
