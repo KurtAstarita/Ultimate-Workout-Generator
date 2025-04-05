@@ -1048,3 +1048,6 @@ function populateExerciseTable() {
         });
     });
 }
+document.addEventListener('DOMContentLoaded', function() {
+    populateExerciseTable();
+});
