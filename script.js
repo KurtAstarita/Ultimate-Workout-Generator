@@ -986,6 +986,7 @@ doc.autoTable({
                 cellPadding: 1,
                 borderColor: grayRGB,
                 borderWidth: 1
+                valign: 'bottom' // Vertical align to bottom for all cells
             },
             headStyles: {
                 fontSize: 9, // Font size for the table header
