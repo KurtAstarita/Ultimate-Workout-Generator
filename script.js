@@ -1005,9 +1005,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 
         currentY += 8; // Increment Y *after* both title and date
         
-        // Workout Table with gray border
-        const headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
-        doc.autoTable({
+     doc.autoTable({
             head: [headers],
             body: tableData,
             startY: currentY,
@@ -1032,6 +1030,14 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             tableBorderColor: grayRGB,
             didDrawPage: function(data) {
                 currentY = data.cursor.y + 10;
+            },
+            didDrawCell: function(data) {
+                const colIndex = data.column.index;
+                if (colIndex === 6 || colIndex === 9) { // After Set 3 (index 6) and Set 6 (index 9)
+                    doc.setDrawColor(grayRGB);
+                    doc.setLineWidth(0.5);
+                    doc.line(data.cell.x + data.cell.width, data.cell.y, data.cell.x + data.cell.width, data.cell.y + data.cell.height);
+                }
             }
         });
 
