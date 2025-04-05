@@ -400,22 +400,22 @@ advanced: {
 bodyweight: [
 { name: "Long Distance Running", sets: 1, reps: "3600 sec", rest: 30, timePerSet: 3600 },
 { name: "HIIT Training", sets: 4, reps: 20, rest: 10, timePerSet: 20 }, // Assuming each rep takes ~1 second
-{ name: "Sprints", sets: 8, reps: 100m, rest: 60, timePerSet: 20 }, // Assuming 100m sprint takes ~20 seconds
+{ name: "Sprints", sets: 8, reps: "100m", rest: 60, timePerSet: 20 }, // Assuming 100m sprint takes ~20 seconds
 { name: "Plyometric Circuit", sets: 3, reps: 10, rest: 60, timePerSet: 45 }, // Estimate for a set of plyos
-{ name: "Hill Sprints", sets: 6, reps: 50m, rest: 90, timePerSet: 15 }, // Assuming 50m hill sprint
+{ name: "Hill Sprints", sets: 6, reps: "50m", rest: 90, timePerSet: 15 }, // Assuming 50m hill sprint
 { name: "Muscle Ups", sets: 5, reps: "AMRAP", rest: 120, timePerSet: 60 }, // Estimate per set
 ],
 dumbbells: [
 { name: "Dumbbell Complex", sets: 4, reps: 8, rest: 60, timePerSet: 60 }, // Estimate for a complex
 { name: "Dumbbell Snatch and Overhead Squat", sets: 4, reps: 6, rest: 90, timePerSet: 60 },
-{ name: "Dumbbell Farmer's Walk", sets: 3, reps: 50, rest: 90, timePerSet: 60 }, // Estimate for distance/time
+{ name: "Dumbbell Farmer's Walk", sets: 3, reps: "50m", rest: 90, timePerSet: 60 }, // Estimate for distance/time
 { name: "Dumbbell Thruster Ladder", sets: 1, reps: "Ladder", rest: 120, timePerSet: 180 }, // Rough estimate
 { name: "Dumbbell Turkish Get ups", sets: 3, reps: 5, rest: 90, timePerSet: 90 },
 ],
 gym: [
-{ name: "Interval Rowing", sets: 5, reps: 500m, rest: 120, timePerSet: 120 }, // Estimate time to row 500m
+{ name: "Interval Rowing", sets: 5, reps: "500m", rest: 120, timePerSet: 120 }, // Estimate time to row 500m
 { name: "High Intensity Assault Bike Intervals", sets: 6, reps: 30, rest: 60, timePerSet: 30 },
-{ name: "Loaded Sled Pushes", sets: 5, reps: 50m, rest: 120, timePerSet: 45 }, // Estimate for distance/time
+{ name: "Loaded Sled Pushes", sets: 5, reps: "50m", rest: 120, timePerSet: 45 }, // Estimate for distance/time
 { name: "Ski Erg Intervals", sets: 4, reps: 40, rest: 90, timePerSet: 45 },
 { name: "VersaClimber Intervals", sets: 4, reps: 30, rest: 90, timePerSet: 45 },
 ],
@@ -475,8 +475,8 @@ bodyweight: [
 { name: "High Intensity Burpee Variations", sets: 4, reps: 20, rest: 30, timePerSet: 45 },
 { name: "Advanced Plyometric Circuit", sets: 4, reps: 15, rest: 45, timePerSet: 60 },
 { name: "Complex Bodyweight Movements", sets: 4, reps: 10, rest: 60, timePerSet: 60 },
-{ name: "Sprint Intervals", sets: 6, reps: 100m, rest: 60, timePerSet: 20 }, // Assuming 100m sprint takes ~20 seconds
-{ name: "Hill Sprints with Burpees", sets: 5, reps: 50, rest: 90, timePerSet: 45 }, // Estimate
+{ name: "Sprint Intervals", sets: 6, reps: "100m", rest: 60, timePerSet: 20 }, // Assuming 100m sprint takes ~20 seconds
+{ name: "Hill Sprints with Burpees", sets: 5, reps: "50m", rest: 90, timePerSet: 45 }, // Estimate
 ],
 dumbbells: [
 { name: "Dumbbell Complex Circuit", sets: 4, reps: 10, rest: 60, timePerSet: 75 },
