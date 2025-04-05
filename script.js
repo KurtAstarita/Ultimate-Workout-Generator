@@ -1001,8 +1001,8 @@ doc.autoTable({
                 textColor: [0, 0, 0] // Text color for the body (RGB array)
             },
             columnStyles: {
-                0: { cellWidth: 18 }, // Exercise
-                1: { cellWidth: 12 }, // Reps
+                0: { cellWidth: 20 }, // Exercise
+                1: { cellWidth: 14 }, // Reps
                 2: { cellWidth: 8 }, // TPS
                 3: { cellWidth: 8 }, // Rest
                 4: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "____x____"; } },
