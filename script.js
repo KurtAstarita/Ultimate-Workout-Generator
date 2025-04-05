@@ -948,7 +948,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         // Notes Section
         doc.setFontSize(12);
         doc.setTextColor(0, 0, 0);
-        doc.text("NOTES", 10, currentY);
+        doc.text("NOTES</ br>", 10, currentY);
         const notesStartY = currentY + 8;
 
         // Calculate remaining height
