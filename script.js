@@ -975,7 +975,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         workoutTitle += " Workout";
         // --- End Title Regeneration ---
 
-            // Add Workout Title to PDF
+       // Add Workout Title to PDF
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(14);
         doc.setTextColor(darkGrayRGB[0], darkGrayRGB[1], darkGrayRGB[2]);
@@ -989,12 +989,6 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         doc.setFontSize(10);
         doc.setTextColor(0, 0, 0); // Use black color for the date
         doc.text(dateText, dateXPosition, currentY + 6); // Adjusted Y for vertical alignment
-
-        currentY += 20; // Increase spacing after title and date
-
-        doc.setFontSize(10);
-        doc.setTextColor(0, 0, 0); // Use black color for the date
-        doc.text(dateText, dateXPosition, currentY + 4); // Adjust Y for vertical alignment
 
         currentY += 20; // Increase spacing after title and date
         
