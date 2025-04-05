@@ -748,6 +748,20 @@ document.getElementById("generate-workout").addEventListener("click", function (
             const randomIndex = Math.floor(Math.random() * filteredExercises.length);
             workout.push(filteredExercises.splice(randomIndex, 1)[0]);
         }
+
+   } else if (trainingSplit) { // Handle specific splits
+        const splitFormatted = trainingSplit.replace("_", " & ").toLowerCase();
+        console.log("Selected trainingSplit:", trainingSplit); // Log the raw selected split
+        console.log("Formatted split:", splitFormatted); // Log the formatted split
+        console.log("All availableExercises:", availableExercises); // Log all available exercises before filtering
+        const filteredExercises = availableExercises.filter(exercise => exercise.muscleGroup && exercise.muscleGroup.toLowerCase().includes(splitFormatted));
+        console.log("Filtered exercises:", filteredExercises); // Log the exercises after filtering
+        while (workout.length < 5 && filteredExercises.length > 0) {
+            const randomIndex = Math.floor(Math.random() * filteredExercises.length);
+            workout.push(filteredExercises.splice(randomIndex, 1)[0]);
+        }
+    }
+        
     } else {
         // Default: select 5 random exercises
         for (let i = 0; i < 5 && availableExercises.length > 0; i++) {
