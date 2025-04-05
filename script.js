@@ -993,7 +993,7 @@ doc.autoTable({
                 fontStyle: 'bold', // Font style for the table header
                 fillColor: [200, 200, 200],
                 borderColor: grayRGB,
-                borderWidth: 1
+                borderWidth: 1,
                 halign: 'center'
             },
             bodyStyles: {
