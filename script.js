@@ -951,88 +951,91 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 /* ............................................... Function: To Populate table ...................................................... */
 
 function populateExerciseTable() {
-     console.log("Populating exercise table..."); // Debugging log
+    console.log("Populating exercise table..."); // Debugging log
 
-     const tableBody = document.getElementById("exercise-table-body");
-     if (!tableBody) {
-         console.error("Table body element not found.");
-         return;
-     }
-     tableBody.innerHTML = "";
+    const tableBody = document.getElementById("exercise-table-body");
+    if (!tableBody) {
+        console.error("Table body element not found.");
+        return;
+    }
+    tableBody.innerHTML = "";
 
-     let allExercises = [];
-     let seenExercises = new Set();
+    let allExercises = [];
+    let seenExercises = new Set();
 
-     for (const category in exercises) {
-         for (const level in exercises[category]) {
-             for (const type in exercises[category][level]) {
-                 const exerciseList = exercises[category][level][type];
-                 if (Array.isArray(exerciseList)) {
-                     exerciseList.forEach(exercise => {
-                         const normalizedName = exercise.name.trim().toLowerCase();
-                         if (!seenExercises.has(normalizedName)) {
-                             allExercises.push(exercise);
-                             seenExercises.add(normalizedName);
-                         }
-                     });
-                 } else if (typeof exerciseList === 'object' && exerciseList !== null) { // Handle objects
-                     const normalizedName = exerciseList.name.trim().toLowerCase();
-                     if (!seenExercises.has(normalizedName)) {
-                         allExercises.push(exerciseList);
-                         seenExercises.add(normalizedName);
-                     }
-                 } else {
-                     console.warn(`Expected an array or object, but found: ${typeof exerciseList} for ${category} > ${level} > ${type}`);
-                 }
-             }
-         }
-     }
+    for (const category in exercises) {
+        for (const level in exercises[category]) {
+            for (const type in exercises[category][level]) {
+                const exerciseList = exercises[category][level][type];
+                if (Array.isArray(exerciseList)) {
+                    exerciseList.forEach(exercise => {
+                        const normalizedName = exercise.name.trim().toLowerCase();
+                        if (!seenExercises.has(normalizedName)) {
+                            allExercises.push(exercise);
+                            seenExercises.add(normalizedName);
+                        }
+                    });
+                } else if (typeof exerciseList === 'object' && exerciseList !== null) { // Handle objects
+                    const normalizedName = exerciseList.name.trim().toLowerCase();
+                    if (!seenExercises.has(normalizedName)) {
+                        allExercises.push(exerciseList);
+                        seenExercises.add(normalizedName);
+                    }
+                } else {
+                    console.warn(`Expected an array or object, but found: ${typeof exerciseList} for ${category} > ${level} > ${type}`);
+                }
+            }
+        }
+    }
 
-     allExercises.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
-     allExercises.forEach(exercise => {
-         const row = document.createElement("tr");
-         const button = document.createElement("button");
-         button.className = "copy-exercise";
-         let copyText = `${exercise.name} - Reps: ${exercise.sets}x${exercise.reps}`;
-         if (exercise.rest) {
-             copyText += ` - Rest: ${exercise.rest} seconds.`;
-         }
-         button.dataset.exercise = copyText;
-         button.textContent = exercise.name;
-         const cell1 = document.createElement("td");
-         cell1.appendChild(button);
+    allExercises.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+    allExercises.forEach(exercise => {
+        const row = document.createElement("tr");
+        const button = document.createElement("button");
+        button.className = "copy-exercise";
+        let copyText = `${exercise.name} - Reps: ${exercise.sets}x${exercise.reps}`;
+        if (exercise.rest) {
+            copyText += ` - Rest: ${exercise.rest} seconds.`;
+        }
+        if (exercise.timePerSet !== undefined) {
+            copyText += ` - Time per set: ${exercise.timePerSet} seconds.`;
+        }
+        button.dataset.exercise = copyText;
+        button.textContent = exercise.name;
+        const cell1 = document.createElement("td");
+        cell1.appendChild(button);
 
-         const cell4 = document.createElement("td");
-         cell4.textContent = exercise.sets;
+        const cell4 = document.createElement("td");
+        cell4.textContent = exercise.sets;
 
-         const cell5 = document.createElement("td");
-         cell5.textContent = exercise.reps;
+        const cell5 = document.createElement("td");
+        cell5.textContent = exercise.reps;
 
-         const cell6 = document.createElement("td");
-         cell6.textContent = exercise.rest;
+        const cell6 = document.createElement("td");
+        cell6.textContent = exercise.rest;
 
-         const cell7 = document.createElement("td");
-         cell7.textContent = exercise.timePerSet || ''; // Display time per set
+        const cell7 = document.createElement("td");
+        cell7.textContent = exercise.timePerSet || ''; // Display time per set
 
-         row.appendChild(cell1);
-         row.appendChild(cell4);
-         row.appendChild(cell5);
-         row.appendChild(cell6);
-         row.appendChild(cell7);
+        row.appendChild(cell1);
+        row.appendChild(cell4);
+        row.appendChild(cell5);
+        row.appendChild(cell6);
+        row.appendChild(cell7);
 
-         tableBody.appendChild(row);
-     });
+        tableBody.appendChild(row);
+    });
 
-     // Attach event listeners after the elements are created
-     document.querySelectorAll(".copy-exercise").forEach(button => {
-         button.addEventListener("click", function () {
-             const textToCopy = this.dataset.exercise;
-             navigator.clipboard.writeText(textToCopy).then(() => {
-                 this.textContent = "Copied!";
-                 setTimeout(() => this.textContent = this.dataset.exercise.split(" - ")[0], 2000);
-             }).catch(err => {
-                 console.error("Copy failed", err);
-             });
-         });
-     });
- }
+    // Attach event listeners after the elements are created
+    document.querySelectorAll(".copy-exercise").forEach(button => {
+        button.addEventListener("click", function () {
+            const textToCopy = this.dataset.exercise;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                this.textContent = "Copied!";
+                setTimeout(() => this.textContent = this.dataset.exercise.split(" - ")[0], 2000);
+            }).catch(err => {
+                console.error("Copy failed", err);
+            });
+        });
+    });
+}
