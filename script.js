@@ -877,21 +877,25 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 
         const lines = workoutText.split('\n');
         let tableData = [];
-        let headers = ["Exercise", "Reps", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
+        // Insert "TPS" before "Rest" in the headers
+        let headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
         let totalWorkoutTime = 0;
 
         lines.forEach(line => {
             if (line.trim() && !line.includes("Estimated Workout Time")) {
                 const exerciseMatch = line.match(/^(.+?) - Reps:/);
-                const repsMatch = line.match(/Reps: (.+?) - Rest:/);
-                const restMatch = line.match(/Rest: (.+?) (seconds?|minutes?)\.?/);
+                const repsMatch = line.match(/Reps: (.+?)(?: - Time per set: (.+?) (seconds?|minutes?))?(?: - Rest: (.+?) (seconds?|minutes?))?\s*$/);
+                const timePerSetMatch = line.match(/Time per set: (.+?) (seconds?|minutes?)?/);
+                const restMatch = line.match(/Rest: (.+?) (seconds?|minutes?)?/);
 
                 if (exerciseMatch) {
                     const exerciseName = exerciseMatch[1].replace(/<b>|<\/b>/g, '').trim();
                     const repsInfo = repsMatch ? repsMatch[1].trim() : "";
-                    const restInfo = restMatch ? restMatch[1].trim() : "";
+                    const tpsInfo = repsMatch && repsMatch[2] ? repsMatch[2].trim() : "";
+                    const restInfo = repsMatch && repsMatch[4] ? repsMatch[4].trim() : "";
 
-                    tableData.push([exerciseName, repsInfo, restInfo, "", "", "", "", "", "", "", ""]);
+                    // Add data in the new order
+                    tableData.push([exerciseName, repsInfo, tpsInfo, restInfo, "", "", "", "", "", "", "", ""]);
                 }
             }
         });
@@ -916,11 +920,16 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 borderWidth: 1,
             },
             columnStyles: {
-                3: { cellWidth: 'auto' },
+                2: { cellWidth: 'auto' }, // Style for TPS column
+                3: { cellWidth: 'auto' }, // Style for Rest column (shifted)
                 4: { cellWidth: 'auto' },
                 5: { cellWidth: 'auto' },
                 6: { cellWidth: 'auto' },
                 7: { cellWidth: 'auto' },
+                8: { cellWidth: 'auto' },
+                9: { cellWidth: 'auto' },
+                10: { cellWidth: 'auto' },
+                11: { cellWidth: 'auto' },
             },
             tableLineWidth: 1,
             tableBorderColor: [169, 169, 169],
@@ -930,10 +939,6 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(11);
         doc.setTextColor(105, 105, 105);
-        // Note: We are no longer calculating totalWorkoutTime in this function based on the pasted text.
-        // If you want to include an estimated time in the PDF, you would need to either:
-        // 1. Rely on the "Estimated Workout Time" line being present in the pasted text.
-        // 2. Re-calculate it based on the parsed data (which you are trying to avoid).
         const timeLine = lines.find(line => line.includes("Estimated Workout Time"));
         const timeText = timeLine || "";
         doc.text(timeText, 10, tableEndY + 10);
