@@ -981,9 +981,9 @@ doc.autoTable({
             startY: currentY,
             margin: { horizontal: 10 },
             styles: {
-                fontSize: 9, // Default font size for the whole table
+                fontSize: 7, // Default font size for the whole table
                 font: 'helvetica', // Default font for the whole table
-                cellPadding: 0,
+                cellPadding: 1,
                 borderColor: grayRGB,
                 borderWidth: 1
             },
@@ -995,7 +995,7 @@ doc.autoTable({
                 borderWidth: 1
             },
             bodyStyles: {
-                fontSize: 8, // Font size for the table body
+                fontSize: 7, // Font size for the table body
                 fontStyle: 'normal', // Font style for the table body (can be 'normal', 'bold', 'italic', 'bolditalic')
                 textColor: [0, 0, 0] // Text color for the body (RGB array)
             },
