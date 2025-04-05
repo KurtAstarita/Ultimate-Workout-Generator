@@ -983,7 +983,7 @@ doc.autoTable({
             styles: { fontSize: 8, cellPadding: 2, borderColor: grayRGB, borderWidth: 1 },
             headStyles: { fontSize: 8, fillColor: [200, 200, 200], borderColor: grayRGB, borderWidth: 1 },
             columnStyles: {
-                0: { cellWidth: 25 }, // Exercise
+                0: { cellWidth: 20 }, // Exercise
                 1: { cellWidth: 15 }, // Reps
                 2: { cellWidth: 10 }, // TPS
                 3: { cellWidth: 10 }, // Rest
