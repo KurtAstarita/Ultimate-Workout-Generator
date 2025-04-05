@@ -1055,4 +1055,9 @@ function populateExerciseTable() {
 }
 document.addEventListener('DOMContentLoaded', function() {
     populateExerciseTable();
+
+    // Set default values on page load
+    document.getElementById("goal").value = "muscle";
+    document.getElementById("experience").value = "beginner";
+    document.getElementById("modality").value = "general";
 });
