@@ -1046,6 +1046,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                     doc.line(data.cell.x + data.cell.width, data.cell.y, data.cell.x + data.cell.width, data.cell.y + data.cell.height);
                 }
             }
+              });
         const tableEndY = doc.autoTable.previous.finalY;
         currentY = tableEndY + 10;
 
