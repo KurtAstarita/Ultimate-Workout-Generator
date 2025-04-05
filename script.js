@@ -982,13 +982,6 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         doc.text(workoutTitle, 10, currentY);
         currentY += 15;
 
-        
-        // Add Workout Title to PDF
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(14);
-        doc.setTextColor(darkGrayRGB[0], darkGrayRGB[1], darkGrayRGB[2]);
-        doc.text(workoutTitle, 10, currentY);
-
         // Add Date Section
         const dateText = "Date: ____/____/________";
         const dateTextWidth = doc.getTextWidth(dateText, { font: 'helvetica', size: 10 }); // Measure width for positioning
