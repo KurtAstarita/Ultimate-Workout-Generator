@@ -892,65 +892,83 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         }
 
         const lines = workoutText.split('\n');
-        let tableData = [];
-        // Insert "TPS" before "Rest" in the headers
-        let headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
-        let totalWorkoutTime = 0;
+        const exercisesData = [];
 
-lines.forEach(line => {
+        lines.forEach(line => {
             if (line.trim() && !line.includes("Estimated Workout Time")) {
                 const exerciseMatch = line.match(/^(.+?) - Reps: (.+?)(?: - Rest: (.+?) (seconds?|minutes?))?(?: - Time per set: (.+?) (seconds?|minutes?))?\s*$/i);
-
                 if (exerciseMatch) {
-                    const exerciseName = exerciseMatch[1].replace(/<b>|<\/b>/g, '').trim();
-                    const repsInfo = exerciseMatch[2].trim();
-                    const restValue = exerciseMatch[3] ? exerciseMatch[3].trim() : "";
-                    const restUnit = exerciseMatch[4] ? exerciseMatch[4].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "";
-                    const restInfoFormatted = restValue && restUnit ? `${restValue} ${restUnit}` : "";
-                    const tpsValue = exerciseMatch[5] ? exerciseMatch[5].trim() : "";
-                    const tpsUnit = exerciseMatch[6] ? exerciseMatch[6].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "";
-                    const tpsInfoFormatted = tpsValue && tpsUnit ? `${tpsValue} ${tpsUnit}` : "";
-
-                    tableData.push([exerciseName, repsInfo, tpsInfoFormatted, restInfoFormatted, "", "", "", "", "", "", "", ""]);
+                    exercisesData.push({
+                        name: exerciseMatch[1].replace(/<b>|<\/b>/g, '').trim(),
+                        reps: exerciseMatch[2].trim(),
+                        restValue: exerciseMatch[3] ? exerciseMatch[3].trim() : "",
+                        restUnit: exerciseMatch[4] ? exerciseMatch[4].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "",
+                        tpsValue: exerciseMatch[5] ? exerciseMatch[5].trim() : "",
+                        tpsUnit: exerciseMatch[6] ? exerciseMatch[6].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "",
+                    });
                 }
             }
         });
 
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const tableWidth = pageWidth - 20; // Assuming 10px margin on each side
+        let currentY = 10;
+        const lineHeight = 5;
+        const notesMargin = 5;
 
-        doc.autoTable({
-            head: [headers],
-            body: tableData,
-            startY: 10,
-            styles: {
-                fontSize: 8,
-                cellPadding: 2,
-                borderColor: [169, 169, 169],
-                borderWidth: 1,
-            },
-            headStyles: {
-                fontSize: 8,
-                fillColor: [200, 200, 200],
-                borderColor: [169, 169, 169],
-                borderWidth: 1,
-            },
-            columnStyles: {
-                0: { cellWidth: 'auto' }, // Exercise
-                1: { cellWidth: 'auto' }, // Reps
-                2: { cellWidth: 'auto' }, // TPS
-                3: { cellWidth: 'auto' }, // Rest
-                4: { cellWidth: 'auto' }, // Set 1
-                5: { cellWidth: 'auto' }, // Set 2
-                6: { cellWidth: 'auto' }, // Set 3
-                7: { cellWidth: 'auto' }, // Set 4
-                8: { cellWidth: 'auto' }, // Set 5
-                9: { cellWidth: 'auto' }, // Set 6
-                10: { cellWidth: 'auto' }, // Set 7
-                11: { cellWidth: 'auto' }, // Set 8
-            },
-            tableLineWidth: 1,
-            tableBorderColor: [169, 169, 169],
+        exercisesData.forEach(exercise => {
+            const headers = ["Exercise", "Reps", "TPS", "Rest"];
+            const tableData = [[exercise.name, exercise.reps, `${exercise.tpsValue} ${exercise.tpsUnit}`, `${exercise.restValue} ${exercise.restUnit}`]];
+
+            doc.autoTable({
+                head: [headers],
+                body: tableData,
+                startY: currentY,
+                tableWidth: tableWidth,
+                margin: { horizontal: 10 },
+                styles: { fontSize: 8, cellPadding: 2, borderColor: [169, 169, 169], borderWidth: 1 },
+                headStyles: { fontSize: 8, fillColor: [200, 200, 200], borderColor: [169, 169, 169], borderWidth: 1 },
+                columnStyles: { 0: { cellWidth: 'auto' }, 1: { cellWidth: 'auto' }, 2: { cellWidth: 'auto' }, 3: { cellWidth: 'auto' } },
+                didDrawPage: function(data) {
+                    currentY = data.cursor.y + notesMargin; // Update currentY after table
+                }
+            });
+            currentY = doc.autoTable.previous.finalY + notesMargin;
+
+            // Notes Section
+            const notesTitle = `Notes for ${exercise.name}:`;
+            const notesBorderWidth = 0.5;
+            const availableHeight = doc.internal.pageSize.getHeight() - currentY - 10; // Remaining space
+            const notesHeight = Math.max(20, availableHeight / 3); // Adjust fraction as needed
+
+            doc.setDrawColor(169, 169, 169);
+            doc.setLineWidth(notesBorderWidth);
+            doc.rect(10, currentY, tableWidth, notesHeight);
+            doc.setFontSize(9);
+            doc.setTextColor(0);
+            doc.text(notesTitle, 15, currentY + 5);
+
+            doc.setLineWidth(0.2);
+            const notesTextStartY = currentY + 10;
+            let y = notesTextStartY;
+            while (y < currentY + notesHeight - 2) {
+                doc.line(12, y, tableWidth - 12, y);
+                y += lineHeight;
+            }
+
+            currentY += notesHeight + notesMargin;
+
+            // Start a new page if there isn't enough space for the next exercise and notes
+            if (exercisesData.indexOf(exercise) < exercisesData.length - 1) {
+                const nextExerciseHeightEstimate = 20; // Rough estimate for the next table
+                const nextNotesHeightEstimate = Math.max(20, (doc.internal.pageSize.getHeight() - (currentY + nextExerciseHeightEstimate + 10)) / 3);
+                if (currentY + nextExerciseHeightEstimate + nextNotesHeightEstimate + 20 > doc.internal.pageSize.getHeight()) {
+                    doc.addPage();
+                    currentY = 10;
+                }
+            }
         });
 
         const tableEndY = doc.autoTable.previous.finalY;
@@ -958,8 +976,8 @@ lines.forEach(line => {
         doc.setFontSize(11);
         doc.setTextColor(105, 105, 105);
         const timeLine = lines.find(line => line.includes("Estimated Workout Time"));
-        const timeText = timeLine ? timeLine.replace("seconds", "sec") : ""; // Change seconds to sec here if needed in the text
-        doc.text(timeText, 10, tableEndY + 10);
+        const timeText = timeLine ? timeLine.replace("seconds", "sec") : "";
+        doc.text(timeText, 10, currentY + 5); // Position estimated time after the last notes section
         doc.setTextColor(0, 0, 0);
         doc.setFont('helvetica', 'normal');
 
