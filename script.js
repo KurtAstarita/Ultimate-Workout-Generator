@@ -833,6 +833,19 @@ document.getElementById("generate-workout").addEventListener("click", function (
     document.getElementById("copy-workout").disabled = false;
 });
 
+document.getElementById("copy-workout").addEventListener("click", function () {
+    if (typeof workoutTextForCopy !== 'undefined' && workoutTextForCopy.trim() !== "") {
+        navigator.clipboard.writeText(workoutTextForCopy).then(() => {
+            alert("Workout copied to clipboard!"); // Or a more user-friendly notification
+        }).catch(err => {
+            console.error("Failed to copy workout: ", err);
+            alert("Failed to copy workout. Please try again.");
+        });
+    } else {
+        alert("No workout generated yet to copy.");
+    }
+});
+
 /* ............................................... Function: Validate Workout ...................................................... */
 
 function validateWorkoutText(workoutText) {
