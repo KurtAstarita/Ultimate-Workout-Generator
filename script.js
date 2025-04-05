@@ -748,8 +748,16 @@ document.getElementById("generate-workout").addEventListener("click", function (
             const randomIndex = Math.floor(Math.random() * filteredExercises.length);
             workout.push(filteredExercises.splice(randomIndex, 1)[0]);
         }
+        
+    } else {
+        // Default: select 5 random exercises
+        for (let i = 0; i < 5 && availableExercises.length > 0; i++) {
+            const randomIndex = Math.floor(Math.random() * availableExercises.length);
+            workout.push(availableExercises.splice(randomIndex, 1)[0]);
+        }
+    }
 
-   } else if (trainingSplit) { // Handle specific splits
+       } else if (trainingSplit) { // Handle specific splits
         const splitFormatted = trainingSplit.replace("_", " & ").toLowerCase();
         console.log("Selected trainingSplit:", trainingSplit); // Log the raw selected split
         console.log("Formatted split:", splitFormatted); // Log the formatted split
@@ -759,14 +767,6 @@ document.getElementById("generate-workout").addEventListener("click", function (
         while (workout.length < 5 && filteredExercises.length > 0) {
             const randomIndex = Math.floor(Math.random() * filteredExercises.length);
             workout.push(filteredExercises.splice(randomIndex, 1)[0]);
-        }
-    }
-        
-    } else {
-        // Default: select 5 random exercises
-        for (let i = 0; i < 5 && availableExercises.length > 0; i++) {
-            const randomIndex = Math.floor(Math.random() * availableExercises.length);
-            workout.push(availableExercises.splice(randomIndex, 1)[0]);
         }
     }
 
