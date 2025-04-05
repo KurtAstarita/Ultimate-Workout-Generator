@@ -976,6 +976,11 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 
         const headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
         doc.autoTable({
+                columnStyles: {
+                0: { cellWidth: 50 }, // Exercise (index 0) - Adjust the number as needed
+                1: { cellWidth: 20 }, // Reps (index 1) - Adjust the number as needed
+                2: { cellWidth: 30 }, // TPS (index 2) - Adjust the number as needed
+                3: { cellWidth: 30 }, // Rest (index 3) - Adjust the number as needed
             head: [headers],
             body: tableData,
             startY: currentY,
@@ -986,6 +991,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             tableBorderColor: grayRGB,
             didDrawPage: function(data) {
                 currentY = data.cursor.y + 10;
+            }
             }
         });
 
