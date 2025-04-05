@@ -980,7 +980,7 @@ doc.autoTable({
             body: tableData,
             startY: currentY,
             margin: { horizontal: 10 },
-            styles: { fontSize: 8, cellPadding: 2, borderColor: grayRGB, borderWidth: 1 },
+            styles: { fontSize: 8, cellPadding: 1, borderColor: grayRGB, borderWidth: 1 },
             headStyles: { fontSize: 8, fillColor: [200, 200, 200], borderColor: grayRGB, borderWidth: 1 },
             columnStyles: {
                 0: { cellWidth: 20 }, // Exercise
