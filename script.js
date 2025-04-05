@@ -975,19 +975,27 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         currentY += 8;
 
         const headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
-        doc.autoTable({
-                columnStyles: {
-                0: { cellWidth: 50 }, // Exercise (index 0) - Adjust the number as needed
-                1: { cellWidth: 20 }, // Reps (index 1) - Adjust the number as needed
-                2: { cellWidth: 30 }, // TPS (index 2) - Adjust the number as needed
-                3: { cellWidth: 30 }, // Rest (index 3) - Adjust the number as needed
-                }
+doc.autoTable({
             head: [headers],
             body: tableData,
             startY: currentY,
             margin: { horizontal: 10 },
-            styles: { fontSize: 8, cellPadding: 1, borderColor: grayRGB, borderWidth: 1 },
+            styles: { fontSize: 8, cellPadding: 2, borderColor: grayRGB, borderWidth: 1 },
             headStyles: { fontSize: 8, fillColor: [200, 200, 200], borderColor: grayRGB, borderWidth: 1 },
+            columnStyles: {
+                0: { cellWidth: 50 }, // Exercise
+                1: { cellWidth: 20 }, // Reps
+                2: { cellWidth: 30 }, // TPS
+                3: { cellWidth: 30 }, // Rest
+                4: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "___x___ |"; } },
+                5: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "___x___"; } },
+                6: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "___x___ |"; } },
+                7: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "___x___"; } },
+                8: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "___x___ |"; } },
+                9: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "___x___"; } },
+                10: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "___x___ |"; } },
+                11: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "___x___"; } },
+            },
             tableLineWidth: 1,
             tableBorderColor: grayRGB,
             didDrawPage: function(data) {
