@@ -919,11 +919,10 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         const lines = workoutText.split('\n');
         let tableData = [];
         let estimatedTime = "";
-        let workoutTitle = ""; // Initialize workoutTitle here
 
         // Extract table data and estimated time
         lines.forEach(line => {
-            if (line.trim() && !line.includes("Estimated Workout Time") && !line.includes("YOUR WORKOUT")) { // Exclude the HTML title line
+            if (line.trim() && !line.includes("Estimated Workout Time")) {
                 const exerciseMatch = line.match(/^(.+?) - Reps: (.+?)(?: - Rest: (.+?) (seconds?|minutes?))?(?: - Time per set: (.+?) (seconds?|minutes?))?\s*$/i);
                 if (exerciseMatch) {
                     const exerciseName = exerciseMatch[1].replace(/<b>|<\/b>/g, '').trim();
@@ -938,31 +937,51 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 }
             } else if (line.includes("Estimated Workout Time")) {
                 estimatedTime = line;
-            } else if (line.includes("YOUR WORKOUT")) { // Extract the title from the HTML
-                const titleMatch = line.match(/<u>(.*?)<\/u>/);
-                if (titleMatch) {
-                    workoutTitle = titleMatch[1];
-                }
             }
         });
 
-const { jsPDF } = window.jspdf;
+        const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
         const pageWidth = doc.internal.pageSize.getWidth();
         let currentY = 10;
         const grayScale = 169 / 255;
         const grayRGB = [169, 169, 169];
-        const darkGrayRGB = [105, 105, 105]; // Define dark gray color
+        const darkGrayRGB = [105, 105, 105];
+
+        // --- Regenerate Dynamic Title for PDF ---
+        let workoutTitle = "My";
+        const goal = document.getElementById("goal").value;
+        const experience = document.getElementById("experience").value;
+        const modality = document.getElementById("modality").value;
+        const trainingSplit = document.getElementById("training-split").value;
+
+        if (experience) {
+            workoutTitle += ` ${experience.charAt(0).toUpperCase() + experience.slice(1)}`;
+        }
+
+        if (goal && goal !== "general") {
+            workoutTitle += ` ${goal.charAt(0).toUpperCase() + goal.slice(1)} Focus`;
+        }
+
+        if (modality && modality !== "general") {
+            workoutTitle += ` (${modality.charAt(0).toUpperCase() + modality.slice(1)})`;
+        }
+
+        if (trainingSplit && trainingSplit !== "none") {
+            const splitFormatted = trainingSplit.replace("_", " & ").split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+            workoutTitle += ` - ${splitFormatted}`;
+        }
+
+        workoutTitle += " Workout";
+        // --- End Title Regeneration ---
 
         // Add Workout Title to PDF
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(14);
-        doc.setTextColor(darkGrayRGB[0], darkGrayRGB[1], darkGrayRGB[2]); // Set dark gray color
+        doc.setTextColor(darkGrayRGB[0], darkGrayRGB[1], darkGrayRGB[2]);
         doc.text(workoutTitle, 10, currentY);
-        currentY += 15; // Add a bit more space after the title
-        console.log("Workout Title for PDF:", workoutTitle);
-        doc.setFont('helvetica', 'bold');
-        
+        currentY += 15;
+
         // Workout Table with gray border
         const headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
         doc.autoTable({
