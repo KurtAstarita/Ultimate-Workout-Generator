@@ -963,10 +963,17 @@ function populateExerciseTable() {
     let allExercises = [];
     let seenExercises = new Set();
 
+    console.log("Number of categories in exercises:", Object.keys(exercises).length); // Check the number of categories
+
     for (const category in exercises) {
+        console.log("Processing category:", category); // Check which category is being processed
         for (const level in exercises[category]) {
+            console.log("Processing level:", level); // Check which level is being processed
             for (const type in exercises[category][level]) {
+                console.log("Processing type:", type); // Check which type is being processed
                 const exerciseList = exercises[category][level][type];
+                console.log("Exercise list for this type:", exerciseList); // Check the exercise list
+
                 if (Array.isArray(exerciseList)) {
                     exerciseList.forEach(exercise => {
                         const normalizedName = exercise.name.trim().toLowerCase();
@@ -987,6 +994,8 @@ function populateExerciseTable() {
             }
         }
     }
+
+    console.log("Total number of unique exercises found:", allExercises.length); // Check the total number of exercises found
 
     allExercises.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
     allExercises.forEach(exercise => {
