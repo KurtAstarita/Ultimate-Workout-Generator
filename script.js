@@ -921,10 +921,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         const grayScale = 169 / 255;
         const grayRGB = [169, 169, 169];
 
-        // Set draw color for the workout chart
-        doc.setDrawColor(grayRGB);
-
-        // Workout Table
+        // Workout Table with gray border
         const headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
         doc.autoTable({
             head: [headers],
@@ -949,7 +946,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         doc.text(estimatedTime, 10, currentY);
         currentY += 15;
 
-        // Notes Section
+        // Notes Section (Lines Only)
         doc.setFontSize(12);
         doc.setTextColor(0, 0, 0);
         doc.text("NOTES", 10, currentY);
@@ -957,12 +954,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 
         // Calculate remaining height
         const pageHeight = doc.internal.pageSize.getHeight();
-        const notesHeight = pageHeight - notesStartY - 10; // Subtract some margin at the bottom
-
-        // Draw border
-        doc.setDrawColor(grayScale);
-        doc.setLineWidth(0.5);
-        doc.rect(10, notesStartY - 8, pageWidth - 20, notesHeight + 8); // Adjust Y and height for border
+        const notesHeight = pageHeight - notesStartY - 10;
 
         // Draw lines
         doc.setDrawColor(grayScale);
