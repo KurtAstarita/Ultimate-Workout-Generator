@@ -981,21 +981,21 @@ doc.autoTable({
             startY: currentY,
             margin: { horizontal: 10 },
             styles: {
-                fontSize: 10, // Default font size for the whole table
+                fontSize: 9, // Default font size for the whole table
                 font: 'helvetica', // Default font for the whole table
-                cellPadding: 2,
+                cellPadding: 0,
                 borderColor: grayRGB,
                 borderWidth: 1
             },
             headStyles: {
-                fontSize: 12, // Font size for the table header
+                fontSize: 9, // Font size for the table header
                 fontStyle: 'bold', // Font style for the table header
                 fillColor: [200, 200, 200],
                 borderColor: grayRGB,
                 borderWidth: 1
             },
             bodyStyles: {
-                fontSize: 9, // Font size for the table body
+                fontSize: 8, // Font size for the table body
                 fontStyle: 'normal', // Font style for the table body (can be 'normal', 'bold', 'italic', 'bolditalic')
                 textColor: [0, 0, 0] // Text color for the body (RGB array)
             },
