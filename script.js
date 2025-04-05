@@ -973,119 +973,113 @@ lines.forEach(line => {
 });
 
 /* ............................................... Function: To Populate table ...................................................... */
+function populateExerciseTable() {
+    console.log("Populating exercise table..."); // Debugging log
 
-document.getElementById('download-pdf').addEventListener('click', function () {
-    let workoutText = document.getElementById('paste-text').value;
-    workoutText = DOMPurify.sanitize(workoutText);
-
-    if (!workoutText.trim()) {
-        alert("Please paste workout text before downloading.");
+    const tableBody = document.getElementById("exercise-table-body");
+    if (!tableBody) {
+        console.error("Table body element not found.");
         return;
     }
+    tableBody.innerHTML = "";
 
-    try {
-        const validationResult = validateWorkoutText(workoutText);
+    let allExercises = [];
+    let seenExercises = new Set();
 
-        if (!validationResult.isValid) {
-            alert("Workout text validation errors:\n" + validationResult.errors.join('\n'));
-            return;
-        }
+    console.log("Number of categories in exercises:", Object.keys(exercises).length); // Check the number of categories
 
-        const lines = workoutText.split('\n');
-        const exercisesData = [];
+    for (const category in exercises) {
+        console.log("Processing category:", category); // Check which category is being processed
+        for (const level in exercises[category]) {
+            console.log("Processing level:", level); // Check which level is being processed
+            for (const type in exercises[category][level]) {
+                console.log("Processing type:", type); // Check which type is being processed
+                const exerciseList = exercises[category][level][type];
+                console.log("Exercise list for this type:", exerciseList); // Check the exercise list
 
-        lines.forEach(line => {
-            if (line.trim() && !line.includes("Estimated Workout Time")) {
-                const exerciseMatch = line.match(/^(.+?) - Reps: (.+?)(?: - Rest: (.+?) (seconds?|minutes?))?(?: - Time per set: (.+?) (seconds?|minutes?))?\s*$/i);
-                if (exerciseMatch) {
-                    exercisesData.push({
-                        name: exerciseMatch[1].replace(/<b>|<\/b>/g, '').trim(),
-                        reps: exerciseMatch[2].trim(),
-                        restValue: exerciseMatch[3] ? exerciseMatch[3].trim() : "",
-                        restUnit: exerciseMatch[4] ? exerciseMatch[4].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "",
-                        tpsValue: exerciseMatch[5] ? exerciseMatch[5].trim() : "",
-                        tpsUnit: exerciseMatch[6] ? exerciseMatch[6].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "",
+                if (Array.isArray(exerciseList)) {
+                    exerciseList.forEach(exercise => {
+                        const normalizedName = exercise.name.trim().toLowerCase();
+                        if (!seenExercises.has(normalizedName)) {
+                            allExercises.push(exercise);
+                            seenExercises.add(normalizedName);
+                        }
                     });
+                } else if (typeof exerciseList === 'object' && exerciseList !== null) { // Handle objects
+                    const normalizedName = exerciseList.name.trim().toLowerCase();
+                    if (!seenExercises.has(normalizedName)) {
+                        allExercises.push(exerciseList);
+                        seenExercises.add(normalizedName);
+                    }
+                } else {
+                    console.warn(`Expected an array or object, but found: ${typeof exerciseList} for ${category} > ${level} > ${type}`);
                 }
             }
-        });
-
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-        const pageWidth = doc.internal.pageSize.getWidth();
-        const tableWidth = pageWidth - 20; // Assuming 10px margin on each side
-        let currentY = 10;
-        const lineHeight = 5;
-        const notesMargin = 5;
-
-        exercisesData.forEach(exercise => {
-            const headers = ["Exercise", "Reps", "TPS", "Rest"];
-            const tableData = [[exercise.name, exercise.reps, `${exercise.tpsValue} ${exercise.tpsUnit}`, `${exercise.restValue} ${exercise.restUnit}`]];
-
-            doc.autoTable({
-                head: [headers],
-                body: tableData,
-                startY: currentY,
-                tableWidth: tableWidth,
-                margin: { horizontal: 10 },
-                styles: { fontSize: 8, cellPadding: 2, borderColor: [169, 169, 169], borderWidth: 1 },
-                headStyles: { fontSize: 8, fillColor: [200, 200, 200], borderColor: [169, 169, 169], borderWidth: 1 },
-                columnStyles: { 0: { cellWidth: 'auto' }, 1: { cellWidth: 'auto' }, 2: { cellWidth: 'auto' }, 3: { cellWidth: 'auto' } },
-                didDrawPage: function(data) {
-                    currentY = data.cursor.y + notesMargin; // Update currentY after table
-                }
-            });
-            currentY = doc.autoTable.previous.finalY + notesMargin;
-
-            // Notes Section
-            const notesTitle = `Notes for ${exercise.name}:`;
-            const notesBorderWidth = 0.5;
-            const availableHeight = doc.internal.pageSize.getHeight() - currentY - 10; // Remaining space
-            const notesHeight = Math.max(20, availableHeight / 3); // Adjust fraction as needed
-
-            doc.setDrawColor(169, 169, 169);
-            doc.setLineWidth(notesBorderWidth);
-            doc.rect(10, currentY, tableWidth, notesHeight);
-            doc.setFontSize(9);
-            doc.setTextColor(0);
-            doc.text(notesTitle, 15, currentY + 5);
-
-            doc.setLineWidth(0.2);
-            const notesTextStartY = currentY + 10;
-            let y = notesTextStartY;
-            while (y < currentY + notesHeight - 2) {
-                doc.line(12, y, tableWidth - 12, y);
-                y += lineHeight;
-            }
-
-            currentY += notesHeight + notesMargin;
-
-            // Start a new page if there isn't enough space for the next exercise and notes
-            if (exercisesData.indexOf(exercise) < exercisesData.length - 1) {
-                const nextExerciseHeightEstimate = 20; // Rough estimate for the next table
-                const nextNotesHeightEstimate = Math.max(20, (doc.internal.pageSize.getHeight() - (currentY + nextExerciseHeightEstimate + 10)) / 3);
-                if (currentY + nextExerciseHeightEstimate + nextNotesHeightEstimate + 20 > doc.internal.pageSize.getHeight()) {
-                    doc.addPage();
-                    currentY = 10;
-                }
-            }
-        });
-
-        const tableEndY = doc.autoTable.previous.finalY;
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(11);
-        doc.setTextColor(105, 105, 105);
-        const timeLine = lines.find(line => line.includes("Estimated Workout Time"));
-        const timeText = timeLine ? timeLine.replace("seconds", "sec") : "";
-        doc.text(timeText, 10, currentY + 5); // Position estimated time after the last notes section
-        doc.setTextColor(0, 0, 0);
-        doc.setFont('helvetica', 'normal');
-
-        doc.save("workout.pdf");
-
-    } catch (mainError) {
-        console.error("Error generating PDF:", mainError);
-        console.error("Error stack:", mainError.stack);
-        alert("An error occurred while generating the PDF.");
+        }
     }
+
+    console.log("Total number of unique exercises found:", allExercises.length); // Check the total number of exercises found
+
+    allExercises.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+    allExercises.forEach(exercise => {
+        const row = document.createElement("tr");
+        const button = document.createElement("button");
+        button.className = "copy-exercise";
+        let copyText = `${exercise.name} - Reps: ${exercise.sets}x${exercise.reps}`;
+        if (exercise.rest) {
+            copyText += ` - Rest: ${exercise.rest} seconds.`;
+        }
+        if (exercise.timePerSet !== undefined) {
+            copyText += ` - Time per set: ${exercise.timePerSet} seconds.`;
+        }
+        button.dataset.exercise = copyText;
+        button.textContent = exercise.name;
+        const cell1 = document.createElement("td");
+        cell1.appendChild(button);
+
+        const cell2 = document.createElement("td"); // New cell for Muscle Group
+        cell2.textContent = exercise.muscleGroup || ''; // Display muscle group
+
+        const cell4 = document.createElement("td");
+        cell4.textContent = exercise.sets;
+
+        const cell5 = document.createElement("td");
+        cell5.textContent = exercise.reps;
+
+        const cell6 = document.createElement("td");
+        cell6.textContent = exercise.rest;
+
+        const cell7 = document.createElement("td");
+        cell7.textContent = exercise.timePerSet || ''; // Display time per set
+
+        row.appendChild(cell1);
+        row.appendChild(cell2); // Append the Muscle Group cell
+        row.appendChild(cell4);
+        row.appendChild(cell5);
+        row.appendChild(cell6);
+        row.appendChild(cell7);
+
+        tableBody.appendChild(row);
+    });
+
+    // Attach event listeners after the elements are created
+    document.querySelectorAll(".copy-exercise").forEach(button => {
+        button.addEventListener("click", function () {
+            const textToCopy = this.dataset.exercise;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                this.textContent = "Copied!";
+                setTimeout(() => this.textContent = this.dataset.exercise.split(" - ")[0], 2000);
+            }).catch(err => {
+                console.error("Copy failed", err);
+            });
+        });
+    });
+}
+document.addEventListener('DOMContentLoaded', function() {
+    populateExerciseTable();
+
+    // Set default values on page load
+    document.getElementById("goal").value = "muscle";
+    document.getElementById("experience").value = "beginner";
+    document.getElementById("modality").value = "general";
 });
