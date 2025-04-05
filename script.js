@@ -910,7 +910,6 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 
     try {
         const validationResult = validateWorkoutText(workoutText);
-
         if (!validationResult.isValid) {
             alert("Workout text validation errors:\n" + validationResult.errors.join('\n'));
             return;
@@ -920,13 +919,6 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         let tableData = [];
         let estimatedTime = "";
 
-        // Define headers for the table
-        const headers = [
-            "Exercise", "Reps", "Time per set", "Rest",
-            "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"
-        ];
-
-        // Extract table data and estimated time
         lines.forEach(line => {
             if (line.trim() && !line.includes("Estimated Workout Time")) {
                 const exerciseMatch = line.match(/^(.+?) - Reps: (.+?)(?: - Rest: (.+?) (seconds?|minutes?))?(?: - Time per set: (.+?) (seconds?|minutes?))?\s*$/i);
@@ -939,20 +931,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                     const tpsValue = exerciseMatch[5] ? exerciseMatch[5].trim() : "";
                     const tpsUnit = exerciseMatch[6] ? exerciseMatch[6].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "";
                     const tpsInfoFormatted = tpsValue && tpsUnit ? `${tpsValue} ${tpsUnit}` : "";
-                    tableData.push([
-                        exerciseName,
-                        repsInfo,
-                        tpsInfoFormatted,
-                        restInfoFormatted,
-                        "___x___",
-                        "___x___",
-                        "___x___",
-                        "___x___",
-                        "___x___",
-                        "___x___",
-                        "___x___",
-                        "___x___"
-                    ]);
+                    tableData.push([exerciseName, repsInfo, tpsInfoFormatted, restInfoFormatted, "___x___", "___x___", "___x___", "___x___", "___x___", "___x___", "___x___", "___x___"]);
                 }
             } else if (line.includes("Estimated Workout Time")) {
                 estimatedTime = line;
@@ -963,55 +942,39 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         const doc = new jsPDF();
         const pageWidth = doc.internal.pageSize.getWidth();
         let currentY = 10;
-        const grayScale = 169 / 255;
         const grayRGB = [169, 169, 169];
         const darkGrayRGB = [105, 105, 105];
 
-        // --- Regenerate Dynamic Title for PDF ---
         let workoutTitle = "My";
         const goal = document.getElementById("goal").value;
         const experience = document.getElementById("experience").value;
         const modality = document.getElementById("modality").value;
         const trainingSplit = document.getElementById("training-split").value;
 
-        if (experience) {
-            workoutTitle += ` ${experience.charAt(0).toUpperCase() + experience.slice(1)}`;
-        }
-
-        if (goal && goal !== "general") {
-            workoutTitle += ` ${goal.charAt(0).toUpperCase() + goal.slice(1)} Focus`;
-        }
-
-        if (modality && modality !== "general") {
-            workoutTitle += ` (${modality.charAt(0).toUpperCase() + modality.slice(1)})`;
-        }
-
+        if (experience) workoutTitle += ` ${experience.charAt(0).toUpperCase() + experience.slice(1)}`;
+        if (goal && goal !== "general") workoutTitle += ` ${goal.charAt(0).toUpperCase() + goal.slice(1)} Focus`;
+        if (modality && modality !== "general") workoutTitle += ` (${modality.charAt(0).toUpperCase() + modality.slice(1)})`;
         if (trainingSplit && trainingSplit !== "none") {
             const splitFormatted = trainingSplit.replace("_", " & ").split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
             workoutTitle += ` - ${splitFormatted}`;
         }
-
         workoutTitle += " Workout";
-        // --- End Title Regeneration ---
 
-        // Add Workout Title to PDF
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(14);
         doc.setTextColor(darkGrayRGB[0], darkGrayRGB[1], darkGrayRGB[2]);
         doc.text(workoutTitle, 10, currentY);
 
-        // Add Date Section
         const dateText = "Date: ____/____/________";
-        const dateTextWidth = doc.getTextWidth(dateText, { font: 'helvetica', size: 10 }); // Measure width for positioning
-        const dateXPosition = pageWidth - 10 - dateTextWidth; // Position on the right with margin
-
+        const dateTextWidth = doc.getTextWidth(dateText, { font: 'helvetica', size: 10 });
+        const dateXPosition = pageWidth - 10 - dateTextWidth;
         doc.setFontSize(10);
-        doc.setTextColor(0, 0, 0); // Use black color for the date
-        doc.text(dateText, dateXPosition, currentY + 4); // Adjusted Y for vertical alignment (let's revert to +4 for now)
+        doc.setTextColor(0, 0, 0);
+        doc.text(dateText, dateXPosition, currentY + 4);
 
-        currentY += 8; // Increment Y *after* both title and date
+        currentY += 8;
 
-        // Generate the table with headers and data
+        const headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
         doc.autoTable({
             head: [headers],
             body: tableData,
@@ -1026,10 +989,10 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 3: { cellWidth: 'auto' },
                 4: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "___x___"; } },
                 5: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "___x___"; } },
-                6: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "___x___"; } },
+                6: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "___x___ |"; } },
                 7: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "___x___"; } },
                 8: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "___x___"; } },
-                9: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "___x___"; } },
+                9: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "___x___ |"; } },
                 10: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "___x___"; } },
                 11: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "___x___"; } },
             },
@@ -1037,38 +1000,25 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             tableBorderColor: grayRGB,
             didDrawPage: function(data) {
                 currentY = data.cursor.y + 10;
-            },
-          didDrawCell: function(data) {
-                const colIndex = data.column.index;
-                if (colIndex === 6 || colIndex === 9) { // After Set 3 (index 6) and Set 6 (index 9)
-                    doc.setDrawColor(grayScale); // Use the grayscale value
-                    doc.setLineWidth(0.5);
-                    doc.line(data.cell.x + data.cell.width, data.cell.y, data.cell.x + data.cell.width, data.cell.y + data.cell.height);
-                }
             }
-              });
+        });
+
         const tableEndY = doc.autoTable.previous.finalY;
         currentY = tableEndY + 10;
 
-        // Estimated Workout Time
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(11);
         doc.setTextColor(105, 105, 105);
         doc.text(estimatedTime, 10, currentY);
         currentY += 15;
 
-        // Notes Section (Lines Only)
         doc.setFontSize(12);
         doc.setTextColor(0, 0, 0);
         doc.text("NOTES", 10, currentY);
         const notesStartY = currentY + 8;
-
-        // Calculate remaining height
         const pageHeight = doc.internal.pageSize.getHeight();
         const notesHeight = pageHeight - notesStartY - 10;
-
-        // Draw lines
-        doc.setDrawColor(grayScale);
+        doc.setDrawColor(169 / 255);
         doc.setLineWidth(0.2);
         const lineHeight = 7;
         let y = notesStartY;
@@ -1085,6 +1035,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         alert("An error occurred while generating the PDF.");
     }
 });
+
 
 /* ............................................... Function: To Populate table ...................................................... */
 function populateExerciseTable() {
