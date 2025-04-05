@@ -974,39 +974,41 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 
         currentY += 8;
 
-        const headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
+ const headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
         const grayHex = '#A9A9A9'; // Hex for RGB(169, 169, 169)
-doc.autoTable({
-      head: [headers],
+        doc.autoTable({
+            head: [headers],
             body: tableData,
             startY: currentY,
             margin: { horizontal: 10 },
             styles: {
-                fontSize: 7, // Default font size for the whole table
-                font: 'helvetica', // Default font for the whole table
+                fontSize: 7,
+                font: 'helvetica',
                 cellPadding: 1,
-                borderColor: grayRGB,
+                borderColor: grayHex, // Using grayHex
                 borderWidth: 1,
-                valign: 'bottom' // Vertical align to bottom for all cells
+                valign: 'bottom'
             },
             headStyles: {
-                fontSize: 8, // Font size for the table header
-                fontStyle: 'bold', // Font style for the table header
+                fontSize: 8,
+                fontStyle: 'bold',
                 fillColor: [200, 200, 200],
-                borderColor: grayRGB,
+                borderColor: grayHex, // Using grayHex
                 borderWidth: 1,
                 halign: 'center'
             },
             bodyStyles: {
-                fontSize: 7, // Font size for the table body
-                fontStyle: 'normal', // Font style for the table body (can be 'normal', 'bold', 'italic', 'bolditalic')
-                textColor: [0, 0, 0] // Text color for the body (RGB array)
+                fontSize: 7,
+                fontStyle: 'normal',
+                textColor: [0, 0, 0],
+                borderColor: grayHex, // Using grayHex
+                borderWidth: 1
             },
             columnStyles: {
-                0: { cellWidth: 20 }, // Exercise
-                1: { cellWidth: 14 }, // Reps
-                2: { cellWidth: 8 }, // TPS
-                3: { cellWidth: 8 }, // Rest
+                0: { cellWidth: 20 },
+                1: { cellWidth: 14 },
+                2: { cellWidth: 8 },
+                3: { cellWidth: 8 },
                 4: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "____x____"; } },
                 5: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "____x____"; } },
                 6: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "____x___"; } },
@@ -1017,44 +1019,11 @@ doc.autoTable({
                 11: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "____x____"; } },
             },
             tableLineWidth: 1,
-            tableBorderColor: grayRGB,
+            tableBorderColor: grayHex, // Using grayHex for the overall table border as well
             didDrawPage: function(data) {
                 currentY = data.cursor.y + 10;
             }
         });
-
-        const tableEndY = doc.autoTable.previous.finalY;
-        currentY = tableEndY + 10;
-
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(11);
-        doc.setTextColor(105, 105, 105);
-        doc.text(estimatedTime, 10, currentY);
-        currentY += 15;
-
-        doc.setFontSize(12);
-        doc.setTextColor(0, 0, 0);
-        doc.text("NOTES", 10, currentY);
-        const notesStartY = currentY + 8;
-        const pageHeight = doc.internal.pageSize.getHeight();
-        const notesHeight = pageHeight - notesStartY - 10;
-        doc.setDrawColor(169 / 255);
-        doc.setLineWidth(0.2);
-        const lineHeight = 7;
-        let y = notesStartY;
-        while (y < notesStartY + notesHeight) {
-            doc.line(15, y, pageWidth - 15, y);
-            y += lineHeight;
-        }
-
-        doc.save("workout.pdf");
-
-    } catch (mainError) {
-        console.error("Error generating PDF:", mainError);
-        console.error("Error stack:", mainError.stack);
-        alert("An error occurred while generating the PDF.");
-    }
-});
 
 
 /* ............................................... Function: To Populate table ...................................................... */
