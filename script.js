@@ -920,7 +920,13 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         let tableData = [];
         let estimatedTime = "";
 
-       // Extract table data and estimated time
+        // Define headers for the table
+        const headers = [
+            "Exercise", "Reps", "Time per set", "Rest",
+            "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"
+        ];
+
+        // Extract table data and estimated time
         lines.forEach(line => {
             if (line.trim() && !line.includes("Estimated Workout Time")) {
                 const exerciseMatch = line.match(/^(.+?) - Reps: (.+?)(?: - Rest: (.+?) (seconds?|minutes?))?(?: - Time per set: (.+?) (seconds?|minutes?))?\s*$/i);
@@ -1004,8 +1010,9 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         doc.text(dateText, dateXPosition, currentY + 4); // Adjusted Y for vertical alignment (let's revert to +4 for now)
 
         currentY += 8; // Increment Y *after* both title and date
-        
-     doc.autoTable({
+
+        // Generate the table with headers and data
+        doc.autoTable({
             head: [headers],
             body: tableData,
             startY: currentY,
