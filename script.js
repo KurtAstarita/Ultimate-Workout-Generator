@@ -975,6 +975,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         currentY += 8;
 
         const headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
+        const grayHex = '#A9A9A9'; // Hex for RGB(169, 169, 169)
 doc.autoTable({
       head: [headers],
             body: tableData,
