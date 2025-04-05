@@ -989,7 +989,7 @@ doc.autoTable({
                 valign: 'bottom' // Vertical align to bottom for all cells
             },
             headStyles: {
-                fontSize: 9, // Font size for the table header
+                fontSize: 8, // Font size for the table header
                 fontStyle: 'bold', // Font style for the table header
                 fillColor: [200, 200, 200],
                 borderColor: grayRGB,
