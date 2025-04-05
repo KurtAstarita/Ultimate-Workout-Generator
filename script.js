@@ -960,7 +960,9 @@ const { jsPDF } = window.jspdf;
         doc.setTextColor(darkGrayRGB[0], darkGrayRGB[1], darkGrayRGB[2]); // Set dark gray color
         doc.text(workoutTitle, 10, currentY);
         currentY += 15; // Add a bit more space after the title
-
+        console.log("Workout Title for PDF:", workoutTitle);
+        doc.setFont('helvetica', 'bold');
+        
         // Workout Table with gray border
         const headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
         doc.autoTable({
