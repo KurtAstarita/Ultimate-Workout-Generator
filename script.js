@@ -975,7 +975,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         workoutTitle += " Workout";
         // --- End Title Regeneration ---
 
-       // Add Workout Title to PDF
+        // Add Workout Title to PDF
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(14);
         doc.setTextColor(darkGrayRGB[0], darkGrayRGB[1], darkGrayRGB[2]);
@@ -988,9 +988,9 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 
         doc.setFontSize(10);
         doc.setTextColor(0, 0, 0); // Use black color for the date
-        doc.text(dateText, dateXPosition, currentY + 6); // Adjusted Y for vertical alignment
+        doc.text(dateText, dateXPosition, currentY + 4); // Adjusted Y for vertical alignment (let's revert to +4 for now)
 
-        currentY += 20; // Increase spacing after title and date
+        currentY += 20; // Increment Y *after* both title and date
         
         // Workout Table with gray border
         const headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
