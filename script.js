@@ -881,6 +881,7 @@ function validateWorkoutText(workoutText) {
 }
 
 /* ............................................... Function: Download PDF ...................................................... */
+
 document.getElementById('download-pdf').addEventListener('click', function () {
     let workoutText = document.getElementById('paste-text').value;
     workoutText = DOMPurify.sanitize(workoutText);
@@ -908,14 +909,12 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             if (line.trim() && !line.includes("Estimated Workout Time")) {
                 const exerciseMatch = line.match(/^(.+?) - Reps:/);
                 const repsMatch = line.match(/Reps: (.+?)(?: - Time per set: (.+?) (seconds?|minutes?))?(?: - Rest: (.+?) (seconds?|minutes?))?\s*$/);
-                const timePerSetMatch = line.match(/Time per set: (.+?) (seconds?|minutes?)?/);
-                const restMatch = line.match(/Rest: (.+?) (seconds?|minutes?)?/);
 
                 if (exerciseMatch) {
                     const exerciseName = exerciseMatch[1].replace(/<b>|<\/b>/g, '').trim();
                     const repsInfo = repsMatch ? repsMatch[1].trim() : "";
-                    const tpsInfo = repsMatch && repsMatch[2] ? repsMatch[2].trim() : "";
-                    const restInfo = repsMatch && repsMatch[4] ? repsMatch[4].trim() : "";
+                    const tpsInfo = repsMatch && repsMatch[2] ? repsMatch[2].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "";
+                    const restInfo = repsMatch && repsMatch[4] ? repsMatch[4].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "";
 
                     // Add data in the new order
                     tableData.push([exerciseName, repsInfo, tpsInfo, restInfo, "", "", "", "", "", "", "", ""]);
@@ -943,16 +942,18 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 borderWidth: 1,
             },
             columnStyles: {
-                2: { cellWidth: 'auto' }, // Style for TPS column
-                3: { cellWidth: 'auto' }, // Style for Rest column (shifted)
-                4: { cellWidth: 'auto' },
-                5: { cellWidth: 'auto' },
-                6: { cellWidth: 'auto' },
-                7: { cellWidth: 'auto' },
-                8: { cellWidth: 'auto' },
-                9: { cellWidth: 'auto' },
-                10: { cellWidth: 'auto' },
-                11: { cellWidth: 'auto' },
+                0: { cellWidth: 'auto' }, // Exercise
+                1: { cellWidth: 'auto' }, // Reps
+                2: { cellWidth: 'auto' }, // TPS
+                3: { cellWidth: 'auto' }, // Rest
+                4: { cellWidth: 'auto' }, // Set 1
+                5: { cellWidth: 'auto' }, // Set 2
+                6: { cellWidth: 'auto' }, // Set 3
+                7: { cellWidth: 'auto' }, // Set 4
+                8: { cellWidth: 'auto' }, // Set 5
+                9: { cellWidth: 'auto' }, // Set 6
+                10: { cellWidth: 'auto' }, // Set 7
+                11: { cellWidth: 'auto' }, // Set 8
             },
             tableLineWidth: 1,
             tableBorderColor: [169, 169, 169],
@@ -963,7 +964,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         doc.setFontSize(11);
         doc.setTextColor(105, 105, 105);
         const timeLine = lines.find(line => line.includes("Estimated Workout Time"));
-        const timeText = timeLine || "";
+        const timeText = timeLine ? timeLine.replace("seconds", "sec") : ""; // Change seconds to sec here if needed in the text
         doc.text(timeText, 10, tableEndY + 10);
         doc.setTextColor(0, 0, 0);
         doc.setFont('helvetica', 'normal');
@@ -976,6 +977,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         alert("An error occurred while generating the PDF.");
     }
 });
+
 /* ............................................... Function: To Populate table ...................................................... */
 
 function populateExerciseTable() {
