@@ -946,19 +946,20 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             }
         });
 
-        const { jsPDF } = window.jspdf;
+const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
         const pageWidth = doc.internal.pageSize.getWidth();
         let currentY = 10;
         const grayScale = 169 / 255;
         const grayRGB = [169, 169, 169];
+        const darkGrayRGB = [105, 105, 105]; // Define dark gray color
 
         // Add Workout Title to PDF
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(14);
-        doc.setTextColor(0, 0, 0);
+        doc.setTextColor(darkGrayRGB[0], darkGrayRGB[1], darkGrayRGB[2]); // Set dark gray color
         doc.text(workoutTitle, 10, currentY);
-        currentY += 10; // Add some space after the title
+        currentY += 15; // Add a bit more space after the title
 
         // Workout Table with gray border
         const headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
