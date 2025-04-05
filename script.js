@@ -982,6 +982,24 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         doc.text(workoutTitle, 10, currentY);
         currentY += 15;
 
+        
+        // Add Workout Title to PDF
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(14);
+        doc.setTextColor(darkGrayRGB[0], darkGrayRGB[1], darkGrayRGB[2]);
+        doc.text(workoutTitle, 10, currentY);
+
+        // Add Date Section
+        const dateText = "Date: ____/____/________";
+        const dateTextWidth = doc.getTextWidth(dateText, { font: 'helvetica', size: 10 }); // Measure width for positioning
+        const dateXPosition = pageWidth - 10 - dateTextWidth; // Position on the right with margin
+
+        doc.setFontSize(10);
+        doc.setTextColor(0, 0, 0); // Use black color for the date
+        doc.text(dateText, dateXPosition, currentY + 4); // Adjust Y for vertical alignment
+
+        currentY += 20; // Increase spacing after title and date
+        
         // Workout Table with gray border
         const headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
         doc.autoTable({
