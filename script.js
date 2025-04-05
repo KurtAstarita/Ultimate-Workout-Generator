@@ -640,10 +640,10 @@ function normalizeExercises(exercisesArray) {
             sets: exercise.sets,
             reps: exercise.reps,
             rest: exercise.rest,
-            timePerSet: exercise.timePerSet // Include the new field
-             muscleGroup: exercise.muscleGroup, // Include muscleGroup
-            label: exercise.label,           // Include label (if you need it later)
-            equipment: exercise.equipment     // Include equipment (if you need it later)
+            timePerSet: exercise.timePerSet, 
+             muscleGroup: exercise.muscleGroup, 
+            label: exercise.label,           
+            equipment: exercise.equipment    
         };
     });
 }
