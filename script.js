@@ -974,7 +974,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 
         currentY += 8;
 
- const headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
+        const headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
         const grayHex = '#A9A9A9'; // Hex for RGB(169, 169, 169)
         doc.autoTable({
             head: [headers],
@@ -1024,6 +1024,39 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 currentY = data.cursor.y + 10;
             }
         });
+
+        const tableEndY = doc.autoTable.previous.finalY;
+        currentY = tableEndY + 10;
+
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(11);
+        doc.setTextColor(105, 105, 105);
+        doc.text(estimatedTime, 10, currentY);
+        currentY += 15;
+
+        doc.setFontSize(12);
+        doc.setTextColor(0, 0, 0);
+        doc.text("NOTES", 10, currentY);
+        const notesStartY = currentY + 8;
+        const pageHeight = doc.internal.pageSize.getHeight();
+        const notesHeight = pageHeight - notesStartY - 10;
+        doc.setDrawColor(169 / 255);
+        doc.setLineWidth(0.2);
+        const lineHeight = 7;
+        let y = notesStartY;
+        while (y < notesStartY + notesHeight) {
+            doc.line(15, y, pageWidth - 15, y);
+            y += lineHeight;
+        }
+
+        doc.save("workout.pdf");
+
+    } catch (mainError) {
+        console.error("Error generating PDF:", mainError);
+        console.error("Error stack:", mainError.stack);
+        alert("An error occurred while generating the PDF.");
+    }
+});
 
 
 /* ............................................... Function: To Populate table ...................................................... */
