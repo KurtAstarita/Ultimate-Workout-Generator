@@ -880,6 +880,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 
         const lines = workoutText.split('\n');
         let tableData = [];
+        // Insert "TPS" before "Rest" in the headers
         let headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
         let totalWorkoutTime = 0;
 
@@ -894,10 +895,10 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                     const tpsInfo = repsMatch && repsMatch[2] ? repsMatch[2].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "";
                     const restInfo = repsMatch && repsMatch[4] ? repsMatch[4].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "";
 
-                    // Add the main exercise row
-                    tableData.push([exerciseName, repsInfo, tpsInfo, restInfo, "", "", "", "", "", "", "", ""]);
+                    // Add the exercise row
+                    tableData.push([exerciseName, repsInfo, tpsInfo, restInfo, "/", "/", "/", "/", "/", "/", "/", "/"]);
                     // Add a row for warm-up
-                    tableData.push(["", "", "", "", "Warm-up:", "", "", "", "", "", "", ""]);
+                    tableData.push(["", "Warm-up:", "", "", "", "", "", "", "", "", "", ""]);
                 }
             }
         });
@@ -957,7 +958,6 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         alert("An error occurred while generating the PDF.");
     }
 });
-
 /* ............................................... Function: Copy Workout ...................................................... */
 
 document.getElementById("copy-workout").addEventListener("click", function() {
