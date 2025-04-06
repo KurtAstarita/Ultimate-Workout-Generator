@@ -775,7 +775,7 @@ document.getElementById("generate-workout").addEventListener("click", function (
         }
     }
 
-    let totalWorkoutTime = 0;
+   let totalWorkoutTime = 0;
     let workoutHTML = "<br><center><h3><u>YOUR WORKOUT</u></h3></center><ul>";
     workoutTextForCopy = ""; // Reset workoutTextForCopy here
 
@@ -786,12 +786,7 @@ document.getElementById("generate-workout").addEventListener("click", function (
         if (ex.sets && ex.reps) {
             workoutHTML += ` - Reps: ${ex.sets}x${ex.reps}`;
             workoutTextForCopy += ` - Reps: ${ex.sets}x${ex.reps}`;
-        }
-
-        if (ex.rest) {
-            workoutHTML += ` - Rest: ${ex.rest} seconds`;
-            workoutTextForCopy += ` - Rest: ${ex.rest} seconds`;
-            if (typeof ex.sets === 'number') {
+            if (typeof ex.sets === 'number' && ex.rest) {
                 totalWorkoutTime += (ex.sets - 1) * ex.rest; // Rest between sets
             }
         }
@@ -800,21 +795,13 @@ document.getElementById("generate-workout").addEventListener("click", function (
             workoutHTML += ` - Time per set: ${ex.timePerSet} seconds`;
             workoutTextForCopy += ` - Time per set: ${ex.timePerSet} seconds`;
             if (typeof ex.sets === 'number') {
-                let numberOfRounds = ex.sets;
-                if (typeof ex.reps === 'string' && (ex.reps.includes('sec') || ex.reps.includes('minutes'))) {
-                    numberOfRounds = ex.sets;
-                } else if (typeof ex.reps === 'string' && (ex.reps === 'AMRAP' || ex.reps === 'Ladder')) {
-                    numberOfRounds = ex.sets;
-                } else if (typeof ex.reps === 'number') {
-                    numberOfRounds = ex.sets;
-                }
-                totalWorkoutTime += numberOfRounds * ex.timePerSet;
+                totalWorkoutTime += ex.sets * ex.timePerSet; // Multiply timePerSet by the number of sets
             }
         }
 
         workoutTextForCopy += "\n";
     });
-
+    
     const minutes = Math.round(totalWorkoutTime / 60);
     workoutHTML += `<p><i>Estimated Workout Time: ${minutes} minutes</i></p>`;
     workoutTextForCopy += `Estimated Workout Time: ${minutes} minutes`;
