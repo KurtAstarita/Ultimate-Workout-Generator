@@ -1061,23 +1061,16 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 fontSize: 7,
                 font: 'helvetica',
                 cellPadding: 1,
-                borderColor: grayHex, // Using grayHex
-                borderWidth: 1,
                 valign: 'bottom'
             },
             headStyles: {
                 fontSize: 8, // Font size for the table header
                 fontStyle: 'bold', // Font style for the table header
-                fillColor: [200, 200, 200],
-                borderColor: grayHex, // Using grayHex
-                borderWidth: 1,
                 halign: 'center'
             },
             bodyStyles: {
                 fontSize: 7,
                 fontStyle: 'normal',
-                borderColor: grayHex, // Uncomment if you want borders on body cells
-                borderWidth: 1,
                 textColor: [0, 0, 0]
             },
             columnStyles: {
