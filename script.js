@@ -779,31 +779,6 @@ document.getElementById("generate-workout").addEventListener("click", function (
     let workoutHTML = "<br><center><h3><u>YOUR WORKOUT</u></h3></center><ul>";
     workoutTextForCopy = ""; // Reset workoutTextForCopy here
 
-    // --- Dynamic Title Generation ---
-    let workoutTitle = "My"; // Start with the prefix
-
-    if (experience) {
-        workoutTitle += ` ${experience.charAt(0).toUpperCase() + experience.slice(1)}`; // Affix: Experience
-    }
-
-    if (goal && goal !== "general") {
-        workoutTitle += ` ${goal.charAt(0).toUpperCase() + goal.slice(1)} Focus`; // Affix: Goal
-    }
-
-    if (modality && modality !== "general") {
-        workoutTitle += ` (${modality.charAt(0).toUpperCase() + modality.slice(1)})`; // Affix: Modality
-    }
-
-    if (trainingSplit && trainingSplit !== "none") {
-        const splitFormatted = trainingSplit.replace("_", " & ").split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-        workoutTitle += ` - ${splitFormatted}`; // Affix: Training Split
-    }
-
-    workoutTitle += " Workout"; // Suffix
-
-    workoutHTML = `<br><center><h3><u>${workoutTitle}</u></h3></center><ul>`;
-    // --- End Dynamic Title Generation ---
-
     workout.forEach(ex => {
         workoutHTML += `<br><br><li><b>${ex.name}</b>`;
         workoutTextForCopy += `${ex.name}`;
@@ -918,13 +893,14 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 
         const lines = workoutText.split('\n');
         let tableData = [];
-        let estimatedTime = "";
-        let workoutTitle = ""; // Initialize workoutTitle here
+        // Insert "TPS" before "Rest" in the headers
+        let headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
+        let totalWorkoutTime = 0;
 
-        // Extract table data and estimated time
-        lines.forEach(line => {
-            if (line.trim() && !line.includes("Estimated Workout Time") && !line.includes("YOUR WORKOUT")) { // Exclude the HTML title line
+lines.forEach(line => {
+            if (line.trim() && !line.includes("Estimated Workout Time")) {
                 const exerciseMatch = line.match(/^(.+?) - Reps: (.+?)(?: - Rest: (.+?) (seconds?|minutes?))?(?: - Time per set: (.+?) (seconds?|minutes?))?\s*$/i);
+
                 if (exerciseMatch) {
                     const exerciseName = exerciseMatch[1].replace(/<b>|<\/b>/g, '').trim();
                     const repsInfo = exerciseMatch[2].trim();
@@ -934,79 +910,58 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                     const tpsValue = exerciseMatch[5] ? exerciseMatch[5].trim() : "";
                     const tpsUnit = exerciseMatch[6] ? exerciseMatch[6].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "";
                     const tpsInfoFormatted = tpsValue && tpsUnit ? `${tpsValue} ${tpsUnit}` : "";
+
                     tableData.push([exerciseName, repsInfo, tpsInfoFormatted, restInfoFormatted, "", "", "", "", "", "", "", ""]);
-                }
-            } else if (line.includes("Estimated Workout Time")) {
-                estimatedTime = line;
-            } else if (line.includes("YOUR WORKOUT")) { // Extract the title from the HTML
-                const titleMatch = line.match(/<u>(.*?)<\/u>/);
-                if (titleMatch) {
-                    workoutTitle = titleMatch[1];
                 }
             }
         });
 
-const { jsPDF } = window.jspdf;
+        const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
-        const pageWidth = doc.internal.pageSize.getWidth();
-        let currentY = 10;
-        const grayScale = 169 / 255;
-        const grayRGB = [169, 169, 169];
-        const darkGrayRGB = [105, 105, 105]; // Define dark gray color
 
-        // Add Workout Title to PDF
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(14);
-        doc.setTextColor(darkGrayRGB[0], darkGrayRGB[1], darkGrayRGB[2]); // Set dark gray color
-        doc.text(workoutTitle, 10, currentY);
-        currentY += 15; // Add a bit more space after the title
-
-        // Workout Table with gray border
-        const headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
         doc.autoTable({
             head: [headers],
             body: tableData,
-            startY: currentY,
-            margin: { horizontal: 10 },
-            styles: { fontSize: 8, cellPadding: 2, borderColor: grayRGB, borderWidth: 1 },
-            headStyles: { fontSize: 8, fillColor: [200, 200, 200], borderColor: grayRGB, borderWidth: 1 },
-            columnStyles: { 0: { cellWidth: 'auto' }, 1: { cellWidth: 'auto' }, 2: { cellWidth: 'auto' }, 3: { cellWidth: 'auto' } },
+            startY: 10,
+            styles: {
+                fontSize: 8,
+                cellPadding: 2,
+                borderColor: [169, 169, 169],
+                borderWidth: 1,
+            },
+            headStyles: {
+                fontSize: 8,
+                fillColor: [200, 200, 200],
+                borderColor: [169, 169, 169],
+                borderWidth: 1,
+            },
+            columnStyles: {
+                0: { cellWidth: 'auto' }, // Exercise
+                1: { cellWidth: 'auto' }, // Reps
+                2: { cellWidth: 'auto' }, // TPS
+                3: { cellWidth: 'auto' }, // Rest
+                4: { cellWidth: 'auto' }, // Set 1
+                5: { cellWidth: 'auto' }, // Set 2
+                6: { cellWidth: 'auto' }, // Set 3
+                7: { cellWidth: 'auto' }, // Set 4
+                8: { cellWidth: 'auto' }, // Set 5
+                9: { cellWidth: 'auto' }, // Set 6
+                10: { cellWidth: 'auto' }, // Set 7
+                11: { cellWidth: 'auto' }, // Set 8
+            },
             tableLineWidth: 1,
-            tableBorderColor: grayRGB,
-            didDrawPage: function(data) {
-                currentY = data.cursor.y + 10;
-            }
+            tableBorderColor: [169, 169, 169],
         });
 
         const tableEndY = doc.autoTable.previous.finalY;
-        currentY = tableEndY + 10;
-
-        // Estimated Workout Time
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(11);
         doc.setTextColor(105, 105, 105);
-        doc.text(estimatedTime, 10, currentY);
-        currentY += 15;
-
-        // Notes Section (Lines Only)
-        doc.setFontSize(12);
+        const timeLine = lines.find(line => line.includes("Estimated Workout Time"));
+        const timeText = timeLine ? timeLine.replace("seconds", "sec") : ""; // Change seconds to sec here if needed in the text
+        doc.text(timeText, 10, tableEndY + 10);
         doc.setTextColor(0, 0, 0);
-        doc.text("NOTES", 10, currentY);
-        const notesStartY = currentY + 8;
-
-        // Calculate remaining height
-        const pageHeight = doc.internal.pageSize.getHeight();
-        const notesHeight = pageHeight - notesStartY - 10;
-
-        // Draw lines
-        doc.setDrawColor(grayScale);
-        doc.setLineWidth(0.2);
-        const lineHeight = 7;
-        let y = notesStartY;
-        while (y < notesStartY + notesHeight) {
-            doc.line(15, y, pageWidth - 15, y);
-            y += lineHeight;
-        }
+        doc.setFont('helvetica', 'normal');
 
         doc.save("workout.pdf");
 
