@@ -880,7 +880,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 
         const lines = workoutText.split('\n');
         let tableData = [];
-        let headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
+        let headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6"];
         let totalWorkoutTime = 0;
 
         lines.forEach(line => {
@@ -910,9 +910,9 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                     }
 
                     // Add the exercise row
-                    tableData.push([exerciseName, repsInfo, tpsInfoFormatted, restInfoFormatted, "/", "/", "/", "/", "/", "/", "/", "/"]);
+                    tableData.push([exerciseName, repsInfo, tpsInfoFormatted, restInfoFormatted, "/", "/", "/", "/", "/", "/"]);
                     // Add a row for warm-up in the exercise column
-                    tableData.push(["  Warm-up:", "", "", "", "", "", "", "", "", "", "", ""]);
+                    tableData.push(["  Warm-up:", "", "", "", ""]);
                 }
             }
         });
