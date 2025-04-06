@@ -863,13 +863,29 @@ function validateWorkoutText(workoutText) {
 /* ............................................... Function: Copy Workout ...................................................... */
 
 document.getElementById("copy-workout").addEventListener("click", function() {
+    const copyButton = this; // Store the button element
+    const originalText = copyButton.textContent; // Store the original button text
+
+    copyButton.disabled = true; // Disable the button immediately
+    copyButton.textContent = "Copying..."; // Provide immediate feedback
+
     navigator.clipboard.writeText(workoutTextForCopy)
         .then(() => {
-            alert("Workout copied to clipboard!");
+            copyButton.textContent = "Copied!"; // Indicate success on the button
+            setTimeout(() => {
+                copyButton.textContent = originalText; // Revert to original text after a short delay
+                copyButton.disabled = false; // Re-enable the button
+            }, 1500); // Adjust the delay as needed
         })
         .catch(err => {
             console.error("Failed to copy: ", err);
-            alert("Failed to copy workout.");
+            copyButton.textContent = "Copy Failed"; // Indicate failure on the button
+            setTimeout(() => {
+                copyButton.textContent = originalText; // Revert to original text
+                copyButton.disabled = false; // Re-enable the button
+            }, 2000); // Adjust the delay as needed
+            // Optionally, you can keep the alert as well if you think it's necessary
+            // alert("Failed to copy workout.");
         });
 });
 
