@@ -934,7 +934,7 @@ doc.autoTable({
             body: tableData,
             startY: 10,
             styles: {
-                fontSize: 10,
+                fontSize: 8,
                 cellPadding: 3,
                 lineWidth: 0.1, // Add thin borders to body cells
                 borderColor: [169, 169, 169], // Light gray border color for body
@@ -945,7 +945,7 @@ doc.autoTable({
                 fontStyle: 'normal', // Specify the font style
             },
             headStyles: {
-                fontSize: 12,
+                fontSize: 9,
                 fillColor: [220, 220, 220], // Light gray header background
                 textColor: [0, 0, 0], // Black text for header
                 lineWidth: 0.5, // Add thin borders to header cells
