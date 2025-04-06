@@ -966,12 +966,14 @@ document.getElementById('download-pdf').addEventListener('click', function () {
  didParseCell: function (data) {
                 const rowIndex = data.row.index;
 
-                // Style for Warm-up row
-                if ((rowIndex - 1) % 3 === 0 && rowIndex > 0 && data.column.index === 0 && data.cell.raw.includes('Warm-up:')) {
-                    data.cell.styles.fontStyle = 'italic';
-                    data.cell.styles.textColor = [105, 105, 105];
-                    data.cell.styles.cellPadding = { top: 0, right: data.cell.styles.cellPadding.right, bottom: 0, left: data.cell.styles.cellPadding.left };
-                    data.cell.styles.fillColor = [248, 248, 248]; // Mid-gray background
+                // Style for Warm-up row (entire row)
+                if ((rowIndex - 1) % 3 === 0 && rowIndex > 0) {
+                    if (data.column.index === 0 && data.cell.raw.includes('Warm-up:')) {
+                        data.cell.styles.fontStyle = 'italic';
+                        data.cell.styles.textColor = [105, 105, 105];
+                        data.cell.styles.cellPadding = { top: 0, right: data.cell.styles.cellPadding.right, bottom: 0, left: data.cell.styles.cellPadding.left };
+                    }
+                    data.cell.styles.fillColor = [248, 248, 248]; // Mid-gray background for the entire row
                 }
                 // Style for Notes row
                 else if ((rowIndex - 2) % 3 === 0 && rowIndex > 1 && data.column.index === 0 && data.cell.raw.includes('Notes:')) {
