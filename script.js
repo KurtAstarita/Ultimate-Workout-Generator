@@ -641,6 +641,9 @@ function normalizeExercises(exercisesArray) {
             reps: exercise.reps,
             rest: exercise.rest,
             timePerSet: exercise.timePerSet // Include the new field
+             muscleGroup: exercise.muscleGroup, // Include muscleGroup
+            label: exercise.label,           // Include label (if you need it later)
+            equipment: exercise.equipment     // Include equipment (if you need it later)
         };
     });
 }
@@ -674,7 +677,7 @@ document.getElementById("generate-workout").addEventListener("click", function (
     const resultDiv = document.getElementById("workout-result");
     resultDiv.innerHTML = "";
 
-    let selectedExercises = [];
+   let selectedExercises = [];
 
     if (exercises[modality]) {
         if (exercises[modality][experience]) {
