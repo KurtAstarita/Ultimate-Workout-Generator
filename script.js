@@ -669,8 +669,6 @@ document.getElementById("copy-workout").disabled = true;
 
 /* ............................................... Function: Generate Workout ...................................................... */
 
-/* ............................................... Function: Generate Workout ...................................................... */
-
 document.getElementById("generate-workout").addEventListener("click", function () {
     const goal = document.getElementById("goal").value;
     const experience = document.getElementById("experience").value;
@@ -827,6 +825,19 @@ document.getElementById("generate-workout").addEventListener("click", function (
     document.getElementById("copy-workout").disabled = false;
 });
 
+/* ............................................... Function: Copy Workout ...................................................... */
+
+document.getElementById("copy-workout").addEventListener("click", function() {
+    navigator.clipboard.writeText(workoutTextForCopy)
+        .then(() => {
+            alert("Workout copied to clipboard!");
+        })
+        .catch(err => {
+            console.error("Failed to copy: ", err);
+            alert("Failed to copy workout.");
+        });
+});
+
 /* ............................................... Function: Validate Workout ...................................................... */
 
 function validateWorkoutText(workoutText) {
@@ -962,7 +973,6 @@ lines.forEach(line => {
 });
 
 /* ............................................... Function: To Populate table ...................................................... */
-
 function populateExerciseTable() {
     console.log("Populating exercise table..."); // Debugging log
 
