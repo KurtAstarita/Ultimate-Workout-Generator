@@ -929,8 +929,8 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             styles: {
                 fontSize: 8,
                 cellPadding: 1,
-                lineWidth: 0.05,
-                borderColor: [1, 1, 1],
+                lineWidth: 0.05, // Keep a very thin line
+                borderColor: [1, 1, 1], // Default white border
                 textColor: [0, 0, 0],
                 valign: 'middle',
                 halign: 'left',
@@ -942,7 +942,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 fillColor: [220, 220, 220],
                 textColor: [0, 0, 0],
                 lineWidth: 0.5,
-                borderColor: [169, 169, 169],
+                borderColor: [169, 169, 169], // Keep header borders gray
                 valign: 'middle',
                 halign: 'center',
                 fontStyle: 'bold',
@@ -961,11 +961,12 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 10: { cellWidth: 'auto', halign: 'center' },
                 11: { cellWidth: 'auto', halign: 'center' },
             },
-            tableLineWidth: 0.5,
-            tableBorderColor: [169, 169, 169],
-didParseCell: function (data) {
+            tableLineWidth: 0.05, // Match the inner line width
+            tableBorderColor: [1, 1, 1], // White outer border
+            didParseCell: function (data) {
                 const rowIndex = data.row.index;
                 const columnIndex = data.column.index;
+                data.cell.styles.borderColor = [1, 1, 1]; // Force white border for all cells
 
                 // Style for Warm-up row (entire row)
                 if ((rowIndex - 1) % 3 === 0 && rowIndex > 0) {
@@ -975,24 +976,23 @@ didParseCell: function (data) {
                         data.cell.styles.cellPadding = { top: 0, right: data.cell.styles.cellPadding.right, bottom: 0, left: data.cell.styles.cellPadding.left };
                     }
                     data.cell.styles.fillColor = [248, 248, 248]; // Mid-gray background for the entire row
-                    data.cell.styles.borderColor = [1, 1, 1];
                 }
                 // Style for Notes row
                 else if ((rowIndex - 2) % 3 === 0 && rowIndex > 1) {
                     data.cell.styles.fillColor = [255, 255, 255]; // White background for the entire notes row
-                    data.cell.styles.borderColor = [240, 240, 240]; // Subtle top/bottom
+                    data.cell.styles.borderColor = [1, 1, 1]; // Force white border
 
                     if (columnIndex === 0 && data.cell.raw.includes('Notes:')) {
                         data.cell.styles.fontStyle = 'italic';
                         data.cell.styles.textColor = [150, 150, 150];
                         data.cell.styles.cellPadding = { top: 0, right: data.cell.styles.cellPadding.right, bottom: 0, left: data.cell.styles.cellPadding.left };
                         data.cell.styles.border = {
-                            left: { color: [255, 255, 255] }, // White left border for the "Notes:" cell
-                            right: { color: [255, 255, 255] } // White right border for the "Notes:" cell
+                            left: { color: [255, 255, 255] }, // White left border
+                            right: { color: [255, 255, 255] } // White right border
                         };
                     } else if (columnIndex > 0) {
                         data.cell.styles.border = {
-                            left: { color: [255, 255, 255] }  // White left border for all other cells in the notes row
+                            left: { color: [255, 255, 255] } // White left border
                         };
                     }
                 }
@@ -1001,19 +1001,16 @@ didParseCell: function (data) {
                     data.cell.styles.minCellHeight = 5;
                     data.cell.styles.padding = { top: 0, bottom: 0 };
                     delete data.cell.styles.fillColor;
-                    data.cell.styles.borderColor = [1, 1, 1];
                 }
                 // Reduce height of separator cells
                 else if (data.cell.raw === '/') {
                     data.cell.styles.minCellHeight = 5;
                     data.cell.styles.padding = { top: 0, bottom: 0 };
                     delete data.cell.styles.fillColor;
-                    data.cell.styles.borderColor = [1, 1, 1];
                 }
                 // Make every exercise row gray
                 if (rowIndex % 3 === 0) { // Exercise rows have indices 0, 3, 6, etc.
                     data.cell.styles.fillColor = [240, 240, 240];
-                    data.cell.styles.borderColor = [1, 1, 1];
                 }
             }
         });
