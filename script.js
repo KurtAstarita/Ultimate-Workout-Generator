@@ -917,7 +917,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 
         const lines = workoutText.split('\n');
         let tableData = [];
-        let estimatedTimeInSeconds = 0; // Initialize the counter
+        let estimatedTime = "";
 
         lines.forEach(line => {
             if (line.trim() && !line.includes("Estimated Workout Time")) {
@@ -925,37 +925,18 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 if (exerciseMatch) {
                     const exerciseName = exerciseMatch[1].replace(/<b>|<\/b>/g, '').trim();
                     const repsInfo = exerciseMatch[2].trim();
-                    const restValueMatch = exerciseMatch[3] ? parseInt(exerciseMatch[3].trim()) : 0;
-                    const restUnit = exerciseMatch[4] ? exerciseMatch[4].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "sec";
-                    const restInSeconds = restUnit.startsWith('min') ? restValueMatch * 60 : restValueMatch;
-
-                    const tpsValueMatch = exerciseMatch[5] ? parseInt(exerciseMatch[5].trim()) : 0;
-                    const tpsUnit = exerciseMatch[6] ? exerciseMatch[6].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "sec";
-                    const tpsInSeconds = tpsUnit.startsWith('min') ? tpsValueMatch * 60 : tpsValueMatch;
-
-                    // Assuming a simple logic: if reps has 'x', it indicates sets and reps
-                    const setsMatch = repsInfo.match(/^(\d+)x/i);
-                    const numberOfSets = setsMatch ? parseInt(setsMatch[1]) : 1; // Default to 1 set if no 'x'
-
-                    if (numberOfSets > 0) {
-                        estimatedTimeInSeconds += numberOfSets * tpsInSeconds; // Time for all sets
-                        estimatedTimeInSeconds += (numberOfSets - 1) * restInSeconds; // Rest between sets
-                    } else if (tpsInSeconds > 0) {
-                        // If no sets are indicated but there's time per set, assume it's for one set
-                        estimatedTimeInSeconds += tpsInSeconds;
-                    }
-
-                    const restInfoFormatted = restValueMatch && restUnit ? `${restValueMatch} ${restUnit}` : "";
-                    const tpsInfoFormatted = tpsValueMatch && tpsUnit ? `${tpsValueMatch} ${tpsUnit}` : "";
+                    const restValue = exerciseMatch[3] ? exerciseMatch[3].trim() : "";
+                    const restUnit = exerciseMatch[4] ? exerciseMatch[4].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "";
+                    const restInfoFormatted = restValue && restUnit ? `${restValue} ${restUnit}` : "";
+                    const tpsValue = exerciseMatch[5] ? exerciseMatch[5].trim() : "";
+                    const tpsUnit = exerciseMatch[6] ? exerciseMatch[6].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "";
+                    const tpsInfoFormatted = tpsValue && tpsUnit ? `${tpsValue} ${tpsUnit}` : "";
                     tableData.push([exerciseName, repsInfo, tpsInfoFormatted, restInfoFormatted, "____x____", "____x____", "____x____", "____x____", "____x____", "____x____", "____x____", "____x____"]);
                 }
             } else if (line.includes("Estimated Workout Time")) {
-                estimatedTime = line; // We might not need this anymore as we're calculating it
+                estimatedTime = line;
             }
         });
-
-        const totalMinutes = Math.round(estimatedTimeInSeconds / 60);
-        const formattedEstimatedTime = `Estimated Workout Time: ${totalMinutes} minutes`;
 
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
@@ -994,6 +975,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         currentY += 8;
 
         const headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
+        const grayHex = '#A9A9A9'; // Hex for RGB(169, 169, 169)
 
         doc.autoTable({
             head: [headers],
@@ -1004,17 +986,23 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 fontSize: 7,
                 font: 'helvetica',
                 cellPadding: 1,
+                borderColor: grayHex, // Using grayHex
+                borderWidth: 1,
                 valign: 'bottom'
             },
             headStyles: {
-                fontSize: 8,
-                fontStyle: 'bold',
-                halign: 'center',
-                fillColor: [200, 200, 200]
+                fontSize: 8, // Font size for the table header
+                fontStyle: 'bold', // Font style for the table header
+                fillColor: [200, 200, 200],
+                borderColor: grayHex, // Using grayHex
+                borderWidth: 1,
+                halign: 'center'
             },
             bodyStyles: {
                 fontSize: 7,
                 fontStyle: 'normal',
+                borderColor: grayHex, // Uncomment if you want borders on body cells
+                borderWidth: 1,
                 textColor: [0, 0, 0]
             },
             columnStyles: {
@@ -1031,41 +1019,22 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 10: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "____x____"; } },
                 11: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "____x____"; } },
             },
-            tableLineWidth: 0,
-            tableBorderColor: null,
+            tableLineWidth: 1,
+            tableBorderColor: grayHex, // Using grayHex for the overall table border as well
             didDrawPage: function(data) {
                 currentY = data.cursor.y + 10;
             }
         });
 
         const tableEndY = doc.autoTable.previous.finalY;
-        let keyStartY = tableEndY + 10; // Start the key below the table
-        const estimatedTimeY = keyStartY; // Align the start of the key with estimated time
+        currentY = tableEndY + 10;
 
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(11);
         doc.setTextColor(105, 105, 105);
-        doc.text(formattedEstimatedTime, 10, estimatedTimeY); // Use the calculated time
+        doc.text(estimatedTime, 10, currentY);
+        currentY += 15;
 
-        // --- Key Section ---
-        const keyX = pageWidth / 2; // Start the key in the middle of the page (adjust as needed)
-        let currentKeyY = keyStartY;
-
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(12);
-        doc.setTextColor(0, 0, 0);
-        doc.text("Key:", keyX, currentKeyY);
-        currentKeyY += 6;
-
-        doc.setFont('helvetica', 'normal');
-        doc.setFontSize(10);
-        doc.setTextColor(0, 0, 0);
-        doc.text("TPS: Time Per Set", keyX, currentKeyY);
-        currentKeyY += 5;
-
-        currentY = Math.max(estimatedTimeY + 15, currentKeyY + 10); // Update currentY
-
-        // --- Notes Section ---
         doc.setFontSize(12);
         doc.setTextColor(0, 0, 0);
         doc.text("NOTES", 10, currentY);
