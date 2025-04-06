@@ -886,19 +886,18 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 
         lines.forEach(line => {
             if (line.trim() && !line.includes("Estimated Workout Time")) {
-                const exerciseMatch = line.match(/^(.+?) - Reps:/);
-                const repsMatch = line.match(/Reps: (.+?)(?: - Time per set: (.+?) (seconds?|minutes?))?(?: - Rest: (.+?) (seconds?|minutes?))?\s*$/i);
+                const exerciseMatch = line.match(/^(.+?) - Reps: (.+?)(?: - Rest: (.+?) (seconds?|minutes?))?(?: - Time per set: (.+?) (seconds?|minutes?))?\s*$/i);
 
                 if (exerciseMatch) {
                     const exerciseName = exerciseMatch[1].replace(/<b>|<\/b>/g, '').trim();
-                    const repsInfo = repsMatch ? repsMatch[1].trim() : "";
-                    const tpsValue = repsMatch && repsMatch[2] ? repsMatch[2].trim() : "";
-                    const tpsUnit = repsMatch && repsMatch[3] ? repsMatch[3].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "";
-                    const tpsInfoFormatted = tpsValue && tpsUnit ? `${tpsValue} ${tpsUnit}` : "";
-                    const restValue = repsMatch && repsMatch[4] ? repsMatch[4].trim() : "";
-                    const restUnit = repsMatch && repsMatch[5] ? repsMatch[5].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "";
+                    const repsInfo = exerciseMatch[2].trim();
+                    const restValue = exerciseMatch[3] ? exerciseMatch[3].trim() : "";
+                    const restUnit = exerciseMatch[4] ? exerciseMatch[4].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "";
                     const restInfoFormatted = restValue && restUnit ? `${restValue} ${restUnit}` : "";
                     const restInSeconds = restValue && restUnit.startsWith('min') ? parseInt(restValue) * 60 : parseInt(restValue);
+                    const tpsValue = exerciseMatch[5] ? exerciseMatch[5].trim() : "";
+                    const tpsUnit = exerciseMatch[6] ? exerciseMatch[6].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "";
+                    const tpsInfoFormatted = tpsValue && tpsUnit ? `${tpsValue} ${tpsUnit}` : "";
                     const tpsInSeconds = tpsValue && tpsUnit.startsWith('min') ? parseFloat(tpsValue) * 60 : parseFloat(tpsValue);
 
                     const setsMatch = repsInfo.match(/^(\d+)x/i);
@@ -983,7 +982,6 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         alert("An error occurred while generating the PDF.");
     }
 });
-
 /* ............................................... Function: Copy Workout ...................................................... */
 
 document.getElementById("copy-workout").addEventListener("click", function() {
