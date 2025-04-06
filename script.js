@@ -930,7 +930,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 fontSize: 8,
                 cellPadding: 1,
                 lineWidth: 0.1,
-                borderColor: [1, 1, 1],
+                borderColor: [1, 1, 1], // White border color for inner cells
                 textColor: [0, 0, 0],
                 valign: 'middle',
                 halign: 'left',
@@ -942,7 +942,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 fillColor: [220, 220, 220],
                 textColor: [0, 0, 0],
                 lineWidth: 0.5,
-                borderColor: [169, 169, 169],
+                borderColor: [169, 169, 169], // Keep header borders gray
                 valign: 'middle',
                 halign: 'center',
                 fontStyle: 'bold',
@@ -961,9 +961,9 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 10: { cellWidth: 'auto', halign: 'center' },
                 11: { cellWidth: 'auto', halign: 'center' },
             },
-            tableLineWidth: 0.5,
-            tableBorderColor: [169, 169, 169],
- didParseCell: function (data) {
+            tableLineWidth: 0.1, // Make the outer border white as well, or adjust as needed
+            tableBorderColor: [1, 1, 1], // White outer border
+            didParseCell: function (data) {
                 const rowIndex = data.row.index;
 
                 // Style for Warm-up row (entire row)
@@ -974,6 +974,8 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                         data.cell.styles.cellPadding = { top: 0, right: data.cell.styles.cellPadding.right, bottom: 0, left: data.cell.styles.cellPadding.left };
                     }
                     data.cell.styles.fillColor = [248, 248, 248]; // Mid-gray background for the entire row
+                    // Ensure borderColor remains white
+                    data.cell.styles.borderColor = [1, 1, 1];
                 }
                 // Style for Notes row
                 else if ((rowIndex - 2) % 3 === 0 && rowIndex > 1 && data.column.index === 0 && data.cell.raw.includes('Notes:')) {
@@ -981,26 +983,30 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                     data.cell.styles.textColor = [150, 150, 150];
                     data.cell.styles.cellPadding = { top: 0, right: data.cell.styles.cellPadding.right, bottom: 0, left: data.cell.styles.cellPadding.left };
                     data.cell.styles.lineWidth = { top: 0, bottom: 0, left: data.cell.styles.lineWidth, right: data.cell.styles.lineWidth };
-                    data.cell.styles.borderColor = [240, 240, 240];
-                    delete data.cell.styles.fillColor; // Ensure no background color (or override)
+                    data.cell.styles.borderColor = [240, 240, 240]; // Keep the side borders visible for notes
+                    delete data.cell.styles.fillColor;
                 }
                 // Reduce height of empty cells in Warm-up and Notes rows
                 else if (rowIndex % 3 > 0 && data.column.index > 0) {
                     data.cell.styles.minCellHeight = 5;
                     data.cell.styles.padding = { top: 0, bottom: 0 };
-                    delete data.cell.styles.fillColor; // Ensure no background color
+                    delete data.cell.styles.fillColor;
+                    // Ensure borderColor remains white
+                    data.cell.styles.borderColor = [1, 1, 1];
                 }
                 // Reduce height of separator cells
                 else if (data.cell.raw === '/') {
                     data.cell.styles.minCellHeight = 5;
                     data.cell.styles.padding = { top: 0, bottom: 0 };
-                    delete data.cell.styles.fillColor; // Ensure no background color
+                    delete data.cell.styles.fillColor;
+                    // Ensure borderColor remains white
+                    data.cell.styles.borderColor = [1, 1, 1];
                 }
                 // Make every exercise row gray
                 if (rowIndex % 3 === 0) { // Exercise rows have indices 0, 3, 6, etc.
-                    data.cell.styles.fillColor = [240, 240, 240]; // Light gray
-                } else if ((rowIndex - 1) % 3 !== 0 && (rowIndex - 2) % 3 !== 0) {
-                    delete data.cell.styles.fillColor; // Ensure notes rows are white
+                    data.cell.styles.fillColor = [240, 240, 240];
+                    // Ensure borderColor remains white
+                    data.cell.styles.borderColor = [1, 1, 1];
                 }
             }
         });
