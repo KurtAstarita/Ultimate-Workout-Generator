@@ -825,19 +825,6 @@ document.getElementById("generate-workout").addEventListener("click", function (
     document.getElementById("copy-workout").disabled = false;
 });
 
-/* ............................................... Function: Copy Workout ...................................................... */
-
-document.getElementById("copy-workout").addEventListener("click", function() {
-    navigator.clipboard.writeText(workoutTextForCopy)
-        .then(() => {
-            alert("Workout copied to clipboard!");
-        })
-        .catch(err => {
-            console.error("Failed to copy: ", err);
-            alert("Failed to copy workout.");
-        });
-});
-
 /* ............................................... Function: Validate Workout ...................................................... */
 
 function validateWorkoutText(workoutText) {
@@ -875,123 +862,136 @@ function validateWorkoutText(workoutText) {
 /* ............................................... Function: Download PDF ...................................................... */
 
 document.getElementById('download-pdf').addEventListener('click', function () {
-    let workoutResultDiv = document.getElementById('workout-result');
-    let workoutItems = workoutResultDiv.querySelectorAll('li');
-    let tableData = [];
-    // Include "TPS" in the headers
-    let headers = ["Exercise", "Sets", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
-    let totalWorkoutTime = 0;
+    let workoutText = document.getElementById('paste-text').value;
+    workoutText = DOMPurify.sanitize(workoutText);
 
-    if (workoutItems.length === 0) {
-        alert("Please generate a workout first before downloading.");
+    if (!workoutText.trim()) {
+        alert("Please paste workout text before downloading.");
         return;
     }
 
-    workoutItems.forEach(item => {
-        const parts = item.textContent.split(' - ');
-        if (parts.length > 0) {
-            const exerciseName = parts[0].replace('<b>', '').replace('</b>', '').trim();
-            let sets = '';
-            let reps = '';
-            let rest = '';
-            let timePerSet = '';
+    try {
+        const validationResult = validateWorkoutText(workoutText);
 
-            parts.slice(1).forEach(part => {
-                const trimmedPart = part.trim();
-                if (trimmedPart.startsWith('Reps:')) {
-                    const repsMatch = trimmedPart.match(/Reps: (\d+)x(.+)/);
-                    if (repsMatch) {
-                        sets = repsMatch[1];
-                        reps = repsMatch[2];
-                    } else if (trimmedPart.includes('x')) {
-                        const simpleRepsMatch = trimmedPart.split('x');
-                        if (simpleRepsMatch.length === 2) {
-                            sets = simpleRepsMatch[0].replace('Reps:', '').trim();
-                            reps = simpleRepsMatch[1].trim();
-                        }
-                    } else {
-                        reps = trimmedPart.replace('Reps:', '').trim();
-                    }
-                } else if (trimmedPart.startsWith('Rest:')) {
-                    const restMatch = trimmedPart.match(/Rest: (\d+) seconds/);
-                    if (restMatch) {
-                        rest = restMatch[1];
-                        if (sets) {
-                            totalWorkoutTime += (parseInt(sets) - 1) * parseInt(rest);
-                        }
-                    }
-                } else if (trimmedPart.startsWith('Time per set:')) {
-                    const tpsMatch = trimmedPart.match(/Time per set: (\d+) seconds/);
-                    if (tpsMatch) {
-                        timePerSet = tpsMatch[1] + ' seconds';
-                        if (sets) {
-                            let numberOfRounds = parseInt(sets);
-                            const repsValue = reps.toLowerCase();
-                            if (repsValue.includes('sec') || repsValue.includes('minutes') || repsValue === 'amrap' || repsValue === 'ladder') {
-                                numberOfRounds = parseInt(sets);
-                            } else if (parseInt(reps)) {
-                                numberOfRounds = parseInt(sets);
-                            }
-                            totalWorkoutTime += numberOfRounds * parseInt(tpsMatch[1]);
-                        }
-                    }
-                }
-            });
-
-            tableData.push([exerciseName, sets, reps, timePerSet, rest, "", "", "", "", "", "", "", ""]);
+        if (!validationResult.isValid) {
+            alert("Workout text validation errors:\n" + validationResult.errors.join('\n'));
+            return;
         }
-    });
 
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
+        const lines = workoutText.split('\n');
+        let tableData = [];
+        // Insert "TPS" before "Rest" in the headers
+        let headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
+        let totalWorkoutTime = 0;
 
-    doc.autoTable({
-        head: [headers],
-        body: tableData,
-        startY: 10,
-        styles: {
-            fontSize: 8,
-            cellPadding: 2,
-            borderColor: [169, 169, 169],
-            borderWidth: 1,
-        },
-        headStyles: {
-            fontSize: 8,
-            fillColor: [200, 200, 200],
-            borderColor: [169, 169, 169],
-            borderWidth: 1,
-        },
-        columnStyles: {
-            0: { cellWidth: 'auto' }, // Exercise
-            1: { cellWidth: 'auto' }, // Sets
-            2: { cellWidth: 'auto' }, // Reps
-            3: { cellWidth: 'auto' }, // TPS
-            4: { cellWidth: 'auto' }, // Rest
-            5: { cellWidth: 'auto' }, // Set 1
-            6: { cellWidth: 'auto' }, // Set 2
-            7: { cellWidth: 'auto' }, // Set 3
-            8: { cellWidth: 'auto' }, // Set 4
-            9: { cellWidth: 'auto' }, // Set 5
-            10: { cellWidth: 'auto' }, // Set 6
-            11: { cellWidth: 'auto' }, // Set 7
-            12: { cellWidth: 'auto' }, // Set 8
-        },
-        tableLineWidth: 1,
-        tableBorderColor: [169, 169, 169],
-    });
+        lines.forEach(line => {
+            if (line.trim() && !line.includes("Estimated Workout Time")) {
+                const exerciseMatch = line.match(/^(.+?) - Reps: (.+?)(?: - Rest: (.+?) (seconds?|minutes?))?(?: - Time per set: (.+?) (seconds?|minutes?))?\s*$/i);
 
-    const tableEndY = doc.autoTable.previous.finalY;
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(11);
-    doc.setTextColor(105, 105, 105);
-    const estimatedTimeText = `Estimated Workout Time: ${Math.round(totalWorkoutTime / 60)} minutes`;
-    doc.text(estimatedTimeText, 10, tableEndY + 10);
-    doc.setTextColor(0, 0, 0);
-    doc.setFont('helvetica', 'normal');
+                if (exerciseMatch) {
+                    const exerciseName = exerciseMatch[1].replace(/<b>|<\/b>/g, '').trim();
+                    const repsInfo = exerciseMatch[2].trim();
+                    const restValue = exerciseMatch[3] ? exerciseMatch[3].trim() : "";
+                    const restUnit = exerciseMatch[4] ? exerciseMatch[4].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "";
+                    const restInSeconds = restValue && restUnit.startsWith('min') ? parseInt(restValue) * 60 : parseInt(restValue);
+                    const restInfoFormatted = restValue && restUnit ? `${restValue} ${restUnit}` : "";
 
-    doc.save("workout.pdf");
+                    const tpsValue = exerciseMatch[5] ? exerciseMatch[5].trim() : "";
+                    const tpsUnit = exerciseMatch[6] ? exerciseMatch[6].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "";
+                    const tpsInSeconds = tpsValue && tpsUnit.startsWith('min') ? parseFloat(tpsValue) * 60 : parseFloat(tpsValue);
+                    const tpsInfoFormatted = tpsValue && tpsUnit ? `${tpsValue} ${tpsUnit}` : "";
 
+                    // Attempt to extract the number of sets from the reps info
+                    const setsMatch = repsInfo.match(/^(\d+)x/);
+                    const sets = setsMatch ? parseInt(setsMatch[1]) : 1; // Default to 1 set if not specified
+
+                    if (restInSeconds) {
+                        totalWorkoutTime += (sets - 1) * restInSeconds;
+                    }
+                    if (tpsInSeconds) {
+                        totalWorkoutTime += sets * tpsInSeconds;
+                    }
+
+                    tableData.push([exerciseName, repsInfo, tpsInfoFormatted, restInfoFormatted, "", "", "", "", "", "", "", ""]);
+                }
+            } else if (line.includes("Estimated Workout Time")) {
+                const timeMatch = line.match(/Estimated Workout Time: (\d+) minutes/i);
+                if (timeMatch) {
+                    // If the pasted text already includes an estimated time, we can optionally use it or recalculate.
+                    // For now, we will recalculate based on the parsed data.
+                }
+            }
+        });
+
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        doc.autoTable({
+            head: [headers],
+            body: tableData,
+            startY: 10,
+            styles: {
+                fontSize: 8,
+                cellPadding: 2,
+                borderColor: [169, 169, 169],
+                borderWidth: 1,
+            },
+            headStyles: {
+                fontSize: 8,
+                fillColor: [200, 200, 200],
+                borderColor: [169, 169, 169],
+                borderWidth: 1,
+            },
+            columnStyles: {
+                0: { cellWidth: 'auto' }, // Exercise
+                1: { cellWidth: 'auto' }, // Reps
+                2: { cellWidth: 'auto' }, // TPS
+                3: { cellWidth: 'auto' }, // Rest
+                4: { cellWidth: 'auto' }, // Set 1
+                5: { cellWidth: 'auto' }, // Set 2
+                6: { cellWidth: 'auto' }, // Set 3
+                7: { cellWidth: 'auto' }, // Set 4
+                8: { cellWidth: 'auto' }, // Set 5
+                9: { cellWidth: 'auto' }, // Set 6
+                10: { cellWidth: 'auto' }, // Set 7
+                11: { cellWidth: 'auto' }, // Set 8
+            },
+            tableLineWidth: 1,
+            tableBorderColor: [169, 169, 169],
+        });
+
+        const tableEndY = doc.autoTable.previous.finalY;
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(11);
+        doc.setTextColor(105, 105, 105);
+        const estimatedTimeText = `Estimated Workout Time: ${Math.round(totalWorkoutTime / 60)} minutes`;
+        doc.text(estimatedTimeText, 10, tableEndY + 10);
+        doc.setTextColor(0, 0, 0);
+        doc.setFont('helvetica', 'normal');
+
+        doc.save("workout.pdf");
+
+    } catch (mainError) {
+        console.error("Error generating PDF:", mainError);
+        console.error("Error stack:", mainError.stack);
+        alert("An error occurred while generating the PDF.");
+    }
 });
+
+/* ............................................... Function: Copy Workout ...................................................... */
+
+document.getElementById("copy-workout").addEventListener("click", function() {
+    navigator.clipboard.writeText(workoutTextForCopy)
+        .then(() => {
+            alert("Workout copied to clipboard!");
+        })
+        .catch(err => {
+            console.error("Failed to copy: ", err);
+            alert("Failed to copy workout.");
+        });
+});
+
+
 
 /* ............................................... Function: To Populate table ...................................................... */
 function populateExerciseTable() {
