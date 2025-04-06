@@ -974,33 +974,35 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                         data.cell.styles.cellPadding = { top: 0, right: data.cell.styles.cellPadding.right, bottom: 0, left: data.cell.styles.cellPadding.left };
                     }
                     data.cell.styles.fillColor = [248, 248, 248]; // Mid-gray background for the entire row
+                    data.cell.styles.borderColor = [1, 1, 1];
                 }
                 // Style for Notes row
                 else if ((rowIndex - 2) % 3 === 0 && rowIndex > 1 && data.column.index === 0 && data.cell.raw.includes('Notes:')) {
                     data.cell.styles.fontStyle = 'italic';
                     data.cell.styles.textColor = [150, 150, 150];
                     data.cell.styles.cellPadding = { top: 0, right: data.cell.styles.cellPadding.right, bottom: 0, left: data.cell.styles.cellPadding.left };
-                    data.cell.styles.lineWidth = { top: 0, bottom: 0, left: data.cell.styles.lineWidth, right: data.cell.styles.lineWidth };
-                    data.cell.styles.borderColor = [240, 240, 240];
-                    delete data.cell.styles.fillColor; // Ensure no background color (or override)
+                    data.cell.styles.lineWidth = { top: 0.1, bottom: 0.1, left: 0, right: 0 }; // Remove left and right borders
+                    data.cell.styles.borderColor = [240, 240, 240]; // Keep a subtle top/bottom border if needed
+                    delete data.cell.styles.fillColor;
                 }
                 // Reduce height of empty cells in Warm-up and Notes rows
                 else if (rowIndex % 3 > 0 && data.column.index > 0) {
                     data.cell.styles.minCellHeight = 5;
                     data.cell.styles.padding = { top: 0, bottom: 0 };
-                    delete data.cell.styles.fillColor; // Ensure no background color
+                    delete data.cell.styles.fillColor;
+                    data.cell.styles.borderColor = [1, 1, 1];
                 }
                 // Reduce height of separator cells
                 else if (data.cell.raw === '/') {
                     data.cell.styles.minCellHeight = 5;
                     data.cell.styles.padding = { top: 0, bottom: 0 };
-                    delete data.cell.styles.fillColor; // Ensure no background color
+                    delete data.cell.styles.fillColor;
+                    data.cell.styles.borderColor = [1, 1, 1];
                 }
                 // Make every exercise row gray
                 if (rowIndex % 3 === 0) { // Exercise rows have indices 0, 3, 6, etc.
-                    data.cell.styles.fillColor = [240, 240, 240]; // Light gray
-                } else if ((rowIndex - 1) % 3 !== 0 && (rowIndex - 2) % 3 !== 0) {
-                    delete data.cell.styles.fillColor; // Ensure notes rows are white
+                    data.cell.styles.fillColor = [240, 240, 240];
+                    data.cell.styles.borderColor = [1, 1, 1];
                 }
             }
         });
