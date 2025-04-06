@@ -927,7 +927,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             body: tableData,
             startY: 10,
             styles: {
-                fontSize: 8,
+                fontSize: 6,
                 cellPadding: 1,
                 lineWidth: 0.1,
                 borderColor: [1, 1, 1],
@@ -938,7 +938,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 fontStyle: 'normal',
             },
             headStyles: {
-                fontSize: 9,
+                fontSize: 8,
                 fillColor: [220, 220, 220],
                 textColor: [0, 0, 0],
                 lineWidth: 0.5,
