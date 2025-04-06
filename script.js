@@ -942,15 +942,27 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                     // Add the exercise row
                     tableData.push([exerciseName, repsInfo, tpsInfoFormatted, restInfoFormatted, "/", "/", "/", "/", "/", "/", "/", "/"]);
                     // Add a row for warm-up in the exercise column
-                    tableData.push(["  Warm-up:", "", "", "", "/", "/", "/", "/", "/", "/", "/", "/"]);
+                    tableData.push(["  Warm-up:", "", "", "", "/", "/", "/", "/", "/", "/", "/", "/"]);
                     // Add a row for notes in the exercise column
-                    tableData.push(["    Notes:", "", "", "", "", "", "", "", "", "", "", ""]);
+                    tableData.push(["    Notes:", "", "", "", "", "", "", "", "", "", "", ""]);
                 }
             }
         });
 
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
+
+        const updatedColumnStyles = {};
+        for (let i = 0; i < headers.length; i++) {
+            const widthInput = document.getElementById(`col${i}Width`);
+            const alignSelect = document.getElementById(`col${i}Align`);
+            if (widthInput && alignSelect) {
+                updatedColumnStyles[i] = {
+                    cellWidth: widthInput.value === '' ? 'auto' : widthInput.value,
+                    halign: alignSelect.value
+                };
+            }
+        }
 
         doc.autoTable({
             head: [headers],
@@ -977,23 +989,10 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 halign: 'center',
                 fontStyle: 'bold',
             },
-            columnStyles: {
-                0: { cellWidth: '25', halign: 'left' },
-                1: { cellWidth: '15', halign: 'center' },
-                2: { cellWidth: '15', halign: 'center' },
-                3: { cellWidth: '15', halign: 'center' },
-                4: { cellWidth: 'auto', halign: 'center' },
-                5: { cellWidth: 'auto', halign: 'center' },
-                6: { cellWidth: 'auto', halign: 'center' },
-                7: { cellWidth: 'auto', halign: 'center' },
-                8: { cellWidth: 'auto', halign: 'center' },
-                9: { cellWidth: 'auto', halign: 'center' },
-                10: { cellWidth: 'auto', halign: 'center' },
-                11: { cellWidth: 'auto', halign: 'center' },
-            },
+            columnStyles: updatedColumnStyles, // Use the dynamically updated styles
             tableLineWidth: 0.5,
             tableBorderColor: [169, 169, 169],
- didParseCell: function (data) {
+            didParseCell: function (data) {
                 const rowIndex = data.row.index;
 
                 // Style for Warm-up row (entire row)
@@ -1054,7 +1053,6 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         alert("An error occurred while generating the PDF.");
     }
 });
-
 
 
 
