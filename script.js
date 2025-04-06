@@ -1049,8 +1049,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 
         currentY += 8;
 
-        const headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
-        const grayHex = '#A9A9A9'; // Hex for RGB(169, 169, 169)
+       const headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
 
         doc.autoTable({
             head: [headers],
@@ -1066,7 +1065,8 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             headStyles: {
                 fontSize: 8, // Font size for the table header
                 fontStyle: 'bold', // Font style for the table header
-                halign: 'center'
+                halign: 'center',
+                fillColor: [200, 200, 200] // Keep fill color if desired
             },
             bodyStyles: {
                 fontSize: 7,
@@ -1087,8 +1087,8 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 10: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "____x____"; } },
                 11: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "____x____"; } },
             },
-            tableLineWidth: 1,
-            tableBorderColor: grayHex, // Using grayHex for the overall table border as well
+            tableLineWidth: 0, // Removed table border line width
+            tableBorderColor: null, // Removed table border color
             didDrawPage: function(data) {
                 currentY = data.cursor.y + 10;
             }
