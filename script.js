@@ -859,6 +859,20 @@ function validateWorkoutText(workoutText) {
     };
 }
 
+
+/* ............................................... Function: Copy Workout ...................................................... */
+
+document.getElementById("copy-workout").addEventListener("click", function() {
+    navigator.clipboard.writeText(workoutTextForCopy)
+        .then(() => {
+            alert("Workout copied to clipboard!");
+        })
+        .catch(err => {
+            console.error("Failed to copy: ", err);
+            alert("Failed to copy workout.");
+        });
+});
+
 /* ............................................... Function: Download PDF ...................................................... */
 
 document.getElementById('download-pdf').addEventListener('click', function () {
@@ -1025,18 +1039,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
     }
 });
 
-/* ............................................... Function: Copy Workout ...................................................... */
 
-document.getElementById("copy-workout").addEventListener("click", function() {
-    navigator.clipboard.writeText(workoutTextForCopy)
-        .then(() => {
-            alert("Workout copied to clipboard!");
-        })
-        .catch(err => {
-            console.error("Failed to copy: ", err);
-            alert("Failed to copy workout.");
-        });
-});
 
 
 /* ............................................... Function: To Populate table ...................................................... */
