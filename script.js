@@ -931,49 +931,61 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
 
-        doc.autoTable({
+doc.autoTable({
             head: [headers],
             body: tableData,
             startY: 10,
             styles: {
                 fontSize: 8,
                 cellPadding: 1,
-                lineWidth: 0.1, // Add thin borders to body cells
-                borderColor: [169, 169, 169], // Light gray border color for body
-                textColor: [0, 0, 0], // Black text
-                valign: 'middle', // Vertical alignment
-                halign: 'left', // Default horizontal alignment
-                font: 'helvetica', // Specify the font (default is helvetica)
-                fontStyle: 'normal', // Specify the font style
+                lineWidth: 0.1,
+                borderColor: [169, 169, 169],
+                textColor: [0, 0, 0],
+                valign: 'middle',
+                halign: 'left',
+                font: 'helvetica',
+                fontStyle: 'normal',
             },
             headStyles: {
                 fontSize: 9,
-                fillColor: [220, 220, 220], // Light gray header background
-                textColor: [0, 0, 0], // Black text for header
-                lineWidth: 0.5, // Add thin borders to header cells
-                borderColor: [169, 169, 169], // Light gray border color for header
+                fillColor: [220, 220, 220],
+                textColor: [0, 0, 0],
+                lineWidth: 0.5,
+                borderColor: [169, 169, 169],
                 valign: 'middle',
-                halign: 'center', // Center align header text
+                halign: 'center',
                 fontStyle: 'bold',
             },
             columnStyles: {
-                0: { cellWidth: 'auto', halign: 'left' }, // Exercise - Left align
-                1: { cellWidth: 'auto', halign: 'center' }, // Reps - Center align
-                2: { cellWidth: 'auto', halign: 'center' }, // TPS - Center align
-                3: { cellWidth: 'auto', halign: 'center' }, // Rest - Center align
-                4: { cellWidth: 'auto', halign: 'center' }, // Set 1 - Center align
-                5: { cellWidth: 'auto', halign: 'center' }, // Set 2 - Center align
-                6: { cellWidth: 'auto', halign: 'center' }, // Set 3 - Center align
-                7: { cellWidth: 'auto', halign: 'center' }, // Set 4 - Center align
-                8: { cellWidth: 'auto', halign: 'center' }, // Set 5 - Center align
-                9: { cellWidth: 'auto', halign: 'center' }, // Set 6 - Center align
-                10: { cellWidth: 'auto', halign: 'center' }, // Set 7 - Center align
-                11: { cellWidth: 'auto', halign: 'center' }, // Set 8 - Center align
+                0: { cellWidth: 'auto', halign: 'left' },
+                1: { cellWidth: 'auto', halign: 'center' },
+                2: { cellWidth: 'auto', halign: 'center' },
+                3: { cellWidth: 'auto', halign: 'center' },
+                4: { cellWidth: 'auto', halign: 'center' },
+                5: { cellWidth: 'auto', halign: 'center' },
+                6: { cellWidth: 'auto', halign: 'center' },
+                7: { cellWidth: 'auto', halign: 'center' },
+                8: { cellWidth: 'auto', halign: 'center' },
+                9: { cellWidth: 'auto', halign: 'center' },
+                10: { cellWidth: 'auto', halign: 'center' },
+                11: { cellWidth: 'auto', halign: 'center' },
             },
-            tableLineWidth: 0.5, // Add a border around the table
-            tableBorderColor: [169, 169, 169], // Light gray border color for the table
+            tableLineWidth: 0.5,
+            tableBorderColor: [169, 169, 169],
+            didParseCell: function (data) {
+                if (data.row.index % 2 !== 0 && data.cell.raw === 'Warm-up:') { // Check if it's a warm-up row (every other row after an exercise) and the content is "Warm-up:"
+                    data.cell.styles.fontStyle = 'italic';
+                    data.cell.styles.textColor = [105, 105, 105]; // Dim gray
+                } else if (data.row.index % 2 !== 0 && data.column.index > 1 && data.cell.raw === '') {
+                    data.cell.styles.minCellHeight = 5; // Reduce height of empty cells in warm-up row
+                    data.cell.styles.padding = { top: 0, bottom: 0 };
+                } else if (data.cell.raw === '/') {
+                    data.cell.styles.minCellHeight = 5; // Reduce height of separator cells
+                    data.cell.styles.padding = { top: 0, bottom: 0 };
+                }
+            }
         });
-
+        
         const tableEndY = doc.autoTable.previous.finalY;
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(11);
