@@ -1094,7 +1094,8 @@ document.getElementById("copy-workout").addEventListener("click", function() {
             alert("Failed to copy workout.");
         });
       });
-}
+
+
 document.addEventListener('DOMContentLoaded', function() {
     populateExerciseTable();
 
