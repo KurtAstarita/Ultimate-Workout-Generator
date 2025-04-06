@@ -132,6 +132,7 @@
      <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.3/purify.min.js"></script>
      <script src="script.js"></script>
     <script src="sanitize.js"></script>
+    <script src="test.js"></script>
  </body>
  <footer>
        <p>&copy; [2025] Kurt Astarita</p>
