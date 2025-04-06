@@ -910,7 +910,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                     }
 
                     // Add the exercise row
-                    tableData.push([exerciseName, repsInfo, tpsInfoFormatted, restInfoFormatted, "       |       ", "       |       ", "       |        ", "       |       ", "       |      ", "       |       "]);
+                    tableData.push([exerciseName, repsInfo, tpsInfoFormatted, restInfoFormatted, "       |       ", "       |       ", "       |       ", "       |       ", "       |       ", "       |       "]);
                     // Add a row for warm-up in the exercise column
                     tableData.push(["  Warm-up:", "", "", "", "|", "|", "|", "|", "|", "|"]);
                     // Add a row for notes in the exercise column
@@ -927,8 +927,8 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             body: tableData,
             startY: 10,
             styles: {
-                fontSize: 6,
-                cellPadding: 1,
+                fontSize: 7,
+                cellPadding: 2,
                 lineWidth: 0.1,
                 borderColor: [1, 1, 1],
                 textColor: [0, 0, 0],
@@ -938,7 +938,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 fontStyle: 'normal',
             },
             headStyles: {
-                fontSize: 8,
+                fontSize: 9,
                 fillColor: [220, 220, 220],
                 textColor: [0, 0, 0],
                 lineWidth: 0.5,
