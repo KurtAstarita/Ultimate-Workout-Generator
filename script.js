@@ -1164,5 +1164,3 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById("experience").value = "beginner";
     document.getElementById("modality").value = "general";
 });
-
-
