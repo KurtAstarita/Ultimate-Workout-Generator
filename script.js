@@ -984,16 +984,16 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 fontSize: 7,
                 font: 'helvetica',
                 cellPadding: 1,
-                valign: 'bottom',
+                valign: 'bottom'
             },
             headStyles: {
                 fontSize: 8,
                 fontStyle: 'bold',              
-                halign: 'center',
+                halign: 'center'
             },
             bodyStyles: {
                 fontSize: 7,
-                fontStyle: 'normal',
+                fontStyle: 'normal'
             },
             columnStyles: {
                 0: { cellWidth: 20 },
