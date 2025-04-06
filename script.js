@@ -912,7 +912,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                     // Add the exercise row
                     tableData.push([exerciseName, repsInfo, tpsInfoFormatted, restInfoFormatted, "___|___", "___|___", "___|___", "___|___", "___|___", "___|___"]);
                     // Add a row for warm-up in the exercise column
-                    tableData.push(["  Warm-up:", "", "", "", "", "", "___|___", "___|___", "___|___", "___|___", "___|___", "___|___"]);
+                    tableData.push(["  Warm-up:", "", "", "", "___|___", "___|___", "___|___", "___|___", "___|___", "___|___", "___|___", "___|___"]);
                     // Add a row for notes in the exercise column
                     tableData.push(["    Notes:", "", "", "", "", "", "", "", "", "", "", ""]);
                 }
