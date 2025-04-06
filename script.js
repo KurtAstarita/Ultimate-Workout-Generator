@@ -1083,17 +1083,17 @@ function populateExerciseTable() {
         tableBody.appendChild(row);
     });
 
-    // Attach event listeners after the elements are created
-    document.querySelectorAll(".copy-exercise").forEach(button => {
-        button.addEventListener("click", function () {
-            const textToCopy = this.dataset.exercise;
-            navigator.clipboard.writeText(textToCopy).then(() => {
-                this.textContent = "Copied!";
-                setTimeout(() => this.textContent = this.dataset.exercise.split(" - ")[0], 2000);
-            }).catch(err => {
-                console.error("Copy failed", err);
-            });
+document.getElementById("copy-workout").addEventListener("click", function() {
+    const textToCopy = workoutTextForCopy.replace(/\.$/gm, ''); // Remove trailing periods from each line
+    navigator.clipboard.writeText(textToCopy)
+        .then(() => {
+            alert("Workout copied to clipboard!");
+        })
+        .catch(err => {
+            console.error("Failed to copy: ", err);
+            alert("Failed to copy workout.");
         });
+      });
     });
 }
 document.addEventListener('DOMContentLoaded', function() {
