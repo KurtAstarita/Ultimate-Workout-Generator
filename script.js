@@ -929,25 +929,27 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
 
-       doc.autoTable({
+doc.autoTable({
             head: [headers],
             body: tableData,
             startY: 10,
             styles: {
                 fontSize: 10,
                 cellPadding: 3,
-                lineWidth: 0, // Remove all borders
+                lineWidth: 0.5, // Add thin borders to body cells
+                borderColor: [169, 169, 169], // Light gray border color for body
                 textColor: [0, 0, 0], // Black text
                 valign: 'middle', // Vertical alignment
                 halign: 'left', // Default horizontal alignment
                 font: 'helvetica', // Specify the font (default is helvetica)
-                fontStyle: 'normal', // Specify the font style (normal, bold, italic, bolditalic)
+                fontStyle: 'normal', // Specify the font style
             },
             headStyles: {
                 fontSize: 12,
                 fillColor: [220, 220, 220], // Light gray header background
                 textColor: [0, 0, 0], // Black text for header
-                lineWidth: 0, // Remove header borders
+                lineWidth: 0.5, // Add thin borders to header cells
+                borderColor: [169, 169, 169], // Light gray border color for header
                 valign: 'middle',
                 halign: 'center', // Center align header text
                 fontStyle: 'bold',
@@ -966,8 +968,8 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 10: { cellWidth: 'auto', halign: 'center' }, // Set 7 - Center align
                 11: { cellWidth: 'auto', halign: 'center' }, // Set 8 - Center align
             },
-            tableLineWidth: 0, // Ensure no table border
-            tableBorderColor: [255, 255, 255], // Set to white to effectively hide
+            tableLineWidth: 0.5, // Add a border around the table
+            tableBorderColor: [169, 169, 169], // Light gray border color for the table
         });
 
         
@@ -1003,8 +1005,6 @@ document.getElementById("copy-workout").addEventListener("click", function() {
 });
 
 
-
-/* ............................................... Function: To Populate table ...................................................... */
 /* ............................................... Function: To Populate table ...................................................... */
 function populateExerciseTable() {
     console.log("Populating exercise table..."); // Debugging log
