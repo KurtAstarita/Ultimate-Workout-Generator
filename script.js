@@ -669,6 +669,8 @@ document.getElementById("copy-workout").disabled = true;
 
 /* ............................................... Function: Generate Workout ...................................................... */
 
+/* ............................................... Function: Generate Workout ...................................................... */
+
 document.getElementById("generate-workout").addEventListener("click", function () {
     const goal = document.getElementById("goal").value;
     const experience = document.getElementById("experience").value;
@@ -775,9 +777,34 @@ document.getElementById("generate-workout").addEventListener("click", function (
         }
     }
 
-let totalWorkoutTime = 0;
+    let totalWorkoutTime = 0;
     let workoutHTML = "<br><center><h3><u>YOUR WORKOUT</u></h3></center><ul>";
     workoutTextForCopy = ""; // Reset workoutTextForCopy here
+
+    // --- Dynamic Title Generation ---
+    let workoutTitle = "My"; // Start with the prefix
+
+    if (experience) {
+        workoutTitle += ` ${experience.charAt(0).toUpperCase() + experience.slice(1)}`; // Affix: Experience
+    }
+
+    if (goal && goal !== "general") {
+        workoutTitle += ` ${goal.charAt(0).toUpperCase() + goal.slice(1)} Focus`; // Affix: Goal
+    }
+
+    if (modality && modality !== "general") {
+        workoutTitle += ` (${modality.charAt(0).toUpperCase() + modality.slice(1)})`; // Affix: Modality
+    }
+
+    if (trainingSplit && trainingSplit !== "none") {
+        const splitFormatted = trainingSplit.replace("_", " & ").split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+        workoutTitle += ` - ${splitFormatted}`; // Affix: Training Split
+    }
+
+    workoutTitle += " Workout"; // Suffix
+
+    workoutHTML = `<br><center><h3><u>${workoutTitle}</u></h3></center><ul>`;
+    // --- End Dynamic Title Generation ---
 
     workout.forEach(ex => {
         workoutHTML += `<br><br><li><b>${ex.name}</b>`;
@@ -786,20 +813,35 @@ let totalWorkoutTime = 0;
         if (ex.sets && ex.reps) {
             workoutHTML += ` - Reps: ${ex.sets}x${ex.reps}`;
             workoutTextForCopy += ` - Reps: ${ex.sets}x${ex.reps}`;
-            if (typeof ex.sets === 'number' && ex.rest) {
+        }
+
+        if (ex.rest) {
+            workoutHTML += ` - Rest: ${ex.rest} seconds`;
+            workoutTextForCopy += ` - Rest: ${ex.rest} seconds`;
+            if (typeof ex.sets === 'number') {
                 totalWorkoutTime += (ex.sets - 1) * ex.rest; // Rest between sets
             }
         }
 
-        if (typeof ex.timePerSet === 'number' && typeof ex.sets === 'number') {
+        if (ex.timePerSet !== undefined) {
             workoutHTML += ` - Time per set: ${ex.timePerSet} seconds`;
             workoutTextForCopy += ` - Time per set: ${ex.timePerSet} seconds`;
-            totalWorkoutTime += ex.sets * ex.timePerSet; // Multiply timePerSet by the number of sets
+            if (typeof ex.sets === 'number') {
+                let numberOfRounds = ex.sets;
+                if (typeof ex.reps === 'string' && (ex.reps.includes('sec') || ex.reps.includes('minutes'))) {
+                    numberOfRounds = ex.sets;
+                } else if (typeof ex.reps === 'string' && (ex.reps === 'AMRAP' || ex.reps === 'Ladder')) {
+                    numberOfRounds = ex.sets;
+                } else if (typeof ex.reps === 'number') {
+                    numberOfRounds = ex.sets;
+                }
+                totalWorkoutTime += numberOfRounds * ex.timePerSet;
+            }
         }
 
         workoutTextForCopy += "\n";
     });
-    
+
     const minutes = Math.round(totalWorkoutTime / 60);
     workoutHTML += `<p><i>Estimated Workout Time: ${minutes} minutes</i></p>`;
     workoutTextForCopy += `Estimated Workout Time: ${minutes} minutes`;
@@ -877,14 +919,22 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         }
 
         const lines = workoutText.split('\n');
-        const exercisesList = [];
+        let tableData = [];
         let estimatedTime = "";
 
         lines.forEach(line => {
             if (line.trim() && !line.includes("Estimated Workout Time")) {
-                const exerciseMatch = line.match(/^(.+?) - Reps:/);
+                const exerciseMatch = line.match(/^(.+?) - Reps: (.+?)(?: - Rest: (.+?) (seconds?|minutes?))?(?: - Time per set: (.+?) (seconds?|minutes?))?\s*$/i);
                 if (exerciseMatch) {
-                    exercisesList.push(exerciseMatch[1].replace(/<b>|<\/b>/g, '').trim());
+                    const exerciseName = exerciseMatch[1].replace(/<b>|<\/b>/g, '').trim();
+                    const repsInfo = exerciseMatch[2].trim();
+                    const restValue = exerciseMatch[3] ? exerciseMatch[3].trim() : "";
+                    const restUnit = exerciseMatch[4] ? exerciseMatch[4].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "";
+                    const restInfoFormatted = restValue && restUnit ? `${restValue} ${restUnit}` : "";
+                    const tpsValue = exerciseMatch[5] ? exerciseMatch[5].trim() : "";
+                    const tpsUnit = exerciseMatch[6] ? exerciseMatch[6].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "";
+                    const tpsInfoFormatted = tpsValue && tpsUnit ? `${tpsValue} ${tpsUnit}` : "";
+                    tableData.push([exerciseName, repsInfo, tpsInfoFormatted, restInfoFormatted, "", "", "", "", "", "", "", ""]);
                 }
             } else if (line.includes("Estimated Workout Time")) {
                 estimatedTime = line;
@@ -894,35 +944,29 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
         const pageWidth = doc.internal.pageSize.getWidth();
-        const tableWidth = pageWidth - 20;
         let currentY = 10;
+        const grayScale = 169 / 255;
+        const grayRGB = [169, 169, 169];
 
-        // Generate Workout Table (as before)
-        const headers = ["Exercise", "Reps", "TPS", "Rest"];
-        const tableData = exercisesList.map(exerciseName => {
-            const line = lines.find(l => l.startsWith(`<b>${exerciseName}</b>`));
-            const repsMatch = line ? line.match(/Reps: (.+?)(?: - Time per set: (.+?) (seconds?|minutes?))?(?: - Rest: (.+?) (seconds?|minutes?))?\s*$/i) : null;
-            const repsInfo = repsMatch ? repsMatch[1].trim() : "";
-            const tpsInfo = repsMatch && repsMatch[2] ? repsMatch[2].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "";
-            const restInfo = repsMatch && repsMatch[4] ? repsMatch[4].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "";
-            return [exerciseName, repsInfo, tpsInfo, restInfo];
-        });
-
+        // Workout Table with gray border
+        const headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
         doc.autoTable({
             head: [headers],
             body: tableData,
             startY: currentY,
-            tableWidth: tableWidth,
             margin: { horizontal: 10 },
-            styles: { fontSize: 8, cellPadding: 2, borderColor: [169, 169, 169], borderWidth: 1 },
-            headStyles: { fontSize: 8, fillColor: [200, 200, 200], borderColor: [169, 169, 169], borderWidth: 1 },
+            styles: { fontSize: 8, cellPadding: 2, borderColor: grayRGB, borderWidth: 1 },
+            headStyles: { fontSize: 8, fillColor: [200, 200, 200], borderColor: grayRGB, borderWidth: 1 },
             columnStyles: { 0: { cellWidth: 'auto' }, 1: { cellWidth: 'auto' }, 2: { cellWidth: 'auto' }, 3: { cellWidth: 'auto' } },
+            tableLineWidth: 1, // Explicitly set table line width
+            tableBorderColor: grayRGB, // Explicitly set table border color
             didDrawPage: function(data) {
                 currentY = data.cursor.y + 10;
             }
         });
 
-        currentY = doc.autoTable.previous.finalY + 10;
+        const tableEndY = doc.autoTable.previous.finalY;
+        currentY = tableEndY + 10;
 
         // Estimated Workout Time
         doc.setFont('helvetica', 'bold');
@@ -931,33 +975,25 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         doc.text(estimatedTime, 10, currentY);
         currentY += 15;
 
-        // NOTES Section
+        // Notes Section (Lines Only)
         doc.setFontSize(12);
         doc.setTextColor(0, 0, 0);
         doc.text("NOTES", 10, currentY);
-        currentY += 8;
+        const notesStartY = currentY + 8;
 
-        const notesBorderY = currentY;
-        doc.line(10, currentY, pageWidth - 10, currentY); // Top border
-        currentY += 3;
+        // Calculate remaining height
+        const pageHeight = doc.internal.pageSize.getHeight();
+        const notesHeight = pageHeight - notesStartY - 10;
 
-        const notesLineHeight = 7;
-        exercisesList.forEach(exerciseName => {
-            doc.setFontSize(10);
-            doc.text(exerciseName, 15, currentY);
-            currentY += 5;
-            doc.setLineWidth(0.2);
-            const lineStartY = currentY;
-            for (let i = 0; i < 3; i++) { // Add 3 lines for notes per exercise
-                doc.line(15, currentY, pageWidth - 15, currentY);
-                currentY += notesLineHeight;
-            }
-            currentY += 5; // Add some space after each exercise's notes
-        });
-
-        doc.line(10, notesBorderY, 10, currentY - 8); // Left border
-        doc.line(pageWidth - 10, notesBorderY, pageWidth - 10, currentY - 8); // Right border
-        doc.line(10, currentY - 8, pageWidth - 10, currentY - 8); // Bottom border
+        // Draw lines
+        doc.setDrawColor(grayScale);
+        doc.setLineWidth(0.2);
+        const lineHeight = 7;
+        let y = notesStartY;
+        while (y < notesStartY + notesHeight) {
+            doc.line(15, y, pageWidth - 15, y);
+            y += lineHeight;
+        }
 
         doc.save("workout.pdf");
 
@@ -970,7 +1006,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 
 /* ............................................... Function: To Populate table ...................................................... */
 function populateExerciseTable() {
-    console.log("Populating exercise table...");
+    console.log("Populating exercise table..."); // Debugging log
 
     const tableBody = document.getElementById("exercise-table-body");
     if (!tableBody) {
@@ -982,16 +1018,16 @@ function populateExerciseTable() {
     let allExercises = [];
     let seenExercises = new Set();
 
-    console.log("Number of categories in exercises:", Object.keys(exercises).length);
+    console.log("Number of categories in exercises:", Object.keys(exercises).length); // Check the number of categories
 
     for (const category in exercises) {
-        console.log("Processing category:", category);
+        console.log("Processing category:", category); // Check which category is being processed
         for (const level in exercises[category]) {
-            console.log("Processing level:", level);
+            console.log("Processing level:", level); // Check which level is being processed
             for (const type in exercises[category][level]) {
-                console.log("Processing type:", type);
+                console.log("Processing type:", type); // Check which type is being processed
                 const exerciseList = exercises[category][level][type];
-                console.log("Exercise list for this type:", exerciseList);
+                console.log("Exercise list for this type:", exerciseList); // Check the exercise list
 
                 if (Array.isArray(exerciseList)) {
                     exerciseList.forEach(exercise => {
@@ -1001,7 +1037,7 @@ function populateExerciseTable() {
                             seenExercises.add(normalizedName);
                         }
                     });
-                } else if (typeof exerciseList === 'object' && exerciseList !== null) {
+                } else if (typeof exerciseList === 'object' && exerciseList !== null) { // Handle objects
                     const normalizedName = exerciseList.name.trim().toLowerCase();
                     if (!seenExercises.has(normalizedName)) {
                         allExercises.push(exerciseList);
@@ -1014,11 +1050,10 @@ function populateExerciseTable() {
         }
     }
 
-    console.log("Total number of unique exercises found:", allExercises.length);
+    console.log("Total number of unique exercises found:", allExercises.length); // Check the total number of exercises found
 
     allExercises.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
     allExercises.forEach(exercise => {
-        console.log("Current exercise:", exercise); // ADDED CONSOLE LOG HERE
         const row = document.createElement("tr");
         const button = document.createElement("button");
         button.className = "copy-exercise";
@@ -1034,8 +1069,8 @@ function populateExerciseTable() {
         const cell1 = document.createElement("td");
         cell1.appendChild(button);
 
-        const cell2 = document.createElement("td");
-        cell2.textContent = exercise.muscleGroup || '';
+        const cell2 = document.createElement("td"); // New cell for Muscle Group
+        cell2.textContent = exercise.muscleGroup || ''; // Display muscle group
 
         const cell4 = document.createElement("td");
         cell4.textContent = exercise.sets;
@@ -1047,10 +1082,10 @@ function populateExerciseTable() {
         cell6.textContent = exercise.rest;
 
         const cell7 = document.createElement("td");
-        cell7.textContent = exercise.timePerSet || '';
+        cell7.textContent = exercise.timePerSet || ''; // Display time per set
 
         row.appendChild(cell1);
-        row.appendChild(cell2);
+        row.appendChild(cell2); // Append the Muscle Group cell
         row.appendChild(cell4);
         row.appendChild(cell5);
         row.appendChild(cell6);
@@ -1059,6 +1094,7 @@ function populateExerciseTable() {
         tableBody.appendChild(row);
     });
 
+    // Attach event listeners after the elements are created
     document.querySelectorAll(".copy-exercise").forEach(button => {
         button.addEventListener("click", function () {
             const textToCopy = this.dataset.exercise;
@@ -1071,3 +1107,11 @@ function populateExerciseTable() {
         });
     });
 }
+document.addEventListener('DOMContentLoaded', function() {
+    populateExerciseTable();
+
+    // Set default values on page load
+    document.getElementById("goal").value = "muscle";
+    document.getElementById("experience").value = "beginner";
+    document.getElementById("modality").value = "general";
+});
