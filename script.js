@@ -923,43 +923,54 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             }
         });
 
+
+/* ............................................... Function: Table Styles (In Print PDF)  ...................................................... */
+        
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
 
-        doc.autoTable({
+       doc.autoTable({
             head: [headers],
             body: tableData,
             startY: 10,
             styles: {
-                fontSize: 8,
-                cellPadding: 2,
-                borderColor: [169, 169, 169],
-                borderWidth: 1,
+                fontSize: 10,
+                cellPadding: 3,
+                lineWidth: 0, // Remove all borders
+                textColor: [0, 0, 0], // Black text
+                valign: 'middle', // Vertical alignment
+                halign: 'left', // Default horizontal alignment
+                font: 'helvetica', // Specify the font (default is helvetica)
+                fontStyle: 'normal', // Specify the font style (normal, bold, italic, bolditalic)
             },
             headStyles: {
-                fontSize: 8,
-                fillColor: [200, 200, 200],
-                borderColor: [169, 169, 169],
-                borderWidth: 1,
+                fontSize: 12,
+                fillColor: [220, 220, 220], // Light gray header background
+                textColor: [0, 0, 0], // Black text for header
+                lineWidth: 0, // Remove header borders
+                valign: 'middle',
+                halign: 'center', // Center align header text
+                fontStyle: 'bold',
             },
             columnStyles: {
-                0: { cellWidth: 'auto' }, // Exercise
-                1: { cellWidth: 'auto' }, // Reps
-                2: { cellWidth: 'auto' }, // TPS
-                3: { cellWidth: 'auto' }, // Rest
-                4: { cellWidth: 'auto' }, // Set 1
-                5: { cellWidth: 'auto' }, // Set 2
-                6: { cellWidth: 'auto' }, // Set 3
-                7: { cellWidth: 'auto' }, // Set 4
-                8: { cellWidth: 'auto' }, // Set 5
-                9: { cellWidth: 'auto' }, // Set 6
-                10: { cellWidth: 'auto' }, // Set 7
-                11: { cellWidth: 'auto' }, // Set 8
+                0: { cellWidth: 'auto', halign: 'left' }, // Exercise - Left align
+                1: { cellWidth: 'auto', halign: 'center' }, // Reps - Center align
+                2: { cellWidth: 'auto', halign: 'center' }, // TPS - Center align
+                3: { cellWidth: 'auto', halign: 'center' }, // Rest - Center align
+                4: { cellWidth: 'auto', halign: 'center' }, // Set 1 - Center align
+                5: { cellWidth: 'auto', halign: 'center' }, // Set 2 - Center align
+                6: { cellWidth: 'auto', halign: 'center' }, // Set 3 - Center align
+                7: { cellWidth: 'auto', halign: 'center' }, // Set 4 - Center align
+                8: { cellWidth: 'auto', halign: 'center' }, // Set 5 - Center align
+                9: { cellWidth: 'auto', halign: 'center' }, // Set 6 - Center align
+                10: { cellWidth: 'auto', halign: 'center' }, // Set 7 - Center align
+                11: { cellWidth: 'auto', halign: 'center' }, // Set 8 - Center align
             },
-            tableLineWidth: 1,
-            tableBorderColor: [169, 169, 169],
+            tableLineWidth: 0, // Ensure no table border
+            tableBorderColor: [255, 255, 255], // Set to white to effectively hide
         });
 
+        
         const tableEndY = doc.autoTable.previous.finalY;
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(11);
