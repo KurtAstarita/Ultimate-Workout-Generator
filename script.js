@@ -910,9 +910,9 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                     }
 
                     // Add the exercise row
-                    tableData.push([exerciseName, repsInfo, tpsInfoFormatted, restInfoFormatted, "    |    ", "    |    ", "    |    ", "    |    ", "    |    ", "    |    "]);
+                    tableData.push([exerciseName, repsInfo, tpsInfoFormatted, restInfoFormatted, "     |     ", "     |     ", "     |     ", "     |     ", "     |     ", "     |     "]);
                     // Add a row for warm-up in the exercise column
-                    tableData.push(["  Warm-up:", "", "", "", "", "", "", "", "", "", "", ""]);
+                    tableData.push(["  Warm-up:", "", "", "", "|", "|", "|", "|", "|", "|"]);
                     // Add a row for notes in the exercise column
                     tableData.push(["    Notes:", "", "", "", "", "", "", "", "", "", "", ""]);
                 }
