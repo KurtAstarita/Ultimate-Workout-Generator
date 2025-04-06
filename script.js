@@ -963,23 +963,25 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             },
             tableLineWidth: 0.5,
             tableBorderColor: [169, 169, 169],
-            didParseCell: function (data) {
-                // Style for Warm-up row
-                if (data.row.index % 3 === 1 && data.column.index === 0 && data.cell.raw.includes('Warm-up:')) {
+   didParseCell: function (data) {
+                const rowIndex = data.row.index;
+
+                // Style for Warm-up row (now every 2nd row after an exercise)
+                if ((rowIndex - 1) % 3 === 0 && rowIndex > 0 && data.column.index === 0 && data.cell.raw.includes('Warm-up:')) {
                     data.cell.styles.fontStyle = 'italic';
                     data.cell.styles.textColor = [105, 105, 105];
                     data.cell.styles.cellPadding = { top: 0, right: data.cell.styles.cellPadding.right, bottom: 0, left: data.cell.styles.cellPadding.left };
                 }
-                // Style for Notes row
-                else if (data.row.index % 3 === 2 && data.column.index === 0 && data.cell.raw.includes('Notes:')) {
+                // Style for Notes row (now every 3rd row after an exercise)
+                else if ((rowIndex - 2) % 3 === 0 && rowIndex > 1 && data.column.index === 0 && data.cell.raw.includes('Notes:')) {
                     data.cell.styles.fontStyle = 'italic';
-                    data.cell.styles.textColor = [150, 150, 150]; // Slightly lighter gray for notes
+                    data.cell.styles.textColor = [150, 150, 150];
                     data.cell.styles.cellPadding = { top: 0, right: data.cell.styles.cellPadding.right, bottom: 0, left: data.cell.styles.cellPadding.left };
-                    data.cell.styles.lineWidth = { top: 0, bottom: 0, left: data.cell.styles.lineWidth, right: data.cell.styles.lineWidth }; // Remove top and bottom borders
-                    data.cell.styles.borderColor = [240, 240, 240]; // Light gray, try to blend with a light background
+                    data.cell.styles.lineWidth = { top: 0, bottom: 0, left: data.cell.styles.lineWidth, right: data.cell.styles.lineWidth };
+                    data.cell.styles.borderColor = [240, 240, 240];
                 }
                 // Reduce height of empty cells in Warm-up and Notes rows
-                else if (data.row.index % 3 > 0 && data.column.index > 0) {
+                else if (rowIndex % 3 > 0 && data.column.index > 0) {
                     data.cell.styles.minCellHeight = 5;
                     data.cell.styles.padding = { top: 0, bottom: 0 };
                 }
@@ -987,6 +989,10 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 else if (data.cell.raw === '/') {
                     data.cell.styles.minCellHeight = 5;
                     data.cell.styles.padding = { top: 0, bottom: 0 };
+                }
+                // Make every 1st and 4th cell gray (referring to the exercise rows)
+                if (rowIndex % 3 === 0) { // Exercise rows have indices 0, 3, 6, etc.
+                    data.cell.styles.fillColor = [240, 240, 240]; // Light gray
                 }
             }
         });
