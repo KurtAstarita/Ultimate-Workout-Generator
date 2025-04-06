@@ -929,7 +929,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             styles: {
                 fontSize: 8,
                 cellPadding: 1,
-                lineWidth: 0.0,
+                lineWidth: 0.05,
                 borderColor: [1, 1, 1],
                 textColor: [0, 0, 0],
                 valign: 'middle',
