@@ -955,7 +955,7 @@ doc.autoTable({
                 fontStyle: 'bold',
             },
             columnStyles: {
-                0: { cellWidth: '50', halign: 'left' }, // Exercise - Left align
+                0: { cellWidth: 'auto', halign: 'left' }, // Exercise - Left align
                 1: { cellWidth: 'auto', halign: 'center' }, // Reps - Center align
                 2: { cellWidth: 'auto', halign: 'center' }, // TPS - Center align
                 3: { cellWidth: 'auto', halign: 'center' }, // Rest - Center align
