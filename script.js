@@ -972,7 +972,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 
 /* ............................................... Function: To Populate table ...................................................... */
 function populateExerciseTable() {
-    console.log("Populating exercise table..."); // Debugging log
+    console.log("Populating exercise table...");
 
     const tableBody = document.getElementById("exercise-table-body");
     if (!tableBody) {
@@ -984,16 +984,16 @@ function populateExerciseTable() {
     let allExercises = [];
     let seenExercises = new Set();
 
-    console.log("Number of categories in exercises:", Object.keys(exercises).length); // Check the number of categories
+    console.log("Number of categories in exercises:", Object.keys(exercises).length);
 
     for (const category in exercises) {
-        console.log("Processing category:", category); // Check which category is being processed
+        console.log("Processing category:", category);
         for (const level in exercises[category]) {
-            console.log("Processing level:", level); // Check which level is being processed
+            console.log("Processing level:", level);
             for (const type in exercises[category][level]) {
-                console.log("Processing type:", type); // Check which type is being processed
+                console.log("Processing type:", type);
                 const exerciseList = exercises[category][level][type];
-                console.log("Exercise list for this type:", exerciseList); // Check the exercise list
+                console.log("Exercise list for this type:", exerciseList);
 
                 if (Array.isArray(exerciseList)) {
                     exerciseList.forEach(exercise => {
@@ -1003,7 +1003,7 @@ function populateExerciseTable() {
                             seenExercises.add(normalizedName);
                         }
                     });
-                } else if (typeof exerciseList === 'object' && exerciseList !== null) { // Handle objects
+                } else if (typeof exerciseList === 'object' && exerciseList !== null) {
                     const normalizedName = exerciseList.name.trim().toLowerCase();
                     if (!seenExercises.has(normalizedName)) {
                         allExercises.push(exerciseList);
@@ -1016,10 +1016,11 @@ function populateExerciseTable() {
         }
     }
 
-    console.log("Total number of unique exercises found:", allExercises.length); // Check the total number of exercises found
+    console.log("Total number of unique exercises found:", allExercises.length);
 
     allExercises.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
     allExercises.forEach(exercise => {
+        console.log("Current exercise:", exercise); // ADDED CONSOLE LOG HERE
         const row = document.createElement("tr");
         const button = document.createElement("button");
         button.className = "copy-exercise";
@@ -1035,8 +1036,8 @@ function populateExerciseTable() {
         const cell1 = document.createElement("td");
         cell1.appendChild(button);
 
-        const cell2 = document.createElement("td"); // New cell for Muscle Group
-        cell2.textContent = exercise.muscleGroup || ''; // Display muscle group
+        const cell2 = document.createElement("td");
+        cell2.textContent = exercise.muscleGroup || '';
 
         const cell4 = document.createElement("td");
         cell4.textContent = exercise.sets;
@@ -1048,10 +1049,10 @@ function populateExerciseTable() {
         cell6.textContent = exercise.rest;
 
         const cell7 = document.createElement("td");
-        cell7.textContent = exercise.timePerSet || ''; // Display time per set
+        cell7.textContent = exercise.timePerSet || '';
 
         row.appendChild(cell1);
-        row.appendChild(cell2); // Append the Muscle Group cell
+        row.appendChild(cell2);
         row.appendChild(cell4);
         row.appendChild(cell5);
         row.appendChild(cell6);
@@ -1060,7 +1061,6 @@ function populateExerciseTable() {
         tableBody.appendChild(row);
     });
 
-    // Attach event listeners after the elements are created
     document.querySelectorAll(".copy-exercise").forEach(button => {
         button.addEventListener("click", function () {
             const textToCopy = this.dataset.exercise;
@@ -1073,11 +1073,3 @@ function populateExerciseTable() {
         });
     });
 }
-document.addEventListener('DOMContentLoaded', function() {
-    populateExerciseTable();
-
-    // Set default values on page load
-    document.getElementById("goal").value = "muscle";
-    document.getElementById("experience").value = "beginner";
-    document.getElementById("modality").value = "general";
-});
