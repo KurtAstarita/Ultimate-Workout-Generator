@@ -975,6 +975,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         currentY += 8;
 
         const headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
+        const grayHex = '#A9A9A9'; // Hex for RGB(169, 169, 169)
         doc.autoTable({
             head: [headers],
             body: tableData,
@@ -984,16 +985,24 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 fontSize: 7,
                 font: 'helvetica',
                 cellPadding: 1,
+                borderColor: grayHex, // Using grayHex
+                borderWidth: 1,
                 valign: 'bottom'
             },
             headStyles: {
-                fontSize: 8,
-                fontStyle: 'bold',              
+                fontSize: 8, // Font size for the table header
+                fontStyle: 'bold', // Font style for the table header
+                fillColor: [200, 200, 200],
+                borderColor: grayHex, // Using grayHex
+                borderWidth: 1,
                 halign: 'center'
             },
             bodyStyles: {
                 fontSize: 7,
-                fontStyle: 'normal'
+                fontStyle: 'normal',
+                // borderColor: grayHex, // Uncomment if you want borders on body cells
+                // borderWidth: 1,
+                textColor: [0, 0, 0]
             },
             columnStyles: {
                 0: { cellWidth: 20 },
