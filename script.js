@@ -717,37 +717,38 @@ document.getElementById("generate-workout").addEventListener("click", function (
     }
 
     if (trainingSplit === "full_body") {
-        const labeledExercises = {};
+        const labeledExercisesByType = {};
         availableExercises.forEach(exercise => {
             if (exercise.label) {
                 const labels = exercise.label.split(',').map(label => label.trim());
                 labels.forEach(label => {
-                    if (!labeledExercises[label]) {
-                        labeledExercises[label] = [];
+                    if (!labeledExercisesByType[label]) {
+                        labeledExercisesByType[label] = [];
                     }
-                    labeledExercises[label].push(exercise);
+                    labeledExercisesByType[label].push(exercise);
                 });
             }
         });
 
-        const workoutLabels = new Set(); // Keep track of labels already used in the workout
-        for (const label in labeledExercises) {
-            if (labeledExercises[label].length > 0 && workoutLabels.size < numberOfExercises) {
-                const randomIndex = Math.floor(Math.random() * labeledExercises[label].length);
-                const selectedExercise = labeledExercises[label][randomIndex];
-                if (!workout.includes(selectedExercise)) { // Avoid duplicates
-                    workout.push(selectedExercise);
-                    workoutLabels.add(label);
+        const workoutLabels = new Set();
+        while (workout.length < numberOfExercises) {
+            const availableLabels = Object.keys(labeledExercisesByType).filter(label => !workoutLabels.has(label) && labeledExercisesByType[label].length > 0);
+            if (availableLabels.length > 0) {
+                const randomLabel = availableLabels[Math.floor(Math.random() * availableLabels.length)];
+                const exercisesForLabel = labeledExercisesByType[randomLabel];
+                const randomExerciseIndex = Math.floor(Math.random() * exercisesForLabel.length);
+                const selectedExercise = exercisesForLabel[randomExerciseIndex];
+                workout.push(selectedExercise);
+                workoutLabels.add(randomLabel);
+            } else if (availableExercises.length > 0) {
+                // If no more unique labels, add a random unique exercise
+                const randomIndex = Math.floor(Math.random() * availableExercises.length);
+                const randomExercise = availableExercises.splice(randomIndex, 1)[0];
+                if (!workout.some(ex => ex.name === randomExercise.name)) {
+                    workout.push(randomExercise);
                 }
-            }
-        }
-
-        // Fallback to add more random if available
-        while (workout.length < numberOfExercises && availableExercises.length > 0) {
-            const randomIndex = Math.floor(Math.random() * availableExercises.length);
-            const randomExercise = availableExercises.splice(randomIndex, 1)[0];
-            if (!workout.some(ex => ex.name === randomExercise.name)) {
-                workout.push(randomExercise);
+            } else {
+                break; // No more exercises to add
             }
         }
 
@@ -769,7 +770,7 @@ document.getElementById("generate-workout").addEventListener("click", function (
         }
     } else {
         // Default: select numberOfExercises random exercises
-        for (let i = 0; i < numberOfExercises && availableExercises.length > 0; i++) {
+        while (workout.length < numberOfExercises && availableExercises.length > 0) {
             const randomIndex = Math.floor(Math.random() * availableExercises.length);
             workout.push(availableExercises.splice(randomIndex, 1)[0]);
         }
@@ -824,7 +825,6 @@ document.getElementById("generate-workout").addEventListener("click", function (
     // Enable the copy button after the workout is generated
     document.getElementById("copy-workout").disabled = false;
 });
-
 /* ............................................... Function: Validate Workout ...................................................... */
 
 function validateWorkoutText(workoutText) {
