@@ -901,23 +901,37 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 
         const lines = workoutText.split('\n');
         let tableData = [];
-        // Insert "TPS" before "Rest" in the headers
         let headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
         let totalWorkoutTime = 0;
 
         lines.forEach(line => {
             if (line.trim() && !line.includes("Estimated Workout Time")) {
                 const exerciseMatch = line.match(/^(.+?) - Reps:/);
-                const repsMatch = line.match(/Reps: (.+?)(?: - Time per set: (.+?) (seconds?|minutes?))?(?: - Rest: (.+?) (seconds?|minutes?))?\s*$/);
+                const repsMatch = line.match(/Reps: (.+?)(?: - Time per set: (.+?) (seconds?|minutes?))?(?: - Rest: (.+?) (seconds?|minutes?))?\s*$/i);
 
-                if (exerciseMatch) {
+                if (exerciseMatch && repsMatch) {
                     const exerciseName = exerciseMatch[1].replace(/<b>|<\/b>/g, '').trim();
-                    const repsInfo = repsMatch ? repsMatch[1].trim() : "";
-                    const tpsInfo = repsMatch && repsMatch[2] ? repsMatch[2].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "";
-                    const restInfo = repsMatch && repsMatch[4] ? repsMatch[4].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "";
+                    const repsInfo = repsMatch[1].trim();
+                    const tpsValue = repsMatch[2] ? parseFloat(repsMatch[2]) : 0;
+                    const tpsUnit = repsMatch[3] ? repsMatch[3].toLowerCase() : 'seconds';
+                    const restInfo = repsMatch[4] ? repsMatch[4].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "";
 
-                    // Add data in the new order
-                    tableData.push([exerciseName, repsInfo, tpsInfo, restInfo, "", "", "", "", "", "", "", ""]);
+                    let sets = 1; // Default to 1 set, try to infer from reps
+                    const setsMatch = repsInfo.match(/^(\d+)x/);
+                    if (setsMatch) {
+                        sets = parseInt(setsMatch[1]);
+                    }
+
+                    let tpsInSeconds = tpsValue;
+                    if (tpsUnit === 'minutes') {
+                        tpsInSeconds *= 60;
+                    }
+
+                    totalWorkoutTime += sets * tpsInSeconds;
+
+                    const tpsFormatted = tpsValue ? `${tpsValue} ${tpsUnit.charAt(0).toUpperCase() + tpsUnit.slice(1, -1)}` : "";
+
+                    tableData.push([exerciseName, repsInfo, tpsFormatted, restInfo, "", "", "", "", "", "", "", ""]);
                 }
             }
         });
@@ -963,9 +977,8 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(11);
         doc.setTextColor(105, 105, 105);
-        const timeLine = lines.find(line => line.includes("Estimated Workout Time"));
-        const timeText = timeLine ? timeLine.replace("seconds", "sec") : ""; // Change seconds to sec here if needed in the text
-        doc.text(timeText, 10, tableEndY + 10);
+        const estimatedTimeText = `Estimated Workout Time: ${Math.round(totalWorkoutTime / 60)} minutes`;
+        doc.text(estimatedTimeText, 10, tableEndY + 10);
         doc.setTextColor(0, 0, 0);
         doc.setFont('helvetica', 'normal');
 
