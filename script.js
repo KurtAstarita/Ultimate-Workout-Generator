@@ -880,105 +880,72 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 
         const lines = workoutText.split('\n');
         let tableData = [];
-        // Insert "TPS" before "Rest" in the headers
         let headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
         let totalWorkoutTime = 0;
 
         lines.forEach(line => {
             if (line.trim() && !line.includes("Estimated Workout Time")) {
-                const exerciseMatch = line.match(/^(.+?) - Reps: (.+?)(?: - Rest: (.+?) (seconds?|minutes?))?(?: - Time per set: (.+?) (seconds?|minutes?))?\s*$/i);
+                const exerciseMatch = line.match(/^(.+?) - Reps:/);
+                const repsMatch = line.match(/Reps: (.+?)(?: - Time per set: (.+?) (seconds?|minutes?))?(?: - Rest: (.+?) (seconds?|minutes?))?\s*$/);
 
                 if (exerciseMatch) {
                     const exerciseName = exerciseMatch[1].replace(/<b>|<\/b>/g, '').trim();
-                    const repsInfo = exerciseMatch[2].trim();
-                    const restValue = exerciseMatch[3] ? exerciseMatch[3].trim() : "";
-                    const restUnit = exerciseMatch[4] ? exerciseMatch[4].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "";
-                    const restInSeconds = restValue && restUnit.startsWith('min') ? parseInt(restValue) * 60 : parseInt(restValue);
-                    const restInfoFormatted = restValue && restUnit ? `${restValue} ${restUnit}` : "";
+                    const repsInfo = repsMatch ? repsMatch[1].trim() : "";
+                    const tpsInfo = repsMatch && repsMatch[2] ? repsMatch[2].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "";
+                    const restInfo = repsMatch && repsMatch[4] ? repsMatch[4].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "";
 
-                    const tpsValue = exerciseMatch[5] ? exerciseMatch[5].trim() : "";
-                    const tpsUnit = exerciseMatch[6] ? exerciseMatch[6].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "";
-                    const tpsInSeconds = tpsValue && tpsUnit.startsWith('min') ? parseFloat(tpsValue) * 60 : parseFloat(tpsValue);
-                    const tpsInfoFormatted = tpsValue && tpsUnit ? `${tpsValue} ${tpsUnit}` : "";
-
-                    // Attempt to extract the number of sets from the reps info
-                    const setsMatch = repsInfo.match(/^(\d+)x/);
-                    const sets = setsMatch ? parseInt(setsMatch[1]) : 1; // Default to 1 set if not specified
-
-                    if (restInSeconds) {
-                        totalWorkoutTime += (sets - 1) * restInSeconds;
-                    }
-                    if (tpsInSeconds) {
-                        totalWorkoutTime += sets * tpsInSeconds;
-                    }
-
-                    tableData.push([exerciseName, repsInfo, tpsInfoFormatted, restInfoFormatted, "|", "|", "|", "|", "|", "|", "|", "|"]);
-                }
-            } else if (line.includes("Estimated Workout Time")) {
-                const timeMatch = line.match(/Estimated Workout Time: (\d+) minutes/i);
-                if (timeMatch) {
-                    // If the pasted text already includes an estimated time, we can optionally use it or recalculate.
-                    // For now, we will recalculate based on the parsed data.
+                    // Add the main exercise row
+                    tableData.push([exerciseName, repsInfo, tpsInfo, restInfo, "", "", "", "", "", "", "", ""]);
+                    // Add a row for warm-up
+                    tableData.push(["", "", "", "", "Warm-up:", "", "", "", "", "", "", ""]);
                 }
             }
         });
 
-
-/* ............................................... Function: Table Styles (In Print PDF)  ...................................................... */
-        
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
 
-doc.autoTable({
+        doc.autoTable({
             head: [headers],
             body: tableData,
             startY: 10,
             styles: {
                 fontSize: 8,
-                cellPadding: 1,
-                lineWidth: 0.1, // Add thin borders to body cells
-                borderColor: [169, 169, 169], // Light gray border color for body
-                textColor: [0, 0, 0], // Black text
-                valign: 'middle', // Vertical alignment
-                halign: 'left', // Default horizontal alignment
-                font: 'helvetica', // Specify the font (default is helvetica)
-                fontStyle: 'normal', // Specify the font style
+                cellPadding: 2,
+                borderColor: [169, 169, 169],
+                borderWidth: 1,
             },
             headStyles: {
-                fontSize: 9,
-                fillColor: [220, 220, 220], // Light gray header background
-                textColor: [0, 0, 0], // Black text for header
-                lineWidth: 0.5, // Add thin borders to header cells
-                borderColor: [169, 169, 169], // Light gray border color for header
-                valign: 'middle',
-                halign: 'center', // Center align header text
-                fontStyle: 'bold',
+                fontSize: 8,
+                fillColor: [200, 200, 200],
+                borderColor: [169, 169, 169],
+                borderWidth: 1,
             },
             columnStyles: {
-                0: { cellWidth: 'auto', halign: 'left' }, // Exercise - Left align
-                1: { cellWidth: 'auto', halign: 'center' }, // Reps - Center align
-                2: { cellWidth: 'auto', halign: 'center' }, // TPS - Center align
-                3: { cellWidth: 'auto', halign: 'center' }, // Rest - Center align
-                4: { cellWidth: 'auto', halign: 'center' }, // Set 1 - Center align
-                5: { cellWidth: 'auto', halign: 'center' }, // Set 2 - Center align
-                6: { cellWidth: 'auto', halign: 'center' }, // Set 3 - Center align
-                7: { cellWidth: 'auto', halign: 'center' }, // Set 4 - Center align
-                8: { cellWidth: 'auto', halign: 'center' }, // Set 5 - Center align
-                9: { cellWidth: 'auto', halign: 'center' }, // Set 6 - Center align
-                10: { cellWidth: 'auto', halign: 'center' }, // Set 7 - Center align
-                11: { cellWidth: 'auto', halign: 'center' }, // Set 8 - Center align
+                0: { cellWidth: 'auto' }, // Exercise
+                1: { cellWidth: 'auto' }, // Reps
+                2: { cellWidth: 'auto' }, // TPS
+                3: { cellWidth: 'auto' }, // Rest
+                4: { cellWidth: 'auto' }, // Set 1
+                5: { cellWidth: 'auto' }, // Set 2
+                6: { cellWidth: 'auto' }, // Set 3
+                7: { cellWidth: 'auto' }, // Set 4
+                8: { cellWidth: 'auto' }, // Set 5
+                9: { cellWidth: 'auto' }, // Set 6
+                10: { cellWidth: 'auto' }, // Set 7
+                11: { cellWidth: 'auto' }, // Set 8
             },
-            tableLineWidth: 0.5, // Add a border around the table
-            tableBorderColor: [169, 169, 169], // Light gray border color for the table
+            tableLineWidth: 1,
+            tableBorderColor: [169, 169, 169],
         });
 
-        
         const tableEndY = doc.autoTable.previous.finalY;
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(11);
         doc.setTextColor(105, 105, 105);
-        const estimatedTimeText = `Estimated Workout Time: ${Math.round(totalWorkoutTime / 60)} minutes`;
-        doc.text(estimatedTimeText, 10, tableEndY + 10);
+        const timeLine = lines.find(line => line.includes("Estimated Workout Time"));
+        const timeText = timeLine ? timeLine.replace("seconds", "sec") : ""; // Change seconds to sec here if needed in the text
+        doc.text(timeText, 10, tableEndY + 10);
         doc.setTextColor(0, 0, 0);
         doc.setFont('helvetica', 'normal');
 
