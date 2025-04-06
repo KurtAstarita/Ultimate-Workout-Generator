@@ -930,7 +930,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 fontSize: 8,
                 cellPadding: 1,
                 lineWidth: 0.1,
-                borderColor: [255, 255, 255],
+                borderColor: [1, 1, 1],
                 textColor: [0, 0, 0],
                 valign: 'middle',
                 halign: 'left',
