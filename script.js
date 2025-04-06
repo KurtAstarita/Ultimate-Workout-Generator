@@ -880,7 +880,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 
         const lines = workoutText.split('\n');
         let tableData = [];
-        let headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6"];
+        let headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
         let totalWorkoutTime = 0;
 
         lines.forEach(line => {
@@ -910,9 +910,11 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                     }
 
                     // Add the exercise row
-                    tableData.push([exerciseName, repsInfo, tpsInfoFormatted, restInfoFormatted, "/", "/", "/", "/", "/", "/"]);
+                    tableData.push([exerciseName, repsInfo, tpsInfoFormatted, restInfoFormatted, "/", "/", "/", "/", "/", "/", "/", "/"]);
                     // Add a row for warm-up in the exercise column
-                    tableData.push(["  Warm-up:", "", "", "", "/", "/", "/", "/", "/", "/"]);
+                    tableData.push(["  Warm-up:", "", "", "", "", "", "", "", "", "", "", ""]);
+                    // Add a row for notes in the exercise column
+                    tableData.push(["    Notes:", "", "", "", "", "", "", "", "", "", "", ""]);
                 }
             }
         });
@@ -962,15 +964,28 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             tableLineWidth: 0.5,
             tableBorderColor: [169, 169, 169],
             didParseCell: function (data) {
-                if (data.row.index % 2 !== 0 && data.column.index === 0 && data.cell.raw.includes('Warm-up:')) {
+                // Style for Warm-up row
+                if (data.row.index % 3 === 1 && data.column.index === 0 && data.cell.raw.includes('Warm-up:')) {
                     data.cell.styles.fontStyle = 'italic';
-                    data.cell.styles.textColor = [105, 105, 105]; // Dim gray
-                    data.cell.styles.cellPadding = { top: 0, right: data.cell.styles.cellPadding.right, bottom: 0, left: data.cell.styles.cellPadding.left }; // Reduce vertical padding
-                } else if (data.row.index % 2 !== 0 && data.column.index > 0) {
-                    data.cell.styles.minCellHeight = 5; // Reduce height of empty cells in warm-up row
+                    data.cell.styles.textColor = [105, 105, 105];
+                    data.cell.styles.cellPadding = { top: 0, right: data.cell.styles.cellPadding.right, bottom: 0, left: data.cell.styles.cellPadding.left };
+                }
+                // Style for Notes row
+                else if (data.row.index % 3 === 2 && data.column.index === 0 && data.cell.raw.includes('Notes:')) {
+                    data.cell.styles.fontStyle = 'italic';
+                    data.cell.styles.textColor = [150, 150, 150]; // Slightly lighter gray for notes
+                    data.cell.styles.cellPadding = { top: 0, right: data.cell.styles.cellPadding.right, bottom: 0, left: data.cell.styles.cellPadding.left };
+                    data.cell.styles.lineWidth = { top: 0, bottom: 0, left: data.cell.styles.lineWidth, right: data.cell.styles.lineWidth }; // Remove top and bottom borders
+                    data.cell.styles.borderColor = [240, 240, 240]; // Light gray, try to blend with a light background
+                }
+                // Reduce height of empty cells in Warm-up and Notes rows
+                else if (data.row.index % 3 > 0 && data.column.index > 0) {
+                    data.cell.styles.minCellHeight = 5;
                     data.cell.styles.padding = { top: 0, bottom: 0 };
-                } else if (data.cell.raw === '/') {
-                    data.cell.styles.minCellHeight = 5; // Reduce height of separator cells
+                }
+                // Reduce height of separator cells
+                else if (data.cell.raw === '/') {
+                    data.cell.styles.minCellHeight = 5;
                     data.cell.styles.padding = { top: 0, bottom: 0 };
                 }
             }
