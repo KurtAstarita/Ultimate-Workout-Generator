@@ -936,7 +936,7 @@ doc.autoTable({
             styles: {
                 fontSize: 10,
                 cellPadding: 3,
-                lineWidth: 0.5, // Add thin borders to body cells
+                lineWidth: 0.1, // Add thin borders to body cells
                 borderColor: [169, 169, 169], // Light gray border color for body
                 textColor: [0, 0, 0], // Black text
                 valign: 'middle', // Vertical alignment
