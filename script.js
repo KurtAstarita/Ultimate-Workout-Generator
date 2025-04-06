@@ -979,7 +979,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             },
             columnStyles: {
                 0: { cellWidth: '25', halign: 'left' },
-                1: { cellWidth: '18', halign: 'center' },
+                1: { cellWidth: '15', halign: 'center' },
                 2: { cellWidth: '15', halign: 'center' },
                 3: { cellWidth: '15', halign: 'center' },
                 4: { cellWidth: 'auto', halign: 'center' },
