@@ -669,8 +669,6 @@ document.getElementById("copy-workout").disabled = true;
 
 /* ............................................... Function: Generate Workout ...................................................... */
 
-/* ............................................... Function: Generate Workout ...................................................... */
-
 document.getElementById("generate-workout").addEventListener("click", function () {
     const goal = document.getElementById("goal").value;
     const experience = document.getElementById("experience").value;
@@ -921,9 +919,11 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         const lines = workoutText.split('\n');
         let tableData = [];
         let estimatedTime = "";
+        let workoutTitle = ""; // Initialize workoutTitle here
 
+        // Extract table data and estimated time
         lines.forEach(line => {
-            if (line.trim() && !line.includes("Estimated Workout Time")) {
+            if (line.trim() && !line.includes("Estimated Workout Time") && !line.includes("YOUR WORKOUT")) { // Exclude the HTML title line
                 const exerciseMatch = line.match(/^(.+?) - Reps: (.+?)(?: - Rest: (.+?) (seconds?|minutes?))?(?: - Time per set: (.+?) (seconds?|minutes?))?\s*$/i);
                 if (exerciseMatch) {
                     const exerciseName = exerciseMatch[1].replace(/<b>|<\/b>/g, '').trim();
@@ -938,15 +938,28 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 }
             } else if (line.includes("Estimated Workout Time")) {
                 estimatedTime = line;
+            } else if (line.includes("YOUR WORKOUT")) { // Extract the title from the HTML
+                const titleMatch = line.match(/<u>(.*?)<\/u>/);
+                if (titleMatch) {
+                    workoutTitle = titleMatch[1];
+                }
             }
         });
 
-        const { jsPDF } = window.jspdf;
+const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
         const pageWidth = doc.internal.pageSize.getWidth();
         let currentY = 10;
         const grayScale = 169 / 255;
         const grayRGB = [169, 169, 169];
+        const darkGrayRGB = [105, 105, 105]; // Define dark gray color
+
+        // Add Workout Title to PDF
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(14);
+        doc.setTextColor(darkGrayRGB[0], darkGrayRGB[1], darkGrayRGB[2]); // Set dark gray color
+        doc.text(workoutTitle, 10, currentY);
+        currentY += 15; // Add a bit more space after the title
 
         // Workout Table with gray border
         const headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
@@ -958,8 +971,8 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             styles: { fontSize: 8, cellPadding: 2, borderColor: grayRGB, borderWidth: 1 },
             headStyles: { fontSize: 8, fillColor: [200, 200, 200], borderColor: grayRGB, borderWidth: 1 },
             columnStyles: { 0: { cellWidth: 'auto' }, 1: { cellWidth: 'auto' }, 2: { cellWidth: 'auto' }, 3: { cellWidth: 'auto' } },
-            tableLineWidth: 1, // Explicitly set table line width
-            tableBorderColor: grayRGB, // Explicitly set table border color
+            tableLineWidth: 1,
+            tableBorderColor: grayRGB,
             didDrawPage: function(data) {
                 currentY = data.cursor.y + 10;
             }
