@@ -1,139 +1,139 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Workout Generator Snippet</title>
-    <link rel="stylesheet" href="styles.css" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' cdnjs.cloudflare.com; style-src 'self';">
-</head>
-<body>
-
-    <div id="workout-tool-container">
-        <p class="warning-text">
-            <strong>Warning:</strong> Only paste workout text from trusted sources. The application performs basic validation, but cannot guarantee complete safety.
-        </p>
-        <br /><br /><br />
-<div class="arrows step-1">
-  <h2>STEP-1: Adjust your settings below and click Generate.</h2>
-  <div class="arrow-down">↓</div>
-  <div><br /></div>
-  <div><br /></div>
-</div>
-
-        <div id="workout-planner">
-            <h3>Full-body Workout Planner/Generator (BETA)</h3>
-
-            <label for="training-split">Training Split:</label>
-               <select id="training-split" name="training-split">
-               <option value="full_body">Full Body</option>
-               <option value="back_biceps">Back & Biceps</option>
-               <option value="chest_triceps">Chest & Triceps</option>
-               <option value="legs_back">Legs & Back</option>
-               <option value="delts_traps">Delts & Traps</option>
-               <option value="core_cardio">Core & Cardio</option>
-            </select>
-
-            <label for="goal">Goal:</label>
-            <select id="goal">
-                <option value="muscle">Muscle Gain</option>
-                <option value="strength">Strength Gain</option>
-                <option value="endurance">Endurance</option>
-                <option value="fatloss">Fat Loss</option>
-            </select>
-            <p class="note-text">
-                <i>NOTE: Goal only work with Goal Based Workout.</i>
-            </p>
-            <br />
-
-            <label for="experience">Experience Level:</label>
-            <select id="experience">
-                <option value="beginner">Beginner</option>
-                <option value="intermediate">Intermediate</option>
-                <option value="advanced">Advanced</option>
-            </select>
-            <br />
-
-            <label for="modality">Training Modality:</label>
-            <select id="modality">
-                <option value="general">Goal Based Workout</option>
-                <option value="calisthenics">Calisthenics</option>
-                <option value="powerlifting_5x5">5x5 Powerlifting</option>
-                <option value="hiit">HIIT</option>
-                <option value="circuit">Circuit Training</option>
-            </select>
-            <br />
-
-            <button id="generate-workout">Generate Workout</button>
-
-            <div id="workout-result"></div>
-            <button id="copy-workout">Copy Workout to Clipboard</button>
-        </div>
-    </div>
-
-<div class="arrows step-2">
-  <h2>STEP-2: Copy and paste your workout below.</h2>
-  <div class="arrow-down">↓</div>
-  <div><br /></div>
-  <div><br /></div>
-</div>
-    
-    <div id="workout-chart-generator">
-        <h3>Workout Chart Generator</h3>
-
-        <div id="paste-workout">
-            <label>Paste Workout Here:</label>
-           <textarea id="paste-text" name="paste-text" rows="10"></textarea>
-            <p class="warning-text">
-                <strong>Warning:</strong> Only paste workout text from trusted sources. The application performs basic validation, but cannot guarantee complete safety.
-            </p>
-
-        </div>
-
-        <button id="download-pdf">Download as PDF</button>
-    </div>
-
-<div class="arrows step-3">
-  <h2>STEP-3: Feel free to customize your workout using our database below, then click download as PDF. TIP: Our workout generator can handle up to 9 exercises.</h2>
-  <div class="arrow-down">↓</div>
-  <div><br /></div>
-  <div><br /></div>
-</div>
-    
-
-
-<div id="exercise-database-table">
-  <h2>Workout Database</h2>
- <p>Browse the complete list of exercises in our database. Simply copy any exercise using the buttons below! Just be sure to update your “Estimated Workout Time” manually after adding/subtracting exercises.</p>
-  <table>
-    <thead>
-      <tr>
-        <th>Exercise</th>
-        <th>Muscle Group</th>
-        <th>Sets</th>
-        <th>Reps</th>
-        <th>Rest (seconds)</th>
-        <th>Time per Set (seconds)</th> </tr>
-    </thead>
-    <tbody id="exercise-table-body">
-      </tbody>
-  </table>
-</div>
-    
-
-    <div class="branding-container">
-        Learn how you can embed our app!
-        <a href="https://post40gains.blogspot.com/p/how-to-embed-our-apps.html" target="_blank">
-            How To Embed
-        </a>
-    </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.3/purify.min.js"></script>
-    <script src="script.js"></script>
-   <script src="sanitize.js"></script>
-</body>
-<footer>
-      <p>&copy; [2025] Kurt Astarita</p>
-</footer>
-</html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Workout Generator Snippet</title>
+     <link rel="stylesheet" href="styles.css" />
+     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' cdnjs.cloudflare.com; style-src 'self';">
+ </head>
+ <body>
+ 
+     <div id="workout-tool-container">
+         <p class="warning-text">
+             <strong>Warning:</strong> Only paste workout text from trusted sources. The application performs basic validation, but cannot guarantee complete safety.
+         </p>
+         <br /><br /><br />
+ <div class="arrows step-1">
+   <h2>STEP-1: Adjust your settings below and click Generate.</h2>
+   <div class="arrow-down">↓</div>
+   <div><br /></div>
+   <div><br /></div>
+ </div>
+ 
+         <div id="workout-planner">
+             <h3>Full-body Workout Planner/Generator (BETA)</h3>
+ 
+             <label for="training-split">Training Split:</label>
+                <select id="training-split" name="training-split">
+                <option value="full_body">Full Body</option>
+                <option value="back_biceps">Back & Biceps</option>
+                <option value="chest_triceps">Chest & Triceps</option>
+                <option value="legs_back">Legs & Back</option>
+                <option value="delts_traps">Delts & Traps</option>
+                <option value="core_cardio">Core & Cardio</option>
+             </select>
+ 
+             <label for="goal">Goal:</label>
+             <select id="goal">
+                 <option value="muscle">Muscle Gain</option>
+                 <option value="strength">Strength Gain</option>
+                 <option value="endurance">Endurance</option>
+                 <option value="fatloss">Fat Loss</option>
+             </select>
+             <p class="note-text">
+                 <i>NOTE: Goal only work with Goal Based Workout.</i>
+             </p>
+             <br />
+ 
+             <label for="experience">Experience Level:</label>
+             <select id="experience">
+                 <option value="beginner">Beginner</option>
+                 <option value="intermediate">Intermediate</option>
+                 <option value="advanced">Advanced</option>
+             </select>
+             <br />
+ 
+             <label for="modality">Training Modality:</label>
+             <select id="modality">
+                 <option value="general">Goal Based Workout</option>
+                 <option value="calisthenics">Calisthenics</option>
+                 <option value="powerlifting_5x5">5x5 Powerlifting</option>
+                 <option value="hiit">HIIT</option>
+                 <option value="circuit">Circuit Training</option>
+             </select>
+             <br />
+ 
+             <button id="generate-workout">Generate Workout</button>
+ 
+             <div id="workout-result"></div>
+             <button id="copy-workout">Copy Workout to Clipboard</button>
+         </div>
+     </div>
+ 
+ <div class="arrows step-2">
+   <h2>STEP-2: Copy and paste your workout below.</h2>
+   <div class="arrow-down">↓</div>
+   <div><br /></div>
+   <div><br /></div>
+ </div>
+     
+     <div id="workout-chart-generator">
+         <h3>Workout Chart Generator</h3>
+ 
+         <div id="paste-workout">
+             <label>Paste Workout Here:</label>
+            <textarea id="paste-text" name="paste-text" rows="10"></textarea>
+             <p class="warning-text">
+                 <strong>Warning:</strong> Only paste workout text from trusted sources. The application performs basic validation, but cannot guarantee complete safety.
+             </p>
+ 
+         </div>
+ 
+         <button id="download-pdf">Download as PDF</button>
+     </div>
+ 
+ <div class="arrows step-3">
+   <h2>STEP-3: Feel free to customize your workout using our database below, then click download as PDF. TIP: Our workout generator can handle up to 9 exercises.</h2>
+   <div class="arrow-down">↓</div>
+   <div><br /></div>
+   <div><br /></div>
+ </div>
+     
+ 
+ 
+ <div id="exercise-database-table">
+   <h2>Workout Database</h2>
+  <p>Browse the complete list of exercises in our database. Simply copy any exercise using the buttons below! Just be sure to update your “Estimated Workout Time” manually after adding/subtracting exercises.</p>
+   <table>
+     <thead>
+       <tr>
+         <th>Exercise</th>
+         <th>Muscle Group</th>
+         <th>Sets</th>
+         <th>Reps</th>
+         <th>Rest (seconds)</th>
+         <th>Time per Set (seconds)</th> </tr>
+     </thead>
+     <tbody id="exercise-table-body">
+       </tbody>
+   </table>
+ </div>
+     
+ 
+     <div class="branding-container">
+         Learn how you can embed our app!
+         <a href="https://post40gains.blogspot.com/p/how-to-embed-our-apps.html" target="_blank">
+             How To Embed
+         </a>
+     </div>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/2.4.3/purify.min.js"></script>
+     <script src="script.js"></script>
+    <script src="sanitize.js"></script>
+ </body>
+ <footer>
+       <p>&copy; [2025] Kurt Astarita</p>
+ </footer>
+ </html>
