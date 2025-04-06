@@ -880,7 +880,6 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 
         const lines = workoutText.split('\n');
         let tableData = [];
-        // Insert "TPS" before "Rest" in the headers
         let headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
         let totalWorkoutTime = 0;
 
@@ -910,20 +909,10 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                         totalWorkoutTime += sets * tpsInSeconds;
                     }
 
-                    console.log("Exercise:", exerciseName);
-                    console.log("Sets:", sets);
-                    console.log("Rest Value:", restValue);
-                    console.log("Rest Unit:", restUnit);
-                    console.log("Rest in Seconds:", restInSeconds);
-                    console.log("TPS Value:", tpsValue);
-                    console.log("TPS Unit:", tpsUnit);
-                    console.log("TPS in Seconds:", tpsInSeconds);
-                    console.log("Current Total Workout Time:", totalWorkoutTime);
-
-                    // Add the exercise row with TPS in the correct column and the separator
+                    // Add the exercise row
                     tableData.push([exerciseName, repsInfo, tpsInfoFormatted, restInfoFormatted, "/", "/", "/", "/", "/", "/", "/", "/"]);
-                    // Add a row for warm-up
-                    tableData.push(["", "Warm-up:", "", "", "", "", "", "", "", "", "", ""]);
+                    // Add a row for warm-up in the exercise column
+                    tableData.push(["  Warm-up:", "", "", "", "", "", "", "", "", "", "", ""]);
                 }
             }
         });
@@ -931,7 +920,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
 
-doc.autoTable({
+        doc.autoTable({
             head: [headers],
             body: tableData,
             startY: 10,
@@ -973,10 +962,11 @@ doc.autoTable({
             tableLineWidth: 0.5,
             tableBorderColor: [169, 169, 169],
             didParseCell: function (data) {
-                if (data.row.index % 2 !== 0 && data.cell.raw === 'Warm-up:') { // Check if it's a warm-up row (every other row after an exercise) and the content is "Warm-up:"
+                if (data.row.index % 2 !== 0 && data.column.index === 0 && data.cell.raw.includes('Warm-up:')) {
                     data.cell.styles.fontStyle = 'italic';
                     data.cell.styles.textColor = [105, 105, 105]; // Dim gray
-                } else if (data.row.index % 2 !== 0 && data.column.index > 1 && data.cell.raw === '') {
+                    data.cell.styles.cellPadding = { top: 0, right: data.cell.styles.cellPadding.right, bottom: 0, left: data.cell.styles.cellPadding.left }; // Reduce vertical padding
+                } else if (data.row.index % 2 !== 0 && data.column.index > 0) {
                     data.cell.styles.minCellHeight = 5; // Reduce height of empty cells in warm-up row
                     data.cell.styles.padding = { top: 0, bottom: 0 };
                 } else if (data.cell.raw === '/') {
@@ -985,13 +975,13 @@ doc.autoTable({
                 }
             }
         });
-        
+
         const tableEndY = doc.autoTable.previous.finalY;
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(11);
         doc.setTextColor(105, 105, 105);
         const timeLine = lines.find(line => line.includes("Estimated Workout Time"));
-        const timeText = timeLine ? timeLine.replace("seconds", "sec") : ""; // Change seconds to sec here if needed in the text
+        const timeText = timeLine ? timeLine.replace("seconds", "sec") : "";
         const estimatedMinutes = Math.round(totalWorkoutTime / 60);
         doc.text(`Estimated Workout Time: ${estimatedMinutes} minutes`, 10, tableEndY + 10);
         doc.setTextColor(0, 0, 0);
@@ -1005,6 +995,7 @@ doc.autoTable({
         alert("An error occurred while generating the PDF.");
     }
 });
+
 /* ............................................... Function: Copy Workout ...................................................... */
 
 document.getElementById("copy-workout").addEventListener("click", function() {
