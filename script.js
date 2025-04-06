@@ -887,16 +887,32 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         lines.forEach(line => {
             if (line.trim() && !line.includes("Estimated Workout Time")) {
                 const exerciseMatch = line.match(/^(.+?) - Reps:/);
-                const repsMatch = line.match(/Reps: (.+?)(?: - Time per set: (.+?) (seconds?|minutes?))?(?: - Rest: (.+?) (seconds?|minutes?))?\s*$/);
+                const repsMatch = line.match(/Reps: (.+?)(?: - Time per set: (.+?) (seconds?|minutes?))?(?: - Rest: (.+?) (seconds?|minutes?))?\s*$/i);
 
                 if (exerciseMatch) {
                     const exerciseName = exerciseMatch[1].replace(/<b>|<\/b>/g, '').trim();
                     const repsInfo = repsMatch ? repsMatch[1].trim() : "";
-                    const tpsInfo = repsMatch && repsMatch[2] ? repsMatch[2].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "";
-                    const restInfo = repsMatch && repsMatch[4] ? repsMatch[4].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "";
+                    const tpsValue = repsMatch && repsMatch[2] ? repsMatch[2].trim() : "";
+                    const tpsUnit = repsMatch && repsMatch[3] ? repsMatch[3].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "";
+                    const tpsInfoFormatted = tpsValue && tpsUnit ? `${tpsValue} ${tpsUnit}` : "";
+                    const restValue = repsMatch && repsMatch[4] ? repsMatch[4].trim() : "";
+                    const restUnit = repsMatch && repsMatch[5] ? repsMatch[5].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "";
+                    const restInfoFormatted = restValue && restUnit ? `${restValue} ${restUnit}` : "";
+                    const restInSeconds = restValue && restUnit.startsWith('min') ? parseInt(restValue) * 60 : parseInt(restValue);
+                    const tpsInSeconds = tpsValue && tpsUnit.startsWith('min') ? parseFloat(tpsValue) * 60 : parseFloat(tpsValue);
 
-                    // Add the exercise row with the separator
-                    tableData.push([exerciseName, repsInfo, tpsInfo, restInfo, "/", "/", "/", "/", "/", "/", "/", "/"]);
+                    const setsMatch = repsInfo.match(/^(\d+)x/i);
+                    const sets = setsMatch ? parseInt(setsMatch[1]) : 1;
+
+                    if (restInSeconds) {
+                        totalWorkoutTime += (sets - 1) * restInSeconds;
+                    }
+                    if (tpsInSeconds) {
+                        totalWorkoutTime += sets * tpsInSeconds;
+                    }
+
+                    // Add the exercise row with TPS in the correct column and the separator
+                    tableData.push([exerciseName, repsInfo, tpsInfoFormatted, restInfoFormatted, "/", "/", "/", "/", "/", "/", "/", "/"]);
                     // Add a row for warm-up
                     tableData.push(["", "Warm-up:", "", "", "", "", "", "", "", "", "", ""]);
                 }
