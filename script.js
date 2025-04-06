@@ -965,10 +965,11 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             tableBorderColor: [169, 169, 169],
 didParseCell: function (data) {
                 const rowIndex = data.row.index;
+                const columnIndex = data.column.index;
 
                 // Style for Warm-up row (entire row)
                 if ((rowIndex - 1) % 3 === 0 && rowIndex > 0) {
-                    if (data.column.index === 0 && data.cell.raw.includes('Warm-up:')) {
+                    if (columnIndex === 0 && data.cell.raw.includes('Warm-up:')) {
                         data.cell.styles.fontStyle = 'italic';
                         data.cell.styles.textColor = [105, 105, 105];
                         data.cell.styles.cellPadding = { top: 0, right: data.cell.styles.cellPadding.right, bottom: 0, left: data.cell.styles.cellPadding.left };
@@ -977,19 +978,26 @@ didParseCell: function (data) {
                     data.cell.styles.borderColor = [1, 1, 1];
                 }
                 // Style for Notes row
-                else if ((rowIndex - 2) % 3 === 0 && rowIndex > 1 && data.column.index === 0 && data.cell.raw.includes('Notes:')) {
-                    data.cell.styles.fontStyle = 'italic';
-                    data.cell.styles.textColor = [150, 150, 150];
-                    data.cell.styles.cellPadding = { top: 0, right: data.cell.styles.cellPadding.right, bottom: 0, left: data.cell.styles.cellPadding.left };
-                    data.cell.styles.borderColor = [240, 240, 240]; // Keep a subtle top/bottom border if needed
-                    data.cell.styles.border = {
-                        left: { color: [1, 1, 1] },   // White left border
-                        right: { color: [1, 1, 1] }  // White right border
-                    };
-                    delete data.cell.styles.fillColor;
+                else if ((rowIndex - 2) % 3 === 0 && rowIndex > 1) {
+                    data.cell.styles.fillColor = [255, 255, 255]; // White background for the entire notes row
+                    data.cell.styles.borderColor = [240, 240, 240]; // Subtle top/bottom
+
+                    if (columnIndex === 0 && data.cell.raw.includes('Notes:')) {
+                        data.cell.styles.fontStyle = 'italic';
+                        data.cell.styles.textColor = [150, 150, 150];
+                        data.cell.styles.cellPadding = { top: 0, right: data.cell.styles.cellPadding.right, bottom: 0, left: data.cell.styles.cellPadding.left };
+                        data.cell.styles.border = {
+                            left: { color: [255, 255, 255] }, // White left border for the "Notes:" cell
+                            right: { color: [255, 255, 255] } // White right border for the "Notes:" cell
+                        };
+                    } else if (columnIndex > 0) {
+                        data.cell.styles.border = {
+                            left: { color: [255, 255, 255] }  // White left border for all other cells in the notes row
+                        };
+                    }
                 }
                 // Reduce height of empty cells in Warm-up and Notes rows
-                else if (rowIndex % 3 > 0 && data.column.index > 0) {
+                else if (rowIndex % 3 > 0 && columnIndex > 0) {
                     data.cell.styles.minCellHeight = 5;
                     data.cell.styles.padding = { top: 0, bottom: 0 };
                     delete data.cell.styles.fillColor;
