@@ -878,18 +878,45 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 
         const lines = workoutText.split('\n');
         const exercisesList = [];
-        let estimatedTime = "";
+        let totalTimeFromTPS = 0; // Initialize variable to accumulate time from TPS
+        let estimatedTimeText = "";
 
         lines.forEach(line => {
             if (line.trim() && !line.includes("Estimated Workout Time")) {
                 const exerciseMatch = line.match(/^(.+?) - Reps:/);
+                const setsMatch = line.match(/Reps: (\d+)x/); // Capture the number of sets
+                const tpsMatch = line.match(/Time per set: (\d+) (seconds?|minutes?)/i);
+
                 if (exerciseMatch) {
                     exercisesList.push(exerciseMatch[1].replace(/<b>|<\/b>/g, '').trim());
                 }
+
+                if (setsMatch && tpsMatch) {
+                    const sets = parseInt(setsMatch[1]);
+                    const tps = parseInt(tpsMatch[1]);
+                    const unit = tpsMatch[2].toLowerCase();
+                    let tpsInSeconds = tps;
+                    if (unit === 'minutes') {
+                        tpsInSeconds *= 60;
+                    }
+                    if (!isNaN(sets) && !isNaN(tpsInSeconds)) {
+                        totalTimeFromTPS += sets * tpsInSeconds;
+                    }
+                }
             } else if (line.includes("Estimated Workout Time")) {
-                estimatedTime = line;
+                estimatedTimeText = line;
             }
         });
+
+        let overallTotalTime = 0;
+        const estimatedTimeMatch = estimatedTimeText.match(/Estimated Workout Time: (\d+) minutes/i);
+        if (estimatedTimeMatch) {
+            overallTotalTime += parseInt(estimatedTimeMatch[1]) * 60; // Convert existing estimate to seconds
+        }
+        overallTotalTime += totalTimeFromTPS;
+        const finalEstimatedMinutes = Math.round(overallTotalTime / 60);
+        const finalEstimatedTimeString = `Estimated Workout Time: ${finalEstimatedMinutes} minutes`;
+
 
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
@@ -897,7 +924,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         const tableWidth = pageWidth - 20;
         let currentY = 10;
 
-        // Generate Workout Table (as before)
+        // Generate Workout Table
         const headers = ["Exercise", "Reps", "TPS", "Rest"];
         const tableData = exercisesList.map(exerciseName => {
             const line = lines.find(l => l.startsWith(`<b>${exerciseName}</b>`));
@@ -928,10 +955,10 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(11);
         doc.setTextColor(105, 105, 105);
-        doc.text(estimatedTime, 10, currentY);
+        doc.text(finalEstimatedTimeString, 10, currentY); // Use the newly calculated time
         currentY += 15;
 
-        // NOTES Section
+        // NOTES Section (remains the same)
         doc.setFontSize(12);
         doc.setTextColor(0, 0, 0);
         doc.text("NOTES", 10, currentY);
