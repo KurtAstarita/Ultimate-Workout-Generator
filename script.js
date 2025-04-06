@@ -935,7 +935,7 @@ doc.autoTable({
             startY: 10,
             styles: {
                 fontSize: 8,
-                cellPadding: 3,
+                cellPadding: 1,
                 lineWidth: 0.1, // Add thin borders to body cells
                 borderColor: [169, 169, 169], // Light gray border color for body
                 textColor: [0, 0, 0], // Black text
