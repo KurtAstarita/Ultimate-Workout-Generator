@@ -910,6 +910,16 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                         totalWorkoutTime += sets * tpsInSeconds;
                     }
 
+                    console.log("Exercise:", exerciseName);
+                    console.log("Sets:", sets);
+                    console.log("Rest Value:", restValue);
+                    console.log("Rest Unit:", restUnit);
+                    console.log("Rest in Seconds:", restInSeconds);
+                    console.log("TPS Value:", tpsValue);
+                    console.log("TPS Unit:", tpsUnit);
+                    console.log("TPS in Seconds:", tpsInSeconds);
+                    console.log("Current Total Workout Time:", totalWorkoutTime);
+
                     // Add the exercise row with TPS in the correct column and the separator
                     tableData.push([exerciseName, repsInfo, tpsInfoFormatted, restInfoFormatted, "/", "/", "/", "/", "/", "/", "/", "/"]);
                     // Add a row for warm-up
@@ -970,7 +980,8 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         doc.setTextColor(105, 105, 105);
         const timeLine = lines.find(line => line.includes("Estimated Workout Time"));
         const timeText = timeLine ? timeLine.replace("seconds", "sec") : ""; // Change seconds to sec here if needed in the text
-        doc.text(timeText, 10, tableEndY + 10);
+        const estimatedMinutes = Math.round(totalWorkoutTime / 60);
+        doc.text(`Estimated Workout Time: ${estimatedMinutes} minutes`, 10, tableEndY + 10);
         doc.setTextColor(0, 0, 0);
         doc.setFont('helvetica', 'normal');
 
