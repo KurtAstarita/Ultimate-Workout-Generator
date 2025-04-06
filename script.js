@@ -963,7 +963,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             },
             tableLineWidth: 0.5,
             tableBorderColor: [169, 169, 169],
- didParseCell: function (data) {
+didParseCell: function (data) {
                 const rowIndex = data.row.index;
 
                 // Style for Warm-up row (entire row)
@@ -981,8 +981,11 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                     data.cell.styles.fontStyle = 'italic';
                     data.cell.styles.textColor = [150, 150, 150];
                     data.cell.styles.cellPadding = { top: 0, right: data.cell.styles.cellPadding.right, bottom: 0, left: data.cell.styles.cellPadding.left };
-                    data.cell.styles.lineWidth = { top: 0.1, bottom: 0.1, left: 0, right: 0 }; // Remove left and right borders
                     data.cell.styles.borderColor = [240, 240, 240]; // Keep a subtle top/bottom border if needed
+                    data.cell.styles.border = {
+                        left: { color: [1, 1, 1] },   // White left border
+                        right: { color: [1, 1, 1] }  // White right border
+                    };
                     delete data.cell.styles.fillColor;
                 }
                 // Reduce height of empty cells in Warm-up and Notes rows
