@@ -974,82 +974,8 @@ document.getElementById('download-pdf').addEventListener('click', function () {
 
         currentY += 8;
 
-document.getElementById('download-pdf').addEventListener('click', function () {
-    let workoutText = document.getElementById('paste-text').value;
-    workoutText = DOMPurify.sanitize(workoutText);
-
-    if (!workoutText.trim()) {
-        alert("Please paste workout text before downloading.");
-        return;
-    }
-
-    try {
-        const validationResult = validateWorkoutText(workoutText);
-        if (!validationResult.isValid) {
-            alert("Workout text validation errors:\n" + validationResult.errors.join('\n'));
-            return;
-        }
-
-        const lines = workoutText.split('\n');
-        let tableData = [];
-        let estimatedTime = "";
-
-        lines.forEach(line => {
-            if (line.trim() && !line.includes("Estimated Workout Time")) {
-                const exerciseMatch = line.match(/^(.+?) - Reps: (.+?)(?: - Rest: (.+?) (seconds?|minutes?))?(?: - Time per set: (.+?) (seconds?|minutes?))?\s*$/i);
-                if (exerciseMatch) {
-                    const exerciseName = exerciseMatch[1].replace(/<b>|<\/b>/g, '').trim();
-                    const repsInfo = exerciseMatch[2].trim();
-                    const restValue = exerciseMatch[3] ? exerciseMatch[3].trim() : "";
-                    const restUnit = exerciseMatch[4] ? exerciseMatch[4].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "";
-                    const restInfoFormatted = restValue && restUnit ? `${restValue} ${restUnit}` : "";
-                    const tpsValue = exerciseMatch[5] ? exerciseMatch[5].trim() : "";
-                    const tpsUnit = exerciseMatch[6] ? exerciseMatch[6].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "";
-                    const tpsInfoFormatted = tpsValue && tpsUnit ? `${tpsValue} ${tpsUnit}` : "";
-                    tableData.push([exerciseName, repsInfo, tpsInfoFormatted, restInfoFormatted, "____x____", "____x____", "____x____", "____x____", "____x____", "____x____", "____x____", "____x____"]);
-                }
-            } else if (line.includes("Estimated Workout Time")) {
-                estimatedTime = line;
-            }
-        });
-
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-        const pageWidth = doc.internal.pageSize.getWidth();
-        let currentY = 10;
-        const grayRGB = [169, 169, 169];
-        const darkGrayRGB = [105, 105, 105];
-
-        let workoutTitle = "My";
-        const goal = document.getElementById("goal").value;
-        const experience = document.getElementById("experience").value;
-        const modality = document.getElementById("modality").value;
-        const trainingSplit = document.getElementById("training-split").value;
-
-        if (experience) workoutTitle += ` ${experience.charAt(0).toUpperCase() + experience.slice(1)}`;
-        if (goal && goal !== "general") workoutTitle += ` ${goal.charAt(0).toUpperCase() + goal.slice(1)} Focus`;
-        if (modality && modality !== "general") workoutTitle += ` (${modality.charAt(0).toUpperCase() + modality.slice(1)})`;
-        if (trainingSplit && trainingSplit !== "none") {
-            const splitFormatted = trainingSplit.replace("_", " & ").split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
-            workoutTitle += ` - ${splitFormatted}`;
-        }
-        workoutTitle += " Workout";
-
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(14);
-        doc.setTextColor(darkGrayRGB[0], darkGrayRGB[1], darkGrayRGB[2]);
-        doc.text(workoutTitle, 10, currentY);
-
-        const dateText = "Date: ____/____/________";
-        const dateTextWidth = doc.getTextWidth(dateText, { font: 'helvetica', size: 10 });
-        const dateXPosition = pageWidth - 10 - dateTextWidth;
-        doc.setFontSize(10);
-        doc.setTextColor(0, 0, 0);
-        doc.text(dateText, dateXPosition, currentY + 4);
-
-        currentY += 8;
-
-       const headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
+        const headers = ["Exercise", "Reps", "TPS", "Rest", "Set 1", "Set 2", "Set 3", "Set 4", "Set 5", "Set 6", "Set 7", "Set 8"];
+        const grayHex = '#A9A9A9'; // Hex for RGB(169, 169, 169)
 
         doc.autoTable({
             head: [headers],
@@ -1060,17 +986,23 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 fontSize: 7,
                 font: 'helvetica',
                 cellPadding: 1,
+                borderColor: grayHex, // Using grayHex
+                borderWidth: 1,
                 valign: 'bottom'
             },
             headStyles: {
                 fontSize: 8, // Font size for the table header
                 fontStyle: 'bold', // Font style for the table header
-                halign: 'center',
-                fillColor: [200, 200, 200] // Keep fill color if desired
+                fillColor: [200, 200, 200],
+                borderColor: grayHex, // Using grayHex
+                borderWidth: 1,
+                halign: 'center'
             },
             bodyStyles: {
                 fontSize: 7,
                 fontStyle: 'normal',
+                borderColor: grayHex, // Uncomment if you want borders on body cells
+                borderWidth: 1,
                 textColor: [0, 0, 0]
             },
             columnStyles: {
@@ -1087,19 +1019,12 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 10: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "____x____"; } },
                 11: { cellWidth: 'auto', halign: 'center', cellFormatter: function(data) { return "____x____"; } },
             },
-            tableLineWidth: 0, // Removed table border line width
-            tableBorderColor: null, // Removed table border color
+            tableLineWidth: 1,
+            tableBorderColor: grayHex, // Using grayHex for the overall table border as well
             didDrawPage: function(data) {
                 currentY = data.cursor.y + 10;
             }
         });
-
-        const tableEndY = doc.autoTable.previous.finalY;
-        currentY = tableEndY + 10;
-
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(11);
-        doc.setTextColor(10
 
         const tableEndY = doc.autoTable.previous.finalY;
         currentY = tableEndY + 10;
@@ -1133,7 +1058,6 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         alert("An error occurred while generating the PDF.");
     }
 });
-
 
 /* ............................................... Function: To Populate table ...................................................... */
 function populateExerciseTable() {
