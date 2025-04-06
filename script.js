@@ -912,7 +912,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                         totalWorkoutTime += sets * tpsInSeconds;
                     }
 
-                    tableData.push([exerciseName, repsInfo, tpsInfoFormatted, restInfoFormatted, "", "", "", "", "", "", "", ""]);
+                    tableData.push([exerciseName, repsInfo, tpsInfoFormatted, restInfoFormatted, "|", "|", "|", "|", "|", "|", "|", "|"]);
                 }
             } else if (line.includes("Estimated Workout Time")) {
                 const timeMatch = line.match(/Estimated Workout Time: (\d+) minutes/i);
