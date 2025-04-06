@@ -994,6 +994,7 @@ document.getElementById("copy-workout").addEventListener("click", function() {
 
 
 /* ............................................... Function: To Populate table ...................................................... */
+/* ............................................... Function: To Populate table ...................................................... */
 function populateExerciseTable() {
     console.log("Populating exercise table..."); // Debugging log
 
@@ -1048,10 +1049,10 @@ function populateExerciseTable() {
         button.className = "copy-exercise";
         let copyText = `${exercise.name} - Reps: ${exercise.sets}x${exercise.reps}`;
         if (exercise.rest) {
-            copyText += ` - Rest: ${exercise.rest} seconds.`;
+            copyText += ` - Rest: ${exercise.rest} seconds`; // Removed trailing period here
         }
         if (exercise.timePerSet !== undefined) {
-            copyText += ` - Time per set: ${exercise.timePerSet} seconds.`;
+            copyText += ` - Time per set: ${exercise.timePerSet} seconds`; // Removed trailing period here
         }
         button.dataset.exercise = copyText;
         button.textContent = exercise.name;
@@ -1083,6 +1084,21 @@ function populateExerciseTable() {
         tableBody.appendChild(row);
     });
 
+    // Attach event listeners for individual copy buttons *after* the elements are created
+    document.querySelectorAll(".copy-exercise").forEach(button => {
+        button.addEventListener("click", function () {
+            const textToCopy = this.dataset.exercise;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                this.textContent = "Copied!";
+                setTimeout(() => this.textContent = this.dataset.exercise.split(" - ")[0], 2000);
+            }).catch(err => {
+                console.error("Copy failed", err);
+            });
+        });
+    });
+}
+
+// The "Copy Workout" button's event listener should be outside the populateExerciseTable function
 document.getElementById("copy-workout").addEventListener("click", function() {
     const textToCopy = workoutTextForCopy.replace(/\.$/gm, ''); // Remove trailing periods from each line
     navigator.clipboard.writeText(textToCopy)
@@ -1093,8 +1109,7 @@ document.getElementById("copy-workout").addEventListener("click", function() {
             console.error("Failed to copy: ", err);
             alert("Failed to copy workout.");
         });
-      });
-}
+});
 
 document.addEventListener('DOMContentLoaded', function() {
     populateExerciseTable();
