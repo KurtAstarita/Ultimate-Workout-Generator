@@ -928,7 +928,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             startY: 10,
             styles: {
                 fontSize: 7,
-                cellPadding: 2,
+                cellPadding: 1.5,
                 lineWidth: 0.1,
                 borderColor: [1, 1, 1],
                 textColor: [0, 0, 0],
