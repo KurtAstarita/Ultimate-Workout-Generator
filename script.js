@@ -963,7 +963,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             },
             tableLineWidth: 0.5,
             tableBorderColor: [169, 169, 169],
-  didParseCell: function (data) {
+ didParseCell: function (data) {
                 const rowIndex = data.row.index;
 
                 // Style for Warm-up row
@@ -971,7 +971,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                     data.cell.styles.fontStyle = 'italic';
                     data.cell.styles.textColor = [105, 105, 105];
                     data.cell.styles.cellPadding = { top: 0, right: data.cell.styles.cellPadding.right, bottom: 0, left: data.cell.styles.cellPadding.left };
-                    delete data.cell.styles.fillColor; // Ensure no background color
+                    data.cell.styles.fillColor = [248, 248, 248]; // Mid-gray background
                 }
                 // Style for Notes row
                 else if ((rowIndex - 2) % 3 === 0 && rowIndex > 1 && data.column.index === 0 && data.cell.raw.includes('Notes:')) {
@@ -980,7 +980,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                     data.cell.styles.cellPadding = { top: 0, right: data.cell.styles.cellPadding.right, bottom: 0, left: data.cell.styles.cellPadding.left };
                     data.cell.styles.lineWidth = { top: 0, bottom: 0, left: data.cell.styles.lineWidth, right: data.cell.styles.lineWidth };
                     data.cell.styles.borderColor = [240, 240, 240];
-                    delete data.cell.styles.fillColor; // Ensure no background color
+                    delete data.cell.styles.fillColor; // Ensure no background color (or override)
                 }
                 // Reduce height of empty cells in Warm-up and Notes rows
                 else if (rowIndex % 3 > 0 && data.column.index > 0) {
@@ -997,8 +997,8 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                 // Make every exercise row gray
                 if (rowIndex % 3 === 0) { // Exercise rows have indices 0, 3, 6, etc.
                     data.cell.styles.fillColor = [240, 240, 240]; // Light gray
-                } else {
-                    delete data.cell.styles.fillColor; // Explicitly remove background color for other rows
+                } else if ((rowIndex - 1) % 3 !== 0 && (rowIndex - 2) % 3 !== 0) {
+                    delete data.cell.styles.fillColor; // Ensure notes rows are white
                 }
             }
         });
