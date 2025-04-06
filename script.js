@@ -775,7 +775,7 @@ document.getElementById("generate-workout").addEventListener("click", function (
         }
     }
 
-   let totalWorkoutTime = 0;
+let totalWorkoutTime = 0;
     let workoutHTML = "<br><center><h3><u>YOUR WORKOUT</u></h3></center><ul>";
     workoutTextForCopy = ""; // Reset workoutTextForCopy here
 
@@ -791,12 +791,10 @@ document.getElementById("generate-workout").addEventListener("click", function (
             }
         }
 
-        if (ex.timePerSet !== undefined) {
+        if (typeof ex.timePerSet === 'number' && typeof ex.sets === 'number') {
             workoutHTML += ` - Time per set: ${ex.timePerSet} seconds`;
             workoutTextForCopy += ` - Time per set: ${ex.timePerSet} seconds`;
-            if (typeof ex.sets === 'number') {
-                totalWorkoutTime += ex.sets * ex.timePerSet; // Multiply timePerSet by the number of sets
-            }
+            totalWorkoutTime += ex.sets * ex.timePerSet; // Multiply timePerSet by the number of sets
         }
 
         workoutTextForCopy += "\n";
