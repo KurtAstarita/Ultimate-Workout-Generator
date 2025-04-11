@@ -906,12 +906,14 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                         totalWorkoutTime += (sets - 1) * restInSeconds;
                     }
 
-                    // Calculate active time based on timePerSet or estimate based on 2 seconds/rep
-                    if (tpsInSeconds) {
-                        totalWorkoutTime += sets * tpsInSeconds;
+                    // Calculate active time: use timePerSet if available and > 0, otherwise estimate 2 seconds/rep
+                    let activeTime = 0;
+                    if (tpsInSeconds > 0) {
+                        activeTime = sets * tpsInSeconds;
                     } else if (typeof sets === 'number' && typeof reps === 'number' && reps > 0) {
-                        totalWorkoutTime += sets * reps * 2; // Estimate 2 seconds per rep
+                        activeTime = sets * reps * 2; // Estimate 2 seconds per rep
                     }
+                    totalWorkoutTime += activeTime;
 
                     const tpsInfoFormatted = tpsValue && tpsUnit ? `${tpsValue} ${tpsUnit}` : "";
                     const restInfoFormatted = restValue && restUnit ? `${restValue} ${restUnit}` : "";
