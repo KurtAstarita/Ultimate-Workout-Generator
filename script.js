@@ -906,12 +906,21 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                         totalWorkoutTime += (sets - 1) * restInSeconds;
                     }
 
-                    // Calculate active time: use timePerSet if available and > 0, otherwise estimate 2 seconds/rep
+                    // Calculate active time: always account for reps, using provided timePerSet if available
                     let activeTime = 0;
                     if (tpsInSeconds > 0) {
                         activeTime = sets * tpsInSeconds;
                     } else if (typeof sets === 'number' && typeof reps === 'number' && reps > 0) {
-                        activeTime = sets * reps * 2; // Estimate 2 seconds per rep
+                        activeTime = sets * reps * 2; // Estimate 2 seconds per rep if no timePerSet
+                    } else if (typeof sets === 'number' && typeof reps === 'string' && (reps.toLowerCase().includes('sec') || reps.toLowerCase().includes('min'))) {
+                        // Handle cases where reps might include a time (e.g., "3x30 sec")
+                        const timeMatch = reps.match(/(\d+)\s*(sec|min)/i);
+                        if (timeMatch) {
+                            const timeValue = parseInt(timeMatch[1]);
+                            const timeUnit = timeMatch[2].toLowerCase();
+                            const repDurationInSeconds = timeUnit === 'min' ? timeValue * 60 : timeValue;
+                            activeTime = sets * repDurationInSeconds;
+                        }
                     }
                     totalWorkoutTime += activeTime;
 
