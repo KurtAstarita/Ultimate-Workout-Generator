@@ -892,29 +892,34 @@ document.getElementById('download-pdf').addEventListener('click', function () {
                     const repsInfo = exerciseMatch[2].trim();
                     const restValue = exerciseMatch[3] ? exerciseMatch[3].trim() : "";
                     const restUnit = exerciseMatch[4] ? exerciseMatch[4].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "";
-                    const restInfoFormatted = restValue && restUnit ? `${restValue} ${restUnit}` : "";
                     const restInSeconds = restValue && restUnit.startsWith('min') ? parseInt(restValue) * 60 : parseInt(restValue);
                     const tpsValue = exerciseMatch[5] ? exerciseMatch[5].trim() : "";
                     const tpsUnit = exerciseMatch[6] ? exerciseMatch[6].replace(/seconds?/i, 'sec').replace(/minutes?/i, 'min').trim() : "";
-                    const tpsInfoFormatted = tpsValue && tpsUnit ? `${tpsValue} ${tpsUnit}` : "";
                     const tpsInSeconds = tpsValue && tpsUnit.startsWith('min') ? parseFloat(tpsValue) * 60 : parseFloat(tpsValue);
 
                     const setsMatch = repsInfo.match(/^(\d+)x/i);
                     const sets = setsMatch ? parseInt(setsMatch[1]) : 1;
+                    const repsMatchOnlyNumber = repsInfo.match(/x(\d+)(?:$|\s|-)/i); // Match the number of reps
+                    const reps = repsMatchOnlyNumber ? parseInt(repsMatchOnlyNumber[1]) : 0;
 
                     if (restInSeconds) {
                         totalWorkoutTime += (sets - 1) * restInSeconds;
                     }
+
+                    // Calculate active time based on timePerSet or estimate based on 2 seconds/rep
                     if (tpsInSeconds) {
                         totalWorkoutTime += sets * tpsInSeconds;
+                    } else if (typeof sets === 'number' && typeof reps === 'number' && reps > 0) {
+                        totalWorkoutTime += sets * reps * 2; // Estimate 2 seconds per rep
                     }
 
+                    const tpsInfoFormatted = tpsValue && tpsUnit ? `${tpsValue} ${tpsUnit}` : "";
+                    const restInfoFormatted = restValue && restUnit ? `${restValue} ${restUnit}` : "";
+
                     // Add the exercise row
-                    tableData.push([exerciseName, repsInfo, tpsInfoFormatted, restInfoFormatted, "        |        ", "        |        ", "        |        ", "        |        ", "        |        ", "        |        "]);
-                    // Add a row for warm-up in the exercise column
-                    tableData.push(["  Warm-up:", "", "", "", "|", "|", "|", "|", "|", "|"]);
-                    // Add a row for notes in the exercise column
-                    tableData.push(["    Notes:", "", "", "", "", "", "", "", "", "", "", ""]);
+                    tableData.push([exerciseName, repsInfo, tpsInfoFormatted, restInfoFormatted, "        |        ", "        |        ", "        |        ", "        |        ", "        |        ", "        |        "]);
+                    tableData.push(["  Warm-up:", "", "", "", "|", "|", "|", "|", "|", "|"]);
+                    tableData.push(["    Notes:", "", "", "", "", "", "", "", "", "", "", ""]);
                 }
             }
         });
@@ -963,7 +968,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
             },
             tableLineWidth: 0.5,
             tableBorderColor: [169, 169, 169],
- didParseCell: function (data) {
+            didParseCell: function (data) {
                 const rowIndex = data.row.index;
 
                 // Style for Warm-up row (entire row)
@@ -1009,8 +1014,6 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(11);
         doc.setTextColor(105, 105, 105);
-        const timeLine = lines.find(line => line.includes("Estimated Workout Time"));
-        const timeText = timeLine ? timeLine.replace("seconds", "sec") : "";
         const estimatedMinutes = Math.round(totalWorkoutTime / 60);
         doc.text(`Estimated Workout Time: ${estimatedMinutes} minutes`, 10, tableEndY + 10);
         doc.setTextColor(0, 0, 0);
