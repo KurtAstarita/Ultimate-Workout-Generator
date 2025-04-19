@@ -292,150 +292,210 @@ intermediate: {
         },
     },
 endurance: {
-        beginner: {
-            bodyweight: [
-                { name: "Jumping Jacks", muscleGroup: "cardio", label: "5", equipment: "Bodyweight", sets: 3, reps: 30, rest: 30, timePerSet: 30 },
-                { name: "High Knees", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Bodyweight", sets: 3, reps: 30, rest: 30, timePerSet: 30 }, // Multi-label
-                { name: "Walking", muscleGroup: "cardio, legs", label: "1, 5", equipment: "None", sets: 1, reps: "600 sec", rest: 30, timePerSet: 600 }, // Multi-label
-                { name: "Butt Kicks", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Bodyweight", sets: 3, reps: 30, rest: 30, timePerSet: 30 }, // Multi-label
-                { name: "Mountain Climbers", muscleGroup: "cardio, core, shoulders", label: "2, 4, 5", equipment: "Bodyweight", sets: 3, reps: 20, rest: 40, timePerSet: 20 }, // Multi-label
-                { name: "Step ups", muscleGroup: "legs, cardio", label: "1, 5", equipment: "Optional Step", sets: 3, reps: 10, rest: 30, timePerSet: 30 }, // Multi-label
-            ],
-            dumbbells: [
-                { name: "Dumbbell Thrusters", muscleGroup: "full body, cardio", label: "1, 2, 4, 5", equipment: "Dumbbells", sets: 3, reps: 10, rest: 45, timePerSet: 40 }, // Multi-label
-                { name: "Dumbbell Swings", muscleGroup: "full body, cardio", label: "1, 3, 5", equipment: "Dumbbells", sets: 3, reps: 15, rest: 45, timePerSet: 30 }, // Multi-label
-                { name: "Dumbbell Shadow Boxing", muscleGroup: "cardio, shoulders, arms", label: "2, 4, 5", equipment: "Dumbbells", sets: 3, reps: 30, rest: 30, timePerSet: 30 }, // Multi-label
-            ],
-            gym: [
-                { name: "Treadmill Run", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Treadmill", sets: 1, reps: "600 sec", rest: 30, timePerSet: 600 }, // Multi-label
-                { name: "Elliptical", muscleGroup: "cardio, full body", label: "1, 2, 3, 5", equipment: "Elliptical", sets: 1, reps: "600 sec", rest: 30, timePerSet: 600 }, // Multi-label
-                { name: "Stationary Bike", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Stationary Bike", sets: 1, reps: "600 sec", rest: 30, timePerSet: 600 }, // Multi-label
-            ],
-        },
-intermediate: {
-            bodyweight: [
-                { name: "Burpees", muscleGroup: "full body, cardio", label: "1, 2, 3, 5", equipment: "Bodyweight", sets: 3, reps: 30, rest: 30, timePerSet: 60 }, // Multi-label
-                { name: "Mountain Climbers", muscleGroup: "cardio, core, shoulders", label: "2, 4, 5", equipment: "Bodyweight", sets: 3, reps: 30, rest: 30, timePerSet: 30 }, // Multi-label
-                { name: "Running", muscleGroup: "cardio, legs", label: "1, 5", equipment: "None", sets: 1, reps: "1200 sec", rest: 30, timePerSet: 1200 }, // Multi-label
-                { name: "Jump Squats", muscleGroup: "legs, cardio", label: "1, 5", equipment: "Bodyweight", sets: 3, reps: 15, rest: 45, timePerSet: 30 }, // Multi-label
-                { name: "High Plank Jacks", muscleGroup: "cardio, core, shoulders", label: "2, 4, 5", equipment: "Bodyweight", sets: 3, reps: 20, rest: 30, timePerSet: 20 }, // Multi-label
-                { name: "Skater Jumps", muscleGroup: "legs, cardio", label: "1, 5", equipment: "Bodyweight", sets: 3, reps: 15, rest: 30, timePerSet: 30 }, // Multi-label
-            ],
-            dumbbells: [
-                { name: "Dumbbell Snatches", muscleGroup: "full body, cardio", label: "1, 3, 4, 5", equipment: "Dumbbells", sets: 3, reps: 10, rest: 45, timePerSet: 45 }, // Multi-label
-                { name: "Dumbbell Push Press", muscleGroup: "shoulders, triceps, legs, cardio", label: "1, 2, 4, 5", equipment: "Dumbbells", sets: 3, reps: 12, rest: 45, timePerSet: 40 }, // Multi-label
-                { name: "Dumbbell Renegade Rows", muscleGroup: "back, core, cardio", label: "3, 5", equipment: "Dumbbells", sets: 3, reps: 10, rest: 45, timePerSet: 60 }, // Multi-label
-                { name: "Dumbbell Walking Lunges", muscleGroup: "legs, cardio", label: "1, 5", equipment: "Dumbbells", sets: 3, reps: 10, rest: 30, timePerSet: 60 }, // Multi-label
-                { name: "Dumbbell Burpees", muscleGroup: "full body, cardio", label: "1, 2, 3, 5", equipment: "Dumbbells", sets: 3, reps: 8, rest: 45, timePerSet: 60 }, // Multi-label
-            ],
-            gym: [
-                { name: "Rowing Machine", muscleGroup: "full body, cardio", label: "1, 3, 5", equipment: "Rowing Machine", sets: 1, reps: "900 sec", rest: 30, timePerSet: 900 }, // Multi-label
-                { name: "Assault Bike", muscleGroup: "full body, cardio", label: "1, 2, 3, 5", equipment: "Assault Bike", sets: 1, reps: "720 sec", rest: 30, timePerSet: 720 }, // Multi-label
-                { name: "Stair Climber", muscleGroup: "legs, cardio", label: "1, 5", equipment: "Stair Climber", sets: 1, reps: "900 sec", rest: 30, timePerSet: 900 }, // Multi-label
-                { name: "Battle Ropes", muscleGroup: "shoulders, arms, core, cardio", label: "2, 3, 4, 5", equipment: "Battle Ropes", sets: 3, reps: 30, rest: 45, timePerSet: 30 }, // Multi-label
-                { name: "Sled Push", muscleGroup: "legs, core, cardio", label: "1, 5", equipment: "Sled", sets: 3, reps: 20, rest: 60, timePerSet: 45 }, // Multi-label
-                { name: "Dumbbell Pull overs", muscleGroup: "chest & triceps, back & biceps, cardio", label: "2, 3, 5", equipment: "Dumbbells", sets: 3, reps: 10, rest: 180, timePerSet: 40 }, // Multi-label (including cardio as it can be done at a faster pace for endurance)
-                { name: "Dumbbell Calf Raises", muscleGroup: "legs", label: "1", equipment: "Dumbbells", sets: 3, reps: 10, rest: 180, timePerSet: 25 }, // Primarily legs, less cardio focused at this rep range
-            ],
-        },
-        advanced: {
-            bodyweight: [
-                { name: "Long Distance Running", muscleGroup: "cardio, legs", label: "1, 5", equipment: "None", sets: 1, reps: "3600 sec", rest: 30, timePerSet: 3600 }, // Multi-label
-                { name: "HIIT Training", muscleGroup: "full body, cardio", label: "1, 2, 3, 4, 5", equipment: "Bodyweight", sets: 4, reps: 20, rest: 10, timePerSet: 20 }, // Multi-label
-                { name: "Sprints", muscleGroup: "cardio, legs", label: "1, 5", equipment: "None", sets: 8, reps: "100m", rest: 60, timePerSet: 20 }, // Multi-label
-                { name: "Plyometric Circuit", muscleGroup: "full body, cardio", label: "1, 2, 3, 5", equipment: "Bodyweight", sets: 3, reps: 10, rest: 60, timePerSet: 45 }, // Multi-label
-                { name: "Hill Sprints", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Hill", sets: 6, reps: "50m", rest: 90, timePerSet: 15 }, // Multi-label
-                { name: "Muscle Ups", muscleGroup: "back & biceps, chest & triceps, cardio", label: "2, 3, 5", equipment: "Pull-up Bar", sets: 5, reps: "AMRAP", rest: 120, timePerSet: 60 }, // Multi-label
-            ],
-            dumbbells: [
-                { name: "Dumbbell Complex", muscleGroup: "full body, cardio", label: "1, 2, 3, 4, 5", equipment: "Dumbbells", sets: 4, reps: 8, rest: 60, timePerSet: 60 }, // Multi-label
-                { name: "Dumbbell Snatch and Overhead Squat", muscleGroup: "full body, cardio", label: "1, 3, 4, 5", equipment: "Dumbbells", sets: 4, reps: 6, rest: 90, timePerSet: 60 }, // Multi-label
-                { name: "Dumbbell Farmer's Walk", muscleGroup: "core, grip, legs, shoulders, cardio", label: "1, 4, 5", equipment: "Dumbbells", sets: 3, reps: "50m", rest: 90, timePerSet: 60 }, // Multi-label
-                { name: "Dumbbell Thruster Ladder", muscleGroup: "full body, cardio", label: "1, 2, 4, 5", equipment: "Dumbbells", sets: 1, reps: "Ladder", rest: 120, timePerSet: 180 }, // Multi-label
-                { name: "Dumbbell Turkish Get ups", muscleGroup: "full body, core, cardio", label: "1, 2, 3, 4, 5", equipment: "Dumbbell", sets: 3, reps: 5, rest: 90, timePerSet: 90 }, // Multi-label
-            ],
-            gym: [
-                { name: "Interval Rowing", muscleGroup: "full body, cardio", label: "1, 3, 5", equipment: "Rowing Machine", sets: 5, reps: "500m", rest: 120, timePerSet: 120 }, // Multi-label
-                { name: "High Intensity Assault Bike Intervals", muscleGroup: "full body, cardio", label: "1, 2, 3, 5", equipment: "Assault Bike", sets: 6, reps: 30, rest: 60, timePerSet: 30 }, // Multi-label
-                { name: "Loaded Sled Pushes", muscleGroup: "legs, core, cardio", label: "1, 5", equipment: "Sled", sets: 5, reps: "50m", rest: 120, timePerSet: 45 }, // Multi-label
-                { name: "Ski Erg Intervals", muscleGroup: "full body, cardio", label: "2, 3, 4, 5", equipment: "Ski Erg", sets: 4, reps: 40, rest: 90, timePerSet: 45 }, // Multi-label
-                { name: "VersaClimber Intervals", muscleGroup: "full body, cardio", label: "1, 2, 3, 5", equipment: "VersaClimber", sets: 4, reps: 30, rest: 90, timePerSet: 45 }, // Multi-label
-            ],
-        },
+    beginner: {
+        bodyweight: [
+            { name: "Jumping Jacks", muscleGroup: "cardio", label: "5", equipment: "Bodyweight", sets: 3, reps: 30, rest: 30, timePerSet: 30 },
+            { name: "High Knees", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Bodyweight", sets: 3, reps: 30, rest: 30, timePerSet: 30 },
+            { name: "Walking", muscleGroup: "cardio, legs", label: "1, 5", equipment: "None", sets: 1, reps: "600 sec", rest: 30, timePerSet: 600 },
+            { name: "Butt Kicks", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Bodyweight", sets: 3, reps: 30, rest: 30, timePerSet: 30 },
+            { name: "Mountain Climbers", muscleGroup: "cardio, core, shoulders", label: "2, 4, 5", equipment: "Bodyweight", sets: 3, reps: 20, rest: 40, timePerSet: 20 },
+            { name: "Step ups", muscleGroup: "legs, cardio", label: "1, 5", equipment: "Optional Step", sets: 3, reps: 10, rest: 30, timePerSet: 30 },
+            { name: "Burpees (Beginner - No Jump)", muscleGroup: "full body, cardio", label: "1, 2, 3, 5", equipment: "Bodyweight", sets: 2, reps: 8, rest: 60, timePerSet: 45 },
+            { name: "Shadow Boxing", muscleGroup: "cardio, shoulders, arms", label: "2, 4, 5", equipment: "Bodyweight", sets: 3, reps: 45, rest: 30, timePerSet: 45 },
+            { name: "Plank Jacks", muscleGroup: "cardio, core", label: "2, 5", equipment: "Bodyweight", sets: 3, reps: 20, rest: 30, timePerSet: 20 },
+            { name: "Lateral Shuffles", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Bodyweight", sets: 3, reps: 10, rest: 30, timePerSet: 25 },
+        ],
+        dumbbells: [
+            { name: "Dumbbell Thrusters", muscleGroup: "full body, cardio", label: "1, 2, 4, 5", equipment: "Dumbbells", sets: 3, reps: 10, rest: 45, timePerSet: 40 },
+            { name: "Dumbbell Swings", muscleGroup: "full body, cardio", label: "1, 3, 5", equipment: "Dumbbells", sets: 3, reps: 15, rest: 45, timePerSet: 30 },
+            { name: "Dumbbell Shadow Boxing", muscleGroup: "cardio, shoulders, arms", label: "2, 4, 5", equipment: "Dumbbells", sets: 3, reps: 30, rest: 30, timePerSet: 30 },
+            { name: "Dumbbell Russian Twists", muscleGroup: "core, cardio", label: "2, 5", equipment: "Dumbbells", sets: 3, reps: 15, rest: 30, timePerSet: 30 },
+            { name: "Dumbbell Goblet Squats", muscleGroup: "legs, core, cardio", label: "1, 2, 5", equipment: "Dumbbells", sets: 3, reps: 12, rest: 45, timePerSet: 40 },
+            { name: "Dumbbell Overhead Press (Light)", muscleGroup: "shoulders, arms, cardio", label: "2, 4, 5", equipment: "Dumbbells", sets: 3, reps: 12, rest: 45, timePerSet: 35 },
+        ],
+        gym: [
+            { name: "Treadmill Run", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Treadmill", sets: 1, reps: "600 sec", rest: 30, timePerSet: 600 },
+            { name: "Elliptical", muscleGroup: "cardio, full body", label: "1, 2, 3, 5", equipment: "Elliptical", sets: 1, reps: "600 sec", rest: 30, timePerSet: 600 },
+            { name: "Stationary Bike", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Stationary Bike", sets: 1, reps: "600 sec", rest: 30, timePerSet: 600 },
+            { name: "Rowing Machine (Low Intensity)", muscleGroup: "cardio, full body", label: "1, 2, 3, 5", equipment: "Rowing Machine", sets: 1, reps: "480 sec", rest: 60, timePerSet: 480 },
+            { name: "Stair Climber (Slow Pace)", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Stair Climber", sets: 1, reps: "480 sec", rest: 60, timePerSet: 480 },
+        ],
     },
-    fatloss: {
-        beginner: {
-            bodyweight: [
-                { name: "Jumping Jacks", muscleGroup: "cardio", label: "5", equipment: "Bodyweight", sets: 3, reps: 30, rest: 30, timePerSet: 30 },
-                { name: "Squats", muscleGroup: "legs & back, cardio", label: "1, 5", equipment: "Bodyweight", sets: 3, reps: 15, rest: 45, timePerSet: 30 }, // Multi-label
-                { name: "Push ups", muscleGroup: "chest & triceps, cardio", label: "2, 5", equipment: "Bodyweight", sets: 3, reps: 12, rest: 45, timePerSet: 25 }, // Multi-label
-                { name: "High Knees", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Bodyweight", sets: 3, reps: 30, rest: 30, timePerSet: 30 }, // Multi-label
-                { name: "Walking Lunges", muscleGroup: "legs & back, cardio", label: "1, 5", equipment: "Bodyweight", sets: 3, reps: 10, rest: 30, timePerSet: 60 }, // Multi-label
-                { name: "Plank", muscleGroup: "core, cardio", label: "5", equipment: "Bodyweight", sets: 3, reps: 30, rest: 30, timePerSet: 30 },
-            ],
-            dumbbells: [
-                { name: "Dumbbell Squat to Press", muscleGroup: "full body, cardio", label: "1, 2, 4, 5", equipment: "Dumbbells", sets: 3, reps: 12, rest: 45, timePerSet: 45 }, // Multi-label
-                { name: "Dumbbell Rows", muscleGroup: "back & biceps", label: "3", equipment: "Dumbbells", sets: 3, reps: 12, rest: 45, timePerSet: 40 },
-                { name: "Dumbbell Romanian Deadlifts", muscleGroup: "legs & back", label: "1", equipment: "Dumbbells", sets: 3, reps: 15, rest: 45, timePerSet: 60 },
-                { name: "Dumbbell Thrusters", muscleGroup: "full body, cardio", label: "1, 2, 4, 5", equipment: "Dumbbells", sets: 3, reps: 10, rest: 45, timePerSet: 40 }, // Multi-label
-                { name: "Dumbbell Step ups", muscleGroup: "legs, cardio", label: "1, 5", equipment: "Dumbbells", sets: 3, reps: 10, rest: 30, timePerSet: 45 }, // Multi-label
-            ],
-            gym: [
-                { name: "Treadmill Walk or Jog", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Treadmill", sets: 1, reps: "1200 sec", rest: 30, timePerSet: 1200 }, // Multi-label
-                { name: "Elliptical Trainer", muscleGroup: "cardio, full body", label: "1, 2, 3, 5", equipment: "Elliptical", sets: 1, reps: "1200 sec", rest: 30, timePerSet: 1200 }, // Multi-label
-                { name: "Stationary Bike", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Stationary Bike", sets: 1, reps: "1200 sec", rest: 30, timePerSet: 1200 }, // Multi-label
-                { name: "Rowing Machine", muscleGroup: "full body, cardio", label: "1, 3, 5", equipment: "Rowing Machine", sets: 1, reps: "900 sec", rest: 30, timePerSet: 900 }, // Multi-label
-                { name: "Leg Press Machine", muscleGroup: "legs", label: "1", equipment: "Machines", sets: 3, reps: 15, rest: 45, timePerSet: 40 },
-            ],
-        },
-        intermediate: {
-            bodyweight: [
-                { name: "Burpees", muscleGroup: "full body, cardio", label: "1, 2, 3, 5", equipment: "Bodyweight", sets: 3, reps: 30, rest: 30, timePerSet: 60 }, // Multi-label
-                { name: "Mountain Climbers", muscleGroup: "cardio, core, shoulders", label: "2, 4, 5", equipment: "Bodyweight", sets: 3, reps: 30, rest: 30, timePerSet: 30 }, // Multi-label
-                { name: "Lunges", muscleGroup: "legs & back, cardio", label: "1, 5", equipment: "Bodyweight", sets: 3, reps: 15, rest: 45, timePerSet: 60 }, // Multi-label
-                { name: "Jump Squats", muscleGroup: "legs, cardio", label: "1, 5", equipment: "Bodyweight", sets: 3, reps: 15, rest: 45, timePerSet: 30 }, // Multi-label
-                { name: "High Plank Jacks", muscleGroup: "cardio, core, shoulders", label: "2, 4, 5", equipment: "Bodyweight", sets: 3, reps: 20, rest: 30, timePerSet: 20 }, // Multi-label
-                { name: "Skater Jumps", muscleGroup: "legs, cardio", label: "1, 5", equipment: "Bodyweight", sets: 3, reps: 15, rest: 30, timePerSet: 30 }, // Multi-label
-            ],
-            dumbbells: [
-                { name: "Dumbbell Snatches", muscleGroup: "full body, cardio", label: "1, 3, 4, 5", equipment: "Dumbbells", sets: 3, reps: 10, rest: 45, timePerSet: 45 }, // Multi-label
-                { name: "Dumbbell Push Press", muscleGroup: "shoulders, triceps, legs, cardio", label: "1, 2, 4, 5", equipment: "Dumbbells", sets: 3, reps: 12, rest: 45, timePerSet: 40 }, // Multi-label
-                { name: "Dumbbell Renegade Rows", muscleGroup: "back, core, cardio", label: "3, 5", equipment: "Dumbbells", sets: 3, reps: 10, rest: 45, timePerSet: 60 }, // Multi-label
-                { name: "Dumbbell Walking Lunges", muscleGroup: "legs, cardio", label: "1, 5", equipment: "Dumbbells", sets: 3, reps: 10, rest: 30, timePerSet: 60 }, // Multi-label
-                { name: "Dumbbell Burpees", muscleGroup: "full body, cardio", label: "1, 2, 3, 5", equipment: "Dumbbells", sets: 3, reps: 8, rest: 45, timePerSet: 60 }, // Multi-label
-            ],
-            gym: [
-                { name: "Rowing Machine Intervals", muscleGroup: "full body, cardio", label: "1, 3, 5", equipment: "Rowing Machine", sets: 4, reps: 500, rest: 60, timePerSet: 120 }, // Multi-label
-                { name: "Assault Bike Intervals", muscleGroup: "full body, cardio", label: "1, 2, 3, 5", equipment: "Assault Bike", sets: 4, reps: 30, rest: 60, timePerSet: 30 }, // Multi-label
-                { name: "Stair Climber Intervals", muscleGroup: "legs, cardio", label: "1, 5", equipment: "Stair Climber", sets: 4, reps: 20, rest: 60, timePerSet: 60 }, // Multi-label
-                { name: "Battle Ropes", muscleGroup: "shoulders, arms, core, cardio", label: "2, 3, 4, 5", equipment: "Battle Ropes", sets: 3, reps: 30, rest: 45, timePerSet: 30 }, // Multi-label
-                { name: "Sled Push", muscleGroup: "legs, core, cardio", label: "1, 5", equipment: "Sled", sets: 3, reps: 20, rest: 60, timePerSet: 45 }, // Multi-label
-            ],
-        },
-      advanced: {
-            bodyweight: [
-                { name: "High Intensity Burpee Variations", muscleGroup: "full body, cardio", label: "1, 2, 3, 5", equipment: "Bodyweight", sets: 4, reps: 20, rest: 30, timePerSet: 45 }, // Multi-label
-                { name: "Advanced Plyometric Circuit", muscleGroup: "full body, cardio", label: "1, 2, 3, 5", equipment: "Bodyweight", sets: 4, reps: 15, rest: 45, timePerSet: 60 }, // Multi-label
-                { name: "Complex Bodyweight Movements", muscleGroup: "full body, cardio", label: "1, 2, 3, 4, 5", equipment: "Bodyweight", sets: 4, reps: 10, rest: 60, timePerSet: 60 }, // Multi-label
-                { name: "Sprint Intervals", muscleGroup: "cardio, legs", label: "1, 5", equipment: "None", sets: 6, reps: "100m", rest: 60, timePerSet: 20 }, // Multi-label
-                { name: "Hill Sprints with Burpees", muscleGroup: "full body, cardio", label: "1, 2, 3, 5", equipment: "Hill, Bodyweight", sets: 5, reps: "50m", rest: 90, timePerSet: 45 }, // Multi-label
-            ],
-            dumbbells: [
-                { name: "Dumbbell Complex Circuit", muscleGroup: "full body, cardio", label: "1, 2, 3, 4, 5", equipment: "Dumbbells", sets: 4, reps: 10, rest: 60, timePerSet: 75 }, // Multi-label
-                { name: "Dumbbell Snatch and Overhead Squat Complex", muscleGroup: "full body, cardio", label: "1, 3, 4, 5", equipment: "Dumbbells", sets: 4, reps: 8, rest: 60, timePerSet: 60 }, // Multi-label
-                { name: "Dumbbell Thruster Ladder", muscleGroup: "full body, cardio", label: "1, 2, 4, 5", equipment: "Dumbbells", sets: 1, reps: "Ladder", rest: 120, timePerSet: 180 }, // Multi-label
-                { name: "Dumbbell Renegade Row Complex", muscleGroup: "back, core, cardio", label: "3, 5", equipment: "Dumbbells", sets: 4, reps: 10, rest: 60, timePerSet: 75 }, // Multi-label
-                { name: "Dumbbell Turkish Get ups with Press", muscleGroup: "full body, core, cardio", label: "1, 2, 3, 4, 5", equipment: "Dumbbell", sets: 3, reps: 5, rest: 90, timePerSet: 90 }, // Multi-label
-            ],
-            gym: [
-                { name: "HIIT on Treadmill", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Treadmill", sets: 5, reps: 30, rest: 30, timePerSet: 30 }, // Multi-label
-                { name: "Rowing Machine Intervals", muscleGroup: "full body, cardio", label: "1, 3, 5", equipment: "Rowing Machine", sets: 5, reps: 500, rest: 60, timePerSet: 120 }, // Multi-label
-                { name: "Kettlebell Swings", muscleGroup: "full body, cardio", label: "1, 3, 5", equipment: "Kettlebell", sets: 4, reps: 20, rest: 45, timePerSet: 30 }, // Multi-label
-                { name: "Assault Bike Intervals", muscleGroup: "full body, cardio", label: "1, 2, 3, 5", equipment: "Assault Bike", sets: 6, reps: 30, rest: 60, timePerSet: 30 }, // Multi-label
-                { name: "Ski Erg Intervals", muscleGroup: "full body, cardio", label: "2, 3, 4, 5", equipment: "Ski Erg", sets: 5, reps: 40, rest: 60, timePerSet: 45 }, // Multi-label
-            ],
-        },
+    intermediate: {
+        bodyweight: [
+            { name: "Jumping Jacks", muscleGroup: "cardio", label: "5", equipment: "Bodyweight", sets: 4, reps: 45, rest: 30, timePerSet: 45 },
+            { name: "High Knees", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Bodyweight", sets: 4, reps: 45, rest: 30, timePerSet: 45 },
+            { name: "Running in Place", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Bodyweight", sets: 1, reps: "480 sec", rest: 30, timePerSet: 480 },
+            { name: "Butt Kicks", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Bodyweight", sets: 4, reps: 45, rest: 30, timePerSet: 45 },
+            { name: "Mountain Climbers", muscleGroup: "cardio, core, shoulders", label: "2, 4, 5", equipment: "Bodyweight", sets: 4, reps: 30, rest: 40, timePerSet: 30 },
+            { name: "Step ups", muscleGroup: "legs, cardio", label: "1, 5", equipment: "Optional Step", sets: 4, reps: 15, rest: 30, timePerSet: 35 },
+            { name: "Burpees", muscleGroup: "full body, cardio", label: "1, 2, 3, 5", equipment: "Bodyweight", sets: 3, reps: 10, rest: 60, timePerSet: 60 },
+            { name: "Shadow Boxing", muscleGroup: "cardio, shoulders, arms", label: "2, 4, 5", equipment: "Bodyweight", sets: 4, reps: 60, rest: 30, timePerSet: 60 },
+            { name: "Plank Jacks", muscleGroup: "cardio, core", label: "2, 5", equipment: "Bodyweight", sets: 4, reps: 30, rest: 30, timePerSet: 30 },
+            { name: "Lateral Bounds", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Bodyweight", sets: 3, reps: 12, rest: 45, timePerSet: 30 },
+            { name: "Jump Squats", muscleGroup: "legs, glutes, cardio", label: "1, 3, 5", equipment: "Bodyweight", sets: 3, reps: 15, rest: 45, timePerSet: 35 },
+            { name: "Inchworms", muscleGroup: "full body, cardio", label: "1, 2, 3, 4, 5", equipment: "Bodyweight", sets: 3, reps: 8, rest: 45, timePerSet: 40 },
+        ],
+        dumbbells: [
+            { name: "Dumbbell Thrusters", muscleGroup: "full body, cardio", label: "1, 2, 4, 5", equipment: "Dumbbells", sets: 4, reps: 12, rest: 45, timePerSet: 45 },
+            { name: "Dumbbell Swings", muscleGroup: "full body, cardio", label: "1, 3, 5", equipment: "Dumbbells", sets: 4, reps: 20, rest: 45, timePerSet: 35 },
+            { name: "Dumbbell Shadow Boxing", muscleGroup: "cardio, shoulders, arms", label: "2, 4, 5", equipment: "Dumbbells", sets: 4, reps: 45, rest: 30, timePerSet: 45 },
+            { name: "Dumbbell Russian Twists", muscleGroup: "core, cardio", label: "2, 5", equipment: "Dumbbells", sets: 4, reps: 20, rest: 30, timePerSet: 35 },
+            { name: "Dumbbell Goblet Squats", muscleGroup: "legs, core, cardio", label: "1, 2, 5", equipment: "Dumbbells", sets: 4, reps: 15, rest: 45, timePerSet: 45 },
+            { name: "Dumbbell Overhead Press", muscleGroup: "shoulders, arms, cardio", label: "2, 4, 5", equipment: "Dumbbells", sets: 4, reps: 10, rest: 45, timePerSet: 40 },
+            { name: "Dumbbell Farmer's Walk", muscleGroup: "full body, core, grip", label: "2, 3, 5", equipment: "Dumbbells", sets: 3, reps: "60 sec", rest: 60, timePerSet: 60 },
+            { name: "Dumbbell Lateral Raises", muscleGroup: "shoulders, cardio", label: "2, 4, 5", equipment: "Dumbbells", sets: 3, reps: 15, rest: 45, timePerSet: 35 },
+        ],
+        gym: [
+            { name: "Treadmill Run", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Treadmill", sets: 1, reps: "900 sec", rest: 30, timePerSet: 900 },
+            { name: "Elliptical", muscleGroup: "cardio, full body", label: "1, 2, 3, 5", equipment: "Elliptical", sets: 1, reps: "900 sec", rest: 30, timePerSet: 900 },
+            { name: "Stationary Bike", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Stationary Bike", sets: 1, reps: "900 sec", rest: 30, timePerSet: 900 },
+            { name: "Rowing Machine", muscleGroup: "cardio, full body", label: "1, 2, 3, 5", equipment: "Rowing Machine", sets: 1, reps: "600 sec", rest: 60, timePerSet: 600 },
+            { name: "Stair Climber", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Stair Climber", sets: 1, reps: "600 sec", rest: 60, timePerSet: 600 },
+            { name: "Assault Bike", muscleGroup: "cardio, full body", label: "1, 2, 3, 5", equipment: "Assault Bike", sets: 3, reps: "30 sec", rest: 30, timePerSet: 30 },
+            { name: "Ski Erg", muscleGroup: "cardio, upper body, core", label: "2, 3, 4, 5", equipment: "Ski Erg", sets: 3, reps: "45 sec", rest: 45, timePerSet: 45 },
+        ],
     },
+    advanced: {
+        bodyweight: [
+            { name: "Jumping Jacks", muscleGroup: "cardio", label: "5", equipment: "Bodyweight", sets: 5, reps: 60, rest: 30, timePerSet: 60 },
+            { name: "High Knees", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Bodyweight", sets: 5, reps: 60, rest: 30, timePerSet: 60 },
+            { name: "Running in Place (High Intensity)", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Bodyweight", sets: 1, reps: "720 sec", rest: 30, timePerSet: 720 },
+            { name: "Butt Kicks", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Bodyweight", sets: 5, reps: 60, rest: 30, timePerSet: 60 },
+            { name: "Mountain Climbers", muscleGroup: "cardio, core, shoulders", label: "2, 4, 5", equipment: "Bodyweight", sets: 5, reps: 40, rest: 40, timePerSet: 40 },
+            { name: "Step ups (with Weight Vest)", muscleGroup: "legs, cardio", label: "1, 5", equipment: "Weight Vest", sets: 4, reps: 20, rest: 30, timePerSet: 40 },
+            { name: "Burpees (with Pull-up)", muscleGroup: "full body, cardio, back, arms", label: "1, 2, 3, 4, 5, 6", equipment: "Pull-up Bar", sets: 3, reps: 8, rest: 75, timePerSet: 75 }, // Added label 6
+            { name: "Shadow Boxing (with Ankle Weights)", muscleGroup: "cardio, shoulders, arms", label: "2, 4, 5", equipment: "Ankle Weights", sets: 4, reps: 75, rest: 30, timePerSet: 75 },
+            { name: "Plank Jacks", muscleGroup: "cardio, core", label: "2, 5", equipment: "Bodyweight", sets: 5, reps: 40, rest: 30, timePerSet: 40 },
+            { name: "Lateral Bounds (Long Distance)", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Bodyweight", sets: 4, reps: 15, rest: 45, timePerSet: 35 },
+            { name: "Jump Squats", muscleGroup: "legs, glutes, cardio", label: "1, 3, 5", equipment: "Bodyweight", sets: 4, reps: 20, rest: 45, timePerSet: 40 },
+            { name: "Inchworms", muscleGroup: "full body, cardio", label: "1, 2, 3, 4, 5", equipment: "Bodyweight", sets: 4, reps: 10, rest: 45, timePerSet: 45 },
+            { name: "Handstand Holds (Progression for Cardio)", muscleGroup: "shoulders, core, cardio", label: "2, 4, 5, 6", equipment: "Bodyweight", sets: 3, reps: "30 sec hold", rest: 60, timePerSet: 30 }, // Added label 6
+        ],
+        dumbbells: [
+            { name: "Dumbbell Thrusters", muscleGroup: "full body, cardio", label: "1, 2, 4, 5", equipment: "Dumbbells", sets: 5, reps: 15, rest: 45, timePerSet: 50 },
+            { name: "Dumbbell Swings", muscleGroup: "full body, cardio", label: "1, 3, 5", equipment: "Dumbbells", sets: 5, reps: 25, rest: 45, timePerSet: 40 },
+            { name: "Dumbbell Shadow Boxing (Heavy)", muscleGroup: "cardio, shoulders, arms", label: "2, 4, 5", equipment: "Dumbbells", sets: 5, reps: 60, rest: 30, timePerSet: 60 },
+            { name: "Dumbbell Russian Twists", muscleGroup: "core, cardio", label: "2, 5", equipment: "Dumbbells", sets: 5, reps: 25, rest: 30, timePerSet: 40 },
+            { name: "Dumbbell Goblet Squats", muscleGroup: "legs, core, cardio", label: "1, 2, 5", equipment: "Dumbbells", sets: 5, reps: 18, rest: 45, timePerSet: 50 },
+            { name: "Dumbbell Overhead Press", muscleGroup: "shoulders, arms, cardio", label: "2, 4, 5", equipment: "Dumbbells", sets: 5, reps: 12, rest: 45, timePerSet: 45 },
+            { name: "Dumbbell Farmer's Walk (Heavy)", muscleGroup: "full body, core, grip", label: "2, 3, 5", equipment: "Dumbbells", sets: 4, reps: "90 sec", rest: 60, timePerSet: 90 },
+            { name: "Dumbbell Lateral Raises", muscleGroup: "shoulders, cardio", label: "2, 4, 5", equipment: "Dumbbells", sets: 4, reps: 20, rest: 45, timePerSet: 40 },
+            { name: "Dumbbell Burpees", muscleGroup: "full body, cardio", label: "1, 2, 3, 5", equipment: "Dumbbells", sets: 3, reps: 10, rest: 75, timePerSet: 75 },
+            { name: "Dumbbell Step Ups", muscleGroup: "legs, cardio", label: "1, 5", equipment: "Dumbbells, Step", sets: 4, reps: 15, rest: 45, timePerSet: 40 },
+        ],
+        gym: [
+            { name: "Treadmill Intervals (Sprints)", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Treadmill", sets: 5, reps: "30 sec sprint / 30 sec rest", rest: 60, timePerSet: 60 },
+            { name: "Elliptical Intervals (High Resistance)", muscleGroup: "cardio, full body", label: "1, 2, 3, 5", equipment: "Elliptical", sets: 5, reps: "45 sec high / 15 sec low", rest: 60, timePerSet: 60 },
+            { name: "Stationary Bike Intervals (Hill Climbs)", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Stationary Bike", sets: 5, reps: "60 sec hard / 30 sec easy", rest: 60, timePerSet: 90 },
+            { name: "Rowing Machine Intervals (Power Strokes)", muscleGroup: "cardio, full body", label: "1, 2, 3, 5", equipment: "Rowing Machine", sets: 5, reps: "30 sec power / 30 sec light", rest: 75, timePerSet: 60 },
+            { name: "Stair Climber Intervals (High Speed)", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Stair Climber", sets: 5, reps: "45 sec fast / 15 sec slow", rest: 60, timePerSet: 60 },
+            { name: "Assault Bike Intervals (Max Effort)", muscleGroup: "cardio, full body", label: "1, 2, 3, 5", equipment: "Assault Bike", sets: 5, reps: "20 sec max / 40 sec rest", rest: 90, timePerSet: 60 },
+            { name: "Ski Erg Intervals (Explosive Pulls)", muscleGroup: "cardio, upper body, core", label: "2, 3, 4, 5", equipment: "Ski Erg", sets: 5, reps: "30 sec hard / 30 sec easy", rest: 75, timePerSet: 60 },
+            { name: "Sled Pushes (Light Weight, Short Sprints)", muscleGroup: "cardio, legs, core", label: "1, 2, 3, 5", equipment: "Sled", sets: 4, reps: "20 meters", rest: 60, timePerSet: 30 },
+            { name: "Battle Ropes (Various Patterns)", muscleGroup: "cardio, shoulders, arms, core", label: "2, 4, 5", equipment: "Battle Ropes", sets: 4, reps: "45 sec work / 15 sec rest", rest: 60, timePerSet: 60 },
+        ],
+    },
+},
+fatloss: {
+    beginner: {
+        bodyweight: [
+            { name: "Jumping Jacks", muscleGroup: "cardio", label: "5", equipment: "Bodyweight", sets: 3, reps: 30, rest: 30, timePerSet: 30 },
+            { name: "Squats", muscleGroup: "legs & back, cardio", label: "1, 3, 5", equipment: "Bodyweight", sets: 3, reps: 15, rest: 45, timePerSet: 30 },
+            { name: "Push ups (on knees or full)", muscleGroup: "chest & triceps, cardio", label: "2, 4, 5", equipment: "Bodyweight", sets: 3, reps: 12, rest: 45, timePerSet: 25 },
+            { name: "High Knees", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Bodyweight", sets: 3, reps: 30, rest: 30, timePerSet: 30 },
+            { name: "Walking Lunges", muscleGroup: "legs & glutes, cardio", label: "1, 3, 5", equipment: "Bodyweight", sets: 3, reps: 10 per leg", rest: 30, timePerSet: 60 },
+            { name: "Plank", muscleGroup: "core, cardio", label: "2, 5", equipment: "Bodyweight", sets: 3, reps: "30 sec hold", rest: 30, timePerSet: 30 },
+            { name: "Butt Kicks", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Bodyweight", sets: 3, reps: 30, rest: 30, timePerSet: 30 },
+            { name: "Glute Bridges", muscleGroup: "glutes, hamstrings", label: "3", equipment: "Bodyweight", sets: 3, reps: 15, rest: 30, timePerSet: 30 },
+            { name: "Bird Dog", muscleGroup: "core, back", label: "2, 3", equipment: "Bodyweight", sets: 3, reps: 10 per side", rest: 30, timePerSet: 40 },
+            { name: "Step Ups (low step)", muscleGroup: "legs, glutes, cardio", label: "1, 3, 5", equipment: "Step", sets: 3, reps: 10 per leg", rest: 30, timePerSet: 45 },
+        ],
+        dumbbells: [
+            { name: "Dumbbell Squat to Press", muscleGroup: "full body, cardio", label: "1, 2, 4, 5", equipment: "Dumbbells", sets: 3, reps: 12, rest: 45, timePerSet: 45 },
+            { name: "Dumbbell Rows", muscleGroup: "back & biceps", label: "3", equipment: "Dumbbells", sets: 3, reps: 12 per arm", rest: 45, timePerSet: 40 },
+            { name: "Dumbbell Romanian Deadlifts", muscleGroup: "hamstrings, glutes, lower back", label: "1, 3", equipment: "Dumbbells", sets: 3, reps: 15, rest: 45, timePerSet: 60 },
+            { name: "Dumbbell Thrusters", muscleGroup: "full body, cardio", label: "1, 2, 4, 5", equipment: "Dumbbells", sets: 3, reps: 10, rest: 45, timePerSet: 40 },
+            { name: "Dumbbell Step ups", muscleGroup: "legs, glutes, cardio", label: "1, 3, 5", equipment: "Dumbbells, Step", sets: 3, reps: 10 per leg", rest: 30, timePerSet: 45 },
+            { name: "Dumbbell Goblet Squats", muscleGroup: "legs, glutes, core, cardio", label: "1, 2, 3, 5", equipment: "Dumbbell", sets: 3, reps: 12, rest: 45, timePerSet: 40 },
+            { name: "Dumbbell Shoulder Press (light)", muscleGroup: "shoulders, triceps, cardio", label: "2, 4, 5", equipment: "Dumbbells", sets: 3, reps: 12, rest: 45, timePerSet: 35 },
+            { name: "Dumbbell Farmer's Walk (light)", muscleGroup: "full body, core, grip, cardio", label: "2, 3, 5", equipment: "Dumbbells", sets: 3, reps: "60 sec", rest: 60, timePerSet: 60 },
+        ],
+        gym: [
+            { name: "Treadmill Walk or Jog", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Treadmill", sets: 1, reps: "1200 sec", rest: 30, timePerSet: 1200 },
+            { name: "Elliptical Trainer", muscleGroup: "cardio, full body", label: "1, 2, 3, 5", equipment: "Elliptical", sets: 1, reps: "1200 sec", rest: 30, timePerSet: 1200 },
+            { name: "Stationary Bike", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Stationary Bike", sets: 1, reps: "1200 sec", rest: 30, timePerSet: 1200 },
+            { name: "Rowing Machine (steady pace)", muscleGroup: "full body, cardio", label: "1, 2, 3, 5", equipment: "Rowing Machine", sets: 1, reps: "900 sec", rest: 30, timePerSet: 900 },
+            { name: "Stair Climber (moderate pace)", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Stair Climber", sets: 1, reps: "900 sec", rest: 30, timePerSet: 900 },
+            { name: "Leg Press Machine (higher reps, lower weight)", muscleGroup: "legs, glutes", label: "1, 3", equipment: "Machines", sets: 3, reps: 15, rest: 45, timePerSet: 40 },
+            { name: "Lat Pulldown Machine (higher reps, lower weight)", muscleGroup: "back, biceps", label: "3, 4", equipment: "Machines", sets: 3, reps: 15, rest: 45, timePerSet: 40 },
+        ],
+    },
+    intermediate: {
+        bodyweight: [
+            { name: "Burpees", muscleGroup: "full body, cardio", label: "1, 2, 3, 5", equipment: "Bodyweight", sets: 3, reps: 15, rest: 45, timePerSet: 60 },
+            { name: "Mountain Climbers", muscleGroup: "cardio, core, shoulders", label: "2, 4, 5", equipment: "Bodyweight", sets: 3, reps: 45, rest: 30, timePerSet: 45 },
+            { name: "Walking Lunges", muscleGroup: "legs & glutes, cardio", label: "1, 3, 5", equipment: "Bodyweight", sets: 3, reps: 12 per leg", rest: 45, timePerSet: 75 },
+            { name: "Jump Squats", muscleGroup: "legs, glutes, cardio", label: "1, 3, 5", equipment: "Bodyweight", sets: 3, reps: 20, rest: 45, timePerSet: 30 },
+            { name: "Plank Jacks", muscleGroup: "cardio, core", label: "2, 5", equipment: "Bodyweight", sets: 3, reps: 30, rest: 30, timePerSet: 30 },
+            { name: "Skater Jumps", muscleGroup: "legs, glutes, cardio", label: "1, 5", equipment: "Bodyweight", sets: 3, reps: 20 per leg", rest: 30, timePerSet: 45 },
+            { name: "Push ups", muscleGroup: "chest & triceps, cardio", label: "2, 4, 5", equipment: "Bodyweight", sets: 3, reps: 15, rest: 45, timePerSet: 30 },
+            { name: "Bodyweight Rows (using furniture or low bar)", muscleGroup: "back, biceps, cardio", label: "3, 4, 5", equipment: "Furniture or Low Bar", sets: 3, reps: 12, rest: 45, timePerSet: 40 },
+            { name: "Reverse Lunges", muscleGroup: "legs, glutes, cardio", label: "1, 3, 5", equipment: "Bodyweight", sets: 3, reps: 12 per leg", rest: 45, timePerSet: 60 },
+            { name: "Side Plank", muscleGroup: "core, obliques", label: "2", equipment: "Bodyweight", sets: 3, reps: "45 sec hold per side", rest: 30, timePerSet: 90 },
+        ],
+        dumbbells: [
+            { name: "Dumbbell Snatches", muscleGroup: "full body, cardio", label: "1, 3, 4, 5", equipment: "Dumbbells", sets: 3, reps: 12 per arm", rest: 45, timePerSet: 45 },
+            { name: "Dumbbell Push Press", muscleGroup: "shoulders, triceps, legs, cardio", label: "1, 2, 4, 5", equipment: "Dumbbells", sets: 3, reps: 15, rest: 45, timePerSet: 40 },
+            { name: "Dumbbell Renegade Rows", muscleGroup: "back, core, cardio", label: "3, 5", equipment: "Dumbbells", sets: 3, reps: 12 per arm", rest: 45, timePerSet: 60 },
+            { name: "Dumbbell Walking Lunges", muscleGroup: "legs, glutes, cardio", label: "1, 3, 5", equipment: "Dumbbells", sets: 3, reps: 12 per leg", rest: 30, timePerSet: 75 },
+            { name: "Dumbbell Burpees", muscleGroup: "full body, cardio", label: "1, 2, 3, 5", equipment: "Dumbbells", sets: 3, reps: 10, rest: 45, timePerSet: 60 },
+            { name: "Dumbbell Thrusters", muscleGroup: "full body, cardio", label: "1, 2, 4, 5", equipment: "Dumbbells", sets: 3, reps: 12, rest: 45, timePerSet: 45 },
+            { name: "Dumbbell Romanian Deadlifts", muscleGroup: "hamstrings, glutes, lower back", label: "1, 3", equipment: "Dumbbells", sets: 3, reps: 18, rest: 45, timePerSet: 75 },
+            { name: "Dumbbell Overhead Squats", muscleGroup: "full body, core, shoulders, cardio", label: "1, 2, 3, 4, 5", equipment: "Dumbbells", sets: 3, reps: 10, rest: 60, timePerSet: 60 },
+        ],
+        gym: [
+            { name: "Treadmill Intervals (walk/jog)", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Treadmill", sets: 4, reps: "60 sec jog / 30 sec walk", rest: 60, timePerSet: 120 },
+            { name: "Elliptical Intervals (moderate resistance)", muscleGroup: "cardio, full body", label: "1, 2, 3, 5", equipment: "Elliptical", sets: 4, reps: "60 sec hard / 30 sec easy", rest: 60, timePerSet: 120 },
+            { name: "Stationary Bike Intervals (moderate resistance)", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Stationary Bike", sets: 4, reps: "60 sec hard / 30 sec easy", rest: 60, timePerSet: 120 },
+            { name: "Rowing Machine Intervals", muscleGroup: "full body, cardio", label: "1, 2, 3, 5", equipment: "Rowing Machine", sets: 4, reps: "45 sec hard / 15 sec easy", rest: 60, timePerSet: 60 },
+            { name: "Stair Climber Intervals", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Stair Climber", sets: 4, reps: "45 sec fast / 15 sec slow", rest: 60, timePerSet: 60 },
+            { name: "Battle Ropes Intervals", muscleGroup: "shoulders, arms, core, cardio", label: "2, 4, 5", equipment: "Battle Ropes", sets: 3, reps: "45 sec work / 15 sec rest", rest: 60, timePerSet: 60 },
+            { name: "Sled Push (light weight)", muscleGroup: "legs, core, cardio", label: "1, 3, 5", equipment: "Sled", sets: 3, reps: "30 meters", rest: 60, timePerSet: 45 },
+        ],
+    },
+    advanced: {
+        bodyweight: [
+            { name: "High Intensity Burpee Variations", muscleGroup: "full body, cardio", label: "1, 2, 3, 5", equipment: "Bodyweight", sets: 4, reps: 20, rest: 30, timePerSet: 45 },
+            { name: "Advanced Plyometric Circuit", muscleGroup: "full body, cardio", label: "1, 2, 3, 5", equipment: "Bodyweight", sets: 4, reps: 15, rest: 45, timePerSet: 60 },
+            { name: "Complex Bodyweight Movements (e.g., Burpee Pull-ups)", muscleGroup: "full body, cardio, back, arms", label: "1, 2, 3, 4, 5, 6", equipment: "Pull-up Bar", sets: 4, reps: 10, rest: 60, timePerSet: 75 },
+            { name: "Sprint Intervals (uphill or with resistance)", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Hill or Resistance Bands", sets: 6, reps: "100m", rest: 60, timePerSet: 30 },
+            { name: "Hill Sprints with Burpees", muscleGroup: "full body, cardio", label: "1, 2, 3, 5", equipment: "Hill, Bodyweight", sets: 5, reps: "50m sprint + 5 burpees", rest: 90, timePerSet: 90 },
+            { name: "Plyometric Push ups", muscleGroup: "chest, triceps, shoulders, cardio", label: "2, 4, 5", equipment: "Bodyweight", sets: 4, reps: 10, rest: 45, timePerSet: 45 },
+            { name: "Single Leg Burpees", muscleGroup: "full body, cardio, balance", label: "1, 2, 3, 5", equipment: "Bodyweight", sets: 3, reps: 8 per leg", rest: 60, timePerSet: 75 },
+            { name: "Handstand Push up Negatives", muscleGroup: "shoulders, triceps, core, cardio", label: "2, 4, 5, 6", equipment: "Wall", sets: 3, reps: 5, rest: 75, timePerSet: 60 },
+        ],
+        dumbbells: [
+            { name: "Dumbbell Complex Circuit (multiple exercises back-to-back)", muscleGroup: "full body, cardio", label: "1, 2, 3, 4, 5", equipment: "Dumbbells", sets: 4, reps: 8-12 per exercise", rest: 75, timePerSet: 90 },
+            { name: "Dumbbell Snatch and Overhead Squat Complex", muscleGroup: "full body, cardio", label: "1, 3, 4, 5", equipment: "Dumbbells", sets: 4, reps: 8 per exercise", rest: 75, timePerSet: 75 },
+            { name: "Dumbbell Thruster Ladder (increasing weight or reps)", muscleGroup: "full body, cardio", label: "1, 2, 4, 5", equipment: "Dumbbells", sets: 1, reps: "Ladder", rest: 150, timePerSet: 240 },
+            { name: "Dumbbell Renegade Row Complex (with push ups or lunges)", muscleGroup: "back, core, cardio", label: "2, 3, 5", equipment: "Dumbbells", sets: 4, reps: 8-10 per exercise", rest: 75, timePerSet: 90 },
+            { name: "Dumbbell Turkish Get ups (faster pace)", muscleGroup: "full body, core, cardio", label: "1, 2, 3, 4, 5", equipment: "Dumbbell", sets: 3, reps: 5 per side", rest: 90, timePerSet: 75 },
+            { name: "Dumbbell Clean and Jerk", muscleGroup: "full body, cardio", label: "1, 2, 3, 4, 5", equipment: "Dumbbells", sets: 4, reps: 8, rest: 60, timePerSet: 60 },
+            { name: "Dumbbell Devil's Press", muscleGroup: "full body, cardio", label: "1, 2, 3, 4, 5", equipment: "Dumbbells", sets: 4, reps: 10, rest: 60, timePerSet: 75 },
+        ],
+        gym: [
+            { name: "HIIT on Treadmill (sprint intervals)", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Treadmill", sets: 6, reps: "30 sec sprint / 30 sec rest", rest: 60, timePerSet: 60 },
+            { name: "Rowing Machine Intervals (high intensity)", muscleGroup: "full body, cardio", label: "1, 2, 3, 5", equipment: "Rowing Machine", sets: 5, reps: "400m sprint", rest: 75, timePerSet: 90 },
+            { name: "Kettlebell Swings (heavy)", muscleGroup: "full body, cardio", label: "1, 3, 5", equipment: "Kettlebell", sets: 4, reps: 20, rest: 45, timePerSet: 45 },
+            { name: "Assault Bike Intervals (max effort)", muscleGroup: "full body, cardio", label: "1, 2, 3, 5", equipment: "Assault Bike", sets: 6, reps: "20 sec sprint / 40 sec rest", rest: 90, timePerSet: 60 },
+            { name: "Ski Erg Intervals (powerful pulls)", muscleGroup: "full body, cardio", label: "2, 3, 4, 5", equipment: "Ski Erg", sets: 5, reps: "30 sec hard / 30 sec easy", rest: 75, timePerSet: 60 },
+            { name: "Sled Push Intervals (moderate to heavy weight)", muscleGroup: "legs, core, cardio", label: "1, 3, 5", equipment: "Sled", sets: 4, reps: "40 meters", rest: 90, timePerSet: 60 },
+            { name: "Battle Ropes Intervals (complex patterns)", muscleGroup: "shoulders, arms, core, cardio", label: "2, 4, 5", equipment: "Battle Ropes", sets: 4, reps: "45 sec work / 15 sec rest", rest: 60, timePerSet: 60 },
+            { name: "Jacob's Ladder Intervals", muscleGroup: "full body, cardio", label: "1, 2, 3, 5", equipment: "Jacob's Ladder", sets: 4, reps: "60 sec hard / 30 sec easy", rest: 75, timePerSet: 120 },
+        ],
+    },
+},
 calisthenics: {
         beginner: [
             { name: "Squats", muscleGroup: "legs & back", label: "1", equipment: "Bodyweight", sets: 3, reps: 12, rest: 60, timePerSet: 30 },
@@ -572,59 +632,90 @@ calisthenics: {
             { name: "Weighted Pull ups", muscleGroup: "back & biceps", label: "3", equipment: "Pull-up Bar, Weight", sets: 3, reps: 5, rest: 180, timePerSet: 90 },
         ],
     },
-    hiit: {
-        beginner: [
-            { name: "Jumping Jacks", muscleGroup: "cardio", label: "5", equipment: "Bodyweight", sets: 5, reps: "30 sec", rest: 30, timePerSet: 30 },
-            { name: "High Knees", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Bodyweight", sets: 5, reps: "30 sec", rest: 30, timePerSet: 30 }, // Multi-label
-            { name: "Butt Kicks", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Bodyweight", sets: 5, reps: "30 sec", rest: 30, timePerSet: 30 }, // Multi-label
-            { name: "Mountain Climbers", muscleGroup: "cardio, core, shoulders", label: "2, 4, 5", equipment: "Bodyweight", sets: 5, reps: "20 sec", rest: 40, timePerSet: 20 }, // Multi-label
-            { name: "Squats", muscleGroup: "legs & back, cardio", label: "1, 5", equipment: "Bodyweight", sets: 5, reps: "20 sec", rest: 40, timePerSet: 20 }, // Multi-label
-            { name: "Push ups on Knees", muscleGroup: "chest & triceps, cardio", label: "2, 5", equipment: "Bodyweight", sets: 5, reps: "20 sec", rest: 40, timePerSet: 20 }, // Multi-label
-        ],
-        intermediate: [
-            { name: "Burpees", muscleGroup: "full body, cardio", label: "1, 2, 3, 5", equipment: "Bodyweight", sets: 6, reps: "30 sec", rest: 30, timePerSet: 30 }, // Multi-label
-            { name: "Mountain Climbers", muscleGroup: "cardio, core, shoulders", label: "2, 4, 5", equipment: "Bodyweight", sets: 6, reps: "30 sec", rest: 30, timePerSet: 30 }, // Multi-label
-            { name: "Jump Squats", muscleGroup: "legs, cardio", label: "1, 5", equipment: "Bodyweight", sets: 6, reps: "30 sec", rest: 30, timePerSet: 30 }, // Multi-label
-            { name: "Push ups", muscleGroup: "chest & triceps, cardio", label: "2, 5", equipment: "Bodyweight", sets: 6, reps: "30 sec", rest: 30, timePerSet: 30 }, // Multi-label
-            { name: "High Knees", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Bodyweight", sets: 6, reps: "30 sec", rest: 30, timePerSet: 30 }, // Multi-label
-            { name: "Plank Jacks", muscleGroup: "cardio, core, shoulders", label: "2, 4, 5", equipment: "Bodyweight", sets: 6, reps: "30 sec", rest: 30, timePerSet: 30 }, // Multi-label
-        ],
-        advanced: [
-            { name: "Burpees", muscleGroup: "full body, cardio", label: "1, 2, 3, 5", equipment: "Bodyweight", sets: 8, reps: "40 sec", rest: 20, timePerSet: 40 }, // Multi-label
-            { name: "Box Jumps", muscleGroup: "legs, cardio", label: "1, 5", equipment: "Box", sets: 8, reps: "30 sec", rest: 30, timePerSet: 30 }, // Multi-label
-            { name: "Thrusters", muscleGroup: "full body, cardio", label: "1, 2, 4, 5", equipment: "Dumbbells or Barbell", sets: 8, reps: "30 sec", rest: 30, timePerSet: 30 }, // Multi-label
-            { name: "Sprints on the Spot", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Bodyweight", sets: 8, reps: "30 sec", rest: 30, timePerSet: 30 }, // Multi-label
-            { name: "Pull ups", muscleGroup: "back & biceps, cardio", label: "3, 5", equipment: "Pull-up Bar", sets: 8, reps: "20 sec", rest: 40, timePerSet: 20 }, // Multi-label
-            { name: "Dips", muscleGroup: "chest & triceps, cardio", label: "2, 5", equipment: "Dip Bar or Parallel Bars", sets: 8, reps: "20 sec", rest: 40, timePerSet: 20 }, // Multi-label
-        ],
-    },
-   circuit: {
-        beginner: [
-            { name: "Squats", muscleGroup: "legs & back, cardio", label: "1, 5", equipment: "Bodyweight", sets: 3, reps: 10, rest: 10, timePerSet: 30 }, // Multi-label
-            { name: "Push ups", muscleGroup: "chest & triceps, cardio", label: "2, 5", equipment: "Bodyweight", sets: 3, reps: 8, rest: 10, timePerSet: 25 }, // Multi-label
-            { name: "Lunges", muscleGroup: "legs & back, cardio", label: "1, 5", equipment: "Bodyweight", sets: 3, reps: 10, rest: 10, timePerSet: 45 }, // Multi-label
-            { name: "Plank", muscleGroup: "core, cardio", label: "5", equipment: "Bodyweight", sets: 3, reps: "30 sec", rest: 10, timePerSet: 30 },
-            { name: "Jumping Jacks", muscleGroup: "cardio", label: "5", equipment: "Bodyweight", sets: 3, reps: 20, rest: 10, timePerSet: 20 },
-            { name: "Crunches", muscleGroup: "core, cardio", label: "5", equipment: "Bodyweight", sets: 3, reps: 15, rest: 10, timePerSet: 20 },
-        ],
-        intermediate: [
-            { name: "Burpees", muscleGroup: "full body, cardio", label: "1, 2, 3, 5", equipment: "Bodyweight", sets: 4, reps: 10, rest: 10, timePerSet: 45 }, // Multi-label
-            { name: "Pull ups", muscleGroup: "back & biceps, cardio", label: "3, 5", equipment: "Pull-up Bar", sets: 4, reps: 5, rest: 10, timePerSet: 30 }, // Multi-label
-            { name: "Dips", muscleGroup: "chest & triceps, cardio", label: "2, 5", equipment: "Dip Bar or Parallel Bars", sets: 4, reps: 8, rest: 10, timePerSet: 30 }, // Multi-label
-            { name: "Jump Squats", muscleGroup: "legs, cardio", label: "1, 5", equipment: "Bodyweight", sets: 4, reps: 12, rest: 10, timePerSet: 30 }, // Multi-label
-            { name: "Mountain Climbers", muscleGroup: "cardio, core, shoulders", label: "2, 4, 5", equipment: "Bodyweight", sets: 4, reps: 20, rest: 10, timePerSet: 20 }, // Multi-label
-            { name: "Kettlebell Swings", muscleGroup: "full body, cardio", label: "1, 3, 5", equipment: "Kettlebell", sets: 4, reps: 15, rest: 10, timePerSet: 30 }, // Multi-label
-        ],
-        advanced: [
-            { name: "Muscle Ups", muscleGroup: "back & biceps, chest & triceps, shoulders, core, cardio", label: "2, 3, 4, 5", equipment: "Pull-up Bar or Rings", sets: 5, reps: 3, rest: 10, timePerSet: 60 }, // Multi-label
-            { name: "Pistol Squats", muscleGroup: "legs & back, core, cardio", label: "1, 5", equipment: "Bodyweight", sets: 5, reps: 5, rest: 10, timePerSet: 60 }, // Multi-label
-            { name: "Handstand Push ups", muscleGroup: "delts & traps, triceps, core, cardio", label: "2, 4, 5", equipment: "Wall (optional)", sets: 5, reps: 3, rest: 10, timePerSet: 60 }, // Multi-label
-            { name: "Box Jumps", muscleGroup: "legs, cardio", label: "1, 5", equipment: "Box", sets: 5, reps: 10, rest: 10, timePerSet: 30 }, // Multi-label
-            { name: "Thrusters", muscleGroup: "full body, cardio", label: "1, 2, 4, 5", equipment: "Dumbbells or Barbell", sets: 5, reps: 10, rest: 10, timePerSet: 45 }, // Multi-label
-            { name: "Barbell Complexes", muscleGroup: "full body, cardio", label: "1, 2, 3, 4, 5", equipment: "Barbell", sets: 5, reps: 5, rest: 10, timePerSet: 90 }, // Multi-label
-        ],
-    },
-};
+hiit: {
+    beginner: [
+        { name: "Jumping Jacks", muscleGroup: "cardio", label: "5", equipment: "Bodyweight", sets: 5, reps: "30 sec", rest: 30, timePerSet: 30 },
+        { name: "High Knees", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Bodyweight", sets: 5, reps: "30 sec", rest: 30, timePerSet: 30 },
+        { name: "Butt Kicks", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Bodyweight", sets: 5, reps: "30 sec", rest: 30, timePerSet: 30 },
+        { name: "Mountain Climbers", muscleGroup: "cardio, core, shoulders", label: "2, 4, 5", equipment: "Bodyweight", sets: 5, reps: "20 sec", rest: 40, timePerSet: 20 },
+        { name: "Squats", muscleGroup: "legs & back, cardio", label: "1, 3, 5", equipment: "Bodyweight", sets: 5, reps: "20 sec", rest: 40, timePerSet: 20 },
+        { name: "Push ups on Knees", muscleGroup: "chest & triceps, cardio", label: "2, 4, 5", equipment: "Bodyweight", sets: 5, reps: "20 sec", rest: 40, timePerSet: 20 },
+        { name: "Plank Jacks", muscleGroup: "cardio, core", label: "2, 5", equipment: "Bodyweight", sets: 5, reps: "30 sec", rest: 30, timePerSet: 30 },
+        { name: "Walking Lunges", muscleGroup: "legs, glutes, cardio", label: "1, 3, 5", equipment: "Bodyweight", sets: 4, reps: "20 sec per leg", rest: 40, timePerSet: 40 },
+        { name: "Shadow Boxing", muscleGroup: "cardio, shoulders, arms", label: "2, 4, 5", equipment: "Bodyweight", sets: 4, reps: "30 sec", rest: 30, timePerSet: 30 },
+        { name: "Step Ups (Low Step)", muscleGroup: "legs, cardio", label: "1, 5", equipment: "Optional Step", sets: 4, reps: "20 sec per leg", rest: 30, timePerSet: 40 },
+    ],
+    intermediate: [
+        { name: "Burpees", muscleGroup: "full body, cardio", label: "1, 2, 3, 5", equipment: "Bodyweight", sets: 6, reps: "30 sec", rest: 30, timePerSet: 30 },
+        { name: "Mountain Climbers", muscleGroup: "cardio, core, shoulders", label: "2, 4, 5", equipment: "Bodyweight", sets: 6, reps: "30 sec", rest: 30, timePerSet: 30 },
+        { name: "Jump Squats", muscleGroup: "legs, cardio", label: "1, 3, 5", equipment: "Bodyweight", sets: 6, reps: "30 sec", rest: 30, timePerSet: 30 },
+        { name: "Push ups", muscleGroup: "chest & triceps, cardio", label: "2, 4, 5", equipment: "Bodyweight", sets: 6, reps: "30 sec", rest: 30, timePerSet: 30 },
+        { name: "High Knees", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Bodyweight", sets: 6, reps: "30 sec", rest: 30, timePerSet: 30 },
+        { name: "Plank Jacks", muscleGroup: "cardio, core", label: "2, 5", equipment: "Bodyweight", sets: 6, reps: "30 sec", rest: 30, timePerSet: 30 },
+        { name: "Box Jumps (Low Box)", muscleGroup: "legs, cardio", label: "1, 5", equipment: "Box", sets: 5, reps: "30 sec", rest: 30, timePerSet: 30 },
+        { name: "Walking Lunges with Twist", muscleGroup: "legs, glutes, core, cardio", label: "1, 2, 3, 5", equipment: "Bodyweight", sets: 5, reps: "30 sec per leg", rest: 30, timePerSet: 60 },
+        { name: "Dumbbell Thrusters (Light)", muscleGroup: "full body, cardio", label: "1, 2, 4, 5", equipment: "Dumbbells", sets: 5, reps: "30 sec", rest: 30, timePerSet: 30 },
+        { name: "Kettlebell Swings (Light)", muscleGroup: "full body, cardio", label: "1, 3, 5", equipment: "Kettlebell", sets: 5, reps: "30 sec", rest: 30, timePerSet: 30 },
+        { name: "Sprawls", muscleGroup: "full body, cardio", label: "1, 2, 3, 5", equipment: "Bodyweight", sets: 5, reps: "30 sec", rest: 30, timePerSet: 30 },
+        { name: "Lateral Skaters", muscleGroup: "legs, cardio", label: "1, 5", equipment: "Bodyweight", sets: 5, reps: "30 sec per side", rest: 30, timePerSet: 60 },
+    ],
+    advanced: [
+        { name: "Burpees", muscleGroup: "full body, cardio", label: "1, 2, 3, 5", equipment: "Bodyweight", sets: 8, reps: "40 sec", rest: 20, timePerSet: 40 },
+        { name: "Box Jumps", muscleGroup: "legs, cardio", label: "1, 5", equipment: "Box", sets: 8, reps: "30 sec", rest: 30, timePerSet: 30 },
+        { name: "Thrusters", muscleGroup: "full body, cardio", label: "1, 2, 4, 5", equipment: "Dumbbells or Barbell", sets: 8, reps: "30 sec", rest: 30, timePerSet: 30 },
+        { name: "Sprints on the Spot (Fast)", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Bodyweight", sets: 8, reps: "30 sec", rest: 30, timePerSet: 30 },
+        { name: "Pull ups", muscleGroup: "back & biceps, cardio", label: "3, 4, 5, 6", equipment: "Pull-up Bar", sets: 8, reps: "20 sec", rest: 40, timePerSet: 20 },
+        { name: "Dips", muscleGroup: "chest & triceps, cardio", label: "2, 4, 5", equipment: "Dip Bar or Parallel Bars", sets: 8, reps: "20 sec", rest: 40, timePerSet: 20 },
+        { name: "Devil's Press", muscleGroup: "full body, cardio", label: "1, 2, 3, 4, 5", equipment: "Dumbbells", sets: 6, reps: "30 sec", rest: 30, timePerSet: 30 },
+        { name: "Kettlebell Snatches", muscleGroup: "full body, cardio", label: "1, 3, 4, 5", equipment: "Kettlebell", sets: 6, reps: "30 sec per arm", rest: 30, timePerSet: 60 },
+        { name: "Battle Rope Waves", muscleGroup: "shoulders, arms, core, cardio", label: "2, 4, 5", equipment: "Battle Ropes", sets: 6, reps: "30 sec", rest: 30, timePerSet: 30 },
+        { name: "Rowing Sprints", muscleGroup: "full body, cardio", label: "1, 2, 3, 5", equipment: "Rowing Machine", sets: 6, reps: "30 sec", rest: 30, timePerSet: 30 },
+        { name: "Bike Sprints (Assault Bike)", muscleGroup: "full body, cardio", label: "1, 2, 3, 5", equipment: "Assault Bike", sets: 6, reps: "20 sec", rest: 40, timePerSet: 20 },
+        { name: "Handstand Push-ups (or progressions)", muscleGroup: "shoulders, triceps, core, cardio", label: "2, 4, 5, 6", equipment: "Bodyweight (Wall)", sets: 5, reps: "20 sec", rest: 45, timePerSet: 20 },
+    ],
+},
+circuit: {
+    beginner: [
+        { name: "Squats", muscleGroup: "legs & back", label: "1, 3", equipment: "Bodyweight", sets: 3, reps: 10, rest: 10, timePerSet: 30 },
+        { name: "Push ups (on knees or full)", muscleGroup: "chest & triceps", label: "2, 4", equipment: "Bodyweight", sets: 3, reps: 8, rest: 10, timePerSet: 25 },
+        { name: "Lunges (alternating legs)", muscleGroup: "legs & glutes", label: "1, 3", equipment: "Bodyweight", sets: 3, reps: 10, rest: 10, timePerSet: 45 },
+        { name: "Plank", muscleGroup: "core", label: "2", equipment: "Bodyweight", sets: 3, reps: "30 sec hold", rest: 10, timePerSet: 30 },
+        { name: "Jumping Jacks", muscleGroup: "cardio", label: "5", equipment: "Bodyweight", sets: 3, reps: 20, rest: 10, timePerSet: 20 },
+        { name: "Crunches", muscleGroup: "core", label: "2", equipment: "Bodyweight", sets: 3, reps: 15, rest: 10, timePerSet: 20 },
+        { name: "Glute Bridges", muscleGroup: "glutes, hamstrings", label: "3", equipment: "Bodyweight", sets: 3, reps: 12, rest: 10, timePerSet: 30 },
+        { name: "Bird Dog", muscleGroup: "core, back", label: "2, 3", equipment: "Bodyweight", sets: 3, reps: 10, rest: 10, timePerSet: 30 },
+        { name: "Step Ups (on a sturdy box or step)", muscleGroup: "legs, glutes", label: "1, 3", equipment: "Step", sets: 3, reps: 10, rest: 10, timePerSet: 30 },
+        { name: "Arm Circles", muscleGroup: "shoulders", label: "4", equipment: "Bodyweight", sets: 3, reps: 15, rest: 10, timePerSet: 20 },
+    ],
+    intermediate: [
+        { name: "Burpees", muscleGroup: "full body, cardio", label: "1, 2, 3, 4, 5", equipment: "Bodyweight", sets: 4, reps: 10, rest: 10, timePerSet: 45 },
+        { name: "Pull ups (assisted if needed)", muscleGroup: "back & biceps", label: "3, 4", equipment: "Pull-up Bar", sets: 4, reps: 5, rest: 10, timePerSet: 30 },
+        { name: "Dips (assisted if needed)", muscleGroup: "chest & triceps", label: "2, 4", equipment: "Dip Bar or Parallel Bars", sets: 4, reps: 8, rest: 10, timePerSet: 30 },
+        { name: "Jump Squats", muscleGroup: "legs, cardio", label: "1, 3, 5", equipment: "Bodyweight", sets: 4, reps: 12, rest: 10, timePerSet: 30 },
+        { name: "Mountain Climbers", muscleGroup: "cardio, core, shoulders", label: "2, 4, 5", equipment: "Bodyweight", sets: 4, reps: 20, rest: 10, timePerSet: 20 },
+        { name: "Kettlebell Swings", muscleGroup: "full body, cardio", label: "1, 3, 5", equipment: "Kettlebell", sets: 4, reps: 15, rest: 10, timePerSet: 30 },
+        { name: "Walking Lunges with Overhead Reach", muscleGroup: "legs, glutes, core, shoulders", label: "1, 2, 3, 4", equipment: "Bodyweight", sets: 4, reps: 10, rest: 10, timePerSet: 50 },
+        { name: "Renegade Rows (light dumbbells)", muscleGroup: "back, core, biceps", label: "2, 3, 4", equipment: "Dumbbells", sets: 3, reps: 8, rest: 10, timePerSet: 40 },
+        { name: "Box Jumps (low box)", muscleGroup: "legs, cardio", label: "1, 5", equipment: "Box", sets: 3, reps: 8, rest: 10, timePerSet: 30 },
+        { name: "Russian Twists (with or without weight)", muscleGroup: "core", label: "2", equipment: "Bodyweight or Dumbbell", sets: 3, reps: 15, rest: 10, timePerSet: 30 },
+        { name: "Thrusters (light dumbbells)", muscleGroup: "full body", label: "1, 2, 4", equipment: "Dumbbells", sets: 3, reps: 8, rest: 10, timePerSet: 40 },
+        { name: "High Knees Sprint in Place", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Bodyweight", sets: 3, reps: 20, rest: 10, timePerSet: 20 },
+    ],
+    advanced: [
+        { name: "Muscle Ups", muscleGroup: "back & biceps, chest & triceps, shoulders, core", label: "2, 3, 4", equipment: "Pull-up Bar or Rings", sets: 5, reps: 3, rest: 10, timePerSet: 60 },
+        { name: "Pistol Squats (alternating legs)", muscleGroup: "legs & glutes, core", label: "1, 3", equipment: "Bodyweight", sets: 3, reps: 5, rest: 10, timePerSet: 60 },
+        { name: "Handstand Push ups (freestanding or against wall)", muscleGroup: "shoulders, triceps, core", label: "2, 4", equipment: "Wall (optional)", sets: 3, reps: 3, rest: 10, timePerSet: 60 },
+        { name: "Box Jumps (high box)", muscleGroup: "legs, cardio", label: "1, 5", equipment: "Box", sets: 4, reps: 10, rest: 10, timePerSet: 30 },
+        { name: "Thrusters (barbell or heavier dumbbells)", muscleGroup: "full body", label: "1, 2, 4", equipment: "Barbell or Dumbbells", sets: 4, reps: 8, rest: 10, timePerSet: 45 },
+        { name: "Barbell Complexes (multiple exercises in one set)", muscleGroup: "full body", label: "1, 2, 3, 4", equipment: "Barbell", sets: 3, reps: 5, rest: 10, timePerSet: 90 },
+        { name: "Kettlebell Snatches (alternating arms)", muscleGroup: "full body", label: "1, 3, 4", equipment: "Kettlebell", sets: 3, reps: 6, rest: 10, timePerSet: 40 },
+        { name: "Pull ups (strict or kipping)", muscleGroup: "back & biceps", label: "3, 4", equipment: "Pull-up Bar", sets: 4, reps: 8, rest: 10, timePerSet: 30 },
+        { name: "Dips (weighted if possible)", muscleGroup: "chest & triceps", label: "2, 4", equipment: "Dip Bar or Parallel Bars, Weight Belt (optional)", sets: 4, reps: 10, rest: 10, timePerSet: 30 },
+        { name: "Medicine Ball Slams", muscleGroup: "core, shoulders, arms", label: "2, 4", equipment: "Medicine Ball", sets: 3, reps: 10, rest: 10, timePerSet: 30 },
+        { name: "Battle Ropes (various patterns)", muscleGroup: "shoulders, arms, core, cardio", label: "2, 4, 5", equipment: "Battle Ropes", sets: 3, reps: 30, rest: 10, timePerSet: 30 },
+        { name: "Sled Pushes (light to moderate weight)", muscleGroup: "legs, core, shoulders", label: "1, 2, 3", equipment: "Sled", sets: 3, reps: "20 meters", rest: 10, timePerSet: 45 },
+    ],
+},
 
 
 
