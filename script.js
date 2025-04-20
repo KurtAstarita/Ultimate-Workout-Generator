@@ -758,7 +758,41 @@ document.getElementById("modality").addEventListener("change", function () {
 // Disable the copy button initially
 document.getElementById("copy-workout").disabled = true;
 
-/* ............................................... Function: Copy Workout ...................................................... */
+/* -------------------------------------- copy function -------------------------------------- */
+
+document.getElementById("copy-workout").addEventListener("click", function() {
+    const copyButton = this;
+    const originalText = copyButton.textContent;
+
+    copyButton.disabled = true;
+    copyButton.textContent = "Requesting Copy...";
+
+    // Split the workout text into lines
+    const lines = workoutTextForCopy.split('\n');
+
+    // Filter out the line containing "Estimated Workout Time"
+    const workoutLinesToCopy = lines.filter(line => !line.includes("Estimated Workout Time"));
+
+    // Join the remaining lines back into a single string
+    const textToCopy = workoutLinesToCopy.join('\n').trim(); // Trim to remove any leading/trailing empty lines
+
+    navigator.clipboard.writeText(textToCopy)
+        .then(() => {
+            alert("Workout copied to clipboard!");
+        })
+        .catch(err => {
+            console.error("Failed to copy: ", err);
+            alert("Failed to copy workout.");
+        })
+        .finally(() => {
+            setTimeout(() => {
+                copyButton.textContent = originalText;
+                copyButton.disabled = false;
+            }, 3000); // Revert button state after attempt
+        });
+});
+
+/* ............................................... Function: Generate Workout ...................................................... */
 
 document.getElementById("generate-workout").addEventListener("click", function () {
     const goal = document.getElementById("goal").value;
