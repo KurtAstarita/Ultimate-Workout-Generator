@@ -888,31 +888,35 @@ document.getElementById("generate-workout").addEventListener("click", function (
             }
         }
 
-if (ex.timePerSet !== undefined) {
-    workoutHTML += ` - Time per set: ${ex.timePerSet} seconds`;
-    workoutTextForCopy += ` - Time per set: ${ex.timePerSet} seconds`;
-    if (typeof ex.sets === 'number') {
-        let numberOfRounds = ex.sets;
-        let perLimb = false;
-        if (typeof ex.reps === 'string') {
-            perLimb = ex.reps.toLowerCase().includes("per leg") || ex.reps.toLowerCase().includes("per arm") || ex.reps.toLowerCase().includes("per side");
-        }
+        if (ex.timePerSet !== undefined) {
+            let timePerSetDisplay = `${ex.timePerSet} seconds`;
+            if (typeof ex.reps === 'string' && (ex.reps.toLowerCase().includes("per leg") || ex.reps.toLowerCase().includes("per arm") || ex.reps.toLowerCase().includes("per side"))) {
+                timePerSetDisplay += ` per side/limb`;
+            }
+            workoutHTML += ` - Time per set: ${timePerSetDisplay}`;
+            workoutTextForCopy += ` - Time per set: ${timePerSetDisplay}`;
+            if (typeof ex.sets === 'number') {
+                let numberOfRounds = ex.sets;
+                let perLimb = false;
+                if (typeof ex.reps === 'string') {
+                    perLimb = ex.reps.toLowerCase().includes("per leg") || ex.reps.toLowerCase().includes("per arm") || ex.reps.toLowerCase().includes("per side");
+                }
 
-        if (perLimb) {
-            totalWorkoutTime += numberOfRounds * (2 * ex.timePerSet);
-        } else if (typeof ex.reps === 'string' && (ex.reps.includes('sec') || ex.reps.includes('minutes'))) {
-            numberOfRounds = ex.sets;
-            const seconds = parseInt(ex.reps.split(" ")[0]);
-            totalWorkoutTime += numberOfRounds * seconds;
-        } else if (typeof ex.reps === 'string' && (ex.reps === 'AMRAP' || ex.reps === 'Ladder')) {
-            numberOfRounds = ex.sets;
-            totalWorkoutTime += numberOfRounds * ex.timePerSet;
-        } else if (typeof ex.reps === 'number') {
-            numberOfRounds = ex.sets;
-            totalWorkoutTime += numberOfRounds * ex.timePerSet;
+                if (perLimb) {
+                    totalWorkoutTime += numberOfRounds * (2 * ex.timePerSet);
+                } else if (typeof ex.reps === 'string' && (ex.reps.includes('sec') || ex.reps.includes('minutes'))) {
+                    numberOfRounds = ex.sets;
+                    const seconds = parseInt(ex.reps.split(" ")[0]);
+                    totalWorkoutTime += numberOfRounds * seconds;
+                } else if (typeof ex.reps === 'string' && (ex.reps === 'AMRAP' || ex.reps === 'Ladder')) {
+                    numberOfRounds = ex.sets;
+                    totalWorkoutTime += numberOfRounds * ex.timePerSet;
+                } else if (typeof ex.reps === 'number') {
+                    numberOfRounds = ex.sets;
+                    totalWorkoutTime += numberOfRounds * ex.timePerSet;
+                }
+            }
         }
-    }
-}
 
         workoutTextForCopy += "\n";
     });
