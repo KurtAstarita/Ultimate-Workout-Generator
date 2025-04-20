@@ -943,7 +943,6 @@ hybrid_calisthenics_plus: {
         { name: "Resistance Band Pull-aparts", sets: 3, reps: 15, rest: 30, equipment: "resistance band", muscleGroup: "shoulders, upper back", timePerSet: 20 },
         { name: "Incline Push-ups (hands elevated)", sets: 3, reps: 10, rest: 45, equipment: "bench or elevated surface", muscleGroup: "chest, shoulders, triceps", timePerSet: 30 },
         { name: "Resistance Band Rows (seated or standing)", sets: 3, reps: 12, rest: 45, equipment: "resistance band", muscleGroup: "back, biceps",
-
         }
     }
 };
