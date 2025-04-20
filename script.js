@@ -716,7 +716,7 @@ circuit: {
         { name: "Sled Pushes (light to moderate weight)", muscleGroup: "legs, core, shoulders", label: "1, 2, 3", equipment: "Sled", sets: 3, reps: "20 meters", rest: 10, timePerSet: 45 }
       ],
    },
-"hybrid_calisthenics_plus": {
+hybrid_calisthenics_plus: {
         "beginner": [
             { name: "Weighted Vest Squats", sets: 3, reps: 10, rest: 60, equipment: "weighted vest", label: "legs" },
             { name: "Resistance Band Assisted Push ups", sets: 3, reps: 10, rest: 60, equipment: "resistance band", muscleGroup: "chest" },
@@ -767,7 +767,7 @@ circuit: {
             { name: "Towel Curls (Suspension Trainer, challenging angle)", sets: 3, reps: 8, rest: 60, equipment: "towel, suspension trainer", muscleGroup: "biceps" },
             { name: "Suspension Trainer Tricep Dips", sets: 3, reps: 10, rest: 75, equipment: "suspension trainer", muscleGroup: "triceps, chest" }
         ],
-        "all": [ // You can also have an "all" category if you don't want to differentiate by experience for this modality
+        "all": [
             { name: "Hybrid Circuit (Weighted Vest Squats, Suspension Trainer Rows, Resistance Band Push-ups, Towel Pull-ups)", sets: 3, reps: "8-12 reps each", rest: 90, equipment: "weighted vest, suspension trainer, resistance band, towel, pull-up bar", label: "full body, circuit" },
             { name: "Suspension Trainer Core Series (Knee Tucks, Pikes, Body Saws)", sets: 3, reps: "10-15 reps each", rest: 60, equipment: "suspension trainer", label: "core" },
             { name: "Towel Bicep & Tricep Superset (Suspension Trainer Curls & Extensions)", sets: 3, reps: "10-12 reps each", rest: 75, equipment: "towel, suspension trainer", muscleGroup: "biceps, triceps" },
