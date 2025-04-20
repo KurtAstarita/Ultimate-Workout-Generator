@@ -891,7 +891,8 @@ hybrid_calisthenics_plus: {
                 { name: "Resistance Band Pull-aparts (super wide grip)", sets: 3, reps: 20-25, rest: 45, equipment: "resistance band", muscleGroup: "shoulders, upper back, rear deltoids", timePerSet: 30 },
                 { name: "Suspension Trainer Pike Push-ups (elevated feet)", sets: 3, reps: 8-12, rest: 75, equipment: "suspension trainer, elevated surface", muscleGroup: "shoulders, triceps, upper chest, core", timePerSet: 60 },
                 { name: "Weighted Vest Nordic Hamstring Curls (full range, controlled)", sets: 3, reps: 4-6, rest: 90, equipment: "weighted vest, secure foot hold", muscleGroup: "hamstrings, glutes, lower back
-    }
+              ]   
+        }
 };
 
 
