@@ -951,8 +951,10 @@ document.getElementById("generate-workout").addEventListener("click", function (
                 totalWorkoutTime += numberOfRounds * totalIntervalTime;
             } else if (typeof ex.reps === 'number') {
                 totalWorkoutTime += numberOfRounds * ex.timePerSet;
-            }
-        }
+             }
+          }
+       }
+    }
 
         workoutTextForCopy += "\n";
     });
