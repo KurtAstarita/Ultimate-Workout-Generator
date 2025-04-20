@@ -713,10 +713,10 @@ circuit: {
         { name: "Dips (weighted if possible)", muscleGroup: "chest & triceps", label: "2, 4", equipment: "Dip Bar or Parallel Bars, Weight Belt (optional)", sets: 4, reps: 10, rest: 10, timePerSet: 30 },
         { name: "Medicine Ball Slams", muscleGroup: "core, shoulders, arms", label: "2, 4", equipment: "Medicine Ball", sets: 3, reps: 10, rest: 10, timePerSet: 30 },
         { name: "Battle Ropes (various patterns)", muscleGroup: "shoulders, arms, core, cardio", label: "2, 4, 5", equipment: "Battle Ropes", sets: 3, reps: 30, rest: 10, timePerSet: 30 },
-        { name: "Sled Pushes (light to moderate weight)", muscleGroup: "legs, core, shoulders", label: "1, 2, 3", equipment: "Sled", sets: 3, reps: "20 meters", rest: 10, timePerSet: 45 },
-    ],
-},
-
+        { name: "Sled Pushes (light to moderate weight)", muscleGroup: "legs, core, shoulders", label: "1, 2, 3", equipment: "Sled", sets: 3, reps: "20 meters", rest: 10, timePerSet: 45 }
+      ],
+   },
+};
 
 
 /* ............................................... Function: Normalize Exercises ...................................................... */
