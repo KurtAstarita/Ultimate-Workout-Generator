@@ -854,12 +854,12 @@ hybrid_calisthenics_plus: {
         { name: "Suspension Trainer Inverted Rows (feet elevated)", sets: 3, reps: 12, rest: 60, equipment: "suspension trainer, elevated surface", muscleGroup: "back, biceps", timePerSet: 30 },
         { name: "Wrist Weight Dips", sets: 3, reps: 8, rest: 75, equipment: "wrist weights", muscleGroup: "triceps, chest, shoulders", timePerSet: 45 },
         { name: "Weighted Vest Step-ups", sets: 3, reps: 10 each leg, rest: 60, equipment: "weighted vest, box or step", label: "legs, glutes", timePerSet: 45, muscleGroup: "legs, glutes" },
-        { name: "Resistance Band Good Mornings", sets: 3, reps: 15, rest: 60, equipment: "resistance band", muscleGroup: "hamstrings, glutes, lower back", timePerSet: 30 },
-        { name: "Suspension Trainer Tricep Extensions (overhead)", sets: 3, reps: 12, rest: 60, equipment: "suspension trainer", muscleGroup: "triceps", timePerSet: 30 },
-        { name: "Ankle Weight Russian Twists", sets: 3, reps: 15 each side, rest: 45, equipment: "ankle weights", label: "core, obliques", timePerSet: 30, muscleGroup: "core, obliques" },
-        { name: "Weighted Vest Glute Bridges", sets: 3, reps: 15, rest: 60, equipment: "weighted vest", muscleGroup: "glutes, hamstrings", timePerSet: 30 },
-        { name: "Resistance Band Face Pulls", sets: 3, reps: 15, rest: 45, equipment: "resistance band", muscleGroup: "shoulders, upper back", timePerSet: 30 },
-        { name: "Suspension Trainer Chest Press (steeper angle)", sets: 3, reps:10, rest: 60, equipment: "suspension trainer", muscleGroup: "chest, shoulders, triceps", timePerSet: 30 },
+               { name: "Resistance Band Good Mornings", sets: 3, reps: 15, rest: 60, equipment: "resistance band", muscleGroup: "hamstrings, glutes, lower back", timePerSet: 30 },
+              { name: "Suspension Trainer Tricep Extensions (overhead)", sets: 3, reps: 12, rest: 60, equipment: "suspension trainer", muscleGroup: "triceps", timePerSet: 30 },
+              { name: "Ankle Weight Russian Twists", sets: 3, reps: 15 each side, rest: 45, equipment: "ankle weights", label: "core, obliques", timePerSet: 30, muscleGroup: "core, obliques" },
+               { name: "Weighted Vest Glute Bridges", sets: 3, reps: 15, rest: 60, equipment: "weighted vest", muscleGroup: "glutes, hamstrings", timePerSet: 30 },
+                { name: "Resistance Band Face Pulls", sets: 3, reps: 15, rest: 45, equipment: "resistance band", muscleGroup: "shoulders, upper back", timePerSet: 30 },
+                { name: "Suspension Trainer Chest Press (steeper angle)", sets: 3, reps: 10, rest: 60, equipment: "suspension trainer", muscleGroup: "chest, shoulders, triceps", timePerSet: 30 },
                 { name: "Towel Pull-ups", sets: 3, reps: "as many as possible", rest: 75, equipment: "towel, pull-up bar", muscleGroup: "back, biceps, forearms", timePerSet: 45 },
                 { name: "Suspension Trainer Mountain Climbers", sets: 3, reps: 20 each leg, rest: 45, equipment: "suspension trainer", label: "core, cardio", timePerSet: 30, muscleGroup: "core, shoulders, legs" },
                 { name: "Towel Curls (Suspension Trainer, moderate angle)", sets: 3, reps: 10, rest: 45, equipment: "towel, suspension trainer", muscleGroup: "biceps, forearms", timePerSet: 30 },
@@ -880,7 +880,7 @@ hybrid_calisthenics_plus: {
                 { name: "Towel Curls (Suspension Trainer, challenging angle)", sets: 3, reps: 8, rest: 45, equipment: "towel, suspension trainer", muscleGroup: "biceps, forearms", timePerSet: 30 },
                 { name: "Resistance Band Good Mornings (moderate resistance)", sets: 3, reps: 12, rest: 60, equipment: "resistance band", muscleGroup: "hamstrings, glutes, lower back", timePerSet: 30 },
                 { name: "Suspension Trainer Tricep Extensions (underhand grip)", sets: 3, reps: 10, rest: 60, equipment: "suspension trainer", muscleGroup: "triceps", timePerSet: 30 },
-                { name: "Plank with Resistance Band Pull-aparts", sets: 3, reps: 10, 45 sec plank hold, rest: 60, equipment: "resistance band", label: "core, shoulders", timePerSet: 60, muscleGroup: "core, shoulders, upper back" },
+                { name: "Plank with Resistance Band Pull-aparts", sets: 3, reps: 10 pull-aparts, 45 sec plank hold, rest: 60, equipment: "resistance band", label: "core, shoulders", timePerSet: 60, muscleGroup: "core, shoulders, upper back" },
 
                 // Advanced Exercises
                 { name: "Weighted Vest Pistol Squats", sets: 3, reps: 5-8 each leg, rest: 90, equipment: "weighted vest", label: "legs, balance", timePerSet: 60, muscleGroup: "legs, glutes, core" },
@@ -890,8 +890,30 @@ hybrid_calisthenics_plus: {
                 { name: "Weighted Vest Dips (slow negatives)", sets: 3, reps: 6-8, rest: 90, equipment: "weighted vest, parallel bars", muscleGroup: "triceps, chest, shoulders", timePerSet: 60 },
                 { name: "Resistance Band Pull-aparts (super wide grip)", sets: 3, reps: 20-25, rest: 45, equipment: "resistance band", muscleGroup: "shoulders, upper back, rear deltoids", timePerSet: 30 },
                 { name: "Suspension Trainer Pike Push-ups (elevated feet)", sets: 3, reps: 8-12, rest: 75, equipment: "suspension trainer, elevated surface", muscleGroup: "shoulders, triceps, upper chest, core", timePerSet: 60 },
-                { name: "Weighted Vest Nordic Hamstring Curls (full range, controlled)", sets: 3, reps: 4-6, rest: 90, equipment: "weighted vest, secure foot hold", muscleGroup: "hamstrings, glutes, lower back
-              ]   
+                { name: "Weighted Vest Nordic Hamstring Curls (full range, controlled)", sets: 3, reps: 4-6, rest: 90, equipment: "weighted vest, secure foot hold", muscleGroup: "hamstrings, glutes, lower back", timePerSet: 60 },
+                { name: "Resistance Band Squat Jumps (explosive, high resistance)", sets: 3, reps: 8-10, rest: 75, equipment: "resistance band", label: "legs, explosive", timePerSet: 45, muscleGroup: "legs, glutes, calves" },
+                { name: "Suspension Trainer Body Saws (extended range)", sets: 3, reps: 12-15, rest: 60, equipment: "suspension trainer", label: "core, shoulders", timePerSet: 60, muscleGroup: "core, shoulders, lats" },
+                { name: "Suspension Trainer Pull-ups (single leg raised)", sets: 3, reps: "as many as possible", rest: 75, equipment: "suspension trainer", muscleGroup: "back, biceps, core", timePerSet: 45 },
+                { name: "Towel Pull-ups (weighted vest, narrow grip)", sets: 3, reps: "as many as possible", rest: 90, equipment: "towel, pull-up bar, weighted vest", muscleGroup: "back, biceps, lats, forearms", timePerSet: 60 },
+                { name: "Suspension Trainer Single-Leg Squats (no assistance)", sets: 3, reps: 5-8 each leg, rest: 90, equipment: "suspension trainer (optional for balance)", label: "legs, balance", timePerSet: 60, muscleGroup: "legs, glutes, core" },
+                { name: "Towel Curls (Suspension Trainer, very challenging angle, slow tempo)", sets: 3, reps: 6-10, rest: 60, equipment: "towel, suspension trainer", muscleGroup: "biceps, forearms", timePerSet: 45 },
+                { name: "Suspension Trainer Tricep Dips (feet elevated)", sets: 3, reps: 10-15, rest: 75, equipment: "suspension trainer, elevated surface", muscleGroup: "triceps, chest, shoulders, core", timePerSet: 45 },
+                { name: "Weighted Vest Burpees", sets: 3, reps: 8-10, rest: 90, equipment: "weighted vest", label: "full body, cardio", timePerSet: 60, muscleGroup: "legs, glutes, chest, shoulders, triceps, core" },
+                { name: "Resistance Band Deadlifts (heavy resistance)", sets: 3, reps: 6-8, rest: 90, equipment: "resistance band", label: "legs, back", timePerSet: 60, muscleGroup: "hamstrings, glutes, lower back" },
+                { name: "Suspension Trainer Inverted Rows (horizontal)", sets: 3, reps: 10-15, rest: 60, equipment: "suspension trainer", muscleGroup: "back, biceps, rear deltoids, core", timePerSet: 45 },
+                { name: "Ankle/Wrist Weight Reverse Crunches (hanging)", sets: 3, reps: 12-15, rest: 60, equipment: "ankle weights, wrist weights, pull-up bar", label: "core", timePerSet: 45, muscleGroup: "lower abs, hip flexors" },
+                { name: "Resistance Band Good Mornings (very heavy resistance)", sets: 3, reps: 8-10, rest: 75, equipment: "resistance band", muscleGroup: "hamstrings, glutes, lower back", timePerSet: 45 },
+                { name: "Suspension Trainer Single-Leg Glute Bridges (weighted vest)", sets: 3, reps: 8-10 each leg, rest: 75, equipment: "suspension trainer, weighted vest", muscleGroup: "glutes, hamstrings, core", timePerSet: 60 },
+                { name: "Weighted Vest Pull-ups (slow and controlled)", sets: 3, reps: 5-8, rest: 90, equipment: "weighted vest, pull-up bar", muscleGroup: "back, biceps, lats", timePerSet: 60 },
+                { name: "Resistance Band Push-ups (plyometric)", sets: 3, reps: 8-10, rest: 75, equipment: "resistance band", muscleGroup: "chest, shoulders, triceps, explosive", timePerSet: 45 },
+                { name: "Suspension Trainer Atomic Push-ups (feet elevated, full extension)", sets: 3, reps: 8-12, rest: 75, equipment: "suspension trainer, elevated surface", muscleGroup: "chest, shoulders, triceps, core", timePerSet: 60 },
+                { name: "Towel Rows (Pull-up Bar, single arm)", sets: 3, reps: 6-10 each arm, rest: 75, equipment: "towel, pull-up bar", muscleGroup: "back, biceps, forearms, core", timePerSet: 60 },
+                { name: "Suspension Trainer Leg Curls (single leg)", sets: 3, reps: 10-12 each leg, rest: 60, equipment: "suspension trainer", muscleGroup: "hamstrings, glutes, core", timePerSet: 45 },
+                { name: "Weighted Vest Step-ups (high box, single leg)", sets: 3, reps: 6-8 each leg, rest: 90, equipment: "weighted vest, high box", label: "legs, glutes, balance", timePerSet: 60, muscleGroup: "legs, glutes, core" },
+                { name: "Resistance Band Face Pulls (with external rotation at the end)", sets: 3, reps: 15-20, rest: 45, equipment: "resistance band", muscleGroup: "shoulders, upper back, rotator cuffs", timePerSet: 30 },
+                { name: "Suspension Trainer Handstand Push-up Negatives (assisted if needed)", sets: 3, reps: 3-5, rest: 120, equipment: "suspension trainer, wall (optional)", muscleGroup: "shoulders, triceps, upper chest, core", timePerSet: 90 },
+                { name: "Towel Curls (Suspension Trainer, single arm)", sets: 3, reps: 8-12 each arm, rest: 60, equipment: "towel, suspension trainer", muscleGroup: "biceps, forearms, core", timePerSet: 45 }
+            ]
         }
 };
 
