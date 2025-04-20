@@ -786,9 +786,21 @@ hybrid_calisthenics_plus: {
         { name: "Towel Rows (Suspension Trainer) with Resistance Band Chest Flyes", sets: 3, reps: "10 & 12", rest: 90, equipment: "towel, suspension trainer, resistance band", muscleGroup: "back, biceps, chest, shoulders", timePerSet: 45 },
         { name: "Weighted Glute Bridges with Resistance Band Abduction", sets: 3, reps: 15, rest: 60, equipment: "weighted vest, resistance band", muscleGroup: "glutes, hamstrings, outer thighs", timePerSet: 30 },
         { name: "Suspension Trainer Oblique Crunches", sets: 3, reps: 15, rest: 45, equipment: "suspension trainer", label: "core, obliques", timePerSet: 30, muscleGroup: "core, obliques" },
-        { name: "Towel Face Pulls (Pull-up Bar) with Resistance Band External Rotations", sets: 3, reps: "15 & 15", rest: 60, equipment: "towel, pull-up bar, resistance band", muscleGroup: "shoulders, upper back
-       ]
-    }       
+        { name: "Towel Face Pulls (Pull-up Bar) with Resistance Band External Rotations", sets: 3, reps: "15 & 15", rest: 60, equipment: "towel, pull-up bar, resistance band", muscleGroup: "shoulders, upper back", timePerSet: 30 },
+        { name: "Suspension Trainer Push-up Variations (Incline, Decline, Feet Elevated)", sets: 3, reps: "8-10 each", rest: 75, equipment: "suspension trainer", muscleGroup: "chest, shoulders, triceps, core", timePerSet: 45 },
+        { name: "Resistance Band Lateral Walks with Ankle Weights", sets: 3, reps: "12 steps each way", rest: 45, equipment: "resistance band, ankle weights", label: "legs, glutes", timePerSet: 30, muscleGroup: "glutes, outer thighs" },
+        { name: "Suspension Trainer Hamstring Curls with Weighted Vest", sets: 3, reps: 10, rest: 60, equipment: "suspension trainer, weighted vest", muscleGroup: "hamstrings, glutes", timePerSet: 45 },
+        { name: "Towel Pulldowns (Lat Focus, Pull-up Bar)", sets: 3, reps: 10, rest: 75, equipment: "towel, pull-up bar", muscleGroup: "back, lats, biceps", timePerSet: 45 },
+        { name: "Suspension Trainer Bicep Curls with Resistance Band Resistance", sets: 3, reps: 10, rest: 60, equipment: "suspension trainer, resistance band", muscleGroup: "biceps", timePerSet: 30 },
+        { name: "Weighted Dips on Parallel Bars with Suspension Trainer Assistance (feet)", sets: 3, reps: 8, rest: 90, equipment: "weighted vest, suspension trainer, parallel bars", muscleGroup: "triceps, chest, shoulders", timePerSet: 45 },
+        { name: "Hybrid Core (Suspension Trainer Rollouts, Resistance Band Anti-Rotation Press)", sets: 3, reps: "8 & 10 each side", rest: 75, equipment: "suspension trainer, resistance band", label: "core", timePerSet: 45, muscleGroup: "core, shoulders" },
+        { name: "Towel Face Pulls (Suspension Trainer) with Resistance Band Overhead Press", sets: 3, reps: "12 & 10", rest: 75, equipment: "towel, suspension trainer, resistance band", muscleGroup: "shoulders, upper back, triceps", timePerSet: 45 },
+        { name: "Suspension Trainer Glute Bridges with Resistance Band Around Knees", sets: 3, reps: 15, rest: 60, equipment: "suspension trainer, resistance band", muscleGroup: "glutes, hamstrings, outer thighs", timePerSet: 30 },
+        { name: "Weighted Calf Raises with Towel Grip (Standing)", sets: 3, reps: 15, rest: 45, equipment: "weighted vest, towel", muscleGroup: "calves", timePerSet: 30 },
+        { name: "Suspension Trainer Full Body Complex (Rows, Squats, Chest Press, Leg Curls)", sets: 2, reps: "10 reps each", rest: 150, equipment: "suspension trainer", label: "full body, complex", timePerSet: 60, muscleGroup: "back, biceps, legs, glutes, chest, shoulders, triceps, hamstrings" }
+        // ... and may your hybrid gains be legendary!
+     ]
+   }     
 };
 
 
