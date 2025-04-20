@@ -787,6 +787,8 @@ hybrid_calisthenics_plus: {
         { name: "Weighted Glute Bridges with Resistance Band Abduction", sets: 3, reps: 15, rest: 60, equipment: "weighted vest, resistance band", muscleGroup: "glutes, hamstrings, outer thighs", timePerSet: 30 },
         { name: "Suspension Trainer Oblique Crunches", sets: 3, reps: 15, rest: 45, equipment: "suspension trainer", label: "core, obliques", timePerSet: 30, muscleGroup: "core, obliques" },
         { name: "Towel Face Pulls (Pull-up Bar) with Resistance Band External Rotations", sets: 3, reps: "15 & 15", rest: 60, equipment: "towel, pull-up bar, resistance band", muscleGroup: "shoulders, upper back
+       ]
+    }       
 };
 
 
