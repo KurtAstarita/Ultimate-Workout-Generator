@@ -888,35 +888,72 @@ document.getElementById("generate-workout").addEventListener("click", function (
             }
         }
 
-        if (ex.timePerSet !== undefined) {
-            let timePerSetDisplay = `${ex.timePerSet} seconds`;
-            if (typeof ex.reps === 'string' && (ex.reps.toLowerCase().includes("per leg") || ex.reps.toLowerCase().includes("per arm") || ex.reps.toLowerCase().includes("per side"))) {
-                timePerSetDisplay += ` per side/limb`;
-            }
-            workoutHTML += ` - Time per set: ${timePerSetDisplay}`;
-            workoutTextForCopy += ` - Time per set: ${timePerSetDisplay}`;
-            if (typeof ex.sets === 'number') {
-                let numberOfRounds = ex.sets;
-                let perLimb = false;
-                if (typeof ex.reps === 'string') {
-                    perLimb = ex.reps.toLowerCase().includes("per leg") || ex.reps.toLowerCase().includes("per arm") || ex.reps.toLowerCase().includes("per side");
-                }
+       if (ex.timePerSet !== undefined) {
+    let timePerSetDisplay = `${ex.timePerSet} seconds`;
+    if (typeof ex.reps === 'string' && (ex.reps.toLowerCase().includes("per leg") || ex.reps.toLowerCase().includes("per arm") || ex.reps.toLowerCase().includes("per side"))) {
+        timePerSetDisplay += ` per side/limb`;
+    }
+    workoutHTML += ` - Time per set: ${timePerSetDisplay}`;
+    workoutTextForCopy += ` - Time per set: ${timePerSetDisplay}`;
+    if (typeof ex.sets === 'number') {
+        let numberOfRounds = ex.sets;
+        let perLimb = false;
+        if (typeof ex.reps === 'string') {
+            perLimb = ex.reps.toLowerCase().includes("per leg") || ex.reps.toLowerCase().includes("per arm") || ex.reps.toLowerCase().includes("per side");
+        }
 
-                if (perLimb) {
-                    totalWorkoutTime += numberOfRounds * (2 * ex.timePerSet);
-                } else if (typeof ex.reps === 'string' && (ex.reps.includes('sec') || ex.reps.includes('minutes'))) {
-                    numberOfRounds = ex.sets;
-                    const seconds = parseInt(ex.reps.split(" ")[0]);
-                    totalWorkoutTime += numberOfRounds * seconds;
-                } else if (typeof ex.reps === 'string' && (ex.reps === 'AMRAP' || ex.reps === 'Ladder')) {
-                    numberOfRounds = ex.sets;
-                    totalWorkoutTime += numberOfRounds * ex.timePerSet;
-                } else if (typeof ex.reps === 'number') {
-                    numberOfRounds = ex.sets;
-                    totalWorkoutTime += numberOfRounds * ex.timePerSet;
+        if (perLimb) {
+            totalWorkoutTime += numberOfRounds * (2 * ex.timePerSet);
+        } else if (typeof ex.reps === 'string') {
+            const lowerCaseReps = ex.reps.toLowerCase();
+            if (lowerCaseReps.includes('sec') || lowerCaseReps.includes('minutes')) {
+                const parts = lowerCaseReps.split(" ");
+                let totalSeconds = 0;
+                for (let i = 0; i < parts.length; i++) {
+                    const num = parseInt(parts[i]);
+                    if (!isNaN(num)) {
+                        if (parts[i + 1] && parts[i + 1].startsWith('sec')) {
+                            totalSeconds += num;
+                        } else if (parts[i + 1] && parts[i + 1].startsWith('min')) {
+                            totalSeconds += num * 60;
+                        }
+                    }
                 }
+                totalWorkoutTime += numberOfRounds * totalSeconds;
+            } else if (lowerCaseReps === 'amrap' || lowerCaseReps === 'ladder') {
+                totalWorkoutTime += numberOfRounds * ex.timePerSet;
+            } else if (lowerCaseReps.includes('sprint') || lowerCaseReps.includes('work')) {
+                const parts = lowerCaseReps.split(" / ");
+                let totalIntervalTime = 0;
+                parts.forEach(interval => {
+                    const timePart = interval.split(" ")[0];
+                    const unitPart = interval.split(" ")[1];
+                    const time = parseInt(timePart);
+                    if (!isNaN(time)) {
+                        if (unitPart && unitPart.startsWith('sec')) {
+                            totalIntervalTime += time;
+                        } else if (unitPart && unitPart.startsWith('min')) {
+                            totalIntervalTime += time * 60;
+                        } else if (unitPart && unitPart.startsWith('m')) {
+                            // Assuming a standard sprint duration if meters are given, adjust as needed
+                            totalIntervalTime += 30; // Default to 30 seconds per sprint
+                        }
+                    } else if (interval.includes('+')) {
+                        // Handle cases like "50m sprint + 5 burpees" - only consider the time-based part
+                        const timePartSprint = interval.split(" ")[0];
+                        const unitPartSprint = interval.split(" ")[1];
+                        const timeSprint = parseInt(timePartSprint);
+                        if (!isNaN(timeSprint) && unitPartSprint && unitPartSprint.startsWith('m')) {
+                            totalIntervalTime += 30; // Default to 30 seconds per sprint
+                        }
+                    }
+                });
+                totalWorkoutTime += numberOfRounds * totalIntervalTime;
+            } else if (typeof ex.reps === 'number') {
+                totalWorkoutTime += numberOfRounds * ex.timePerSet;
             }
         }
+    }
 
         workoutTextForCopy += "\n";
     });
