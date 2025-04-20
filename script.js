@@ -758,6 +758,29 @@ document.getElementById("modality").addEventListener("change", function () {
 // Disable the copy button initially
 document.getElementById("copy-workout").disabled = true;
 
+/* ............................................... Function: Copy Workout ...................................................... */
+
+document.getElementById("copy-workout").addEventListener("click", function() {
+    const copyButton = this;
+    const originalText = copyButton.textContent;
+
+    copyButton.disabled = true;
+    copyButton.textContent = "Requesting Copy...";
+
+    console.log("Attempting to copy:", workoutTextForCopy); // ADD THIS LINE
+
+    // Send a message to the parent window with the workout text
+    window.parent.postMessage({ type: 'copy-workout-request', text: workoutTextForCopy }, '*');
+
+    // Revert button text after a short delay (in case the parent doesn't respond quickly)
+    setTimeout(() => {
+        copyButton.textContent = originalText;
+        copyButton.disabled = false;
+    }, 3000); // Adjust timeout as needed
+});
+
+
+
 /* ............................................... Function: Generate Workout ...................................................... */
 
 document.getElementById("generate-workout").addEventListener("click", function () {
@@ -1167,28 +1190,6 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         alert("An error occurred while generating the PDF.");
     }
 });
-
-/* ............................................... Function: Copy Workout ...................................................... */
-
-// Declare workoutTextForCopy in a scope accessible to both event listeners
-let workoutTextForCopy = "";
-
-document.getElementById("modality").addEventListener("change", function () {
-    const goalSelect = document.getElementById("goal");
-    if (this.value === "powerlifting_5x5" || this.value === "hiit" || this.value === "circuit" || this.value === "calisthenics") {
-        goalSelect.value = "strength"; // Or any default value you prefer
-        goalSelect.disabled = true;
-        goalSelect.style.color = "#aaa"; // Gray out the text
-        goalSelect.style.backgroundColor = "#eee"; // Gray out the background
-    } else {
-        goalSelect.disabled = false;
-        goalSelect.style.color = ""; // Reset to default color
-        goalSelect.style.backgroundColor = ""; // Reset to default background
-    }
-});
-
-// Disable the copy button initially
-document.getElementById("copy-workout").disabled = true;
 
 
 /* ............................................... Function: To Populate table ...................................................... */
