@@ -21,17 +21,22 @@
   <div><br /></div>
 </div>
 
+                    if (trainingSplit === "back_biceps") return muscleGroupLower.includes("back") && muscleGroupLower.includes("biceps");
+            else if (trainingSplit === "chest_triceps") return muscleGroupLower.includes("chest") && muscleGroupLower.includes("triceps");
+            else if (trainingSplit === "legs_back") return muscleGroupLower.includes("legs") && muscleGroupLower.includes("back");
+            else if (trainingSplit === "delts_traps") return muscleGroupLower.includes("delts") && muscleGroupLower.includes("traps");
+            else if (trainingSplit === "core_cardio") return muscleGroupLower.includes("core") || muscleGroupLower.includes("cardio");
+            return muscleGroupLower.includes(splitFormatted.replace("_", " "));
+        
         <div id="workout-planner">
             <h3>Full-body Workout Planner/Generator (BETA)</h3>
     <label for="training-split">Training Split:</label>
     <select id="training-split"> 
         <option value="full_body">Full Body</option>
-        <option value="upper_lower">Upper/Lower</option>
-        <option value="push_pull_legs">Push/Pull/Legs</option>
-        <option value="back_biceps">Back & Biceps</option>
+        <option value="back_biceps">Upper/Mid Back & Biceps</option>
         <option value="chest_triceps">Chest & Triceps</option>
-        <option value="legs_back">Legs & Back</option> 
-        <option value="delts_traps">Delts & Traps</option> 
+        <option value="legs_back">Legs & Lower Back</option> 
+        <option value="delts_traps">Delts & Traps (Upper Back)</option> 
         <option value="core_cardio">Core & Cardio</option> 
     </select>                                    
     <br />
