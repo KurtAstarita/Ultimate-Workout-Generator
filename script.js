@@ -754,7 +754,6 @@ hybrid_calisthenics_plus: {
     { name: "Resistance Band Push-ups", sets: 3, reps: 12, rest: 60, equipment: "resistance band", muscleGroup: "chest, shoulders, triceps", timePerSet: 30 },
     { name: "Suspension Trainer Inverted Rows (feet elevated)", sets: 3, reps: 12, rest: 60, equipment: "suspension trainer, elevated surface", muscleGroup: "back, biceps", timePerSet: 30 },
     { name: "Wrist Weight Dips", sets: 3, reps: 8, rest: 75, equipment: "wrist weights", muscleGroup: "triceps, chest, shoulders", timePerSet: 45 },
-    { name: "Weighted Vest Step-ups", sets: 3, reps: 10 each leg, rest: 60, equipment: "weighted vest, box or step", label: "legs, glutes", timePerSet: 45, muscleGroup: "legs, glutes" },
     { name: "Resistance Band Good Mornings", sets: 3, reps: 15, rest: 60, equipment: "resistance band", muscleGroup: "hamstrings, glutes, lower back", timePerSet: 30 },
     { name: "Suspension Trainer Tricep Extensions (overhead)", sets: 3, reps: 12, rest: 60, equipment: "suspension trainer", muscleGroup: "triceps", timePerSet: 30 },
     { name: "Ankle Weight Russian Twists", sets: 3, reps: 15 each side, rest: 45, equipment: "ankle weights", label: "core, obliques", timePerSet: 30, muscleGroup: "core, obliques" },
