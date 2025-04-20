@@ -877,6 +877,8 @@ workout.forEach(ex => {
         workoutHTML += `<br><br><li><b>${ex.name}</b>`;
         workoutTextForCopy += `${ex.name}`;
 
+        let exerciseTime = 0; // To accumulate time for the current exercise
+
         if (ex.sets && ex.reps) {
             workoutHTML += ` - Reps: ${ex.sets}x${ex.reps}`;
             workoutTextForCopy += ` - Reps: ${ex.sets}x${ex.reps}`;
@@ -905,66 +907,69 @@ workout.forEach(ex => {
                 }
 
                 if (perLimb) {
-                    totalWorkoutTime += numberOfRounds * (2 * ex.timePerSet);
-                } else if (typeof ex.reps === 'string') {
-                    const lowerCaseReps = ex.reps.toLowerCase();
-                    if (lowerCaseReps.includes('sec') || lowerCaseReps.includes('minutes')) {
-                        const parts = lowerCaseReps.split(" ");
-                        let totalSeconds = 0;
-                        for (let i = 0; i < parts.length; i++) {
-                            const num = parseInt(parts[i]);
-                            if (!isNaN(num)) {
-                                if (parts[i + 1] && parts[i + 1].startsWith('sec')) {
-                                    totalSeconds += num;
-                                } else if (parts[i + 1] && parts[i + 1].startsWith('min')) {
-                                    totalSeconds += num * 60;
-                                }
-                            }
+                    exerciseTime += numberOfRounds * (2 * ex.timePerSet);
+                } else {
+                    exerciseTime += numberOfRounds * ex.timePerSet;
+                }
+            }
+        } else if (typeof ex.reps === 'string') {
+            const lowerCaseReps = ex.reps.toLowerCase();
+            if (lowerCaseReps.includes('sec') || lowerCaseReps.includes('minutes')) {
+                const parts = lowerCaseReps.split(" ");
+                let totalSeconds = 0;
+                for (let i = 0; i < parts.length; i++) {
+                    const num = parseInt(parts[i]);
+                    if (!isNaN(num)) {
+                        if (parts[i + 1] && parts[i + 1].startsWith('sec')) {
+                            totalSeconds += num;
+                        } else if (parts[i + 1] && parts[i + 1].startsWith('min')) {
+                            totalSeconds += num * 60;
                         }
-                        totalWorkoutTime += numberOfRounds * totalSeconds;
-                    } else if (lowerCaseReps === 'amrap' || lowerCaseReps === 'ladder') {
-                        totalWorkoutTime += numberOfRounds * ex.timePerSet;
-                    } else if (lowerCaseReps.includes('sprint') || lowerCaseReps.includes('work')) {
-                        const parts = lowerCaseReps.split(" / ");
-                        let totalIntervalTime = 0;
-                        parts.forEach(interval => {
-                            const timePart = interval.split(" ")[0];
-                            const unitPart = interval.split(" ")[1];
-                            const time = parseInt(timePart);
-                            if (!isNaN(time)) {
-                                if (unitPart && unitPart.startsWith('sec')) {
-                                    totalIntervalTime += time;
-                                } else if (unitPart && unitPart.startsWith('min')) {
-                                    totalIntervalTime += time * 60;
-                                } else if (unitPart && unitPart.startsWith('m')) {
-                                    // Assuming a standard sprint duration if meters are given, adjust as needed
-                                    totalIntervalTime += 30; // Default to 30 seconds per sprint
-                                }
-                            } else if (interval.includes('+')) {
-                                // Handle cases like "50m sprint + 5 burpees" - only consider the time-based part
-                                const timePartSprint = interval.split(" ")[0];
-                                const unitPartSprint = interval.split(" ")[1];
-                                const timeSprint = parseInt(timePartSprint);
-                                if (!isNaN(timeSprint) && unitPartSprint && unitPartSprint.startsWith('m')) {
-                                    totalIntervalTime += 30; // Default to 30 seconds per sprint
-                                }
-                            }
-                        });
-                        totalWorkoutTime += numberOfRounds * totalIntervalTime;
-                    } else if (typeof ex.reps === 'number') {
-                        totalWorkoutTime += numberOfRounds * ex.timePerSet;
                     }
+                }
+                if (typeof ex.sets === 'number') {
+                    exerciseTime += ex.sets * totalSeconds;
+                } else {
+                    exerciseTime += totalSeconds; // Assume 1 set if not specified
+                }
+            } else if (lowerCaseReps.includes('sprint') || lowerCaseReps.includes('work')) {
+                const parts = lowerCaseReps.split(" / ");
+                let totalIntervalTime = 0;
+                parts.forEach(interval => {
+                    const timePart = interval.split(" ")[0];
+                    const unitPart = interval.split(" ")[1];
+                    const time = parseInt(timePart);
+                    if (!isNaN(time)) {
+                        if (unitPart && unitPart.startsWith('sec')) {
+                            totalIntervalTime += time;
+                        } else if (unitPart && unitPart.startsWith('min')) {
+                            totalIntervalTime += time * 60;
+                        } else if (unitPart && unitPart.startsWith('m')) {
+                            totalIntervalTime += 30; // Default sprint duration
+                        }
+                    } else if (interval.includes('+')) {
+                        const timePartSprint = interval.split(" ")[0];
+                        const unitPartSprint = interval.split(" ")[1];
+                        const timeSprint = parseInt(timePartSprint);
+                        if (!isNaN(timeSprint) && unitPartSprint && unitPartSprint.startsWith('m')) {
+                            totalIntervalTime += 30;
+                        }
+                    }
+                });
+                if (typeof ex.sets === 'number') {
+                    exerciseTime += ex.sets * totalIntervalTime;
+                } else {
+                    exerciseTime += totalIntervalTime; // Assume 1 set
                 }
             }
         }
 
+        totalWorkoutTime += exerciseTime;
         workoutTextForCopy += "\n";
     });
 
     const minutes = Math.round(totalWorkoutTime / 60);
     workoutHTML += `<p><i>Estimated Workout Time: ${minutes} minutes</i></p>`;
-    // We are now only adding the estimated time to the HTML, not the text for copying
-    // workoutTextForCopy += `Estimated Workout Time: ${minutes} minutes`;
 
     resultDiv.innerHTML = DOMPurify.sanitize(workoutHTML);
 
