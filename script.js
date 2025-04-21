@@ -1175,6 +1175,7 @@ workout.forEach(ex => {
     // Enable the copy button after the workout is generated
     document.getElementById("copy-workout").disabled = false;
 });
+
 /* ............................................... Function: Validate Workout ...................................................... */
 
 function validateWorkoutText(workoutText) {
@@ -1184,22 +1185,15 @@ function validateWorkoutText(workoutText) {
 
     lines.forEach((line, index) => {
         if (line.trim() && !line.includes("Estimated Workout Time")) {
-            const exerciseMatch = line.match(/^(.+?) - Reps:/);
-            const repsMatch = line.match(/Reps: (.+?)m? - Rest:/);
-            const restMatch = line.match(/Rest: (.+?) (seconds?|minutes?)\.?/); // Modified regex
+            // *** THIS IS THE REGULAR EXPRESSION THAT DEFINES THE ACCEPTED FORMAT ***
+            const exerciseMatch = line.match(/^(.+?) - Reps: (\d+x\d+(?:\s*sec)?(?:-\d+(?:-\d+)?\s*sec)?) - Rest: (\d+\s*seconds?) - Time per set: (\d+\s*seconds?)$/i);
 
             if (!exerciseMatch) {
-                errors.push(`Line ${index + 1}: Exercise name not found.`);
+                errors.push(`Line ${index + 1}: Invalid format. Please use: Exercise Name - Reps: NxY (sec optional) - Rest: Z seconds - Time per set: W seconds`);
                 isValid = false;
             }
-            if (!repsMatch) {
-                errors.push(`Line ${index + 1}: Reps information not found.`);
-                isValid = false;
-            }
-            if (!restMatch) {
-                errors.push(`Line ${index + 1}: Rest information not found.`);
-                isValid = false;
-            }
+            // You could add more specific checks based on the captured groups if needed
+            // (e.g., validating the numbers for reps, rest, time per set).
         }
     });
 
