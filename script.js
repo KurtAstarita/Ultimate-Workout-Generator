@@ -1210,16 +1210,17 @@ document.getElementById('download-pdf').addEventListener('click', function () {
     workoutText = DOMPurify.sanitize(workoutText);
 
     if (!workoutText.trim()) {
-        alert("Please paste workout text before downloading.");
+        // alert("Please paste workout text before downloading."); // COMMENTED OUT
+        console.log("Download PDF: workoutText is empty.");
         return;
     }
 
     try {
         const validationResult = validateWorkoutText(workoutText);
 
-       if (!validationResult.isValid) {
-            // *** UPDATED THIS LINE ***
-            alert("Workout text validation errors:\n" + validationResult.errors.join('\n'));
+        if (!validationResult.isValid) {
+            console.log("Download PDF: Validation Result:", validationResult); // ADD THIS LINE
+            // alert("Workout text validation errors:\n" + validationResult.errors.join('\n')); // COMMENTED OUT
             return;
         }
 
@@ -1366,7 +1367,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
     } catch (mainError) {
         console.error("Error generating PDF:", mainError);
         console.error("Error stack:", mainError.stack);
-        alert("An error occurred while generating the PDF.");
+        // alert("An error occurred while generating the PDF."); // COMMENTED OUT
     }
 });
 
