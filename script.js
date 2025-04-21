@@ -1217,7 +1217,8 @@ document.getElementById('download-pdf').addEventListener('click', function () {
     try {
         const validationResult = validateWorkoutText(workoutText);
 
-        if (!validationResult.isValid) {
+       if (!validationResult.isValid) {
+            // *** UPDATED THIS LINE ***
             alert("Workout text validation errors:\n" + validationResult.errors.join('\n'));
             return;
         }
