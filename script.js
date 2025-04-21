@@ -1476,12 +1476,11 @@ function populateExerciseTable() {
     });
 }
 
-// The "Copy Workout" button's event listener should be outside the populateExerciseTable function
 document.getElementById("copy-workout").addEventListener("click", function() {
     const textToCopy = workoutTextForCopy.replace(/\.$/gm, ''); // Remove trailing periods from each line
     navigator.clipboard.writeText(textToCopy)
         .then(() => {
-            alert("Workout copied to clipboard!");
+            alert("Workout copied to clipboard!"); // THIS ALERT IS NOT SHOWING
         })
         .catch(err => {
             console.error("Failed to copy: ", err);
