@@ -1479,23 +1479,26 @@ function populateExerciseTable() {
 document.getElementById("copy-workout").addEventListener("click", function() {
     const textToCopy = workoutTextForCopy.replace(/\.$/gm, '');
     const copyButton = this; // Store the button element
+    const originalText = copyButton.textContent; // Store the original button text
+
+    // Temporarily disable the button to prevent multiple clicks
+    copyButton.disabled = true;
+    copyButton.textContent = "Copying..."; // Optional: provide immediate feedback
+
     navigator.clipboard.writeText(textToCopy)
         .then(() => {
-            // Create the popover message
-            const message = document.createElement("span");
-            message.textContent = "Copied!";
-            message.classList.add("copy-success-message"); // Add a class for styling
-
-            // Append it to the button's container (you might need to adjust this based on your HTML structure)
-            copyButton.parentNode.insertBefore(message, copyButton.nextSibling);
-
-            // Remove the message after a short delay
+            copyButton.textContent = "Copied!"; // Change text to "Copied!"
             setTimeout(() => {
-                message.remove();
-            }, 2000);
+                copyButton.textContent = originalText; // Revert to original text
+                copyButton.disabled = false; // Re-enable the button
+            }, 2000); // Revert after 2 seconds
         })
         .catch(err => {
             console.error("Failed to copy: ", err);
-            alert("Failed to copy workout."); // Fallback alert in case of error
+            copyButton.textContent = "Failed to Copy"; // Indicate failure
+            setTimeout(() => {
+                copyButton.textContent = originalText; // Revert to original text
+                copyButton.disabled = false; // Re-enable the button
+            }, 3000); // Revert after a slightly longer delay for error message
         });
 });
