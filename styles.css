@@ -264,7 +264,20 @@ button:disabled:hover {
      max-width: 700px;
      margin: 0 auto;
  }
- 
+
+.copy-success-message {
+    background-color: #4CAF50; /* Green background */
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.8em;
+    margin-left: 10px; /* Adjust spacing from the button */
+    opacity: 0.9;
+    position: absolute; /* To position relative to the button if needed */
+    z-index: 10; /* Ensure it's above other elements */
+    /* You might need to adjust positioning based on your layout */
+}
+
  #workout-planner {
      border: 1px solid #ddd;
      padding: 20px;
