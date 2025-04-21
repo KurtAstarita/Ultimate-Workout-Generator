@@ -1477,22 +1477,25 @@ function populateExerciseTable() {
 }
 
 document.getElementById("copy-workout").addEventListener("click", function() {
-    const textToCopy = workoutTextForCopy.replace(/\.$/gm, ''); // Remove trailing periods from each line
+    const textToCopy = workoutTextForCopy.replace(/\.$/gm, '');
+    const copyButton = this; // Store the button element
     navigator.clipboard.writeText(textToCopy)
         .then(() => {
-            alert("Workout copied to clipboard!"); // THIS ALERT IS NOT SHOWING
+            // Create the popover message
+            const message = document.createElement("span");
+            message.textContent = "Copied!";
+            message.classList.add("copy-success-message"); // Add a class for styling
+
+            // Append it to the button's container (you might need to adjust this based on your HTML structure)
+            copyButton.parentNode.insertBefore(message, copyButton.nextSibling);
+
+            // Remove the message after a short delay
+            setTimeout(() => {
+                message.remove();
+            }, 2000);
         })
         .catch(err => {
             console.error("Failed to copy: ", err);
-            alert("Failed to copy workout.");
+            alert("Failed to copy workout."); // Fallback alert in case of error
         });
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-    populateExerciseTable();
-
-    // Set default values on page load
-    document.getElementById("goal").value = "muscle";
-    document.getElementById("experience").value = "beginner";
-    document.getElementById("modality").value = "general";
 });
