@@ -540,7 +540,7 @@ button:disabled:hover {
   list-style: none;
   padding: 0;
   margin: 0;
-  display: inline-block; /* To center the list */
+  display: inline-block;
 }
 
 .social-share li {
