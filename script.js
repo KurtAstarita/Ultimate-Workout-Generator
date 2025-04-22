@@ -1184,6 +1184,7 @@ document.getElementById("generate-workout").addEventListener("click", function (
 
 let workoutHTML = "<br><center><h3><u>YOUR WORKOUT</u></h3></center><ul>";
     workoutTextForCopy = "";
+    let totalWorkoutTime = 0; // Initialize total workout time here
 
     workout.forEach(ex => {
         workoutHTML += `<br><br><li><b>${ex.name}</b>`;
@@ -1191,14 +1192,17 @@ let workoutHTML = "<br><center><h3><u>YOUR WORKOUT</u></h3></center><ul>";
 
         if (ex.sets && ex.reps) {
             workoutHTML += ` - Reps: <span class="math-inline">\{ex\.sets\}x</span>{ex.reps}`;
-            workoutTextForCopy += ` - Reps: <span class="math-inline">\{ex\.sets\}x</span>{ex.reps}`;
+            workoutTextForCopy += ` - Reps: ${ex.sets}x${ex.reps}`;
         } else {
-            workoutHTML += ` - Reps: N/A`; // Or some default
+            workoutHTML += ` - Reps: N/A`;
             workoutTextForCopy += ` - Reps: N/A`;
         }
 
         workoutHTML += ` - Rest: ${ex.rest !== undefined ? ex.rest : 0} seconds`;
         workoutTextForCopy += ` - Rest: ${ex.rest !== undefined ? ex.rest : 0} seconds`;
+        if (typeof ex.sets === 'number' && ex.rest !== undefined) {
+            totalWorkoutTime += (ex.sets - 1) * ex.rest;
+        }
 
         let timePerSetDisplay = "N/A";
         if (ex.timePerSet !== undefined) {
@@ -1206,11 +1210,74 @@ let workoutHTML = "<br><center><h3><u>YOUR WORKOUT</u></h3></center><ul>";
             if (typeof ex.reps === 'string' && (ex.reps.toLowerCase().includes("per leg") || ex.reps.toLowerCase().includes("per arm") || ex.reps.toLowerCase().includes("per side"))) {
                 timePerSetDisplay += ` per side/limb`;
             }
+            if (typeof ex.sets === 'number') {
+                let numberOfRounds = ex.sets;
+                let perLimb = false;
+                if (typeof ex.reps === 'string') {
+                    perLimb = ex.reps.toLowerCase().includes("per leg") || ex.reps.toLowerCase().includes("per arm") || ex.reps.toLowerCase().includes("per side");
+                }
+
+                if (perLimb) {
+                    totalWorkoutTime += numberOfRounds * (2 * ex.timePerSet);
+                } else {
+                    totalWorkoutTime += numberOfRounds * ex.timePerSet;
+                }
+            }
         }
         workoutHTML += ` - Time per set: ${timePerSetDisplay}`;
         workoutTextForCopy += ` - Time per set: ${timePerSetDisplay}`;
 
-        // ... (rest of the time calculation logic) ...
+        else if (typeof ex.reps === 'string') {
+            const lowerCaseReps = ex.reps.toLowerCase();
+            if (lowerCaseReps.includes('sec') || lowerCaseReps.includes('minutes')) {
+                const parts = lowerCaseReps.split(" ");
+                let totalSeconds = 0;
+                for (let i = 0; i < parts.length; i++) {
+                    const num = parseInt(parts[i]);
+                    if (!isNaN(num)) {
+                        if (parts[i + 1] && parts[i + 1].startsWith('sec')) {
+                            totalSeconds += num;
+                        } else if (parts[i + 1] && parts[i + 1].startsWith('min')) {
+                            totalSeconds += num * 60;
+                        }
+                    }
+                }
+                if (typeof ex.sets === 'number') {
+                    totalWorkoutTime += ex.sets * totalSeconds;
+                } else {
+                    totalWorkoutTime += totalSeconds;
+                }
+            } else if (lowerCaseReps.includes('sprint') || lowerCaseReps.includes('work')) {
+                const parts = lowerCaseReps.split(" / ");
+                let totalIntervalTime = 0;
+                parts.forEach(interval => {
+                    const timePart = interval.split(" ")[0];
+                    const unitPart = interval.split(" ")[1];
+                    const time = parseInt(timePart);
+                    if (!isNaN(time)) {
+                        if (unitPart && unitPart.startsWith('sec')) {
+                            totalIntervalTime += time;
+                        } else if (unitPart && unitPart.startsWith('min')) {
+                            totalIntervalTime += time * 60;
+                        } else if (unitPart && unitPart.startsWith('m')) {
+                            totalIntervalTime += 30;
+                        }
+                    } else if (interval.includes('+')) {
+                        const timePartSprint = interval.split(" ")[0];
+                        const unitPartSprint = interval.split(" ")[1];
+                        const timeSprint = parseInt(timePartSprint);
+                        if (!isNaN(timeSprint) && unitPartSprint && unitPartSprint.startsWith('m')) {
+                            totalIntervalTime += 30;
+                        }
+                    }
+                });
+                if (typeof ex.sets === 'number') {
+                    totalWorkoutTime += ex.sets * totalIntervalTime;
+                } else {
+                    totalWorkoutTime += totalIntervalTime;
+                }
+            }
+        }
 
         workoutTextForCopy += "\n";
     });
