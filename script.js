@@ -1075,16 +1075,27 @@ document.getElementById("generate-workout").addEventListener("click", function (
 
         if (ex.sets && ex.reps) {
             workoutHTML += ` - Reps: <span class="math-inline">\{ex\.sets\}x</span>{ex.reps}`;
-            workoutTextForCopy += ` - Reps: <span class="math-inline">\{ex\.sets\}x</span>{ex.reps}`;
+            workoutTextForCopy += ` - Reps: ${ex.sets}x${ex.reps}`; // Plain text for copying
+        } else {
+            workoutHTML += ` - Reps: N/A`;
+            workoutTextForCopy += ` - Reps: N/A`;
         }
 
-        if (ex.rest) {
-            workoutHTML += ` - Rest: ${ex.rest} seconds`;
-            workoutTextForCopy += ` - Rest: ${ex.rest} seconds`;
-            if (typeof ex.sets === 'number') {
-                totalWorkoutTime += (ex.sets - 1) * ex.rest;
+        workoutHTML += ` - Rest: ${ex.rest !== undefined ? ex.rest : 0} seconds`;
+        workoutTextForCopy += ` - Rest: ${ex.rest !== undefined ? ex.rest : 0} seconds`;
+        if (typeof ex.sets === 'number') {
+            totalWorkoutTime += (ex.sets - 1) * ex.rest;
+        }
+
+        let timePerSetDisplay = "N/A";
+        if (ex.timePerSet !== undefined) {
+            timePerSetDisplay = `${ex.timePerSet} seconds`;
+            if (typeof ex.reps === 'string' && (ex.reps.toLowerCase().includes("per leg") || ex.reps.toLowerCase().includes("per arm") || ex.reps.toLowerCase().includes("per side"))) {
+                timePerSetDisplay += ` per side/limb`;
             }
         }
+        workoutHTML += ` - Time per set: ${timePerSetDisplay}`;
+        workoutTextForCopy += ` - Time per set: ${timePerSetDisplay}`;
 
         if (ex.timePerSet !== undefined) {
             let timePerSetDisplay = `${ex.timePerSet} seconds`;
@@ -1101,9 +1112,9 @@ document.getElementById("generate-workout").addEventListener("click", function (
                 }
 
                 if (perLimb) {
-                    exerciseTime += numberOfRounds * (2 * ex.timePerSet);
+                    totalWorkoutTime += numberOfRounds * (2 * ex.timePerSet);
                 } else {
-                    exerciseTime += numberOfRounds * ex.timePerSet;
+                    totalWorkoutTime += numberOfRounds * ex.timePerSet;
                 }
             }
         } else if (typeof ex.reps === 'string') {
@@ -1122,9 +1133,9 @@ document.getElementById("generate-workout").addEventListener("click", function (
                     }
                 }
                 if (typeof ex.sets === 'number') {
-                    exerciseTime += ex.sets * totalSeconds;
+                    totalWorkoutTime += ex.sets * totalSeconds;
                 } else {
-                    exerciseTime += totalSeconds;
+                    totalWorkoutTime += totalSeconds;
                 }
             } else if (lowerCaseReps.includes('sprint') || lowerCaseReps.includes('work')) {
                 const parts = lowerCaseReps.split(" / ");
@@ -1151,15 +1162,12 @@ document.getElementById("generate-workout").addEventListener("click", function (
                     }
                 });
                 if (typeof ex.sets === 'number') {
-                    exerciseTime += ex.sets * totalIntervalTime;
+                    totalWorkoutTime += ex.sets * totalIntervalTime;
                 } else {
-                    exerciseTime += totalIntervalTime;
+                    totalWorkoutTime += totalIntervalTime;
                 }
             }
         }
-
-        totalWorkoutTime += exerciseTime;
-        workoutTextForCopy += "\n";
     });
 
     const minutes = Math.round(totalWorkoutTime / 60);
