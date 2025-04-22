@@ -1176,30 +1176,38 @@ document.getElementById("generate-workout").addEventListener("click", function (
 });
 /* ............................................... Function: Validate Workout ...................................................... */
 
-function validateWorkoutText(workoutText) {
-    const lines = workoutText.split('\n');
-    const errors = [];
-    let isValid = true;
+let workoutHTML = "<br><center><h3><u>YOUR WORKOUT</u></h3></center><ul>";
+    workoutTextForCopy = "";
 
-    lines.forEach((line, index) => {
-        if (line.trim() && !line.includes("Estimated Workout Time")) {
-            // *** THIS IS THE REGULAR EXPRESSION THAT DEFINES THE ACCEPTED FORMAT ***
-            const exerciseMatch = line.match(/^(.+?) - Reps: (\d+x\d+(?:\s*sec)?(?:-\d+(?:-\d+)?\s*sec)?) - Rest: (\d+\s*seconds?) - Time per set: (\d+\s*seconds?)$/i);
+    workout.forEach(ex => {
+        workoutHTML += `<br><br><li><b>${ex.name}</b>`;
+        workoutTextForCopy += `${ex.name}`;
 
-            if (!exerciseMatch) {
-                errors.push(`Line ${index + 1}: Invalid format. Please use: Exercise Name - Reps: NxY (sec optional) - Rest: Z seconds - Time per set: W seconds`);
-                isValid = false;
-            }
-            // You could add more specific checks based on the captured groups if needed
-            // (e.g., validating the numbers for reps, rest, time per set).
+        if (ex.sets && ex.reps) {
+            workoutHTML += ` - Reps: <span class="math-inline">\{ex\.sets\}x</span>{ex.reps}`;
+            workoutTextForCopy += ` - Reps: <span class="math-inline">\{ex\.sets\}x</span>{ex.reps}`;
+        } else {
+            workoutHTML += ` - Reps: N/A`; // Or some default
+            workoutTextForCopy += ` - Reps: N/A`;
         }
-    });
 
-    return {
-        isValid: isValid,
-        errors: errors
-    };
-}
+        workoutHTML += ` - Rest: ${ex.rest !== undefined ? ex.rest : 0} seconds`;
+        workoutTextForCopy += ` - Rest: ${ex.rest !== undefined ? ex.rest : 0} seconds`;
+
+        let timePerSetDisplay = "N/A";
+        if (ex.timePerSet !== undefined) {
+            timePerSetDisplay = `${ex.timePerSet} seconds`;
+            if (typeof ex.reps === 'string' && (ex.reps.toLowerCase().includes("per leg") || ex.reps.toLowerCase().includes("per arm") || ex.reps.toLowerCase().includes("per side"))) {
+                timePerSetDisplay += ` per side/limb`;
+            }
+        }
+        workoutHTML += ` - Time per set: ${timePerSetDisplay}`;
+        workoutTextForCopy += ` - Time per set: ${timePerSetDisplay}`;
+
+        // ... (rest of the time calculation logic) ...
+
+        workoutTextForCopy += "\n";
+    });
 
 /* ............................................... Function: Download PDF ...................................................... */
 
