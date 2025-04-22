@@ -1210,6 +1210,8 @@ let workoutHTML = "<br><center><h3><u>YOUR WORKOUT</u></h3></center><ul>";
             if (typeof ex.reps === 'string' && (ex.reps.toLowerCase().includes("per leg") || ex.reps.toLowerCase().includes("per arm") || ex.reps.toLowerCase().includes("per side"))) {
                 timePerSetDisplay += ` per side/limb`;
             }
+            workoutHTML += ` - Time per set: ${timePerSetDisplay}`;
+            workoutTextForCopy += ` - Time per set: ${timePerSetDisplay}`;
             if (typeof ex.sets === 'number') {
                 let numberOfRounds = ex.sets;
                 let perLimb = false;
@@ -1223,11 +1225,7 @@ let workoutHTML = "<br><center><h3><u>YOUR WORKOUT</u></h3></center><ul>";
                     totalWorkoutTime += numberOfRounds * ex.timePerSet;
                 }
             }
-        }
-        workoutHTML += ` - Time per set: ${timePerSetDisplay}`;
-        workoutTextForCopy += ` - Time per set: ${timePerSetDisplay}`;
-
-        else if (typeof ex.reps === 'string') {
+        } else if (typeof ex.reps === 'string') { // This else if should be connected to the first if (ex.timePerSet !== undefined)
             const lowerCaseReps = ex.reps.toLowerCase();
             if (lowerCaseReps.includes('sec') || lowerCaseReps.includes('minutes')) {
                 const parts = lowerCaseReps.split(" ");
