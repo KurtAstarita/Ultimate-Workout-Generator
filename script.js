@@ -964,7 +964,7 @@ document.getElementById("generate-workout").addEventListener("click", function (
     const goal = document.getElementById("goal").value;
     const experience = document.getElementById("experience").value;
     const modality = document.getElementById("modality").value;
-    const trainingSplit = document.getElementById("training-split").value;
+    const trainingSplit = document.getElementById("training-split").value; // Get the selected training split
     const resultDiv = document.getElementById("workout-result");
     resultDiv.innerHTML = "";
 
@@ -1032,17 +1032,18 @@ document.getElementById("generate-workout").addEventListener("click", function (
                 workout.push(selectedExercise);
                 workoutLabels.add(randomLabel);
             } else if (availableExercises.length > 0) {
+                // If no more unique labels, add a random unique exercise
                 const randomIndex = Math.floor(Math.random() * availableExercises.length);
                 const randomExercise = availableExercises.splice(randomIndex, 1)[0];
                 if (!workout.some(ex => ex.name === randomExercise.name)) {
                     workout.push(randomExercise);
                 }
             } else {
-                break;
+                break; // No more exercises to add
             }
         }
 
-    } else if (trainingSplit) {
+    } else if (trainingSplit) { // Handle specific splits
         const splitFormatted = trainingSplit.replace("_", " & ").toLowerCase();
         const filteredExercises = availableExercises.filter(exercise => {
             if (!exercise.muscleGroup) return false;
@@ -1059,6 +1060,7 @@ document.getElementById("generate-workout").addEventListener("click", function (
             workout.push(filteredExercises.splice(randomIndex, 1)[0]);
         }
     } else {
+        // Default: select numberOfExercises random exercises
         while (workout.length < numberOfExercises && availableExercises.length > 0) {
             const randomIndex = Math.floor(Math.random() * availableExercises.length);
             workout.push(availableExercises.splice(randomIndex, 1)[0]);
@@ -1067,35 +1069,27 @@ document.getElementById("generate-workout").addEventListener("click", function (
 
     let totalWorkoutTime = 0;
     let workoutHTML = "<br><center><h3><u>YOUR WORKOUT</u></h3></center><ul>";
+    // Now we are assigning to the globally declared workoutTextForCopy
     workoutTextForCopy = "";
 
-    workout.forEach(ex => {
+workout.forEach(ex => {
         workoutHTML += `<br><br><li><b>${ex.name}</b>`;
         workoutTextForCopy += `${ex.name}`;
 
+        let exerciseTime = 0; // To accumulate time for the current exercise
+
         if (ex.sets && ex.reps) {
-            workoutHTML += ` - Reps: <span class="math-inline">\{ex\.sets\}x</span>{ex.reps}`;
-            workoutTextForCopy += ` - Reps: ${ex.sets}x${ex.reps}`; // Plain text for copying
-        } else {
-            workoutHTML += ` - Reps: N/A`;
-            workoutTextForCopy += ` - Reps: N/A`;
+            workoutHTML += ` - Reps: ${ex.sets}x${ex.reps}`;
+            workoutTextForCopy += ` - Reps: ${ex.sets}x${ex.reps}`;
         }
 
-        workoutHTML += ` - Rest: ${ex.rest !== undefined ? ex.rest : 0} seconds`;
-        workoutTextForCopy += ` - Rest: ${ex.rest !== undefined ? ex.rest : 0} seconds`;
-        if (typeof ex.sets === 'number') {
-            totalWorkoutTime += (ex.sets - 1) * ex.rest;
-        }
-
-        let timePerSetDisplay = "N/A";
-        if (ex.timePerSet !== undefined) {
-            timePerSetDisplay = `${ex.timePerSet} seconds`;
-            if (typeof ex.reps === 'string' && (ex.reps.toLowerCase().includes("per leg") || ex.reps.toLowerCase().includes("per arm") || ex.reps.toLowerCase().includes("per side"))) {
-                timePerSetDisplay += ` per side/limb`;
+        if (ex.rest) {
+            workoutHTML += ` - Rest: ${ex.rest} seconds`;
+            workoutTextForCopy += ` - Rest: ${ex.rest} seconds`;
+            if (typeof ex.sets === 'number') {
+                totalWorkoutTime += (ex.sets - 1) * ex.rest; // Rest between sets
             }
         }
-        workoutHTML += ` - Time per set: ${timePerSetDisplay}`;
-        workoutTextForCopy += ` - Time per set: ${timePerSetDisplay}`;
 
         if (ex.timePerSet !== undefined) {
             let timePerSetDisplay = `${ex.timePerSet} seconds`;
@@ -1112,9 +1106,9 @@ document.getElementById("generate-workout").addEventListener("click", function (
                 }
 
                 if (perLimb) {
-                    totalWorkoutTime += numberOfRounds * (2 * ex.timePerSet);
+                    exerciseTime += numberOfRounds * (2 * ex.timePerSet);
                 } else {
-                    totalWorkoutTime += numberOfRounds * ex.timePerSet;
+                    exerciseTime += numberOfRounds * ex.timePerSet;
                 }
             }
         } else if (typeof ex.reps === 'string') {
@@ -1133,9 +1127,9 @@ document.getElementById("generate-workout").addEventListener("click", function (
                     }
                 }
                 if (typeof ex.sets === 'number') {
-                    totalWorkoutTime += ex.sets * totalSeconds;
+                    exerciseTime += ex.sets * totalSeconds;
                 } else {
-                    totalWorkoutTime += totalSeconds;
+                    exerciseTime += totalSeconds; // Assume 1 set if not specified
                 }
             } else if (lowerCaseReps.includes('sprint') || lowerCaseReps.includes('work')) {
                 const parts = lowerCaseReps.split(" / ");
@@ -1150,7 +1144,7 @@ document.getElementById("generate-workout").addEventListener("click", function (
                         } else if (unitPart && unitPart.startsWith('min')) {
                             totalIntervalTime += time * 60;
                         } else if (unitPart && unitPart.startsWith('m')) {
-                            totalIntervalTime += 30;
+                            totalIntervalTime += 30; // Default sprint duration
                         }
                     } else if (interval.includes('+')) {
                         const timePartSprint = interval.split(" ")[0];
@@ -1162,12 +1156,15 @@ document.getElementById("generate-workout").addEventListener("click", function (
                     }
                 });
                 if (typeof ex.sets === 'number') {
-                    totalWorkoutTime += ex.sets * totalIntervalTime;
+                    exerciseTime += ex.sets * totalIntervalTime;
                 } else {
-                    totalWorkoutTime += totalIntervalTime;
+                    exerciseTime += totalIntervalTime; // Assume 1 set
                 }
             }
         }
+
+        totalWorkoutTime += exerciseTime;
+        workoutTextForCopy += "\n";
     });
 
     const minutes = Math.round(totalWorkoutTime / 60);
@@ -1175,110 +1172,42 @@ document.getElementById("generate-workout").addEventListener("click", function (
 
     resultDiv.innerHTML = DOMPurify.sanitize(workoutHTML);
 
-    // **Call populateExerciseTable here with the generated workout**
-    populateExerciseTable(workout);
-
+    // Enable the copy button after the workout is generated
     document.getElementById("copy-workout").disabled = false;
 });
 /* ............................................... Function: Validate Workout ...................................................... */
 
-let workoutHTML = "<br><center><h3><u>YOUR WORKOUT</u></h3></center><ul>";
-    workoutTextForCopy = "";
-    let totalWorkoutTime = 0; // Initialize total workout time here
+function validateWorkoutText(workoutText) {
+    const lines = workoutText.split('\n');
+    const errors = [];
+    let isValid = true;
 
-    workout.forEach(ex => {
-        workoutHTML += `<br><br><li><b>${ex.name}</b>`;
-        workoutTextForCopy += `${ex.name}`;
+    lines.forEach((line, index) => {
+        if (line.trim() && !line.includes("Estimated Workout Time")) {
+            const exerciseMatch = line.match(/^(.+?) - Reps:/);
+            const repsMatch = line.match(/Reps: (.+?)m? - Rest:/);
+            const restMatch = line.match(/Rest: (.+?) (seconds?|minutes?)\.?/); // Modified regex
 
-        if (ex.sets && ex.reps) {
-            workoutHTML += ` - Reps: <span class="math-inline">\{ex\.sets\}x</span>{ex.reps}`;
-            workoutTextForCopy += ` - Reps: ${ex.sets}x${ex.reps}`;
-        } else {
-            workoutHTML += ` - Reps: N/A`;
-            workoutTextForCopy += ` - Reps: N/A`;
-        }
-
-        workoutHTML += ` - Rest: ${ex.rest !== undefined ? ex.rest : 0} seconds`;
-        workoutTextForCopy += ` - Rest: ${ex.rest !== undefined ? ex.rest : 0} seconds`;
-        if (typeof ex.sets === 'number' && ex.rest !== undefined) {
-            totalWorkoutTime += (ex.sets - 1) * ex.rest;
-        }
-
-        let timePerSetDisplay = "N/A";
-        if (ex.timePerSet !== undefined) {
-            timePerSetDisplay = `${ex.timePerSet} seconds`;
-            if (typeof ex.reps === 'string' && (ex.reps.toLowerCase().includes("per leg") || ex.reps.toLowerCase().includes("per arm") || ex.reps.toLowerCase().includes("per side"))) {
-                timePerSetDisplay += ` per side/limb`;
+            if (!exerciseMatch) {
+                errors.push(`Line ${index + 1}: Exercise name not found.`);
+                isValid = false;
             }
-            workoutHTML += ` - Time per set: ${timePerSetDisplay}`;
-            workoutTextForCopy += ` - Time per set: ${timePerSetDisplay}`;
-            if (typeof ex.sets === 'number') {
-                let numberOfRounds = ex.sets;
-                let perLimb = false;
-                if (typeof ex.reps === 'string') {
-                    perLimb = ex.reps.toLowerCase().includes("per leg") || ex.reps.toLowerCase().includes("per arm") || ex.reps.toLowerCase().includes("per side");
-                }
-
-                if (perLimb) {
-                    totalWorkoutTime += numberOfRounds * (2 * ex.timePerSet);
-                } else {
-                    totalWorkoutTime += numberOfRounds * ex.timePerSet;
-                }
+            if (!repsMatch) {
+                errors.push(`Line ${index + 1}: Reps information not found.`);
+                isValid = false;
             }
-        } else if (typeof ex.reps === 'string') { // This else if should be connected to the first if (ex.timePerSet !== undefined)
-            const lowerCaseReps = ex.reps.toLowerCase();
-            if (lowerCaseReps.includes('sec') || lowerCaseReps.includes('minutes')) {
-                const parts = lowerCaseReps.split(" ");
-                let totalSeconds = 0;
-                for (let i = 0; i < parts.length; i++) {
-                    const num = parseInt(parts[i]);
-                    if (!isNaN(num)) {
-                        if (parts[i + 1] && parts[i + 1].startsWith('sec')) {
-                            totalSeconds += num;
-                        } else if (parts[i + 1] && parts[i + 1].startsWith('min')) {
-                            totalSeconds += num * 60;
-                        }
-                    }
-                }
-                if (typeof ex.sets === 'number') {
-                    totalWorkoutTime += ex.sets * totalSeconds;
-                } else {
-                    totalWorkoutTime += totalSeconds;
-                }
-            } else if (lowerCaseReps.includes('sprint') || lowerCaseReps.includes('work')) {
-                const parts = lowerCaseReps.split(" / ");
-                let totalIntervalTime = 0;
-                parts.forEach(interval => {
-                    const timePart = interval.split(" ")[0];
-                    const unitPart = interval.split(" ")[1];
-                    const time = parseInt(timePart);
-                    if (!isNaN(time)) {
-                        if (unitPart && unitPart.startsWith('sec')) {
-                            totalIntervalTime += time;
-                        } else if (unitPart && unitPart.startsWith('min')) {
-                            totalIntervalTime += time * 60;
-                        } else if (unitPart && unitPart.startsWith('m')) {
-                            totalIntervalTime += 30;
-                        }
-                    } else if (interval.includes('+')) {
-                        const timePartSprint = interval.split(" ")[0];
-                        const unitPartSprint = interval.split(" ")[1];
-                        const timeSprint = parseInt(timePartSprint);
-                        if (!isNaN(timeSprint) && unitPartSprint && unitPartSprint.startsWith('m')) {
-                            totalIntervalTime += 30;
-                        }
-                    }
-                });
-                if (typeof ex.sets === 'number') {
-                    totalWorkoutTime += ex.sets * totalIntervalTime;
-                } else {
-                    totalWorkoutTime += totalIntervalTime;
-                }
+            if (!restMatch) {
+                errors.push(`Line ${index + 1}: Rest information not found.`);
+                isValid = false;
             }
         }
-
-        workoutTextForCopy += "\n";
     });
+
+    return {
+        isValid: isValid,
+        errors: errors
+    };
+}
 
 /* ............................................... Function: Download PDF ...................................................... */
 
@@ -1287,8 +1216,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
     workoutText = DOMPurify.sanitize(workoutText);
 
     if (!workoutText.trim()) {
-        // alert("Please paste workout text before downloading."); // COMMENTED OUT
-        console.log("Download PDF: workoutText is empty.");
+        alert("Please paste workout text before downloading.");
         return;
     }
 
@@ -1296,8 +1224,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
         const validationResult = validateWorkoutText(workoutText);
 
         if (!validationResult.isValid) {
-            console.log("Download PDF: Validation Result:", validationResult); // ADD THIS LINE
-            // alert("Workout text validation errors:\n" + validationResult.errors.join('\n')); // COMMENTED OUT
+            alert("Workout text validation errors:\n" + validationResult.errors.join('\n'));
             return;
         }
 
@@ -1444,7 +1371,7 @@ document.getElementById('download-pdf').addEventListener('click', function () {
     } catch (mainError) {
         console.error("Error generating PDF:", mainError);
         console.error("Error stack:", mainError.stack);
-        // alert("An error occurred while generating the PDF."); // COMMENTED OUT
+        alert("An error occurred while generating the PDF.");
     }
 });
 
@@ -1553,31 +1480,24 @@ function populateExerciseTable() {
     });
 }
 
+// The "Copy Workout" button's event listener should be outside the populateExerciseTable function
 document.getElementById("copy-workout").addEventListener("click", function() {
-    const textToCopy = workoutTextForCopy.replace(/\.$/gm, '');
-    const copyButton = this; // Store the button element
-    const originalText = copyButton.textContent; // Store the original button text
-
-    // Temporarily disable the button to prevent multiple clicks
-    copyButton.disabled = true;
-    copyButton.textContent = "Copying..."; // Optional: provide immediate feedback
-
+    const textToCopy = workoutTextForCopy.replace(/\.$/gm, ''); // Remove trailing periods from each line
     navigator.clipboard.writeText(textToCopy)
         .then(() => {
-            copyButton.textContent = "Copied!"; // Change text to "Copied!"
-            setTimeout(() => {
-                copyButton.textContent = originalText; // Revert to original text
-                copyButton.disabled = false; // Re-enable the button
-            }, 2000); // Revert after 2 seconds
+            alert("Workout copied to clipboard!");
         })
         .catch(err => {
             console.error("Failed to copy: ", err);
-            copyButton.textContent = "Failed to Copy"; // Indicate failure
-            setTimeout(() => {
-                copyButton.textContent = originalText; // Revert to original text
-                copyButton.disabled = false; // Re-enable the button
-            }, 3000); // Revert after a slightly longer delay for error message
+            alert("Failed to copy workout.");
         });
 });
 
-populateExerciseTable();
+document.addEventListener('DOMContentLoaded', function() {
+    populateExerciseTable();
+
+    // Set default values on page load
+    document.getElementById("goal").value = "muscle";
+    document.getElementById("experience").value = "beginner";
+    document.getElementById("modality").value = "general";
+});
