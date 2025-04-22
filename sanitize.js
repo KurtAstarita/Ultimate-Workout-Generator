@@ -1,7 +1,7 @@
-function sanitizeInput(element) {
-    element.value = element.value.replace(/[<>]/g, "");
+function sanitizeInput(text) {
+  return DOMPurify.sanitize(text);
 }
 
 document.getElementById('paste-text').addEventListener('input', function() {
-    sanitizeInput(this);
+  this.value = sanitizeInput(this.value);
 });
