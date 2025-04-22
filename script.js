@@ -964,7 +964,7 @@ document.getElementById("generate-workout").addEventListener("click", function (
     const goal = document.getElementById("goal").value;
     const experience = document.getElementById("experience").value;
     const modality = document.getElementById("modality").value;
-    const trainingSplit = document.getElementById("training-split").value; // Get the selected training split
+    const trainingSplit = document.getElementById("training-split").value;
     const resultDiv = document.getElementById("workout-result");
     resultDiv.innerHTML = "";
 
@@ -1032,18 +1032,17 @@ document.getElementById("generate-workout").addEventListener("click", function (
                 workout.push(selectedExercise);
                 workoutLabels.add(randomLabel);
             } else if (availableExercises.length > 0) {
-                // If no more unique labels, add a random unique exercise
                 const randomIndex = Math.floor(Math.random() * availableExercises.length);
                 const randomExercise = availableExercises.splice(randomIndex, 1)[0];
                 if (!workout.some(ex => ex.name === randomExercise.name)) {
                     workout.push(randomExercise);
                 }
             } else {
-                break; // No more exercises to add
+                break;
             }
         }
 
-    } else if (trainingSplit) { // Handle specific splits
+    } else if (trainingSplit) {
         const splitFormatted = trainingSplit.replace("_", " & ").toLowerCase();
         const filteredExercises = availableExercises.filter(exercise => {
             if (!exercise.muscleGroup) return false;
@@ -1060,7 +1059,6 @@ document.getElementById("generate-workout").addEventListener("click", function (
             workout.push(filteredExercises.splice(randomIndex, 1)[0]);
         }
     } else {
-        // Default: select numberOfExercises random exercises
         while (workout.length < numberOfExercises && availableExercises.length > 0) {
             const randomIndex = Math.floor(Math.random() * availableExercises.length);
             workout.push(availableExercises.splice(randomIndex, 1)[0]);
@@ -1069,25 +1067,24 @@ document.getElementById("generate-workout").addEventListener("click", function (
 
     let totalWorkoutTime = 0;
     let workoutHTML = "<br><center><h3><u>YOUR WORKOUT</u></h3></center><ul>";
-    // Now we are assigning to the globally declared workoutTextForCopy
     workoutTextForCopy = "";
 
-workout.forEach(ex => {
+    workout.forEach(ex => {
         workoutHTML += `<br><br><li><b>${ex.name}</b>`;
         workoutTextForCopy += `${ex.name}`;
 
-        let exerciseTime = 0; // To accumulate time for the current exercise
+        let exerciseTime = 0;
 
         if (ex.sets && ex.reps) {
-            workoutHTML += ` - Reps: ${ex.sets}x${ex.reps}`;
-            workoutTextForCopy += ` - Reps: ${ex.sets}x${ex.reps}`;
+            workoutHTML += ` - Reps: <span class="math-inline">\{ex\.sets\}x</span>{ex.reps}`;
+            workoutTextForCopy += ` - Reps: <span class="math-inline">\{ex\.sets\}x</span>{ex.reps}`;
         }
 
         if (ex.rest) {
             workoutHTML += ` - Rest: ${ex.rest} seconds`;
             workoutTextForCopy += ` - Rest: ${ex.rest} seconds`;
             if (typeof ex.sets === 'number') {
-                totalWorkoutTime += (ex.sets - 1) * ex.rest; // Rest between sets
+                totalWorkoutTime += (ex.sets - 1) * ex.rest;
             }
         }
 
@@ -1129,7 +1126,7 @@ workout.forEach(ex => {
                 if (typeof ex.sets === 'number') {
                     exerciseTime += ex.sets * totalSeconds;
                 } else {
-                    exerciseTime += totalSeconds; // Assume 1 set if not specified
+                    exerciseTime += totalSeconds;
                 }
             } else if (lowerCaseReps.includes('sprint') || lowerCaseReps.includes('work')) {
                 const parts = lowerCaseReps.split(" / ");
@@ -1144,7 +1141,7 @@ workout.forEach(ex => {
                         } else if (unitPart && unitPart.startsWith('min')) {
                             totalIntervalTime += time * 60;
                         } else if (unitPart && unitPart.startsWith('m')) {
-                            totalIntervalTime += 30; // Default sprint duration
+                            totalIntervalTime += 30;
                         }
                     } else if (interval.includes('+')) {
                         const timePartSprint = interval.split(" ")[0];
@@ -1158,7 +1155,7 @@ workout.forEach(ex => {
                 if (typeof ex.sets === 'number') {
                     exerciseTime += ex.sets * totalIntervalTime;
                 } else {
-                    exerciseTime += totalIntervalTime; // Assume 1 set
+                    exerciseTime += totalIntervalTime;
                 }
             }
         }
@@ -1172,10 +1169,11 @@ workout.forEach(ex => {
 
     resultDiv.innerHTML = DOMPurify.sanitize(workoutHTML);
 
-    // Enable the copy button after the workout is generated
+    // **Call populateExerciseTable here with the generated workout**
+    populateExerciseTable(workout);
+
     document.getElementById("copy-workout").disabled = false;
 });
-
 /* ............................................... Function: Validate Workout ...................................................... */
 
 function validateWorkoutText(workoutText) {
