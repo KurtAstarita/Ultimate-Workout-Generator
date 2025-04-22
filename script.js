@@ -1073,8 +1073,6 @@ document.getElementById("generate-workout").addEventListener("click", function (
         workoutHTML += `<br><br><li><b>${ex.name}</b>`;
         workoutTextForCopy += `${ex.name}`;
 
-        let exerciseTime = 0;
-
         if (ex.sets && ex.reps) {
             workoutHTML += ` - Reps: <span class="math-inline">\{ex\.sets\}x</span>{ex.reps}`;
             workoutTextForCopy += ` - Reps: <span class="math-inline">\{ex\.sets\}x</span>{ex.reps}`;
