@@ -1500,3 +1500,5 @@ document.getElementById("copy-workout").addEventListener("click", function() {
             }, 3000); // Revert after a slightly longer delay for error message
         });
 });
+
+populateExerciseTable();
