@@ -522,6 +522,7 @@ button:disabled:hover {
 
 .social-share {
   margin-top: 2em;
+  margin-bottom: 0.5em;
   padding: 1em;
   border: 1px solid #eee;
   border-radius: 5px;
