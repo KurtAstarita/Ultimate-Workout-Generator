@@ -846,7 +846,7 @@ hybrid_calisthenics_plus: {
     { name: "Towel Curls (Suspension Trainer, beginner angle)", sets: 3, reps: 12, rest: 45, equipment: "towel, suspension trainer", muscleGroup: "biceps", timePerSet: 30, label: "3" },
     { name: "Resistance Band Good Mornings (light resistance)", sets: 3, reps: 15, rest: 45, equipment: "resistance band", muscleGroup: "hamstrings, glutes, lower back", timePerSet: 30, label: "1" },
     { name: "Suspension Trainer Tricep Extensions (easier angle)", sets: 3, reps: 12, rest: 45, equipment: "suspension trainer", muscleGroup: "triceps", timePerSet: 30, label: "2" },
-    { name: "Side Plank (on forearm)", sets: 3, reps: "30 seconds hold each side", rest: 45, equipment: "none", label: "5", timePerSet: 30, muscleGroup: "core, obliques, shoulders" }
+    { name: "Side Plank (on forearm)", sets: 3, reps: "30 seconds hold each side", rest: 45, equipment: "none", label: "5", timePerSet: 30, muscleGroup: "core, obliques, shoulders" },
 
   // Intermediate Exercises
 { name: "Weighted Vest Pull ups", sets: 3, reps: "as many as possible", rest: 75, equipment: "weighted vest", muscleGroup: "back, biceps, lats", timePerSet: 45, label: "1, 3" },
@@ -880,7 +880,7 @@ hybrid_calisthenics_plus: {
 { name: "Towel Curls (Suspension Trainer, challenging angle)", sets: 3, reps: 8, rest: 45, equipment: "towel, suspension trainer", muscleGroup: "biceps, forearms", timePerSet: 30, label: "3" },
 { name: "Resistance Band Good Mornings (moderate resistance)", sets: 3, reps: 12, rest: 60, equipment: "resistance band", muscleGroup: "hamstrings, glutes, lower back", timePerSet: 30, label: "1" },
 { name: "Suspension Trainer Tricep Extensions (underhand grip)", sets: 3, reps: 10, rest: 60, equipment: "suspension trainer", muscleGroup: "triceps", timePerSet: 30, label: "2" },
-{ name: "Plank with Resistance Band Pull-aparts", sets: 3, reps: "10 pull-aparts, 45 sec plank hold", rest: 60, equipment: "resistance band", label: "4, 5", timePerSet: 60, muscleGroup: "core, shoulders, upper back" }
+{ name: "Plank with Resistance Band Pull-aparts", sets: 3, reps: "10 pull-aparts, 45 sec plank hold", rest: 60, equipment: "resistance band", label: "4, 5", timePerSet: 60, muscleGroup: "core, shoulders, upper back" },
     
 // Advanced Exercises
 { name: "Weighted Vest Pistol Squats", sets: 3, reps: "5-8 each leg", rest: 90, equipment: "weighted vest", label: "1, balance", timePerSet: 60, muscleGroup: "legs, glutes, core" },
