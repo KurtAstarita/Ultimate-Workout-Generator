@@ -1,0 +1,16 @@
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+            background-color: #fff; /* All white background */
+            color: #000; /* Default text color for readability on white */
+        }
+        h1, h2 {
+            color: #333;
+        }
+        p {
+            margin-bottom: 1em;
+        }
+        strong {
+            font-weight: bold;
+        }
