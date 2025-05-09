@@ -718,6 +718,13 @@ advanced: [
    },
 hybrid_calisthenics_plus: {
     "beginner": [
+        { name: "Single Arm Band Shoulder Raises", sets: 3, reps: "12 per side", rest: 45, equipment: "none", label: "4", timePerSet: 30, muscleGroup: "delts & traps, shoulders, triceps" },
+        { name: "Standing Resistance Shoulder Raises (light)", sets: 3, reps: 12, rest: 45, equipment: "Resistance Bands With Handles", label: "4", timePerSet: 30, muscleGroup: "delts & traps, shoulders, triceps" },
+        { name: "Single Arm Resistance Band Arnold-press (light)", sets: 3, reps: "12 per side", rest: 45, equipment: "none", label: "4", timePerSet: 30, muscleGroup: "delts & traps, shoulders, triceps" },
+        { name: "Suspention Trainer Pike Push-ups (Hands Elevated)", sets: 3, reps: 10, rest: 45, equipment: "none", label: "4", timePerSet: 30, muscleGroup: "delts & traps, shoulders, triceps" },
+        { name: "Standing Resistance-Band Military Press", sets: 3, reps: 12, rest: 45, equipment: "Resistance-bands with handles", label: "4", timePerSet: 30, muscleGroup: "delts & traps, shoulders, triceps" },
+        { name: "Incline Pike Push-ups (hands elevated)", sets: 3, reps: 10, rest: 45, equipment: "none", label: "4", timePerSet: 30, muscleGroup: "delts & traps, shoulders, triceps" },
+        { name: "Over Head Single Arm Band Press", sets: 3, reps: "12 per side", rest: 45, equipment: "One Pull-up Band", label: "4", timePerSet: 30, muscleGroup: "delts & traps, shoulders, triceps" },
         { name: "Bodyweight Squats", sets: 3, reps: 12, rest: 45, equipment: "none", label: "1", timePerSet: 30, muscleGroup: "legs & back, legs, glutes" },
         { name: "Resistance Band Pull-aparts", sets: 3, reps: 15, rest: 30, equipment: "resistance band", muscleGroup: "delts & traps, shoulders, upper back", timePerSet: 20, label: "4" },
         { name: "Incline Push-ups (hands elevated)", sets: 3, reps: 10, rest: 45, equipment: "bench or elevated surface", muscleGroup: "chest & triceps, delts & traps, chest, shoulders, triceps", timePerSet: 30, label: "2, 4" },
@@ -732,7 +739,7 @@ hybrid_calisthenics_plus: {
         { name: "Resistance Band Lateral Walks (short distance, light band)", sets: 3, reps: "8 steps each way", rest: 45, equipment: "resistance band", label: "1", timePerSet: 30, muscleGroup: "legs & back, glutes, outer thighs" },
         { name: "Suspension Trainer Pull-ups (feet on ground, high angle)", sets: 3, reps: 6, rest: 60, equipment: "suspension trainer", muscleGroup: "legs & back, back & biceps, back, biceps", timePerSet: 45, label: "1, 3" },
         { name: "Weighted Vest Squats", sets: 3, reps: 10, rest: 60, equipment: "weighted vest", label: "1", timePerSet: 30, muscleGroup: "legs & back, legs, glutes" },
-        { name: "Resistance Band Assisted Push ups", sets: 3, reps: 10, rest: 60, equipment: "resistance band", muscleGroup: "chest & triceps, delts & traps, chest, shoulders, triceps", timePerSet: 30, label: "2, 4" },
+        { name: "Resistance Band Assisted Push ups", sets: 3, reps: 10, rest: 60, equipment: "resistance band", muscleGroup: "chest & triceps, chest, shoulders, triceps", timePerSet: 30, label: "2" },
         { name: "Suspension Trainer Rows (higher angle)", sets: 3, reps: 10, rest: 60, equipment: "suspension trainer", muscleGroup: "legs & back, back & biceps, back, biceps", timePerSet: 30, label: "1, 3" },
         { name: "Ankle Weight Lunges", sets: 3, reps: 10, rest: 60, equipment: "ankle weights", label: "1", timePerSet: 30, muscleGroup: "legs & back, legs, glutes" },
         { name: "Resistance Band Glute Bridges", sets: 3, reps: 15, rest: 45, equipment: "resistance band", muscleGroup: "legs & back, glutes, hamstrings", timePerSet: 30, label: "1" },
@@ -750,6 +757,13 @@ hybrid_calisthenics_plus: {
         { name: "Side Plank (on forearm)", sets: 3, reps: "30 seconds hold each side", rest: 45, equipment: "none", label: "5", timePerSet: 30, muscleGroup: "core & cardio, core, obliques, shoulders" }
     ],
 "intermediate": [
+    { name: "Single Arm Band Shoulder Raises (Moderate)", sets: 3, reps: "10 per side", rest: 45, equipment: "none", label: "4", timePerSet: 30, muscleGroup: "delts & traps, shoulders, triceps" },
+    { name: "Standing Resistance Shoulder Raises (Moderate)", sets: 3, reps: 10, rest: 45, equipment: "Resistance Bands With Handles", label: "4", timePerSet: 30, muscleGroup: "delts & traps, shoulders, triceps" },
+    { name: "Single Arm Resistance Band Arnold-press (Moderate)", sets: 3, reps: "10 per side", rest: 45, equipment: "none", label: "4", timePerSet: 30, muscleGroup: "delts & traps, shoulders, triceps" },
+    { name: "Suspention Trainer Pike Push-ups (Feet elevated)", sets: 3, reps: 8, rest: 45, equipment: "none", label: "4", timePerSet: 30, muscleGroup: "delts & traps, shoulders, triceps" },
+    { name: "Standing Resistance-Band Military Press", sets: 3, reps: 10, rest: 45, equipment: "Resistance-bands with handles", label: "4", timePerSet: 30, muscleGroup: "delts & traps, shoulders, triceps" },
+    { name: "Incline Pike Push-ups (Feet elevated)", sets: 3, reps: 8, rest: 45, equipment: "none", label: "4", timePerSet: 30, muscleGroup: "delts & traps, shoulders, triceps" },
+    { name: "Over Head Single Arm Band Press", sets: 3, reps: "12 per side", rest: 45, equipment: "One Pull-up Band", label: "4", timePerSet: 30, muscleGroup: "delts & traps, shoulders, triceps" },
     { name: "Weighted Vest Pull ups", sets: 3, reps: "as many as possible", rest: 75, equipment: "weighted vest", muscleGroup: "legs & back, back & biceps, back, biceps, lats", timePerSet: 45, label: "1, 3" },
     { name: "Resistance Band Push-ups", sets: 3, reps: 12, rest: 60, equipment: "resistance band", muscleGroup: "chest & triceps, delts & traps, chest, shoulders, triceps", timePerSet: 30, label: "2, 4" },
     { name: "Suspension Trainer Inverted Rows (feet elevated)", sets: 3, reps: 12, rest: 60, equipment: "suspension trainer, elevated surface", muscleGroup: "legs & back, back & biceps, back, biceps", timePerSet: 30, label: "1, 3" },
@@ -784,6 +798,13 @@ hybrid_calisthenics_plus: {
     { name: "Plank with Resistance Band Pull-aparts", sets: 3, reps: "10 pull-aparts, 45 sec plank hold", rest: 60, equipment: "resistance band", label: "4, 5", timePerSet: 60, muscleGroup: "core & cardio, delts & traps, core, shoulders, upper back" }
 ],
 "advanced": [
+    { name: "Single Arm Band Shoulder Raises (Heavy)", sets: 3, reps: "8 per side", rest: 45, equipment: "none", label: "4", timePerSet: 30, muscleGroup: "delts & traps, shoulders, triceps" },
+    { name: "Standing Resistance Shoulder Raises (Heavy)", sets: 3, reps: 8, rest: 45, equipment: "Resistance Bands With Handles", label: "4", timePerSet: 30, muscleGroup: "delts & traps, shoulders, triceps" },
+    { name: "Single Arm Resistance Band Arnold-press (Heavy)", sets: 3, reps: "8 per side", rest: 45, equipment: "none", label: "4", timePerSet: 30, muscleGroup: "delts & traps, shoulders, triceps" },
+    { name: "Weighted Suspention Trainer Pike Push-ups (Feet elevated)", sets: 3, reps: 5, rest: 45, equipment: "none", label: "4", timePerSet: 30, muscleGroup: "delts & traps, shoulders, triceps" },
+    { name: "Standing Resistance-Band Military Press (Heavy", sets: 3, reps: 8, rest: 45, equipment: "Resistance-bands with handles", label: "4", timePerSet: 30, muscleGroup: "delts & traps, shoulders, triceps" },
+    { name: "Weighted Decline Pike Push-ups (Feet elevated)", sets: 3, reps: 5, rest: 45, equipment: "none", label: "4", timePerSet: 30, muscleGroup: "delts & traps, shoulders, triceps" },
+    { name: "Over Head Single Arm Band Press", sets: 3, reps: "12 per side", rest: 45, equipment: "One Pull-up Band", label: "4", timePerSet: 30, muscleGroup: "delts & traps, shoulders, triceps" },
     { name: "Weighted Vest Pistol Squats", sets: 3, reps: "5-8 each leg", rest: 90, equipment: "weighted vest", label: "1, balance", timePerSet: 60, muscleGroup: "legs & back, legs, glutes, core" },
     { name: "Resistance Band Archer Push ups", sets: 3, reps: "6-10 each side", rest: 75, equipment: "resistance band", muscleGroup: "chest & triceps, delts & traps, core & cardio, chest, shoulders, triceps, core", timePerSet: 60, label: "2, 4, 5" },
     { name: "Suspension Trainer Single Arm Rows (challenging angle)", sets: 3, reps: "8-12 each arm", rest: 75, equipment: "suspension trainer", muscleGroup: "legs & back, back & biceps, core & cardio, back, biceps, core", timePerSet: 60, label: "1, 3, 5" },
