@@ -913,8 +913,9 @@ hybrid_calisthenics_plus: {
     { name: "Resistance Band Face Pulls (with external rotation at the end)", sets: 3, reps: "15-20", rest: 45, equipment: "resistance band", muscleGroup: "delts & traps, shoulders, upper back, rotator cuffs", timePerSet: 30, label: "4" },
     { name: "Suspension Trainer Handstand Push-up Negatives (assisted if needed)", sets: 3, reps: "3-5", rest: 120, equipment: "suspension trainer, wall (optional)", muscleGroup: "chest & triceps, delts & traps, core & cardio", timePerSet: 90, label: "2, 4, 5" },
     { name: "Towel Curls (Suspension Trainer, single arm)", sets: 3, reps: "8-12 each arm", rest: 60, equipment: "towel, suspension trainer", muscleGroup: "back & biceps, core & cardio", timePerSet: 45, label: "3, 5" },
-    { name: "single leg calve raises (elevated surface)", sets: 3, reps: "8-12 each leg", rest: 60, equipment: "step", muscleGroup: "legs & back, calves", timePerSet: 45, label: "1" },
-    { name: "single leg wall-press calve raises", sets: 3, reps: "8-12 each leg", rest: 60, equipment: "none", muscleGroup: "legs & back, delts & traps, calves", timePerSet: 45, label: "1" },
+    { name: "Single leg calve raises with full stretch (elevated surface)", sets: 3, reps: "8-12 each leg", rest: 60, equipment: "step", muscleGroup: "legs & back, calves", timePerSet: 45, label: "1" },
+    { name: "Single leg wall-press calve raises", sets: 3, reps: "8-12 each leg", rest: 60, equipment: "a wall", muscleGroup: "legs & back, delts & traps, calves", timePerSet: 45, label: "1" },
+    { name: "Single leg weighted calve raises (weighted vest or dumbell)", sets: 3, reps: "8-12 each leg", rest: 60, equipment: "weighted vest or dumbell", muscleGroup: "legs & back, calves", timePerSet: 45, label: "1" },
 ]
 }
 };
