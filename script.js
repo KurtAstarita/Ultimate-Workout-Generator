@@ -1034,7 +1034,6 @@ document.getElementById("generate-workout").addEventListener("click", function (
                 workout.push(calfExercises.splice(randomIndex, 1)[0]);
             }
         }
-    }
 
     } else {
         // Default: select numberOfExercises random exercises
