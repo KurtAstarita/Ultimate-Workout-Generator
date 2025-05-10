@@ -903,7 +903,7 @@ function normalizeExercises(exercisesArray) {
 document.getElementById("modality").addEventListener("change", function () {
     const goalSelect = document.getElementById("goal");
     if (this.value === "powerlifting_5x5" || this.value === "hiit" || this.value === "circuit" || this.value === "calisthenics" || this.value === "hybrid_calisthenics_plus") {
-        goalSelect.value = "strength"; // Or any default value you prefer
+        goalSelect.value = "muscle"; // Or any default value you prefer
         goalSelect.disabled = true;
         goalSelect.style.color = "#aaa"; // Gray out the text
         goalSelect.style.backgroundColor = "#eee"; // Gray out the background
