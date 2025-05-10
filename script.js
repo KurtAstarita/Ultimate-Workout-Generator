@@ -718,6 +718,7 @@ advanced: [
    },
 hybrid_calisthenics_plus: {
     "beginner": [
+         { name: "Diomond Push-ups (bodyweight only)", sets: 3, reps: "12", rest: 45, equipment: "weighted vest", label: "2", timePerSet: 30, muscleGroup: "chest & triceps, triceps" },
         { name: "", sets: 3, reps: "12 per side", rest: 45, equipment: "none", label: "4", timePerSet: 30, muscleGroup: "delts & traps, shoulders, triceps" },
         { name: "Standing Resistance Shoulder Raises (light)", sets: 3, reps: 12, rest: 45, equipment: "Resistance Bands With Handles", label: "4", timePerSet: 30, muscleGroup: "delts & traps, shoulders, triceps" },
         { name: "Single Arm Resistance Band Arnold-press (light)", sets: 3, reps: "12 each side", rest: 45, equipment: "none", label: "4", timePerSet: 30, muscleGroup: "delts & traps, shoulders, triceps" },
@@ -764,6 +765,7 @@ hybrid_calisthenics_plus: {
         { name: "Side Plank (on forearm)", sets: 3, reps: "30 seconds hold each side", rest: 45, equipment: "none", label: "5", timePerSet: 30, muscleGroup: "core & cardio, core, obliques, shoulders" }
     ],
 "intermediate": [
+     { name: "Diomond Push-ups (Weighted, moderate)", sets: 3, reps: "10", rest: 45, equipment: "weighted vest", label: "2", timePerSet: 30, muscleGroup: "chest & triceps, triceps" },
     { name: "Single Arm Band Shoulder Raises", sets: 3, reps: "12 each side", rest: 45, equipment: "none", label: "4", timePerSet: 30, muscleGroup: "delts & traps, shoulders, triceps" },
     { name: "Standing Resistance Shoulder Raises (light)", sets: 3, reps: 12, rest: 45, equipment: "Resistance Bands With Handles", label: "4", timePerSet: 30, muscleGroup: "delts & traps, shoulders, triceps" },
     { name: "Single Arm Resistance Band Arnold-press (light)", sets: 3, reps: "12 each side", rest: 45, equipment: "none", label: "4", timePerSet: 30, muscleGroup: "delts & traps, shoulders, triceps" },
@@ -812,6 +814,7 @@ hybrid_calisthenics_plus: {
     { name: "Plank with Resistance Band Pull-aparts", sets: 3, reps: "10 pull-aparts, 45 sec plank hold", rest: 60, equipment: "resistance band", label: "4, 5", timePerSet: 60, muscleGroup: "core & cardio, delts & traps, core, shoulders, upper back" }
 ],
 "advanced": [
+    { name: "Diomond Push-ups (Weighted, heavy)", sets: 3, reps: "8", rest: 45, equipment: "weighted vest", label: "2", timePerSet: 30, muscleGroup: "chest & triceps, triceps" },
     { name: "Single Arm Band Shoulder Raises (Heavy)", sets: 3, reps: "8 each side", rest: 45, equipment: "none", label: "4", timePerSet: 30, muscleGroup: "delts & traps, shoulders, triceps" },
     { name: "Standing Resistance Shoulder Raises (Heavy)", sets: 3, reps: 8, rest: 45, equipment: "Resistance Bands With Handles", label: "4", timePerSet: 30, muscleGroup: "delts & traps, shoulders, triceps" },
     { name: "Single Arm Resistance Band Arnold-press (Heavy)", sets: 3, reps: "8 each side", rest: 45, equipment: "none", label: "4", timePerSet: 30, muscleGroup: "delts & traps, shoulders, triceps" },
