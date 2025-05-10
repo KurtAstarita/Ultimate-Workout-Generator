@@ -522,7 +522,7 @@ advanced: {
             { name: "Dumbbell Renegade Row Complex (with push ups or lunges)", muscleGroup: "legs & back, back & biceps, chest & triceps, core & cardio, back, core, cardio", label: "2, 3, 5", equipment: "Dumbbells", sets: 4, reps: "8-10 per exercise", rest: 75, timePerSet: 90 },
             { name: "Dumbbell Turkish Get ups (faster pace)", muscleGroup: "legs & back, delts & traps, back & biceps, chest & triceps, core & cardio, full body, core, cardio", label: "1, 2, 3, 4, 5", equipment: "Dumbbell", sets: 3, reps: "5 per side", rest: 90, timePerSet: 75 },
             { name: "Dumbbell Clean and Jerk", muscleGroup: "legs & back, delts & traps, back & biceps, chest & triceps, core & cardio, full body, cardio", label: "1, 2, 3, 4, 5", equipment: "Dumbbells", sets: 4, reps: 8, rest: 60, timePerSet: 60 },
-            { name: "Dumbbell Devil's Press", muscleGroup: "legs & back, delts & traps, back & biceps, chest & triceps, core & cardio, full body, cardio", label: "1, 2, 3, 4, 5", equipment: "Dumbbells", sets: 4, reps: 10, rest: 60, timePerSet: 75 },
+            { name: "Dumbbell Devil's Press", muscleGroup: "legs & back, delts & traps, back & biceps, chest & triceps, core & cardio, full body", label: "1, 2, 3, 4, 5", equipment: "Dumbbells", sets: 4, reps: 10, rest: 60, timePerSet: 75 },
         ],
         gym: [
             { name: "HIIT on Treadmill (sprint intervals)", muscleGroup: "legs & back, core & cardio, cardio, legs", label: "1, 5", equipment: "Treadmill", sets: 6, reps: "30 sec sprint / 30 sec rest", rest: 60, timePerSet: 60 },
