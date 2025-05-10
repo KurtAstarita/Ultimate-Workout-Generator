@@ -835,7 +835,7 @@ hybrid_calisthenics_plus: {
     { name: "Weighted Vest Pull ups", sets: 3, reps: "as many as possible", rest: 75, equipment: "weighted vest", muscleGroup: "legs & back, back & biceps, back, biceps, lats", timePerSet: 45, label: "1, 3" },
     { name: "Resistance Band Push-ups", sets: 3, reps: 12, rest: 60, equipment: "resistance band", muscleGroup: "chest & triceps, delts & traps, chest, shoulders, triceps", timePerSet: 30, label: "2, 4" },
     { name: "Suspension Trainer Inverted Rows (feet elevated)", sets: 3, reps: 12, rest: 60, equipment: "suspension trainer, elevated surface", muscleGroup: "legs & back, back & biceps", timePerSet: 30, label: "1, 3" },
-    { name: "Ankle Weight Dips", sets: 3, reps: 8, rest: 75, equipment: "Ankle weights", muscleGroup: "chest & triceps, delts & traps, triceps, chest, shoulders", timePerSet: 45, label: "2, 4" },
+    { name: "Ankle Weight Dips", sets: 3, reps: 8, rest: 75, equipment: "Ankle weights", muscleGroup: "chest & triceps, delts & traps", timePerSet: 45, label: "2, 4" },
     { name: "Weighted Vest Step-ups", sets: 3, reps: "10 each leg", rest: 60, equipment: "weighted vest, box or step", label: "1", timePerSet: 45, muscleGroup: "legs & back, legs, glutes" },
     { name: "Resistance Band Good Mornings", sets: 3, reps: 15, rest: 60, equipment: "resistance band", muscleGroup: "legs & back, hamstrings, glutes, lower back", timePerSet: 30, label: "1" },
     { name: "Suspension Trainer Tricep Extensions (overhead)", sets: 3, reps: 12, rest: 60, equipment: "suspension trainer", muscleGroup: "chest & triceps, triceps", timePerSet: 30, label: "2" },
