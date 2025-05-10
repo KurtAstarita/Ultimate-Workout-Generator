@@ -916,6 +916,7 @@ hybrid_calisthenics_plus: {
     { name: "Single leg calve raises with full stretch (elevated surface)", sets: 3, reps: "8-12 each leg", rest: 60, equipment: "step", muscleGroup: "legs & back, calves", timePerSet: 45, label: "1" },
     { name: "Single leg wall-press calve raises", sets: 3, reps: "8-12 each leg", rest: 60, equipment: "a wall", muscleGroup: "legs & back, delts & traps, calves", timePerSet: 45, label: "1" },
     { name: "Single leg weighted calve raises (weighted vest or dumbell)", sets: 3, reps: "8-12 each leg", rest: 60, equipment: "weighted vest or dumbell", muscleGroup: "legs & back, calves", timePerSet: 45, label: "1" },
+    { name: "Single leg explosive calve jumps", sets: 3, reps: "8-12 each leg", rest: 60, equipment: "none", muscleGroup: "legs & back, core & cardio, calves", timePerSet: 45, label: "1" },
 ]
 }
 };
