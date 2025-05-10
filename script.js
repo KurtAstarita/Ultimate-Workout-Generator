@@ -12,7 +12,8 @@ const exercises = {
                 { name: "Dumbbell Hammer Curls", muscleGroup: "back & biceps", label: "4", equipment: "Dumbbells", sets: 3, reps: 12, rest: 60, timePerSet: 30 },
                 { name: "Dumbbell Goblet Squats", muscleGroup: "legs & back, lower back", label: "1", equipment: "Dumbbells", sets: 3, reps: 12, rest: 60, timePerSet: 50 },
                 { name: "Dumbbell Triceps Extensions", muscleGroup: "chest & triceps", label: "4", equipment: "Dumbbells", sets: 3, reps: 12, rest: 60, timePerSet: 35 },
-                { name: "Dumbbell Calf Raises", muscleGroup: "legs & back, calves", label: "1", equipment: "Dumbbells", sets: 3, reps: 15, rest: 45, timePerSet: 25 },
+                { name: "Dumbbell Front Raises", muscleGroup: "delts & traps", label: "4", equipment: "Dumbbells", sets: 3, reps: 12, rest: 60, timePerSet: 30 }, // Added
+                { name: "Dumbbell Calf Raises", muscleGroup: "legs, calves", label: "1", equipment: "Dumbbells", sets: 3, reps: 15, rest: 45, timePerSet: 25 }, // Added
             ],
             bodyweight: [
                 { name: "Push ups", muscleGroup: "chest & triceps", label: "2", equipment: "Bodyweight", sets: 3, reps: 10, rest: 60, timePerSet: 30 },
@@ -26,6 +27,7 @@ const exercises = {
                 { name: "Leg Raises", muscleGroup: "core & cardio", label: "5", equipment: "Bodyweight", sets: 3, reps: 12, rest: 60, timePerSet: 30 },
                 { name: "Supermans", muscleGroup: "back & biceps, lower back, glutes", label: "3", equipment: "Bodyweight", sets: 3, reps: 15, rest: 60, timePerSet: 30 },
                 { name: "Calf Raises (on a step)", muscleGroup: "legs & back, calves", label: "1", equipment: "Bodyweight", sets: 3, reps: 20, rest: 45, timePerSet: 20 },
+                { name: "Bird Dog", muscleGroup: "core & lower back", label: "5", equipment: "Bodyweight", sets: 3, reps: 12, rest: 45, timePerSet: 30 }, // Added
             ],
             machines: [
                 { name: "Chest Press Machine", muscleGroup: "chest & triceps", label: "2", equipment: "Machines", sets: 3, reps: 10, rest: 60, timePerSet: 40 },
@@ -38,6 +40,7 @@ const exercises = {
                 { name: "Calf Raise Machine", muscleGroup: "legs & back, calves", label: "1", equipment: "Machines", sets: 3, reps: 15, rest: 60, timePerSet: 25 },
                 { name: "Ab Crunch Machine", muscleGroup: "core & cardio", label: "5", equipment: "Machines", sets: 3, reps: 15, rest: 60, timePerSet: 20 },
                 { name: "Back Extension Machine", muscleGroup: "legs & back, lower back", label: "3", equipment: "Machines", sets: 3, reps: 15, rest: 60, timePerSet: 30 },
+               { name: "Pec Deck Fly Machine", muscleGroup: "chest", label: "2", equipment: "Machines", sets: 3, reps: 12, rest: 60, timePerSet: 35 }, // Added
                 { name: "Lateral Raise Machine", muscleGroup: "delts & traps", label: "4", equipment: "Machines", sets: 3, reps: 15, rest: 60, timePerSet: 30 }, // Added
                 { name: "Triceps Pushdown Machine", muscleGroup: "chest & triceps", label: "4", equipment: "Machines", sets: 3, reps: 12, rest: 60, timePerSet: 30 }, // Added
             ],
