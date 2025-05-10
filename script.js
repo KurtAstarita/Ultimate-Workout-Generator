@@ -155,39 +155,39 @@ strength: {
         beginner: {
             bodyweight: [
                 { name: "Push ups", muscleGroup: "chest & triceps", label: "2", equipment: "Bodyweight", sets: 3, reps: 8, rest: 90, timePerSet: 30 },
-                { name: "Squats", muscleGroup: "legs & back", label: "1", equipment: "Bodyweight", sets: 3, reps: 10, rest: 90, timePerSet: 30 },
+                { name: "Squats", muscleGroup: "legs & back, lower back", label: "1", equipment: "Bodyweight", sets: 3, reps: 10, rest: 90, timePerSet: 30 },
                 { name: "Plank", muscleGroup: "core & cardio", label: "5", equipment: "Bodyweight", sets: 3, reps: "20 sec", rest: 90, timePerSet: 20 },
                 { name: "Incline Push ups", muscleGroup: "chest & triceps", label: "2", equipment: "Bodyweight", sets: 3, reps: 10, rest: 90, timePerSet: 25 },
-                { name: "Glute Bridges", muscleGroup: "legs & back", label: "1", equipment: "Bodyweight", sets: 3, reps: 12, rest: 90, timePerSet: 20 },
-                { name: "Walking Lunges", muscleGroup: "legs & back", label: "1", equipment: "Bodyweight", sets: 3, reps: 10, rest: 90, timePerSet: 60 },
+                { name: "Glute Bridges", muscleGroup: "legs & back, lower back", label: "1", equipment: "Bodyweight", sets: 3, reps: 12, rest: 90, timePerSet: 20 },
+                { name: "Walking Lunges", muscleGroup: "legs & back, lower back", label: "1", equipment: "Bodyweight", sets: 3, reps: 10, rest: 90, timePerSet: 60 },
                 { name: "Wall Sit", muscleGroup: "legs & back", label: "1", equipment: "Bodyweight", sets: 3, reps: "30 sec", rest: 90, timePerSet: 30 },
                 { name: "Crunches", muscleGroup: "core & cardio", label: "5", equipment: "Bodyweight", sets: 3, reps: 12, rest: 90, timePerSet: 20 },
-                { name: "Superman", muscleGroup: "back & biceps", label: "3", equipment: "Bodyweight", sets: 3, reps: 12, rest: 90, timePerSet: 20 },
+                { name: "Supermans", muscleGroup: "back & biceps, lower back", label: "3", equipment: "Bodyweight", sets: 3, reps: 12, rest: 90, timePerSet: 20 },
                 { name: "Knee Push ups", muscleGroup: "chest & triceps", label: "2", equipment: "Bodyweight", sets: 3, reps: 12, rest: 90, timePerSet: 20 },
             ],
             dumbbells: [
-                { name: "Dumbbell Squats", muscleGroup: "legs & back", label: "1", equipment: "Dumbbells", sets: 3, reps: 8, rest: 90, timePerSet: 45 },
+                { name: "Dumbbell Squats", muscleGroup: "legs & back, lower back", label: "1", equipment: "Dumbbells", sets: 3, reps: 8, rest: 90, timePerSet: 45 },
                 { name: "Dumbbell Rows", muscleGroup: "back & biceps", label: "3", equipment: "Dumbbells", sets: 3, reps: 8, rest: 90, timePerSet: 45 },
                 { name: "Dumbbell Bench Press", muscleGroup: "chest & triceps", label: "2", equipment: "Dumbbells", sets: 3, reps: 8, rest: 90, timePerSet: 50 },
                 { name: "Dumbbell Shoulder Press", muscleGroup: "delts & traps", label: "4", equipment: "Dumbbells", sets: 3, reps: 8, rest: 90, timePerSet: 40 },
-                { name: "Dumbbell Romanian Deadlifts", muscleGroup: "legs & back", label: "1", equipment: "Dumbbells", sets: 3, reps: 10, rest: 90, timePerSet: 60 },
-                { name: "Dumbbell Lunges", muscleGroup: "legs & back", label: "1", equipment: "Dumbbells", sets: 3, reps: 10, rest: 90, timePerSet: 60 },
+                { name: "Dumbbell Romanian Deadlifts", muscleGroup: "legs & back, lower back", label: "1", equipment: "Dumbbells", sets: 3, reps: 10, rest: 90, timePerSet: 60 },
+                { name: "Dumbbell Lunges", muscleGroup: "legs & back, lower back", label: "1", equipment: "Dumbbells", sets: 3, reps: 10, rest: 90, timePerSet: 60 },
                 { name: "Dumbbell Bicep Curls", muscleGroup: "back & biceps", label: "4", equipment: "Dumbbells", sets: 3, reps: 10, rest: 90, timePerSet: 30 },
                 { name: "Dumbbell Triceps Extensions", muscleGroup: "chest & triceps", label: "4", equipment: "Dumbbells", sets: 3, reps: 10, rest: 90, timePerSet: 35 },
-                { name: "Dumbbell Goblet Squats", muscleGroup: "legs & back", label: "1", equipment: "Dumbbells", sets: 3, reps: 10, rest: 90, timePerSet: 50 },
-                { name: "Dumbbell Calf Raises", muscleGroup: "legs & back", label: "1", equipment: "Dumbbells", sets: 3, reps: 12, rest: 90, timePerSet: 20 },
+                { name: "Dumbbell Goblet Squats", muscleGroup: "legs & back, lower back", label: "1", equipment: "Dumbbells", sets: 3, reps: 10, rest: 90, timePerSet: 50 },
+                { name: "Dumbbell Calf Raises", muscleGroup: "legs & back, calves", label: "1", equipment: "Dumbbells", sets: 3, reps: 12, rest: 90, timePerSet: 20 },
             ],
             barbells: [
-                { name: "Barbell Squats", muscleGroup: "legs & back", label: "1", equipment: "Barbells", sets: 3, reps: 8, rest: 90, timePerSet: 60 },
+                { name: "Barbell Squats", muscleGroup: "legs & back, lower back", label: "1", equipment: "Barbells", sets: 3, reps: 8, rest: 90, timePerSet: 60 },
                 { name: "Barbell Bench Press", muscleGroup: "chest & triceps", label: "2", equipment: "Barbells", sets: 3, reps: 8, rest: 90, timePerSet: 60 },
                 { name: "Barbell Rows", muscleGroup: "back & biceps", label: "3", equipment: "Barbells", sets: 3, reps: 8, rest: 90, timePerSet: 60 },
                 { name: "Barbell Overhead Press", muscleGroup: "delts & traps", label: "4", equipment: "Barbells", sets: 3, reps: 8, rest: 90, timePerSet: 50 },
                 { name: "Barbell Romanian Deadlifts", muscleGroup: "legs & back", label: "1", equipment: "Barbells", sets: 3, reps: 10, rest: 90, timePerSet: 75 },
-                { name: "Barbell Lunges", muscleGroup: "legs & back", label: "1", equipment: "Barbells", sets: 3, reps: 10, rest: 90, timePerSet: 75 },
+                { name: "Barbell Lunges", muscleGroup: "legs & back, lower back", label: "1", equipment: "Barbells", sets: 3, reps: 10, rest: 90, timePerSet: 75 },
                 { name: "Barbell Bicep Curls", muscleGroup: "back & biceps", label: "4", equipment: "Barbells", sets: 3, reps: 10, rest: 90, timePerSet: 40 },
                 { name: "Barbell Triceps Extensions", muscleGroup: "chest & triceps", label: "4", equipment: "Barbells", sets: 3, reps: 10, rest: 90, timePerSet: 40 },
                 { name: "Barbell Shrugs", muscleGroup: "delts & traps", label: "4", equipment: "Barbells", sets: 3, reps: 12, rest: 90, timePerSet: 25 },
-                { name: "Barbell Calf Raises", muscleGroup: "legs & back", label: "1", equipment: "Barbells", sets: 3, reps: 12, rest: 90, timePerSet: 25 },
+                { name: "Barbell Calf Raises", muscleGroup: "legs & back, calves", label: "1", equipment: "Barbells", sets: 3, reps: 12, rest: 90, timePerSet: 25 },
             ],
             machines: [
                 { name: "Leg Press Machine", muscleGroup: "legs & back", label: "1", equipment: "Machines", sets: 3, reps: 10, rest: 90, timePerSet: 40 },
@@ -199,33 +199,33 @@ strength: {
                 { name: "Hamstring Curl Machine", muscleGroup: "legs & back", label: "1", equipment: "Machines", sets: 3, reps: 12, rest: 90, timePerSet: 25 },
                 { name: "Calf Raise Machine", muscleGroup: "legs & back", label: "1", equipment: "Machines", sets: 3, reps: 15, rest: 90, timePerSet: 20 },
                 { name: "Ab Crunch Machine", muscleGroup: "core & cardio", label: "5", equipment: "Machines", sets: 3, reps: 15, rest: 90, timePerSet: 15 },
-                { name: "Back Extension Machine", muscleGroup: "legs & back", label: "3", equipment: "Machines", sets: 3, reps: 15, rest: 90, timePerSet: 25 },
+                { name: "Back Extension Machine", muscleGroup: "legs & back, lower back", label: "3", equipment: "Machines", sets: 3, reps: 15, rest: 90, timePerSet: 25 },
             ],
         },
 intermediate: {
             barbell: [
-                { name: "Barbell Squats", muscleGroup: "legs & back", label: "1", equipment: "Barbells", sets: 5, reps: 5, rest: 180, timePerSet: 75 },
-                { name: "Barbell Deadlifts", muscleGroup: "legs & back", label: "1, 3", equipment: "Barbells", sets: 1, reps: 5, rest: 180, timePerSet: 60 }, // Multi-label
+                { name: "Barbell Squats", muscleGroup: "legs & back, lower back", label: "1", equipment: "Barbells", sets: 5, reps: 5, rest: 180, timePerSet: 75 },
+                { name: "Barbell Deadlifts", muscleGroup: "legs & back, lower back", label: "1, 3", equipment: "Barbells", sets: 1, reps: 5, rest: 180, timePerSet: 60 }, // Multi-label
                 { name: "Barbell Bench Press", muscleGroup: "chest & triceps", label: "2", equipment: "Barbells", sets: 5, reps: 5, rest: 180, timePerSet: 75 },
                 { name: "Barbell Overhead Press", muscleGroup: "delts & traps", label: "4", equipment: "Barbells", sets: 3, reps: 5, rest: 120, timePerSet: 60 },
                 { name: "Barbell Rows", muscleGroup: "back & biceps", label: "3", equipment: "Barbells", sets: 3, reps: 5, rest: 120, timePerSet: 60 },
-                { name: "Barbell Power Cleans", muscleGroup: "legs & back, delts & traps", label: "1, 4", equipment: "Barbells", sets: 3, reps: 3, rest: 120, timePerSet: 45 }, // Multi-label
-                { name: "Barbell Front Squats", muscleGroup: "legs & back", label: "1", equipment: "Barbells", sets: 3, reps: 5, rest: 120, timePerSet: 75 },
-                { name: "Barbell Good Mornings", muscleGroup: "legs & back", label: "1", equipment: "Barbells", sets: 3, reps: 8, rest: 90, timePerSet: 45 },
-                { name: "Barbell Lunges", muscleGroup: "legs & back", label: "1", equipment: "Barbells", sets: 3, reps: 8, rest: 90, timePerSet: 60 },
+                { name: "Barbell Power Cleans", muscleGroup: "legs & back, delts & traps, lower back", label: "1, 4", equipment: "Barbells", sets: 3, reps: 3, rest: 120, timePerSet: 45 }, // Multi-label
+                { name: "Barbell Front Squats", muscleGroup: "legs & back, lower back", label: "1", equipment: "Barbells", sets: 3, reps: 5, rest: 120, timePerSet: 75 },
+                { name: "Barbell Good Mornings", muscleGroup: "legs & back, lower back", label: "1", equipment: "Barbells", sets: 3, reps: 8, rest: 90, timePerSet: 45 },
+                { name: "Barbell Lunges", muscleGroup: "legs & back, lower back", label: "1", equipment: "Barbells", sets: 3, reps: 8, rest: 90, timePerSet: 60 },
                 { name: "Barbell Shrugs", muscleGroup: "delts & traps", label: "4", equipment: "Barbells", sets: 3, reps: 8, rest: 90, timePerSet: 20 },
             ],
             dumbbells: [
                 { name: "Dumbbell Bench Press", muscleGroup: "chest & triceps", label: "2", equipment: "Dumbbells", sets: 3, reps: 8, rest: 90, timePerSet: 50 },
                 { name: "Dumbbell Rows", muscleGroup: "back & biceps", label: "3", equipment: "Dumbbells", sets: 3, reps: 8, rest: 90, timePerSet: 50 },
                 { name: "Dumbbell Shoulder Press", muscleGroup: "delts & traps", label: "4", equipment: "Dumbbells", sets: 3, reps: 8, rest: 90, timePerSet: 45 },
-                { name: "Dumbbell Romanian Deadlifts", muscleGroup: "legs & back", label: "1", equipment: "Dumbbells", sets: 3, reps: 10, rest: 90, timePerSet: 75 },
-                { name: "Dumbbell Lunges", muscleGroup: "legs & back", label: "1", equipment: "Dumbbells", sets: 3, reps: 10, rest: 90, timePerSet: 75 },
+                { name: "Dumbbell Romanian Deadlifts", muscleGroup: "legs & back, lower back", label: "1", equipment: "Dumbbells", sets: 3, reps: 10, rest: 90, timePerSet: 75 },
+                { name: "Dumbbell Lunges", muscleGroup: "legs & back, lower back", label: "1", equipment: "Dumbbells", sets: 3, reps: 10, rest: 90, timePerSet: 75 },
                 { name: "Dumbbell Bicep Curls", muscleGroup: "back & biceps", label: "4", equipment: "Dumbbells", sets: 3, reps: 10, rest: 90, timePerSet: 35 },
                 { name: "Dumbbell Triceps Extensions", muscleGroup: "chest & triceps", label: "4", equipment: "Dumbbells", sets: 3, reps: 10, rest: 90, timePerSet: 40 },
-                { name: "Dumbbell Goblet Squats", muscleGroup: "legs & back", label: "1", equipment: "Dumbbells", sets: 3, reps: 10, rest: 90, timePerSet: 60 },
+                { name: "Dumbbell Goblet Squats", muscleGroup: "legs & back, lower back", label: "1", equipment: "Dumbbells", sets: 3, reps: 10, rest: 90, timePerSet: 60 },
                 { name: "Dumbbell Pull overs", muscleGroup: "chest & triceps, back & biceps", label: "2, 3", equipment: "Dumbbells", sets: 3, reps: 12, rest: 90, timePerSet: 40 }, // Multi-label
-                { name: "Dumbbell Calf Raises", muscleGroup: "legs & back", label: "1", equipment: "Dumbbells", sets: 3, reps: 12, rest: 90, timePerSet: 25 },
+                { name: "Dumbbell Calf Raises", muscleGroup: "legs & back, calves", label: "1", equipment: "Dumbbells", sets: 3, reps: 12, rest: 90, timePerSet: 25 },
             ],
             bodyweight: [
                 { name: "Pull ups", muscleGroup: "back & biceps", label: "3", equipment: "Bodyweight", sets: 3, reps: "AMRAP", rest: 90, timePerSet: 45 },
@@ -1003,9 +1003,9 @@ document.getElementById("generate-workout").addEventListener("click", function (
             }
         }
 
-    } else if (trainingSplit) { // Handle specific splits
+} else if (trainingSplit) { // Handle specific splits
         const splitFormatted = trainingSplit.replace("_", " & ").toLowerCase();
-        const filteredExercises = availableExercises.filter(exercise => {
+        let filteredExercises = availableExercises.filter(exercise => {
             if (!exercise.muscleGroup) return false;
             const muscleGroupLower = exercise.muscleGroup.toLowerCase();
             if (trainingSplit === "back_biceps") return muscleGroupLower.includes("back") && muscleGroupLower.includes("biceps");
@@ -1015,10 +1015,27 @@ document.getElementById("generate-workout").addEventListener("click", function (
             else if (trainingSplit === "core_cardio") return muscleGroupLower.includes("core") || muscleGroupLower.includes("cardio");
             return muscleGroupLower.includes(splitFormatted.replace("_", " "));
         });
-        while (workout.length < numberOfExercises && filteredExercises.length > 0) {
+
+        const legsBackWorkout = [];
+        while (legsBackWorkout.length < numberOfExercises - 2 && filteredExercises.length > 0) { // Leave space for up to 2 calf exercises
             const randomIndex = Math.floor(Math.random() * filteredExercises.length);
-            workout.push(filteredExercises.splice(randomIndex, 1)[0]);
+            legsBackWorkout.push(filteredExercises.splice(randomIndex, 1)[0]);
         }
+
+        workout.push(...legsBackWorkout);
+
+        if (trainingSplit === "legs_back") {
+            const calfExercises = availableExercises.filter(exercise =>
+                exercise.muscleGroup && exercise.muscleGroup.toLowerCase().includes("calves")
+            );
+            const numberOfCalfExercisesToAdd = Math.min(Math.floor(Math.random() * 2) + 1, numberOfExercises - workout.length, calfExercises.length); // Add 1 or 2, up to remaining slots and available calf exercises
+            for (let i = 0; i < numberOfCalfExercisesToAdd; i++) {
+                const randomIndex = Math.floor(Math.random() * calfExercises.length);
+                workout.push(calfExercises.splice(randomIndex, 1)[0]);
+            }
+        }
+    }
+
     } else {
         // Default: select numberOfExercises random exercises
         while (workout.length < numberOfExercises && availableExercises.length > 0) {
