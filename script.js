@@ -718,6 +718,7 @@ advanced: [
    },
 hybrid_calisthenics_plus: {
     "beginner": [
+        { name: "Lunges (bodyweight only)", sets: 3, reps: "8-12 each leg", rest: 60, equipment: "weighted vest and resistance bands", muscleGroup: "legs & back, lower back, glutes", timePerSet: 45, label: "3, 5" },
         { name: "Supermans", sets: 3, reps: "10 sec hold", rest: 60, equipment: "none", muscleGroup: "core & cardio, lower back, glutes", timePerSet: 45, label: "3" },
          { name: "Pull-ups (bodyweight, leave some in the tank)", sets: 3, reps: "6-10", rest: 60, equipment: "Pull-up bar", muscleGroup: "back & biceps, biceps, forearms", timePerSet: 45, label: "3" },
         { name: "Diomond Push-ups (Bodyweight only)", sets: 3, reps: "8", rest: 45, equipment: "weighted vest", label: "2", timePerSet: 30, muscleGroup: "chest & triceps, triceps" },
@@ -768,6 +769,7 @@ hybrid_calisthenics_plus: {
         { name: "Side Plank (on forearm)", sets: 3, reps: "30 seconds hold each side", rest: 45, equipment: "none", label: "5", timePerSet: 30, muscleGroup: "core & cardio, core, obliques, shoulders" }
     ],
 "intermediate": [
+    { name: "Weighted Vest Lunges", sets: 3, reps: "8-12 each leg", rest: 60, equipment: "weighted vest", muscleGroup: "legs & back, lower back, glutes", timePerSet: 45, label: "3, 5" },
     { name: "Supermans", sets: 4, reps: "15 sec hold", rest: 60, equipment: "none", muscleGroup: "core & cardio, lower back, glutes", timePerSet: 45, label: "3" },
     { name: "Pull-ups (bodyweight, near faliure)", sets: 3, reps: "6-10", rest: 60, equipment: "pull-up bar", muscleGroup: "back & biceps, biceps, forearms", timePerSet: 45, label: "3" },
     { name: "Diomond Push-ups (Weighted, moderate)", sets: 3, reps: "8", rest: 60, equipment: "weighted vest", label: "2", timePerSet: 30, muscleGroup: "chest & triceps, triceps" },
