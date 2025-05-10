@@ -808,6 +808,7 @@ hybrid_calisthenics_plus: {
         { name: "Resistance Band Good Mornings (light resistance)", sets: 3, reps: 15, rest: 45, equipment: "resistance band", muscleGroup: "legs & back, hamstrings, glutes, lower back", timePerSet: 30, label: "1" },
         { name: "Suspension Trainer Tricep Extensions (easier angle)", sets: 3, reps: 12, rest: 45, equipment: "suspension trainer", muscleGroup: "chest & triceps, triceps", timePerSet: 30, label: "2" },
         { name: "Side Plank (on forearm)", sets: 3, reps: "30 seconds hold each side", rest: 45, equipment: "none", label: "5", timePerSet: 30, muscleGroup: "core & cardio, core, obliques, shoulders" }
+        { name: "single leg calve raises", sets: 3, reps: "8-12 each leg", rest: 60, equipment: "none", muscleGroup: "legs & back, calves", timePerSet: 45, label: "1" },
     ],
 "intermediate": [
     { name: "Weighted Vest Lunges", sets: 3, reps: "8-12 each leg", rest: 60, equipment: "weighted vest", muscleGroup: "legs & back, lower back, glutes", timePerSet: 45, label: "3, 5" },
@@ -864,6 +865,7 @@ hybrid_calisthenics_plus: {
     { name: "Resistance Band Good Mornings (moderate resistance)", sets: 3, reps: 12, rest: 60, equipment: "resistance band", muscleGroup: "legs & back, hamstrings, glutes, lower back", timePerSet: 30, label: "1" },
     { name: "Suspension Trainer Tricep Extensions (underhand grip)", sets: 3, reps: 10, rest: 60, equipment: "suspension trainer", muscleGroup: "chest & triceps", timePerSet: 30, label: "2" },
     { name: "Plank with Resistance Band Pull-aparts", sets: 3, reps: "10 pull-aparts, 45 sec plank hold", rest: 60, equipment: "resistance band", label: "4, 5", timePerSet: 60, muscleGroup: "core & cardio, delts & traps, core, shoulders, upper back" }
+    { name: "single leg calve raises", sets: 3, reps: "8-12 each leg", rest: 60, equipment: "none", muscleGroup: "legs & back, calves", timePerSet: 45, label: "1" },
 ],
 "advanced": [
     { name: "Weighted Vest Lunges (With Bands)", sets: 3, reps: "8-12 each leg", rest: 60, equipment: "weighted vest and resistance bands", muscleGroup: "legs & back, lower back, glutes", timePerSet: 45, label: "1, 5" },
@@ -911,6 +913,7 @@ hybrid_calisthenics_plus: {
     { name: "Resistance Band Face Pulls (with external rotation at the end)", sets: 3, reps: "15-20", rest: 45, equipment: "resistance band", muscleGroup: "delts & traps, shoulders, upper back, rotator cuffs", timePerSet: 30, label: "4" },
     { name: "Suspension Trainer Handstand Push-up Negatives (assisted if needed)", sets: 3, reps: "3-5", rest: 120, equipment: "suspension trainer, wall (optional)", muscleGroup: "chest & triceps, delts & traps, core & cardio", timePerSet: 90, label: "2, 4, 5" },
     { name: "Towel Curls (Suspension Trainer, single arm)", sets: 3, reps: "8-12 each arm", rest: 60, equipment: "towel, suspension trainer", muscleGroup: "back & biceps, core & cardio", timePerSet: 45, label: "3, 5" },
+   { name: "single leg calve raises", sets: 3, reps: "8-12 each leg", rest: 60, equipment: "none", muscleGroup: "legs & back, calves", timePerSet: 45, label: "1" },
 ]
 }
 };
