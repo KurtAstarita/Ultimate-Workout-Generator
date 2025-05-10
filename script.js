@@ -356,7 +356,7 @@ endurance: {
         gym: [
             { name: "Treadmill Run", muscleGroup: "legs & back, core & cardio, cardio, legs", label: "1, 5", equipment: "Treadmill", sets: 1, reps: "600 sec", rest: 30, timePerSet: 600 },
             { name: "Elliptical", muscleGroup: "legs & back, delts & traps, chest & triceps, back & biceps, core & cardio, full body, cardio", label: "1, 2, 3, 5", equipment: "Elliptical", sets: 1, reps: "600 sec", rest: 30, timePerSet: 600 },
-            { name: "Stationary Bike", muscleGroup: "legs & back, core & cardio, cardio, legs", label: "1, 5", equipment: "Stationary Bike", sets: 1, reps: "600 sec", rest: 30, timePerSet: 600 },
+            { name: "Stationary Bike", muscleGroup: "legs & back, core & cardio", label: "1, 5", equipment: "Stationary Bike", sets: 1, reps: "600 sec", rest: 30, timePerSet: 600 },
             { name: "Rowing Machine (Low Intensity)", muscleGroup: "legs & back, delts & traps, back & biceps, core & cardio, full body, cardio", label: "1, 2, 3, 5", equipment: "Rowing Machine", sets: 1, reps: "480 sec", rest: 60, timePerSet: 480 },
             { name: "Stair Climber (Slow Pace)", muscleGroup: "legs & back, core & cardio, cardio, legs", label: "1, 5", equipment: "Stair Climber", sets: 1, reps: "480 sec", rest: 60, timePerSet: 480 },
         ],
@@ -389,7 +389,7 @@ endurance: {
         gym: [
             { name: "Treadmill Run", muscleGroup: "legs & back, core & cardio, cardio, legs", label: "1, 5", equipment: "Treadmill", sets: 1, reps: "900 sec", rest: 30, timePerSet: 900 },
             { name: "Elliptical", muscleGroup: "legs & back, delts & traps, chest & triceps, back & biceps, core & cardio, full body, cardio", label: "1, 2, 3, 5", equipment: "Elliptical", sets: 1, reps: "900 sec", rest: 30, timePerSet: 900 },
-            { name: "Stationary Bike", muscleGroup: "legs & back, core & cardio, cardio, legs", label: "1, 5", equipment: "Stationary Bike", sets: 1, reps: "900 sec", rest: 30, timePerSet: 900 },
+            { name: "Stationary Bike", muscleGroup: "legs & back, core & cardio", label: "1, 5", equipment: "Stationary Bike", sets: 1, reps: "900 sec", rest: 30, timePerSet: 900 },
             { name: "Rowing Machine", muscleGroup: "legs & back, delts & traps, back & biceps, core & cardio, full body, cardio", label: "1, 2, 3, 5", equipment: "Rowing Machine", sets: 1, reps: "600 sec", rest: 60, timePerSet: 600 },
             { name: "Stair Climber", muscleGroup: "legs & back, core & cardio, cardio, legs", label: "1, 5", equipment: "Stair Climber", sets: 1, reps: "600 sec", rest: 60, timePerSet: 600 },
             { name: "Assault Bike", muscleGroup: "legs & back, chest & triceps, delts & traps, core & cardio, full body, cardio", label: "1, 2, 3, 5", equipment: "Assault Bike", sets: 3, reps: "30 sec", rest: 30, timePerSet: 30 },
@@ -427,7 +427,7 @@ advanced: {
     gym: [
         { name: "Treadmill Intervals (Sprints)", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Treadmill", sets: 5, reps: "30 sec sprint / 30 sec rest", rest: 60, timePerSet: 60 },
         { name: "Elliptical Intervals (High Resistance)", muscleGroup: "cardio, full body", label: "1, 2, 3, 5", equipment: "Elliptical", sets: 5, reps: "45 sec high / 15 sec low", rest: 60, timePerSet: 60 },
-        { name: "Stationary Bike Intervals (Hill Climbs)", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Stationary Bike", sets: 5, reps: "60 sec hard / 30 sec easy", rest: 60, timePerSet: 90 },
+        { name: "Stationary Bike Intervals (Hill Climbs)", muscleGroup: "legs & back, core & cardio", label: "1, 5", equipment: "Stationary Bike", sets: 5, reps: "60 sec hard / 30 sec easy", rest: 60, timePerSet: 90 },
         { name: "Rowing Machine Intervals (Power Strokes)", muscleGroup: "cardio, full body", label: "1, 2, 3, 5", equipment: "Rowing Machine", sets: 5, reps: "30 sec power / 30 sec light", rest: 75, timePerSet: 60 },
         { name: "Stair Climber Intervals (High Speed)", muscleGroup: "cardio, legs", label: "1, 5", equipment: "Stair Climber", sets: 5, reps: "45 sec fast / 15 sec slow", rest: 60, timePerSet: 60 },
         { name: "Assault Bike Intervals (Max Effort)", muscleGroup: "cardio, full body", label: "1, 2, 3, 5", equipment: "Assault Bike", sets: 5, reps: "20 sec max / 40 sec rest", rest: 90, timePerSet: 60 },
@@ -464,7 +464,7 @@ fatloss: {
         gym: [
             { name: "Treadmill Walk or Jog", muscleGroup: "legs & back, core & cardio, cardio, legs", label: "1, 5", equipment: "Treadmill", sets: 1, reps: "1200 sec", rest: 30, timePerSet: 1200 },
             { name: "Elliptical Trainer", muscleGroup: "legs & back, delts & traps, chest & triceps, back & biceps, core & cardio, full body, cardio", label: "1, 2, 3, 5", equipment: "Elliptical", sets: 1, reps: "1200 sec", rest: 30, timePerSet: 1200 },
-            { name: "Stationary Bike", muscleGroup: "legs & back, core & cardio, cardio, legs", label: "1, 5", equipment: "Stationary Bike", sets: 1, reps: "1200 sec", rest: 30, timePerSet: 1200 },
+            { name: "Stationary Bike", muscleGroup: "legs & back, core & cardio", label: "1, 5", equipment: "Stationary Bike", sets: 1, reps: "1200 sec", rest: 30, timePerSet: 1200 },
             { name: "Rowing Machine (steady pace)", muscleGroup: "legs & back, delts & traps, back & biceps, core & cardio, full body, cardio", label: "1, 2, 3, 5", equipment: "Rowing Machine", sets: 1, reps: "900 sec", rest: 30, timePerSet: 900 },
             { name: "Stair Climber (moderate pace)", muscleGroup: "legs & back, core & cardio, cardio, legs", label: "1, 5", equipment: "Stair Climber", sets: 1, reps: "900 sec", rest: 30, timePerSet: 900 },
             { name: "Leg Press Machine (higher reps, lower weight)", muscleGroup: "legs & back, legs, glutes", label: "1, 3", equipment: "Machines", sets: 3, reps: 15, rest: 45, timePerSet: 40 },
@@ -497,7 +497,7 @@ fatloss: {
         gym: [
             { name: "Treadmill Intervals (walk/jog)", muscleGroup: "legs & back, core & cardio, cardio, legs", label: "1, 5", equipment: "Treadmill", sets: 4, reps: "60 sec jog / 30 sec walk", rest: 60, timePerSet: 120 },
             { name: "Elliptical Intervals (moderate resistance)", muscleGroup: "legs & back, delts & traps, chest & triceps, back & biceps, core & cardio, full body, cardio", label: "1, 2, 3, 5", equipment: "Elliptical", sets: 4, reps: "60 sec hard / 30 sec easy", rest: 60, timePerSet: 120 },
-            { name: "Stationary Bike Intervals (moderate resistance)", muscleGroup: "legs & back, core & cardio, cardio, legs", label: "1, 5", equipment: "Stationary Bike", sets: 4, reps: "60 sec hard / 30 sec easy", rest: 60, timePerSet: 120 },
+            { name: "Stationary Bike Intervals (moderate resistance)", muscleGroup: "legs & back, core & cardio", label: "1, 5", equipment: "Stationary Bike", sets: 4, reps: "60 sec hard / 30 sec easy", rest: 60, timePerSet: 120 },
             { name: "Rowing Machine Intervals", muscleGroup: "legs & back, delts & traps, back & biceps, core & cardio, full body, cardio", label: "1, 2, 3, 5", equipment: "Rowing Machine", sets: 4, reps: "45 sec hard / 15 sec easy", rest: 60, timePerSet: 60 },
             { name: "Stair Climber Intervals", muscleGroup: "legs & back, core & cardio, cardio, legs", label: "1, 5", equipment: "Stair Climber", sets: 4, reps: "45 sec fast / 15 sec slow", rest: 60, timePerSet: 60 },
             { name: "Battle Ropes Intervals", muscleGroup: "delts & traps, back & biceps, core & cardio, shoulders, arms, core, cardio", label: "2, 4, 5", equipment: "Battle Ropes", sets: 3, reps: "45 sec work / 15 sec rest", rest: 60, timePerSet: 60 },
