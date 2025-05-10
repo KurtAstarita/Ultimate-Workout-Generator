@@ -1026,24 +1026,30 @@ document.getElementById("generate-workout").addEventListener("click", function (
             return muscleGroupLower.includes(splitFormatted.replace("_", " "));
         });
 
-        const legsBackWorkout = [];
-        while (legsBackWorkout.length < numberOfExercises - 2 && filteredExercises.length > 0) { // Leave space for up to 2 calf exercises
-            const randomIndex = Math.floor(Math.random() * filteredExercises.length);
-            legsBackWorkout.push(filteredExercises.splice(randomIndex, 1)[0]);
-        }
+    const workoutForSplit = [];
+    let numberOfExercisesForSplit = numberOfExercises;
 
-        workout.push(...legsBackWorkout);
+    if (trainingSplit === "legs_back") {
+        numberOfExercisesForSplit -= 2; // Reserve space for calf exercises
+    }
 
-if (trainingSplit === "legs_back") {
-            const calfExercises = availableExercises.filter(exercise =>
-                exercise.muscleGroup && exercise.muscleGroup.toLowerCase().includes("calves")
-            );
-            const numberOfCalfExercisesToAdd = Math.min(2, numberOfExercises - workout.length, calfExercises.length); // Ensure we add up to 2, respecting available slots and exercises
-            for (let i = 0; i < numberOfCalfExercisesToAdd; i++) {
-                const randomIndex = Math.floor(Math.random() * calfExercises.length);
-                workout.push(calfExercises.splice(randomIndex, 1)[0]);
-            }
+    while (workoutForSplit.length < numberOfExercisesForSplit && filteredExercises.length > 0) {
+        const randomIndex = Math.floor(Math.random() * filteredExercises.length);
+        workoutForSplit.push(filteredExercises.splice(randomIndex, 1)[0]);
+    }
+
+    workout.push(...workoutForSplit);
+
+    if (trainingSplit === "legs_back") {
+        const calfExercises = availableExercises.filter(exercise =>
+            exercise.muscleGroup && exercise.muscleGroup.toLowerCase().includes("calves")
+        );
+        const numberOfCalfExercisesToAdd = Math.min(2, numberOfExercises - workout.length, calfExercises.length);
+        for (let i = 0; i < numberOfCalfExercisesToAdd; i++) {
+            const randomIndex = Math.floor(Math.random() * calfExercises.length);
+            workout.push(calfExercises.splice(randomIndex, 1)[0]);
         }
+    }
 
     } else {
         // Default: select numberOfExercises random exercises
