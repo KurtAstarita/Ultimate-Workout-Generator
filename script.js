@@ -1034,11 +1034,11 @@ document.getElementById("generate-workout").addEventListener("click", function (
 
         workout.push(...legsBackWorkout);
 
-        if (trainingSplit === "legs_back") {
+if (trainingSplit === "legs_back") {
             const calfExercises = availableExercises.filter(exercise =>
                 exercise.muscleGroup && exercise.muscleGroup.toLowerCase().includes("calves")
             );
-            const numberOfCalfExercisesToAdd = Math.min(Math.floor(Math.random() * 2) + 1, numberOfExercises - workout.length, calfExercises.length); // Add 1 or 2, up to remaining slots and available calf exercises
+            const numberOfCalfExercisesToAdd = Math.min(2, numberOfExercises - workout.length, calfExercises.length); // Ensure we add up to 2, respecting available slots and exercises
             for (let i = 0; i < numberOfCalfExercisesToAdd; i++) {
                 const randomIndex = Math.floor(Math.random() * calfExercises.length);
                 workout.push(calfExercises.splice(randomIndex, 1)[0]);
