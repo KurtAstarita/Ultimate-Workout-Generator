@@ -1120,7 +1120,7 @@ workout.forEach(ex => {
         if (ex.timePerSet !== undefined) {
             let timePerSetDisplay = `${ex.timePerSet} seconds`;
             if (typeof ex.reps === 'string' && (ex.reps.toLowerCase().includes("per leg") || ex.reps.toLowerCase().includes("per arm") || ex.reps.toLowerCase().includes("per side"))) {
-                timePerSetDisplay += ` per side/limb`;
+                
             }
             workoutHTML += ` - Time per set: ${timePerSetDisplay}`;
             workoutTextForCopy += ` - Time per set: ${timePerSetDisplay}`;
