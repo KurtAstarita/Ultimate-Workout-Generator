@@ -1008,7 +1008,7 @@ document.getElementById("generate-workout").addEventListener("click", function (
     if (experience === "intermediate") {
         numberOfExercises = 6;
     } else if (experience === "advanced") {
-        numberOfExercises = 8;
+        numberOfExercises = 7;
     }
 
     if (trainingSplit === "full_body") {
