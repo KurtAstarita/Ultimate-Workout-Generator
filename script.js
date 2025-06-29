@@ -1003,7 +1003,7 @@ document.getElementById("generate-workout").addEventListener("click", function (
 
     const workout = [];
     let availableExercises = [...selectedExercises];
-    let numberOfExercises = 5; // Default for beginner
+    let numberOfExercises = 4; // Default for beginner
 
     if (experience === "intermediate") {
         numberOfExercises = 6;
