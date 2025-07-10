@@ -27,7 +27,7 @@ const exercises = {
                 { name: "Leg Raises", muscleGroup: "core & cardio", label: "5", equipment: "Bodyweight", sets: 3, reps: 12, rest: 60, timePerSet: 30 },
                 { name: "Supermans", muscleGroup: "back & biceps, lower back, glutes", label: "3", equipment: "Bodyweight", sets: 3, reps: 15, rest: 60, timePerSet: 30 },
                 { name: "Calf Raises (on a step)", muscleGroup: "legs & back, calves", label: "1", equipment: "Bodyweight", sets: 3, reps: 20, rest: 45, timePerSet: 20 },
-                { name: "Bird Dog", muscleGroup: "core & lower back", label: "5", equipment: "Bodyweight", sets: 3, reps: 12, rest: 45, timePerSet: 30 }, // Added
+                { name: "Bird Dog", muscleGroup: "core & lower back", label: "5", equipment: "Bodyweight", sets: 3, reps: 12 per side, rest: 45, timePerSet: 30 }, // Added
             ],
             machines: [
                 { name: "Chest Press Machine", muscleGroup: "chest & triceps", label: "2", equipment: "Machines", sets: 3, reps: 10, rest: 60, timePerSet: 40 },
@@ -548,7 +548,7 @@ calisthenics: {
             { name: "Wall Sit", muscleGroup: "legs & back", label: "1", equipment: "Bodyweight", sets: 3, reps: "30 sec", rest: 60, timePerSet: 30 },
             { name: "Knee Push ups", muscleGroup: "chest & triceps", label: "2", equipment: "Bodyweight", sets: 3, reps: 15, rest: 60, timePerSet: 20 },
             { name: "Russian Twists", muscleGroup: "core & cardio", label: "5", equipment: "Bodyweight", sets: 3, reps: 12, rest: 60, timePerSet: 30 },
-            { name: "Bird Dog", muscleGroup: "core & back", label: "1, 5", equipment: "Bodyweight", sets: 3, reps: 10, rest: 60, timePerSet: 30 }, // Multi-label
+            { name: "Bird Dog", muscleGroup: "core & back", label: "1, 5", equipment: "Bodyweight", sets: 3, reps: 10 per side, rest: 60, timePerSet: 30 }, // Multi-label
             { name: "Calf Raises", muscleGroup: "legs & back", label: "1", equipment: "Bodyweight", sets: 3, reps: 15, rest: 45, timePerSet: 20 },
             { name: "Hip Thrusts", muscleGroup: "legs & back", label: "1", equipment: "Bodyweight", sets: 3, reps: 15, rest: 60, timePerSet: 25 },
             { name: "Reverse Crunches", muscleGroup: "core & cardio", label: "5", equipment: "Bodyweight", sets: 3, reps: 12, rest: 60, timePerSet: 20 },
@@ -723,7 +723,7 @@ circuit: {
         { name: "Jumping Jacks", muscleGroup: "core & cardio, cardio", label: "5", equipment: "Bodyweight", sets: 3, reps: 20, rest: 10, timePerSet: 20 },
         { name: "Crunches", muscleGroup: "core & cardio, core", label: "2", equipment: "Bodyweight", sets: 3, reps: 15, rest: 10, timePerSet: 20 },
         { name: "Glute Bridges", muscleGroup: "legs & back, glutes, hamstrings", label: "3", equipment: "Bodyweight", sets: 3, reps: 12, rest: 10, timePerSet: 30 },
-        { name: "Bird Dog", muscleGroup: "legs & back, core & cardio, core, back", label: "2, 3", equipment: "Bodyweight", sets: 3, reps: 10, rest: 10, timePerSet: 30 },
+        { name: "Bird Dog", muscleGroup: "legs & back, core & cardio, core, back", label: "2, 3", equipment: "Bodyweight", sets: 3, reps: 10 per side, rest: 10, timePerSet: 30 },
         { name: "Step Ups (on a sturdy box or step)", muscleGroup: "legs & back, legs, glutes", label: "1, 3", equipment: "Step", sets: 3, reps: 10, rest: 10, timePerSet: 30 },
         { name: "Arm Circles", muscleGroup: "delts & traps, shoulders", label: "4", equipment: "Bodyweight", sets: 3, reps: 15, rest: 10, timePerSet: 20 },
     ],
